@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <project xmlns="http://www.plcopen.org/xml/tc6_0200">
-  <fileHeader companyName="" productName="CODESYS" productVersion="CODESYS V3.5 SP20" creationDateTime="2024-12-12T21:27:09.4801384" />
-  <contentHeader name="simplified_IXL.project" modificationDateTime="2024-12-12T00:42:25.5424986">
+  <fileHeader companyName="" productName="CODESYS" productVersion="CODESYS V3.5 SP20" creationDateTime="2025-01-03T23:08:13.7830976" />
+  <contentHeader name="simplified_IXL.project" modificationDateTime="2025-01-03T23:07:12.3834237">
     <coordinateInfo>
       <fbd>
         <scaling x="1" y="1" />
@@ -35,6 +35,11 @@
                 <xhtml xmlns="http://www.w3.org/1999/xhtml" />
               </documentation>
             </pouInstance>
+            <pouInstance name="simulation" typeName="">
+              <documentation>
+                <xhtml xmlns="http://www.w3.org/1999/xhtml" />
+              </documentation>
+            </pouInstance>
             <addData>
               <data name="http://www.3s-software.com/plcopenxml/tasksettings" handleUnknown="implementation">
                 <TaskSettings KindOfTask="Cyclic" Interval="t#20ms" IntervalUnit="ms" WithinSPSTimeSlicing="true">
@@ -46,316 +51,739 @@
               </data>
             </addData>
           </task>
+          <task name="VISU_TASK" interval="PT0.1S" priority="31">
+            <pouInstance name="VisuElems.Visu_Prg" typeName="">
+              <documentation>
+                <xhtml xmlns="http://www.w3.org/1999/xhtml" />
+              </documentation>
+            </pouInstance>
+            <addData>
+              <data name="http://www.3s-software.com/plcopenxml/tasksettings" handleUnknown="implementation">
+                <TaskSettings KindOfTask="Cyclic" Interval="100" IntervalUnit="ms" WithinSPSTimeSlicing="true">
+                  <Watchdog Enabled="false" TimeUnit="ms" />
+                </TaskSettings>
+              </data>
+              <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                <ObjectId>e33fb16b-beba-4ddb-a984-4bee87746d52</ObjectId>
+              </data>
+            </addData>
+          </task>
+          <globalVars name="variable_list">
+            <variable name="TC_occupied_101" address="%IX0.0">
+              <type>
+                <BOOL />
+              </type>
+              <initialValue>
+                <simpleValue value="FALSE" />
+              </initialValue>
+            </variable>
+            <variable name="TC_occupied_103" address="%IX0.1">
+              <type>
+                <BOOL />
+              </type>
+              <initialValue>
+                <simpleValue value="FALSE" />
+              </initialValue>
+            </variable>
+            <variable name="TC_occupied_105" address="%IX0.2">
+              <type>
+                <BOOL />
+              </type>
+              <initialValue>
+                <simpleValue value="FALSE" />
+              </initialValue>
+            </variable>
+            <variable name="TC_occupied_107" address="%IX0.3">
+              <type>
+                <BOOL />
+              </type>
+              <initialValue>
+                <simpleValue value="FALSE" />
+              </initialValue>
+            </variable>
+            <variable name="TC_occupied_109" address="%IX0.4">
+              <type>
+                <BOOL />
+              </type>
+              <initialValue>
+                <simpleValue value="FALSE" />
+              </initialValue>
+            </variable>
+            <variable name="TC_occupied_111" address="%IX0.5">
+              <type>
+                <BOOL />
+              </type>
+              <initialValue>
+                <simpleValue value="FALSE" />
+              </initialValue>
+            </variable>
+            <variable name="TC_occupied_113" address="%IX0.6">
+              <type>
+                <BOOL />
+              </type>
+              <initialValue>
+                <simpleValue value="FALSE" />
+              </initialValue>
+            </variable>
+            <variable name="TC_occupied_115" address="%IX0.7">
+              <type>
+                <BOOL />
+              </type>
+              <initialValue>
+                <simpleValue value="FALSE" />
+              </initialValue>
+            </variable>
+            <variable name="TC_occupied_102" address="%IX1.0">
+              <type>
+                <BOOL />
+              </type>
+              <initialValue>
+                <simpleValue value="FALSE" />
+              </initialValue>
+            </variable>
+            <variable name="TC_occupied_104" address="%IX1.1">
+              <type>
+                <BOOL />
+              </type>
+              <initialValue>
+                <simpleValue value="FALSE" />
+              </initialValue>
+            </variable>
+            <variable name="TC_occupied_106" address="%IX1.2">
+              <type>
+                <BOOL />
+              </type>
+              <initialValue>
+                <simpleValue value="FALSE" />
+              </initialValue>
+            </variable>
+            <variable name="TC_occupied_108" address="%IX1.3">
+              <type>
+                <BOOL />
+              </type>
+              <initialValue>
+                <simpleValue value="FALSE" />
+              </initialValue>
+            </variable>
+            <variable name="TC_occupied_110" address="%IX1.4">
+              <type>
+                <BOOL />
+              </type>
+              <initialValue>
+                <simpleValue value="FALSE" />
+              </initialValue>
+            </variable>
+            <variable name="TC_occupied_112" address="%IX1.5">
+              <type>
+                <BOOL />
+              </type>
+              <initialValue>
+                <simpleValue value="FALSE" />
+              </initialValue>
+            </variable>
+            <variable name="TC_occupied_114" address="%IX1.6">
+              <type>
+                <BOOL />
+              </type>
+              <initialValue>
+                <simpleValue value="FALSE" />
+              </initialValue>
+            </variable>
+            <variable name="TC_occupied_116" address="%IX1.7">
+              <type>
+                <BOOL />
+              </type>
+              <initialValue>
+                <simpleValue value="FALSE" />
+              </initialValue>
+            </variable>
+            <variable name="switch_detected_left_01">
+              <type>
+                <BOOL />
+              </type>
+              <initialValue>
+                <simpleValue value="FALSE" />
+              </initialValue>
+            </variable>
+            <variable name="switch_detected_right_01">
+              <type>
+                <BOOL />
+              </type>
+              <initialValue>
+                <simpleValue value="FALSE" />
+              </initialValue>
+            </variable>
+            <variable name="switch_detected_left_02">
+              <type>
+                <BOOL />
+              </type>
+              <initialValue>
+                <simpleValue value="FALSE" />
+              </initialValue>
+            </variable>
+            <variable name="switch_detected_right_02">
+              <type>
+                <BOOL />
+              </type>
+              <initialValue>
+                <simpleValue value="FALSE" />
+              </initialValue>
+            </variable>
+            <variable name="route_destruction_demand_AB">
+              <type>
+                <BOOL />
+              </type>
+              <initialValue>
+                <simpleValue value="FALSE" />
+              </initialValue>
+            </variable>
+            <variable name="route_destruction_demand_BC">
+              <type>
+                <BOOL />
+              </type>
+              <initialValue>
+                <simpleValue value="FALSE" />
+              </initialValue>
+            </variable>
+            <variable name="route_destruction_demand_ED">
+              <type>
+                <BOOL />
+              </type>
+              <initialValue>
+                <simpleValue value="FALSE" />
+              </initialValue>
+            </variable>
+            <variable name="route_destruction_demand_CD">
+              <type>
+                <BOOL />
+              </type>
+              <initialValue>
+                <simpleValue value="FALSE" />
+              </initialValue>
+            </variable>
+            <variable name="route_destruction_demand_DC">
+              <type>
+                <BOOL />
+              </type>
+              <initialValue>
+                <simpleValue value="FALSE" />
+              </initialValue>
+            </variable>
+            <variable name="route_destruction_demand_CB">
+              <type>
+                <BOOL />
+              </type>
+              <initialValue>
+                <simpleValue value="FALSE" />
+              </initialValue>
+            </variable>
+            <variable name="route_formation_demand_AB">
+              <type>
+                <BOOL />
+              </type>
+              <initialValue>
+                <simpleValue value="FALSE" />
+              </initialValue>
+            </variable>
+            <variable name="route_formation_demand_BC">
+              <type>
+                <BOOL />
+              </type>
+              <initialValue>
+                <simpleValue value="FALSE" />
+              </initialValue>
+            </variable>
+            <variable name="route_formation_demand_ED">
+              <type>
+                <BOOL />
+              </type>
+              <initialValue>
+                <simpleValue value="FALSE" />
+              </initialValue>
+            </variable>
+            <variable name="route_formation_demand_CD">
+              <type>
+                <BOOL />
+              </type>
+              <initialValue>
+                <simpleValue value="FALSE" />
+              </initialValue>
+            </variable>
+            <variable name="route_formation_demand_DC">
+              <type>
+                <BOOL />
+              </type>
+              <initialValue>
+                <simpleValue value="FALSE" />
+              </initialValue>
+            </variable>
+            <variable name="route_formation_demand_CB">
+              <type>
+                <BOOL />
+              </type>
+              <initialValue>
+                <simpleValue value="FALSE" />
+              </initialValue>
+            </variable>
+            <variable name="switch_manual_override_01">
+              <type>
+                <BOOL />
+              </type>
+              <initialValue>
+                <simpleValue value="FALSE" />
+              </initialValue>
+            </variable>
+            <variable name="switch_manual_override_02">
+              <type>
+                <BOOL />
+              </type>
+              <initialValue>
+                <simpleValue value="FALSE" />
+              </initialValue>
+            </variable>
+            <variable name="close_command_signal_201">
+              <type>
+                <BOOL />
+              </type>
+              <initialValue>
+                <simpleValue value="FALSE" />
+              </initialValue>
+            </variable>
+            <variable name="close_command_signal_203">
+              <type>
+                <BOOL />
+              </type>
+              <initialValue>
+                <simpleValue value="FALSE" />
+              </initialValue>
+            </variable>
+            <variable name="close_command_signal_205">
+              <type>
+                <BOOL />
+              </type>
+              <initialValue>
+                <simpleValue value="FALSE" />
+              </initialValue>
+            </variable>
+            <variable name="close_command_signal_206">
+              <type>
+                <BOOL />
+              </type>
+              <initialValue>
+                <simpleValue value="FALSE" />
+              </initialValue>
+            </variable>
+            <variable name="close_command_signal_208">
+              <type>
+                <BOOL />
+              </type>
+              <initialValue>
+                <simpleValue value="FALSE" />
+              </initialValue>
+            </variable>
+            <variable name="signal_open_route_201">
+              <type>
+                <BOOL />
+              </type>
+              <initialValue>
+                <simpleValue value="FALSE" />
+              </initialValue>
+            </variable>
+            <variable name="signal_open_route_203">
+              <type>
+                <BOOL />
+              </type>
+              <initialValue>
+                <simpleValue value="FALSE" />
+              </initialValue>
+            </variable>
+            <variable name="signal_open_route_205">
+              <type>
+                <BOOL />
+              </type>
+              <initialValue>
+                <simpleValue value="FALSE" />
+              </initialValue>
+            </variable>
+            <variable name="signal_open_route_206">
+              <type>
+                <BOOL />
+              </type>
+              <initialValue>
+                <simpleValue value="FALSE" />
+              </initialValue>
+            </variable>
+            <variable name="signal_open_route_208">
+              <type>
+                <BOOL />
+              </type>
+              <initialValue>
+                <simpleValue value="FALSE" />
+              </initialValue>
+            </variable>
+            <variable name="switch_command_left_01">
+              <type>
+                <BOOL />
+              </type>
+              <initialValue>
+                <simpleValue value="FALSE" />
+              </initialValue>
+            </variable>
+            <variable name="switch_command_right_01">
+              <type>
+                <BOOL />
+              </type>
+              <initialValue>
+                <simpleValue value="FALSE" />
+              </initialValue>
+            </variable>
+            <variable name="switch_command_left_02">
+              <type>
+                <BOOL />
+              </type>
+              <initialValue>
+                <simpleValue value="FALSE" />
+              </initialValue>
+            </variable>
+            <variable name="switch_command_right_02">
+              <type>
+                <BOOL />
+              </type>
+              <initialValue>
+                <simpleValue value="FALSE" />
+              </initialValue>
+            </variable>
+            <variable name="route_open_AB">
+              <type>
+                <BOOL />
+              </type>
+              <initialValue>
+                <simpleValue value="FALSE" />
+              </initialValue>
+            </variable>
+            <variable name="route_open_BC">
+              <type>
+                <BOOL />
+              </type>
+              <initialValue>
+                <simpleValue value="FALSE" />
+              </initialValue>
+            </variable>
+            <variable name="route_open_ED">
+              <type>
+                <BOOL />
+              </type>
+              <initialValue>
+                <simpleValue value="FALSE" />
+              </initialValue>
+            </variable>
+            <variable name="route_open_CD">
+              <type>
+                <BOOL />
+              </type>
+              <initialValue>
+                <simpleValue value="FALSE" />
+              </initialValue>
+            </variable>
+            <variable name="route_open_DC">
+              <type>
+                <BOOL />
+              </type>
+              <initialValue>
+                <simpleValue value="FALSE" />
+              </initialValue>
+            </variable>
+            <variable name="route_open_CB">
+              <type>
+                <BOOL />
+              </type>
+              <initialValue>
+                <simpleValue value="FALSE" />
+              </initialValue>
+            </variable>
+            <variable name="route_occupied_destruction_ack_AB">
+              <type>
+                <BOOL />
+              </type>
+              <initialValue>
+                <simpleValue value="FALSE" />
+              </initialValue>
+            </variable>
+            <variable name="route_occupied_destruction_ack_BC">
+              <type>
+                <BOOL />
+              </type>
+              <initialValue>
+                <simpleValue value="FALSE" />
+              </initialValue>
+            </variable>
+            <variable name="route_occupied_destruction_ack_ED">
+              <type>
+                <BOOL />
+              </type>
+              <initialValue>
+                <simpleValue value="FALSE" />
+              </initialValue>
+            </variable>
+            <variable name="route_occupied_destruction_ack_CD">
+              <type>
+                <BOOL />
+              </type>
+              <initialValue>
+                <simpleValue value="FALSE" />
+              </initialValue>
+            </variable>
+            <variable name="route_occupied_destruction_ack_DC">
+              <type>
+                <BOOL />
+              </type>
+              <initialValue>
+                <simpleValue value="FALSE" />
+              </initialValue>
+            </variable>
+            <variable name="route_occupied_destruction_ack_CB">
+              <type>
+                <BOOL />
+              </type>
+              <initialValue>
+                <simpleValue value="FALSE" />
+              </initialValue>
+            </variable>
+            <variable name="route_destruction_approch_ack_AB">
+              <type>
+                <BOOL />
+              </type>
+              <initialValue>
+                <simpleValue value="FALSE" />
+              </initialValue>
+            </variable>
+            <variable name="route_destruction_approch_ack_BC">
+              <type>
+                <BOOL />
+              </type>
+              <initialValue>
+                <simpleValue value="FALSE" />
+              </initialValue>
+            </variable>
+            <variable name="route_destruction_approch_ack_ED">
+              <type>
+                <BOOL />
+              </type>
+              <initialValue>
+                <simpleValue value="FALSE" />
+              </initialValue>
+            </variable>
+            <variable name="route_destruction_approch_ack_CD">
+              <type>
+                <BOOL />
+              </type>
+              <initialValue>
+                <simpleValue value="FALSE" />
+              </initialValue>
+            </variable>
+            <variable name="route_destruction_approch_ack_DC">
+              <type>
+                <BOOL />
+              </type>
+              <initialValue>
+                <simpleValue value="FALSE" />
+              </initialValue>
+            </variable>
+            <variable name="route_destruction_approch_ack_CB">
+              <type>
+                <BOOL />
+              </type>
+              <initialValue>
+                <simpleValue value="FALSE" />
+              </initialValue>
+            </variable>
+            <addData>
+              <data name="http://www.3s-software.com/plcopenxml/attributes" handleUnknown="implementation">
+                <Attributes>
+                  <Attribute Name="qualified_only" Value="" />
+                </Attributes>
+              </data>
+              <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                <ObjectId>2b57834e-8770-4f1a-ae55-3f2934bc1a7b</ObjectId>
+              </data>
+            </addData>
+          </globalVars>
           <addData>
+            <data name="http://www.3s-software.com/plcopenxml/datatype" handleUnknown="implementation">
+              <dataType name="TC">
+                <baseType>
+                  <enum>
+                    <values>
+                      <value name="TC_101" />
+                      <value name="TC_102" />
+                      <value name="TC_103" />
+                      <value name="TC_104" />
+                      <value name="TC_105" />
+                      <value name="TC_106" />
+                      <value name="TC_107" />
+                      <value name="TC_108" />
+                      <value name="TC_109" />
+                      <value name="TC_110" />
+                      <value name="TC_111" />
+                      <value name="TC_112" />
+                      <value name="TC_113" />
+                      <value name="TC_114" />
+                      <value name="TC_115" />
+                      <value name="TC_116" />
+                      <value name="NIL" />
+                    </values>
+                  </enum>
+                </baseType>
+                <addData>
+                  <data name="http://www.3s-software.com/plcopenxml/attributes" handleUnknown="implementation">
+                    <Attributes>
+                      <Attribute Name="qualified_only" Value="" />
+                      <Attribute Name="strict" Value="" />
+                    </Attributes>
+                  </data>
+                  <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                    <ObjectId>07b2792e-82ca-40e5-ba2e-6de4fd949c8a</ObjectId>
+                  </data>
+                </addData>
+              </dataType>
+            </data>
+            <data name="http://www.3s-software.com/plcopenxml/datatype" handleUnknown="implementation">
+              <dataType name="SWITCH">
+                <baseType>
+                  <enum>
+                    <values>
+                      <value name="Sw_01" />
+                      <value name="Sw_02" />
+                      <value name="NIL" />
+                    </values>
+                  </enum>
+                </baseType>
+                <addData>
+                  <data name="http://www.3s-software.com/plcopenxml/attributes" handleUnknown="implementation">
+                    <Attributes>
+                      <Attribute Name="qualified_only" Value="" />
+                      <Attribute Name="strict" Value="" />
+                    </Attributes>
+                  </data>
+                  <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                    <ObjectId>e3937b98-79f0-4706-a1e5-4141b387c9c9</ObjectId>
+                  </data>
+                </addData>
+              </dataType>
+            </data>
+            <data name="http://www.3s-software.com/plcopenxml/datatype" handleUnknown="implementation">
+              <dataType name="SIGNAL">
+                <baseType>
+                  <enum>
+                    <values>
+                      <value name="Sig_201" />
+                      <value name="Sig_203" />
+                      <value name="Sig_205" />
+                      <value name="Sig_206" />
+                      <value name="Sig_208" />
+                      <value name="NIL" />
+                    </values>
+                  </enum>
+                </baseType>
+                <addData>
+                  <data name="http://www.3s-software.com/plcopenxml/attributes" handleUnknown="implementation">
+                    <Attributes>
+                      <Attribute Name="qualified_only" Value="" />
+                      <Attribute Name="strict" Value="" />
+                    </Attributes>
+                  </data>
+                  <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                    <ObjectId>bbe9ffee-0cf5-408a-8092-942da785967b</ObjectId>
+                  </data>
+                </addData>
+              </dataType>
+            </data>
+            <data name="http://www.3s-software.com/plcopenxml/datatype" handleUnknown="implementation">
+              <dataType name="TRAIN_STATE">
+                <baseType>
+                  <struct>
+                    <variable name="exists">
+                      <type>
+                        <BOOL />
+                      </type>
+                    </variable>
+                    <variable name="rear_pos">
+                      <type>
+                        <derived name="TC" />
+                      </type>
+                    </variable>
+                    <variable name="front_pos">
+                      <type>
+                        <derived name="TC" />
+                      </type>
+                    </variable>
+                    <variable name="orientation">
+                      <type>
+                        <derived name="DIR" />
+                      </type>
+                    </variable>
+                  </struct>
+                </baseType>
+                <addData>
+                  <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                    <ObjectId>0192c181-7aa9-4fb9-bc67-3de052ae2397</ObjectId>
+                  </data>
+                </addData>
+              </dataType>
+            </data>
+            <data name="http://www.3s-software.com/plcopenxml/datatype" handleUnknown="implementation">
+              <dataType name="DIR">
+                <baseType>
+                  <enum>
+                    <values>
+                      <value name="DOWN" />
+                      <value name="UP" />
+                      <value name="NIL" />
+                    </values>
+                  </enum>
+                </baseType>
+                <addData>
+                  <data name="http://www.3s-software.com/plcopenxml/attributes" handleUnknown="implementation">
+                    <Attributes>
+                      <Attribute Name="qualified_only" Value="" />
+                      <Attribute Name="strict" Value="" />
+                    </Attributes>
+                  </data>
+                  <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                    <ObjectId>2b35a567-f808-4a96-8ed2-978936df64dc</ObjectId>
+                  </data>
+                </addData>
+              </dataType>
+            </data>
+            <data name="http://www.3s-software.com/plcopenxml/datatype" handleUnknown="implementation">
+              <dataType name="SW_POS">
+                <baseType>
+                  <enum>
+                    <values>
+                      <value name="LEFT" />
+                      <value name="RIGHT" />
+                      <value name="INTERMEDIATE" />
+                      <value name="NIL" />
+                    </values>
+                  </enum>
+                </baseType>
+                <addData>
+                  <data name="http://www.3s-software.com/plcopenxml/attributes" handleUnknown="implementation">
+                    <Attributes>
+                      <Attribute Name="qualified_only" Value="" />
+                      <Attribute Name="strict" Value="" />
+                    </Attributes>
+                  </data>
+                  <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                    <ObjectId>90cf7aaa-f0f6-4395-8448-69b72344c859</ObjectId>
+                  </data>
+                </addData>
+              </dataType>
+            </data>
             <data name="http://www.3s-software.com/plcopenxml/pou" handleUnknown="implementation">
               <pou name="PLC_PRG" pouType="program">
                 <interface>
                   <localVars>
-                    <variable name="TC_occupied_101">
-                      <type>
-                        <BOOL />
-                      </type>
-                    </variable>
-                    <variable name="TC_occupied_103">
-                      <type>
-                        <BOOL />
-                      </type>
-                    </variable>
-                    <variable name="TC_occupied_105">
-                      <type>
-                        <BOOL />
-                      </type>
-                    </variable>
-                    <variable name="TC_occupied_107">
-                      <type>
-                        <BOOL />
-                      </type>
-                    </variable>
-                    <variable name="TC_occupied_109">
-                      <type>
-                        <BOOL />
-                      </type>
-                    </variable>
-                    <variable name="TC_occupied_111">
-                      <type>
-                        <BOOL />
-                      </type>
-                    </variable>
-                    <variable name="TC_occupied_113">
-                      <type>
-                        <BOOL />
-                      </type>
-                    </variable>
-                    <variable name="TC_occupied_115">
-                      <type>
-                        <BOOL />
-                      </type>
-                    </variable>
-                    <variable name="TC_occupied_102">
-                      <type>
-                        <BOOL />
-                      </type>
-                    </variable>
-                    <variable name="TC_occupied_104">
-                      <type>
-                        <BOOL />
-                      </type>
-                    </variable>
-                    <variable name="TC_occupied_106">
-                      <type>
-                        <BOOL />
-                      </type>
-                    </variable>
-                    <variable name="TC_occupied_108">
-                      <type>
-                        <BOOL />
-                      </type>
-                    </variable>
-                    <variable name="TC_occupied_110">
-                      <type>
-                        <BOOL />
-                      </type>
-                    </variable>
-                    <variable name="TC_occupied_112">
-                      <type>
-                        <BOOL />
-                      </type>
-                    </variable>
-                    <variable name="TC_occupied_114">
-                      <type>
-                        <BOOL />
-                      </type>
-                    </variable>
-                    <variable name="TC_occupied_116">
-                      <type>
-                        <BOOL />
-                      </type>
-                    </variable>
-                    <variable name="switch_detected_left_01">
-                      <type>
-                        <BOOL />
-                      </type>
-                    </variable>
-                    <variable name="switch_detected_right_01">
-                      <type>
-                        <BOOL />
-                      </type>
-                    </variable>
-                    <variable name="switch_detected_left_02">
-                      <type>
-                        <BOOL />
-                      </type>
-                    </variable>
-                    <variable name="switch_detected_right_02">
-                      <type>
-                        <BOOL />
-                      </type>
-                    </variable>
-                    <variable name="route_destruction_demand_AB">
-                      <type>
-                        <BOOL />
-                      </type>
-                    </variable>
-                    <variable name="route_destruction_demand_BC">
-                      <type>
-                        <BOOL />
-                      </type>
-                    </variable>
-                    <variable name="route_destruction_demand_ED">
-                      <type>
-                        <BOOL />
-                      </type>
-                    </variable>
-                    <variable name="route_destruction_demand_CD">
-                      <type>
-                        <BOOL />
-                      </type>
-                    </variable>
-                    <variable name="route_destruction_demand_DC">
-                      <type>
-                        <BOOL />
-                      </type>
-                    </variable>
-                    <variable name="route_destruction_demand_CB">
-                      <type>
-                        <BOOL />
-                      </type>
-                    </variable>
-                    <variable name="route_formation_demand_AB">
-                      <type>
-                        <BOOL />
-                      </type>
-                    </variable>
-                    <variable name="route_formation_demand_BC">
-                      <type>
-                        <BOOL />
-                      </type>
-                    </variable>
-                    <variable name="route_formation_demand_ED">
-                      <type>
-                        <BOOL />
-                      </type>
-                    </variable>
-                    <variable name="route_formation_demand_CD">
-                      <type>
-                        <BOOL />
-                      </type>
-                    </variable>
-                    <variable name="route_formation_demand_DC">
-                      <type>
-                        <BOOL />
-                      </type>
-                    </variable>
-                    <variable name="route_formation_demand_CB">
-                      <type>
-                        <BOOL />
-                      </type>
-                    </variable>
-                    <variable name="switch_manual_override_01">
-                      <type>
-                        <BOOL />
-                      </type>
-                    </variable>
-                    <variable name="switch_manual_override_02">
-                      <type>
-                        <BOOL />
-                      </type>
-                    </variable>
-                    <variable name="signal_open_route_201">
-                      <type>
-                        <BOOL />
-                      </type>
-                    </variable>
-                    <variable name="signal_open_route_203">
-                      <type>
-                        <BOOL />
-                      </type>
-                    </variable>
-                    <variable name="signal_open_route_205">
-                      <type>
-                        <BOOL />
-                      </type>
-                    </variable>
-                    <variable name="signal_open_route_206">
-                      <type>
-                        <BOOL />
-                      </type>
-                    </variable>
-                    <variable name="signal_open_route_208">
-                      <type>
-                        <BOOL />
-                      </type>
-                    </variable>
-                    <variable name="switch_command_left_01">
-                      <type>
-                        <BOOL />
-                      </type>
-                    </variable>
-                    <variable name="switch_command_right_01">
-                      <type>
-                        <BOOL />
-                      </type>
-                    </variable>
-                    <variable name="switch_command_left_02">
-                      <type>
-                        <BOOL />
-                      </type>
-                    </variable>
-                    <variable name="switch_command_right_02">
-                      <type>
-                        <BOOL />
-                      </type>
-                    </variable>
-                    <variable name="route_open_AB">
-                      <type>
-                        <BOOL />
-                      </type>
-                    </variable>
-                    <variable name="route_open_BC">
-                      <type>
-                        <BOOL />
-                      </type>
-                    </variable>
-                    <variable name="route_open_ED">
-                      <type>
-                        <BOOL />
-                      </type>
-                    </variable>
-                    <variable name="route_open_CD">
-                      <type>
-                        <BOOL />
-                      </type>
-                    </variable>
-                    <variable name="route_open_DC">
-                      <type>
-                        <BOOL />
-                      </type>
-                    </variable>
-                    <variable name="route_open_CB">
-                      <type>
-                        <BOOL />
-                      </type>
-                    </variable>
-                    <variable name="route_occupied_destruction_ack_AB">
-                      <type>
-                        <BOOL />
-                      </type>
-                    </variable>
-                    <variable name="route_occupied_destruction_ack_BC">
-                      <type>
-                        <BOOL />
-                      </type>
-                    </variable>
-                    <variable name="route_occupied_destruction_ack_ED">
-                      <type>
-                        <BOOL />
-                      </type>
-                    </variable>
-                    <variable name="route_occupied_destruction_ack_CD">
-                      <type>
-                        <BOOL />
-                      </type>
-                    </variable>
-                    <variable name="route_occupied_destruction_ack_DC">
-                      <type>
-                        <BOOL />
-                      </type>
-                    </variable>
-                    <variable name="route_occupied_destruction_ack_CB">
-                      <type>
-                        <BOOL />
-                      </type>
-                    </variable>
-                    <variable name="route_destruction_approch_ack_AB">
-                      <type>
-                        <BOOL />
-                      </type>
-                    </variable>
-                    <variable name="route_destruction_approch_ack_BC">
-                      <type>
-                        <BOOL />
-                      </type>
-                    </variable>
-                    <variable name="route_destruction_approch_ack_ED">
-                      <type>
-                        <BOOL />
-                      </type>
-                    </variable>
-                    <variable name="route_destruction_approch_ack_CD">
-                      <type>
-                        <BOOL />
-                      </type>
-                    </variable>
-                    <variable name="route_destruction_approch_ack_DC">
-                      <type>
-                        <BOOL />
-                      </type>
-                    </variable>
-                    <variable name="route_destruction_approch_ack_CB">
-                      <type>
-                        <BOOL />
-                      </type>
-                    </variable>
                     <variable name="route_state_AB">
                       <type>
                         <derived name="route_state" />
@@ -516,37 +944,37 @@
                     <inVariable localId="10000000001">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>route_formation_demand_AB</expression>
+                      <expression>variable_list.route_formation_demand_AB</expression>
                     </inVariable>
                     <inVariable localId="10000000002">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>route_formation_demand_CB</expression>
+                      <expression>variable_list.route_formation_demand_CB</expression>
                     </inVariable>
                     <inVariable localId="10000000003">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>route_open_CB</expression>
+                      <expression>variable_list.route_open_CB</expression>
                     </inVariable>
                     <inVariable localId="10000000004">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>route_state_AB</expression>
+                      <expression>variable_list.route_open_AB</expression>
                     </inVariable>
                     <inVariable localId="10000000005">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>TC_occupied_105</expression>
+                      <expression>variable_list.TC_occupied_105</expression>
                     </inVariable>
                     <inVariable localId="10000000006">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>TC_occupied_107</expression>
+                      <expression>variable_list.TC_occupied_107</expression>
                     </inVariable>
                     <block localId="10000000007" typeName="AUTO_DESTRUCT" instanceName="AUTO_DESTRUCT_AB">
                       <position x="0" y="0" />
                       <inputVariables>
-                        <variable formalParameter="route_state">
+                        <variable formalParameter="route_open">
                           <connectionPointIn>
                             <connection refLocalId="10000000004" />
                           </connectionPointIn>
@@ -583,27 +1011,27 @@
                     <inVariable localId="10000000008">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>route_destruction_demand_AB</expression>
+                      <expression>variable_list.route_destruction_demand_AB</expression>
                     </inVariable>
                     <inVariable localId="10000000009">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>route_occupied_destruction_ack_AB</expression>
+                      <expression>variable_list.route_occupied_destruction_ack_AB</expression>
                     </inVariable>
                     <inVariable localId="10000000010">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>TC_occupied_105</expression>
+                      <expression>variable_list.TC_occupied_105</expression>
                     </inVariable>
                     <inVariable localId="10000000011">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>TC_occupied_101</expression>
+                      <expression>variable_list.TC_occupied_101</expression>
                     </inVariable>
                     <inVariable localId="10000000012">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>TC_occupied_103</expression>
+                      <expression>variable_list.TC_occupied_103</expression>
                     </inVariable>
                     <block localId="10000000013" typeName="OR">
                       <position x="0" y="0" />
@@ -640,7 +1068,7 @@
                     <inVariable localId="10000000014">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>signal_open_route_201</expression>
+                      <expression>variable_list.signal_open_route_201</expression>
                     </inVariable>
                     <inVariable localId="10000000015">
                       <position x="0" y="0" />
@@ -650,7 +1078,7 @@
                     <inVariable localId="10000000016">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>route_destruction_approch_ack_AB</expression>
+                      <expression>variable_list.route_destruction_approch_ack_AB</expression>
                     </inVariable>
                     <block localId="10000000017" typeName="Approaching_train" instanceName="Approaching_train_AB">
                       <position x="0" y="0" />
@@ -761,27 +1189,27 @@
                       <connectionPointIn>
                         <connection refLocalId="10000000018" formalParameter="route_open" />
                       </connectionPointIn>
-                      <expression>route_open_AB</expression>
+                      <expression>variable_list.route_open_AB</expression>
                     </outVariable>
                     <inVariable localId="20000000000">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>route_formation_demand_BC</expression>
+                      <expression>variable_list.route_formation_demand_BC</expression>
                     </inVariable>
                     <inVariable localId="20000000001">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>route_formation_demand_CD</expression>
+                      <expression>variable_list.route_formation_demand_CD</expression>
                     </inVariable>
                     <inVariable localId="20000000002">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>route_formation_demand_DC</expression>
+                      <expression>variable_list.route_formation_demand_DC</expression>
                     </inVariable>
                     <inVariable localId="20000000003">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>route_formation_demand_CB</expression>
+                      <expression>variable_list.route_formation_demand_CB</expression>
                     </inVariable>
                     <block localId="20000000004" typeName="OR">
                       <position x="0" y="0" />
@@ -823,17 +1251,17 @@
                     <inVariable localId="20000000005">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>route_open_CD</expression>
+                      <expression>variable_list.route_open_CD</expression>
                     </inVariable>
                     <inVariable localId="20000000006">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>route_open_DC</expression>
+                      <expression>variable_list.route_open_DC</expression>
                     </inVariable>
                     <inVariable localId="20000000007">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>route_open_CB</expression>
+                      <expression>variable_list.route_open_CB</expression>
                     </inVariable>
                     <block localId="20000000008" typeName="OR">
                       <position x="0" y="0" />
@@ -875,22 +1303,22 @@
                     <inVariable localId="20000000009">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>route_state_BC</expression>
+                      <expression>variable_list.route_open_BC</expression>
                     </inVariable>
                     <inVariable localId="20000000010">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>TC_occupied_109</expression>
+                      <expression>variable_list.TC_occupied_109</expression>
                     </inVariable>
                     <inVariable localId="20000000011">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>TC_occupied_111</expression>
+                      <expression>variable_list.TC_occupied_111</expression>
                     </inVariable>
                     <block localId="20000000012" typeName="AUTO_DESTRUCT" instanceName="AUTO_DESTRUCT_BC">
                       <position x="0" y="0" />
                       <inputVariables>
-                        <variable formalParameter="route_state">
+                        <variable formalParameter="route_open">
                           <connectionPointIn>
                             <connection refLocalId="20000000009" />
                           </connectionPointIn>
@@ -927,27 +1355,27 @@
                     <inVariable localId="20000000013">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>route_destruction_demand_BC</expression>
+                      <expression>variable_list.route_destruction_demand_BC</expression>
                     </inVariable>
                     <inVariable localId="20000000014">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>route_occupied_destruction_ack_BC</expression>
+                      <expression>variable_list.route_occupied_destruction_ack_BC</expression>
                     </inVariable>
                     <inVariable localId="20000000015">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>TC_occupied_109</expression>
+                      <expression>variable_list.TC_occupied_109</expression>
                     </inVariable>
                     <inVariable localId="20000000016">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>TC_occupied_105</expression>
+                      <expression>variable_list.TC_occupied_105</expression>
                     </inVariable>
                     <inVariable localId="20000000017">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>TC_occupied_107</expression>
+                      <expression>variable_list.TC_occupied_107</expression>
                     </inVariable>
                     <block localId="20000000018" typeName="OR">
                       <position x="0" y="0" />
@@ -984,7 +1412,7 @@
                     <inVariable localId="20000000019">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>signal_open_route_203</expression>
+                      <expression>variable_list.signal_open_route_203</expression>
                     </inVariable>
                     <inVariable localId="20000000020">
                       <position x="0" y="0" />
@@ -994,7 +1422,7 @@
                     <inVariable localId="20000000021">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>route_destruction_approch_ack_BC</expression>
+                      <expression>variable_list.route_destruction_approch_ack_BC</expression>
                     </inVariable>
                     <block localId="20000000022" typeName="Approaching_train" instanceName="Approaching_train_BC">
                       <position x="0" y="0" />
@@ -1105,22 +1533,22 @@
                       <connectionPointIn>
                         <connection refLocalId="20000000023" formalParameter="route_open" />
                       </connectionPointIn>
-                      <expression>route_open_BC</expression>
+                      <expression>variable_list.route_open_BC</expression>
                     </outVariable>
                     <inVariable localId="30000000000">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>route_formation_demand_ED</expression>
+                      <expression>variable_list.route_formation_demand_ED</expression>
                     </inVariable>
                     <inVariable localId="30000000001">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>route_formation_demand_CD</expression>
+                      <expression>variable_list.route_formation_demand_CD</expression>
                     </inVariable>
                     <inVariable localId="30000000002">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>route_formation_demand_DC</expression>
+                      <expression>variable_list.route_formation_demand_DC</expression>
                     </inVariable>
                     <block localId="30000000003" typeName="OR">
                       <position x="0" y="0" />
@@ -1157,12 +1585,12 @@
                     <inVariable localId="30000000004">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>route_open_CD</expression>
+                      <expression>variable_list.route_open_CD</expression>
                     </inVariable>
                     <inVariable localId="30000000005">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>route_open_DC</expression>
+                      <expression>variable_list.route_open_DC</expression>
                     </inVariable>
                     <block localId="30000000006" typeName="OR">
                       <position x="0" y="0" />
@@ -1199,22 +1627,22 @@
                     <inVariable localId="30000000007">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>route_state_ED</expression>
+                      <expression>variable_list.route_open_ED</expression>
                     </inVariable>
                     <inVariable localId="30000000008">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>TC_occupied_110</expression>
+                      <expression>variable_list.TC_occupied_110</expression>
                     </inVariable>
                     <inVariable localId="30000000009">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>TC_occupied_108</expression>
+                      <expression>variable_list.TC_occupied_108</expression>
                     </inVariable>
                     <block localId="30000000010" typeName="AUTO_DESTRUCT" instanceName="AUTO_DESTRUCT_ED">
                       <position x="0" y="0" />
                       <inputVariables>
-                        <variable formalParameter="route_state">
+                        <variable formalParameter="route_open">
                           <connectionPointIn>
                             <connection refLocalId="30000000007" />
                           </connectionPointIn>
@@ -1251,27 +1679,27 @@
                     <inVariable localId="30000000011">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>route_destruction_demand_ED</expression>
+                      <expression>variable_list.route_destruction_demand_ED</expression>
                     </inVariable>
                     <inVariable localId="30000000012">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>route_occupied_destruction_ack_ED</expression>
+                      <expression>variable_list.route_occupied_destruction_ack_ED</expression>
                     </inVariable>
                     <inVariable localId="30000000013">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>TC_occupied_110</expression>
+                      <expression>variable_list.TC_occupied_110</expression>
                     </inVariable>
                     <inVariable localId="30000000014">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>TC_occupied_112</expression>
+                      <expression>variable_list.TC_occupied_112</expression>
                     </inVariable>
                     <inVariable localId="30000000015">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>TC_occupied_114</expression>
+                      <expression>variable_list.TC_occupied_114</expression>
                     </inVariable>
                     <block localId="30000000016" typeName="OR">
                       <position x="0" y="0" />
@@ -1308,7 +1736,7 @@
                     <inVariable localId="30000000017">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>signal_open_route_208</expression>
+                      <expression>variable_list.signal_open_route_208</expression>
                     </inVariable>
                     <inVariable localId="30000000018">
                       <position x="0" y="0" />
@@ -1318,7 +1746,7 @@
                     <inVariable localId="30000000019">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>route_destruction_approch_ack_ED</expression>
+                      <expression>variable_list.route_destruction_approch_ack_ED</expression>
                     </inVariable>
                     <block localId="30000000020" typeName="Approaching_train" instanceName="Approaching_train_ED">
                       <position x="0" y="0" />
@@ -1429,32 +1857,32 @@
                       <connectionPointIn>
                         <connection refLocalId="30000000021" formalParameter="route_open" />
                       </connectionPointIn>
-                      <expression>route_open_ED</expression>
+                      <expression>variable_list.route_open_ED</expression>
                     </outVariable>
                     <inVariable localId="40000000000">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>route_formation_demand_CD</expression>
+                      <expression>variable_list.route_formation_demand_CD</expression>
                     </inVariable>
                     <inVariable localId="40000000001">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>route_formation_demand_BC</expression>
+                      <expression>variable_list.route_formation_demand_BC</expression>
                     </inVariable>
                     <inVariable localId="40000000002">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>route_formation_demand_ED</expression>
+                      <expression>variable_list.route_formation_demand_ED</expression>
                     </inVariable>
                     <inVariable localId="40000000003">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>route_formation_demand_DC</expression>
+                      <expression>variable_list.route_formation_demand_DC</expression>
                     </inVariable>
                     <inVariable localId="40000000004">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>route_formation_demand_CB</expression>
+                      <expression>variable_list.route_formation_demand_CB</expression>
                     </inVariable>
                     <block localId="40000000005" typeName="OR">
                       <position x="0" y="0" />
@@ -1501,22 +1929,22 @@
                     <inVariable localId="40000000006">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>route_open_BC</expression>
+                      <expression>variable_list.route_open_BC</expression>
                     </inVariable>
                     <inVariable localId="40000000007">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>route_open_ED</expression>
+                      <expression>variable_list.route_open_ED</expression>
                     </inVariable>
                     <inVariable localId="40000000008">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>route_open_DC</expression>
+                      <expression>variable_list.route_open_DC</expression>
                     </inVariable>
                     <inVariable localId="40000000009">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>route_open_CB</expression>
+                      <expression>variable_list.route_open_CB</expression>
                     </inVariable>
                     <block localId="40000000010" typeName="OR">
                       <position x="0" y="0" />
@@ -1563,22 +1991,22 @@
                     <inVariable localId="40000000011">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>route_state_CD</expression>
+                      <expression>variable_list.route_open_CD</expression>
                     </inVariable>
                     <inVariable localId="40000000012">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>TC_occupied_110</expression>
+                      <expression>variable_list.TC_occupied_110</expression>
                     </inVariable>
                     <inVariable localId="40000000013">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>TC_occupied_108</expression>
+                      <expression>variable_list.TC_occupied_108</expression>
                     </inVariable>
                     <block localId="40000000014" typeName="AUTO_DESTRUCT" instanceName="AUTO_DESTRUCT_CD">
                       <position x="0" y="0" />
                       <inputVariables>
-                        <variable formalParameter="route_state">
+                        <variable formalParameter="route_open">
                           <connectionPointIn>
                             <connection refLocalId="40000000011" />
                           </connectionPointIn>
@@ -1615,22 +2043,22 @@
                     <inVariable localId="40000000015">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>route_destruction_demand_CD</expression>
+                      <expression>variable_list.route_destruction_demand_CD</expression>
                     </inVariable>
                     <inVariable localId="40000000016">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>route_occupied_destruction_ack_CD</expression>
+                      <expression>variable_list.route_occupied_destruction_ack_CD</expression>
                     </inVariable>
                     <inVariable localId="40000000017">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>TC_occupied_109</expression>
+                      <expression>variable_list.TC_occupied_109</expression>
                     </inVariable>
                     <inVariable localId="40000000018">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>TC_occupied_110</expression>
+                      <expression>variable_list.TC_occupied_110</expression>
                     </inVariable>
                     <block localId="40000000019" typeName="OR">
                       <position x="0" y="0" />
@@ -1667,12 +2095,12 @@
                     <inVariable localId="40000000020">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>TC_occupied_111</expression>
+                      <expression>variable_list.TC_occupied_111</expression>
                     </inVariable>
                     <inVariable localId="40000000021">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>TC_occupied_113</expression>
+                      <expression>variable_list.TC_occupied_113</expression>
                     </inVariable>
                     <block localId="40000000022" typeName="OR">
                       <position x="0" y="0" />
@@ -1709,7 +2137,7 @@
                     <inVariable localId="40000000023">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>signal_open_route_206</expression>
+                      <expression>variable_list.signal_open_route_206</expression>
                     </inVariable>
                     <inVariable localId="40000000024">
                       <position x="0" y="0" />
@@ -1719,7 +2147,7 @@
                     <inVariable localId="40000000025">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>route_destruction_approch_ack_CD</expression>
+                      <expression>variable_list.route_destruction_approch_ack_CD</expression>
                     </inVariable>
                     <block localId="40000000026" typeName="Approaching_train" instanceName="Approaching_train_CD">
                       <position x="0" y="0" />
@@ -1830,32 +2258,32 @@
                       <connectionPointIn>
                         <connection refLocalId="40000000027" formalParameter="route_open" />
                       </connectionPointIn>
-                      <expression>route_open_CD</expression>
+                      <expression>variable_list.route_open_CD</expression>
                     </outVariable>
                     <inVariable localId="50000000000">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>route_formation_demand_DC</expression>
+                      <expression>variable_list.route_formation_demand_DC</expression>
                     </inVariable>
                     <inVariable localId="50000000001">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>route_formation_demand_BC</expression>
+                      <expression>variable_list.route_formation_demand_BC</expression>
                     </inVariable>
                     <inVariable localId="50000000002">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>route_formation_demand_ED</expression>
+                      <expression>variable_list.route_formation_demand_ED</expression>
                     </inVariable>
                     <inVariable localId="50000000003">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>route_formation_demand_CD</expression>
+                      <expression>variable_list.route_formation_demand_CD</expression>
                     </inVariable>
                     <inVariable localId="50000000004">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>route_formation_demand_CB</expression>
+                      <expression>variable_list.route_formation_demand_CB</expression>
                     </inVariable>
                     <block localId="50000000005" typeName="OR">
                       <position x="0" y="0" />
@@ -1902,22 +2330,22 @@
                     <inVariable localId="50000000006">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>route_open_BC</expression>
+                      <expression>variable_list.route_open_BC</expression>
                     </inVariable>
                     <inVariable localId="50000000007">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>route_open_ED</expression>
+                      <expression>variable_list.route_open_ED</expression>
                     </inVariable>
                     <inVariable localId="50000000008">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>route_open_CD</expression>
+                      <expression>variable_list.route_open_CD</expression>
                     </inVariable>
                     <inVariable localId="50000000009">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>route_open_CB</expression>
+                      <expression>variable_list.route_open_CB</expression>
                     </inVariable>
                     <block localId="50000000010" typeName="OR">
                       <position x="0" y="0" />
@@ -1964,22 +2392,22 @@
                     <inVariable localId="50000000011">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>route_state_DC</expression>
+                      <expression>variable_list.route_open_DC</expression>
                     </inVariable>
                     <inVariable localId="50000000012">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>TC_occupied_109</expression>
+                      <expression>variable_list.TC_occupied_109</expression>
                     </inVariable>
                     <inVariable localId="50000000013">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>TC_occupied_111</expression>
+                      <expression>variable_list.TC_occupied_111</expression>
                     </inVariable>
                     <block localId="50000000014" typeName="AUTO_DESTRUCT" instanceName="AUTO_DESTRUCT_DC">
                       <position x="0" y="0" />
                       <inputVariables>
-                        <variable formalParameter="route_state">
+                        <variable formalParameter="route_open">
                           <connectionPointIn>
                             <connection refLocalId="50000000011" />
                           </connectionPointIn>
@@ -2016,22 +2444,22 @@
                     <inVariable localId="50000000015">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>route_destruction_demand_DC</expression>
+                      <expression>variable_list.route_destruction_demand_DC</expression>
                     </inVariable>
                     <inVariable localId="50000000016">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>route_occupied_destruction_ack_DC</expression>
+                      <expression>variable_list.route_occupied_destruction_ack_DC</expression>
                     </inVariable>
                     <inVariable localId="50000000017">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>TC_occupied_110</expression>
+                      <expression>variable_list.TC_occupied_110</expression>
                     </inVariable>
                     <inVariable localId="50000000018">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>TC_occupied_109</expression>
+                      <expression>variable_list.TC_occupied_109</expression>
                     </inVariable>
                     <block localId="50000000019" typeName="OR">
                       <position x="0" y="0" />
@@ -2068,12 +2496,12 @@
                     <inVariable localId="50000000020">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>TC_occupied_106</expression>
+                      <expression>variable_list.TC_occupied_106</expression>
                     </inVariable>
                     <inVariable localId="50000000021">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>TC_occupied_108</expression>
+                      <expression>variable_list.TC_occupied_108</expression>
                     </inVariable>
                     <block localId="50000000022" typeName="OR">
                       <position x="0" y="0" />
@@ -2110,7 +2538,7 @@
                     <inVariable localId="50000000023">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>signal_open_route_205</expression>
+                      <expression>variable_list.signal_open_route_205</expression>
                     </inVariable>
                     <inVariable localId="50000000024">
                       <position x="0" y="0" />
@@ -2120,7 +2548,7 @@
                     <inVariable localId="50000000025">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>route_destruction_approch_ack_DC</expression>
+                      <expression>variable_list.route_destruction_approch_ack_DC</expression>
                     </inVariable>
                     <block localId="50000000026" typeName="Approaching_train" instanceName="Approaching_train_DC">
                       <position x="0" y="0" />
@@ -2231,32 +2659,32 @@
                       <connectionPointIn>
                         <connection refLocalId="50000000027" formalParameter="route_open" />
                       </connectionPointIn>
-                      <expression>route_open_DC</expression>
+                      <expression>variable_list.route_open_DC</expression>
                     </outVariable>
                     <inVariable localId="60000000000">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>route_formation_demand_CB</expression>
+                      <expression>variable_list.route_formation_demand_CB</expression>
                     </inVariable>
                     <inVariable localId="60000000001">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>route_formation_demand_AB</expression>
+                      <expression>variable_list.route_formation_demand_AB</expression>
                     </inVariable>
                     <inVariable localId="60000000002">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>route_formation_demand_BC</expression>
+                      <expression>variable_list.route_formation_demand_BC</expression>
                     </inVariable>
                     <inVariable localId="60000000003">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>route_formation_demand_CD</expression>
+                      <expression>variable_list.route_formation_demand_CD</expression>
                     </inVariable>
                     <inVariable localId="60000000004">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>route_formation_demand_DC</expression>
+                      <expression>variable_list.route_formation_demand_DC</expression>
                     </inVariable>
                     <block localId="60000000005" typeName="OR">
                       <position x="0" y="0" />
@@ -2303,22 +2731,22 @@
                     <inVariable localId="60000000006">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>route_open_AB</expression>
+                      <expression>variable_list.route_open_AB</expression>
                     </inVariable>
                     <inVariable localId="60000000007">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>route_open_BC</expression>
+                      <expression>variable_list.route_open_BC</expression>
                     </inVariable>
                     <inVariable localId="60000000008">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>route_open_CD</expression>
+                      <expression>variable_list.route_open_CD</expression>
                     </inVariable>
                     <inVariable localId="60000000009">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>route_open_DC</expression>
+                      <expression>variable_list.route_open_DC</expression>
                     </inVariable>
                     <block localId="60000000010" typeName="OR">
                       <position x="0" y="0" />
@@ -2365,22 +2793,22 @@
                     <inVariable localId="60000000011">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>route_state_CB</expression>
+                      <expression>variable_list.route_open_CB</expression>
                     </inVariable>
                     <inVariable localId="60000000012">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>TC_occupied_110</expression>
+                      <expression>variable_list.TC_occupied_110</expression>
                     </inVariable>
                     <inVariable localId="60000000013">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>TC_occupied_108</expression>
+                      <expression>variable_list.TC_occupied_108</expression>
                     </inVariable>
                     <block localId="60000000014" typeName="AUTO_DESTRUCT" instanceName="AUTO_DESTRUCT_CB">
                       <position x="0" y="0" />
                       <inputVariables>
-                        <variable formalParameter="route_state">
+                        <variable formalParameter="route_open">
                           <connectionPointIn>
                             <connection refLocalId="60000000011" />
                           </connectionPointIn>
@@ -2417,27 +2845,27 @@
                     <inVariable localId="60000000015">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>route_destruction_demand_CB</expression>
+                      <expression>variable_list.route_destruction_demand_CB</expression>
                     </inVariable>
                     <inVariable localId="60000000016">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>route_occupied_destruction_ack_CB</expression>
+                      <expression>variable_list.route_occupied_destruction_ack_CB</expression>
                     </inVariable>
                     <inVariable localId="60000000017">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>TC_occupied_109</expression>
+                      <expression>variable_list.TC_occupied_109</expression>
                     </inVariable>
                     <inVariable localId="60000000018">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>TC_occupied_111</expression>
+                      <expression>variable_list.TC_occupied_111</expression>
                     </inVariable>
                     <inVariable localId="60000000019">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>TC_occupied_113</expression>
+                      <expression>variable_list.TC_occupied_113</expression>
                     </inVariable>
                     <block localId="60000000020" typeName="OR">
                       <position x="0" y="0" />
@@ -2474,7 +2902,7 @@
                     <inVariable localId="60000000021">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>signal_open_route_206</expression>
+                      <expression>variable_list.signal_open_route_206</expression>
                     </inVariable>
                     <inVariable localId="60000000022">
                       <position x="0" y="0" />
@@ -2484,7 +2912,7 @@
                     <inVariable localId="60000000023">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>route_destruction_approch_ack_CB</expression>
+                      <expression>variable_list.route_destruction_approch_ack_CB</expression>
                     </inVariable>
                     <block localId="60000000024" typeName="Approaching_train" instanceName="Approaching_train_CB">
                       <position x="0" y="0" />
@@ -2595,22 +3023,22 @@
                       <connectionPointIn>
                         <connection refLocalId="60000000025" formalParameter="route_open" />
                       </connectionPointIn>
-                      <expression>route_open_CB</expression>
+                      <expression>variable_list.route_open_CB</expression>
                     </outVariable>
                     <inVariable localId="70000000000">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>route_open_BC</expression>
+                      <expression>variable_list.route_open_BC</expression>
                     </inVariable>
                     <inVariable localId="70000000001">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>route_open_CB</expression>
+                      <expression>variable_list.route_open_CB</expression>
                     </inVariable>
                     <inVariable localId="70000000002">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>route_open_ED</expression>
+                      <expression>variable_list.route_open_ED</expression>
                     </inVariable>
                     <block localId="70000000003" typeName="OR">
                       <position x="0" y="0" />
@@ -2652,12 +3080,12 @@
                     <inVariable localId="70000000004">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>TC_occupied_109</expression>
+                      <expression>variable_list.TC_occupied_109</expression>
                     </inVariable>
                     <inVariable localId="70000000005">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>TC_occupied_110</expression>
+                      <expression>variable_list.TC_occupied_110</expression>
                     </inVariable>
                     <block localId="70000000006" typeName="OR">
                       <position x="0" y="0" />
@@ -2721,12 +3149,12 @@
                     <inVariable localId="70000000008">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>switch_manual_override_01</expression>
+                      <expression>variable_list.switch_manual_override_01</expression>
                     </inVariable>
                     <inVariable localId="70000000009">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>switch_manual_override_02</expression>
+                      <expression>variable_list.switch_manual_override_02</expression>
                     </inVariable>
                     <block localId="70000000010" typeName="OR">
                       <position x="0" y="0" />
@@ -2829,24 +3257,24 @@
                       <connectionPointIn>
                         <connection refLocalId="70000000012" formalParameter="Out1" />
                       </connectionPointIn>
-                      <expression>switch_command_left_01</expression>
+                      <expression>variable_list.switch_command_left_01</expression>
                     </outVariable>
                     <outVariable localId="70000000014">
                       <position x="0" y="0" />
                       <connectionPointIn>
                         <connection refLocalId="70000000012" formalParameter="Out1" />
                       </connectionPointIn>
-                      <expression>switch_command_left_02</expression>
+                      <expression>variable_list.switch_command_left_02</expression>
                     </outVariable>
                     <inVariable localId="80000000000">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>route_open_CD</expression>
+                      <expression>variable_list.route_open_CD</expression>
                     </inVariable>
                     <inVariable localId="80000000001">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>route_open_DC</expression>
+                      <expression>variable_list.route_open_DC</expression>
                     </inVariable>
                     <block localId="80000000002" typeName="OR">
                       <position x="0" y="0" />
@@ -2883,12 +3311,12 @@
                     <inVariable localId="80000000003">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>TC_occupied_109</expression>
+                      <expression>variable_list.TC_occupied_109</expression>
                     </inVariable>
                     <inVariable localId="80000000004">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>TC_occupied_110</expression>
+                      <expression>variable_list.TC_occupied_110</expression>
                     </inVariable>
                     <block localId="80000000005" typeName="OR">
                       <position x="0" y="0" />
@@ -2952,12 +3380,12 @@
                     <inVariable localId="80000000007">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>switch_manual_override_01</expression>
+                      <expression>variable_list.switch_manual_override_01</expression>
                     </inVariable>
                     <inVariable localId="80000000008">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>switch_manual_override_02</expression>
+                      <expression>variable_list.switch_manual_override_02</expression>
                     </inVariable>
                     <block localId="80000000009" typeName="OR">
                       <position x="0" y="0" />
@@ -3060,59 +3488,26 @@
                       <connectionPointIn>
                         <connection refLocalId="80000000011" formalParameter="Out1" />
                       </connectionPointIn>
-                      <expression>switch_command_right_01</expression>
+                      <expression>variable_list.switch_command_right_01</expression>
                     </outVariable>
                     <outVariable localId="80000000013">
                       <position x="0" y="0" />
                       <connectionPointIn>
                         <connection refLocalId="80000000011" formalParameter="Out1" />
                       </connectionPointIn>
-                      <expression>switch_command_right_02</expression>
+                      <expression>variable_list.switch_command_right_02</expression>
                     </outVariable>
-                    <comment localId="90000000000" height="0" width="0">
+                    <inVariable localId="90000000000">
                       <position x="0" y="0" />
-                      <content>
-                        <xhtml xmlns="http://www.w3.org/1999/xhtml">Maybe add a direct command to close the signal ? It can be done outside the PLC with no loss of safety anyway</xhtml>
-                      </content>
-                    </comment>
+                      <connectionPointOut />
+                      <expression>variable_list.route_open_AB</expression>
+                    </inVariable>
                     <inVariable localId="90000000001">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>route_open_AB</expression>
+                      <expression>variable_list.route_destruction_demand_AB</expression>
                     </inVariable>
-                    <inVariable localId="90000000002">
-                      <position x="0" y="0" />
-                      <connectionPointOut />
-                      <expression>route_destruction_demand_AB</expression>
-                    </inVariable>
-                    <block localId="90000000003" typeName="NOT">
-                      <position x="0" y="0" />
-                      <inputVariables>
-                        <variable formalParameter="In1">
-                          <connectionPointIn>
-                            <connection refLocalId="90000000002" />
-                          </connectionPointIn>
-                        </variable>
-                      </inputVariables>
-                      <inOutVariables />
-                      <outputVariables>
-                        <variable formalParameter="Out1">
-                          <connectionPointOut />
-                        </variable>
-                      </outputVariables>
-                      <addData>
-                        <data name="http://www.3s-software.com/plcopenxml/fbdcalltype" handleUnknown="implementation">
-                          <CallType xmlns="">operator</CallType>
-                        </data>
-                        <data name="http://www.3s-software.com/plcopenxml/inputparamtypes" handleUnknown="implementation">
-                          <InputParamTypes xmlns="" />
-                        </data>
-                        <data name="http://www.3s-software.com/plcopenxml/outputparamtypes" handleUnknown="implementation">
-                          <OutputParamTypes xmlns="">BOOL</OutputParamTypes>
-                        </data>
-                      </addData>
-                    </block>
-                    <block localId="90000000004" typeName="AND">
+                    <block localId="90000000002" typeName="NOT">
                       <position x="0" y="0" />
                       <inputVariables>
                         <variable formalParameter="In1">
@@ -3120,9 +3515,36 @@
                             <connection refLocalId="90000000001" />
                           </connectionPointIn>
                         </variable>
-                        <variable formalParameter="In2">
+                      </inputVariables>
+                      <inOutVariables />
+                      <outputVariables>
+                        <variable formalParameter="Out1">
+                          <connectionPointOut />
+                        </variable>
+                      </outputVariables>
+                      <addData>
+                        <data name="http://www.3s-software.com/plcopenxml/fbdcalltype" handleUnknown="implementation">
+                          <CallType xmlns="">operator</CallType>
+                        </data>
+                        <data name="http://www.3s-software.com/plcopenxml/inputparamtypes" handleUnknown="implementation">
+                          <InputParamTypes xmlns="" />
+                        </data>
+                        <data name="http://www.3s-software.com/plcopenxml/outputparamtypes" handleUnknown="implementation">
+                          <OutputParamTypes xmlns="">BOOL</OutputParamTypes>
+                        </data>
+                      </addData>
+                    </block>
+                    <inVariable localId="90000000003">
+                      <position x="0" y="0" />
+                      <connectionPointOut />
+                      <expression>variable_list.close_command_signal_201</expression>
+                    </inVariable>
+                    <block localId="90000000004" typeName="NOT">
+                      <position x="0" y="0" />
+                      <inputVariables>
+                        <variable formalParameter="In1">
                           <connectionPointIn>
-                            <connection refLocalId="90000000003" formalParameter="Out1" />
+                            <connection refLocalId="90000000003" />
                           </connectionPointIn>
                         </variable>
                       </inputVariables>
@@ -3144,22 +3566,59 @@
                         </data>
                       </addData>
                     </block>
-                    <outVariable localId="90000000005">
+                    <block localId="90000000005" typeName="AND">
+                      <position x="0" y="0" />
+                      <inputVariables>
+                        <variable formalParameter="In1">
+                          <connectionPointIn>
+                            <connection refLocalId="90000000000" />
+                          </connectionPointIn>
+                        </variable>
+                        <variable formalParameter="In2">
+                          <connectionPointIn>
+                            <connection refLocalId="90000000002" formalParameter="Out1" />
+                          </connectionPointIn>
+                        </variable>
+                        <variable formalParameter="In3">
+                          <connectionPointIn>
+                            <connection refLocalId="90000000004" formalParameter="Out1" />
+                          </connectionPointIn>
+                        </variable>
+                      </inputVariables>
+                      <inOutVariables />
+                      <outputVariables>
+                        <variable formalParameter="Out1">
+                          <connectionPointOut />
+                        </variable>
+                      </outputVariables>
+                      <addData>
+                        <data name="http://www.3s-software.com/plcopenxml/fbdcalltype" handleUnknown="implementation">
+                          <CallType xmlns="">operator</CallType>
+                        </data>
+                        <data name="http://www.3s-software.com/plcopenxml/inputparamtypes" handleUnknown="implementation">
+                          <InputParamTypes xmlns="" />
+                        </data>
+                        <data name="http://www.3s-software.com/plcopenxml/outputparamtypes" handleUnknown="implementation">
+                          <OutputParamTypes xmlns="">BOOL</OutputParamTypes>
+                        </data>
+                      </addData>
+                    </block>
+                    <outVariable localId="90000000006">
                       <position x="0" y="0" />
                       <connectionPointIn>
-                        <connection refLocalId="90000000004" formalParameter="Out1" />
+                        <connection refLocalId="90000000005" formalParameter="Out1" />
                       </connectionPointIn>
-                      <expression>signal_open_route_201</expression>
+                      <expression>variable_list.signal_open_route_201</expression>
                     </outVariable>
                     <inVariable localId="100000000000">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>route_open_BC</expression>
+                      <expression>variable_list.route_open_BC</expression>
                     </inVariable>
                     <inVariable localId="100000000001">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>route_destruction_demand_BC</expression>
+                      <expression>variable_list.route_destruction_demand_BC</expression>
                     </inVariable>
                     <block localId="100000000002" typeName="NOT">
                       <position x="0" y="0" />
@@ -3191,12 +3650,12 @@
                     <inVariable localId="100000000003">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>switch_detected_left_02</expression>
+                      <expression>variable_list.switch_detected_left_02</expression>
                     </inVariable>
                     <inVariable localId="100000000004">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>switch_detected_left_01</expression>
+                      <expression>variable_list.switch_detected_left_01</expression>
                     </inVariable>
                     <block localId="100000000005" typeName="AND">
                       <position x="0" y="0" />
@@ -3233,7 +3692,7 @@
                     <inVariable localId="100000000006">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>switch_manual_override_02</expression>
+                      <expression>variable_list.switch_manual_override_02</expression>
                     </inVariable>
                     <block localId="100000000007" typeName="NOT">
                       <position x="0" y="0" />
@@ -3262,7 +3721,39 @@
                         </data>
                       </addData>
                     </block>
-                    <block localId="100000000008" typeName="AND">
+                    <inVariable localId="100000000008">
+                      <position x="0" y="0" />
+                      <connectionPointOut />
+                      <expression>variable_list.close_command_signal_203</expression>
+                    </inVariable>
+                    <block localId="100000000009" typeName="NOT">
+                      <position x="0" y="0" />
+                      <inputVariables>
+                        <variable formalParameter="In1">
+                          <connectionPointIn>
+                            <connection refLocalId="100000000008" />
+                          </connectionPointIn>
+                        </variable>
+                      </inputVariables>
+                      <inOutVariables />
+                      <outputVariables>
+                        <variable formalParameter="Out1">
+                          <connectionPointOut />
+                        </variable>
+                      </outputVariables>
+                      <addData>
+                        <data name="http://www.3s-software.com/plcopenxml/fbdcalltype" handleUnknown="implementation">
+                          <CallType xmlns="">operator</CallType>
+                        </data>
+                        <data name="http://www.3s-software.com/plcopenxml/inputparamtypes" handleUnknown="implementation">
+                          <InputParamTypes xmlns="" />
+                        </data>
+                        <data name="http://www.3s-software.com/plcopenxml/outputparamtypes" handleUnknown="implementation">
+                          <OutputParamTypes xmlns="">BOOL</OutputParamTypes>
+                        </data>
+                      </addData>
+                    </block>
+                    <block localId="100000000010" typeName="AND">
                       <position x="0" y="0" />
                       <inputVariables>
                         <variable formalParameter="In1">
@@ -3285,6 +3776,11 @@
                             <connection refLocalId="100000000007" formalParameter="Out1" />
                           </connectionPointIn>
                         </variable>
+                        <variable formalParameter="In5">
+                          <connectionPointIn>
+                            <connection refLocalId="100000000009" formalParameter="Out1" />
+                          </connectionPointIn>
+                        </variable>
                       </inputVariables>
                       <inOutVariables />
                       <outputVariables>
@@ -3304,22 +3800,22 @@
                         </data>
                       </addData>
                     </block>
-                    <outVariable localId="100000000009">
+                    <outVariable localId="100000000011">
                       <position x="0" y="0" />
                       <connectionPointIn>
-                        <connection refLocalId="100000000008" formalParameter="Out1" />
+                        <connection refLocalId="100000000010" formalParameter="Out1" />
                       </connectionPointIn>
-                      <expression>signal_open_route_203</expression>
+                      <expression>variable_list.signal_open_route_203</expression>
                     </outVariable>
                     <inVariable localId="110000000000">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>route_open_DC</expression>
+                      <expression>variable_list.route_open_DC</expression>
                     </inVariable>
                     <inVariable localId="110000000001">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>route_destruction_demand_DC</expression>
+                      <expression>variable_list.route_destruction_demand_DC</expression>
                     </inVariable>
                     <block localId="110000000002" typeName="NOT">
                       <position x="0" y="0" />
@@ -3351,12 +3847,12 @@
                     <inVariable localId="110000000003">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>switch_detected_right_01</expression>
+                      <expression>variable_list.switch_detected_right_01</expression>
                     </inVariable>
                     <inVariable localId="110000000004">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>switch_detected_right_02</expression>
+                      <expression>variable_list.switch_detected_right_02</expression>
                     </inVariable>
                     <block localId="110000000005" typeName="AND">
                       <position x="0" y="0" />
@@ -3393,12 +3889,12 @@
                     <inVariable localId="110000000006">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>switch_manual_override_01</expression>
+                      <expression>variable_list.switch_manual_override_01</expression>
                     </inVariable>
                     <inVariable localId="110000000007">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>switch_manual_override_02</expression>
+                      <expression>variable_list.switch_manual_override_02</expression>
                     </inVariable>
                     <block localId="110000000008" typeName="OR">
                       <position x="0" y="0" />
@@ -3459,7 +3955,39 @@
                         </data>
                       </addData>
                     </block>
-                    <block localId="110000000010" typeName="AND">
+                    <inVariable localId="110000000010">
+                      <position x="0" y="0" />
+                      <connectionPointOut />
+                      <expression>variable_list.close_command_signal_205</expression>
+                    </inVariable>
+                    <block localId="110000000011" typeName="NOT">
+                      <position x="0" y="0" />
+                      <inputVariables>
+                        <variable formalParameter="In1">
+                          <connectionPointIn>
+                            <connection refLocalId="110000000010" />
+                          </connectionPointIn>
+                        </variable>
+                      </inputVariables>
+                      <inOutVariables />
+                      <outputVariables>
+                        <variable formalParameter="Out1">
+                          <connectionPointOut />
+                        </variable>
+                      </outputVariables>
+                      <addData>
+                        <data name="http://www.3s-software.com/plcopenxml/fbdcalltype" handleUnknown="implementation">
+                          <CallType xmlns="">operator</CallType>
+                        </data>
+                        <data name="http://www.3s-software.com/plcopenxml/inputparamtypes" handleUnknown="implementation">
+                          <InputParamTypes xmlns="" />
+                        </data>
+                        <data name="http://www.3s-software.com/plcopenxml/outputparamtypes" handleUnknown="implementation">
+                          <OutputParamTypes xmlns="">BOOL</OutputParamTypes>
+                        </data>
+                      </addData>
+                    </block>
+                    <block localId="110000000012" typeName="AND">
                       <position x="0" y="0" />
                       <inputVariables>
                         <variable formalParameter="In1">
@@ -3482,6 +4010,11 @@
                             <connection refLocalId="110000000009" formalParameter="Out1" />
                           </connectionPointIn>
                         </variable>
+                        <variable formalParameter="In5">
+                          <connectionPointIn>
+                            <connection refLocalId="110000000011" formalParameter="Out1" />
+                          </connectionPointIn>
+                        </variable>
                       </inputVariables>
                       <inOutVariables />
                       <outputVariables>
@@ -3501,22 +4034,22 @@
                         </data>
                       </addData>
                     </block>
-                    <outVariable localId="110000000011">
+                    <outVariable localId="110000000013">
                       <position x="0" y="0" />
                       <connectionPointIn>
-                        <connection refLocalId="110000000010" formalParameter="Out1" />
+                        <connection refLocalId="110000000012" formalParameter="Out1" />
                       </connectionPointIn>
-                      <expression>signal_open_route_205</expression>
+                      <expression>variable_list.signal_open_route_205</expression>
                     </outVariable>
                     <inVariable localId="120000000000">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>route_open_CB</expression>
+                      <expression>variable_list.route_open_CB</expression>
                     </inVariable>
                     <inVariable localId="120000000001">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>route_destruction_demand_CB</expression>
+                      <expression>variable_list.route_destruction_demand_CB</expression>
                     </inVariable>
                     <block localId="120000000002" typeName="NOT">
                       <position x="0" y="0" />
@@ -3548,12 +4081,12 @@
                     <inVariable localId="120000000003">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>switch_detected_left_02</expression>
+                      <expression>variable_list.switch_detected_left_02</expression>
                     </inVariable>
                     <inVariable localId="120000000004">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>switch_detected_left_01</expression>
+                      <expression>variable_list.switch_detected_left_01</expression>
                     </inVariable>
                     <block localId="120000000005" typeName="AND">
                       <position x="0" y="0" />
@@ -3590,7 +4123,7 @@
                     <inVariable localId="120000000006">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>switch_manual_override_02</expression>
+                      <expression>variable_list.switch_manual_override_02</expression>
                     </inVariable>
                     <block localId="120000000007" typeName="NOT">
                       <position x="0" y="0" />
@@ -3664,12 +4197,12 @@
                     <inVariable localId="120000000009">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>route_open_CD</expression>
+                      <expression>variable_list.route_open_CD</expression>
                     </inVariable>
                     <inVariable localId="120000000010">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>route_destruction_demand_CD</expression>
+                      <expression>variable_list.route_destruction_demand_CD</expression>
                     </inVariable>
                     <block localId="120000000011" typeName="NOT">
                       <position x="0" y="0" />
@@ -3701,12 +4234,12 @@
                     <inVariable localId="120000000012">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>switch_detected_right_01</expression>
+                      <expression>variable_list.switch_detected_right_01</expression>
                     </inVariable>
                     <inVariable localId="120000000013">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>switch_detected_right_02</expression>
+                      <expression>variable_list.switch_detected_right_02</expression>
                     </inVariable>
                     <block localId="120000000014" typeName="AND">
                       <position x="0" y="0" />
@@ -3743,12 +4276,12 @@
                     <inVariable localId="120000000015">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>switch_manual_override_02</expression>
+                      <expression>variable_list.switch_manual_override_02</expression>
                     </inVariable>
                     <inVariable localId="120000000016">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>switch_manual_override_01</expression>
+                      <expression>variable_list.switch_manual_override_01</expression>
                     </inVariable>
                     <block localId="120000000017" typeName="OR">
                       <position x="0" y="0" />
@@ -3883,22 +4416,86 @@
                         </data>
                       </addData>
                     </block>
-                    <outVariable localId="120000000021">
+                    <inVariable localId="120000000021">
+                      <position x="0" y="0" />
+                      <connectionPointOut />
+                      <expression>variable_list.close_command_signal_206</expression>
+                    </inVariable>
+                    <block localId="120000000022" typeName="NOT">
+                      <position x="0" y="0" />
+                      <inputVariables>
+                        <variable formalParameter="In1">
+                          <connectionPointIn>
+                            <connection refLocalId="120000000021" />
+                          </connectionPointIn>
+                        </variable>
+                      </inputVariables>
+                      <inOutVariables />
+                      <outputVariables>
+                        <variable formalParameter="Out1">
+                          <connectionPointOut />
+                        </variable>
+                      </outputVariables>
+                      <addData>
+                        <data name="http://www.3s-software.com/plcopenxml/fbdcalltype" handleUnknown="implementation">
+                          <CallType xmlns="">operator</CallType>
+                        </data>
+                        <data name="http://www.3s-software.com/plcopenxml/inputparamtypes" handleUnknown="implementation">
+                          <InputParamTypes xmlns="" />
+                        </data>
+                        <data name="http://www.3s-software.com/plcopenxml/outputparamtypes" handleUnknown="implementation">
+                          <OutputParamTypes xmlns="">BOOL</OutputParamTypes>
+                        </data>
+                      </addData>
+                    </block>
+                    <block localId="120000000023" typeName="AND">
+                      <position x="0" y="0" />
+                      <inputVariables>
+                        <variable formalParameter="In1">
+                          <connectionPointIn>
+                            <connection refLocalId="120000000020" formalParameter="Out1" />
+                          </connectionPointIn>
+                        </variable>
+                        <variable formalParameter="In2">
+                          <connectionPointIn>
+                            <connection refLocalId="120000000022" formalParameter="Out1" />
+                          </connectionPointIn>
+                        </variable>
+                      </inputVariables>
+                      <inOutVariables />
+                      <outputVariables>
+                        <variable formalParameter="Out1">
+                          <connectionPointOut />
+                        </variable>
+                      </outputVariables>
+                      <addData>
+                        <data name="http://www.3s-software.com/plcopenxml/fbdcalltype" handleUnknown="implementation">
+                          <CallType xmlns="">operator</CallType>
+                        </data>
+                        <data name="http://www.3s-software.com/plcopenxml/inputparamtypes" handleUnknown="implementation">
+                          <InputParamTypes xmlns="" />
+                        </data>
+                        <data name="http://www.3s-software.com/plcopenxml/outputparamtypes" handleUnknown="implementation">
+                          <OutputParamTypes xmlns="">BOOL</OutputParamTypes>
+                        </data>
+                      </addData>
+                    </block>
+                    <outVariable localId="120000000024">
                       <position x="0" y="0" />
                       <connectionPointIn>
-                        <connection refLocalId="120000000020" formalParameter="Out1" />
+                        <connection refLocalId="120000000023" formalParameter="Out1" />
                       </connectionPointIn>
-                      <expression>signal_open_route_206</expression>
+                      <expression>variable_list.signal_open_route_206</expression>
                     </outVariable>
                     <inVariable localId="130000000000">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>route_open_ED</expression>
+                      <expression>variable_list.route_open_ED</expression>
                     </inVariable>
                     <inVariable localId="130000000001">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>route_destruction_demand_ED</expression>
+                      <expression>variable_list.route_destruction_demand_ED</expression>
                     </inVariable>
                     <block localId="130000000002" typeName="NOT">
                       <position x="0" y="0" />
@@ -3930,12 +4527,12 @@
                     <inVariable localId="130000000003">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>switch_detected_left_01</expression>
+                      <expression>variable_list.switch_detected_left_01</expression>
                     </inVariable>
                     <inVariable localId="130000000004">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>switch_detected_right_02</expression>
+                      <expression>variable_list.switch_detected_right_02</expression>
                     </inVariable>
                     <block localId="130000000005" typeName="AND">
                       <position x="0" y="0" />
@@ -3972,7 +4569,7 @@
                     <inVariable localId="130000000006">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>switch_manual_override_01</expression>
+                      <expression>variable_list.switch_manual_override_01</expression>
                     </inVariable>
                     <block localId="130000000007" typeName="NOT">
                       <position x="0" y="0" />
@@ -4001,7 +4598,39 @@
                         </data>
                       </addData>
                     </block>
-                    <block localId="130000000008" typeName="AND">
+                    <inVariable localId="130000000008">
+                      <position x="0" y="0" />
+                      <connectionPointOut />
+                      <expression>variable_list.close_command_signal_208</expression>
+                    </inVariable>
+                    <block localId="130000000009" typeName="NOT">
+                      <position x="0" y="0" />
+                      <inputVariables>
+                        <variable formalParameter="In1">
+                          <connectionPointIn>
+                            <connection refLocalId="130000000008" />
+                          </connectionPointIn>
+                        </variable>
+                      </inputVariables>
+                      <inOutVariables />
+                      <outputVariables>
+                        <variable formalParameter="Out1">
+                          <connectionPointOut />
+                        </variable>
+                      </outputVariables>
+                      <addData>
+                        <data name="http://www.3s-software.com/plcopenxml/fbdcalltype" handleUnknown="implementation">
+                          <CallType xmlns="">operator</CallType>
+                        </data>
+                        <data name="http://www.3s-software.com/plcopenxml/inputparamtypes" handleUnknown="implementation">
+                          <InputParamTypes xmlns="" />
+                        </data>
+                        <data name="http://www.3s-software.com/plcopenxml/outputparamtypes" handleUnknown="implementation">
+                          <OutputParamTypes xmlns="">BOOL</OutputParamTypes>
+                        </data>
+                      </addData>
+                    </block>
+                    <block localId="130000000010" typeName="AND">
                       <position x="0" y="0" />
                       <inputVariables>
                         <variable formalParameter="In1">
@@ -4024,6 +4653,11 @@
                             <connection refLocalId="130000000007" formalParameter="Out1" />
                           </connectionPointIn>
                         </variable>
+                        <variable formalParameter="In5">
+                          <connectionPointIn>
+                            <connection refLocalId="130000000009" formalParameter="Out1" />
+                          </connectionPointIn>
+                        </variable>
                       </inputVariables>
                       <inOutVariables />
                       <outputVariables>
@@ -4043,12 +4677,12 @@
                         </data>
                       </addData>
                     </block>
-                    <outVariable localId="130000000009">
+                    <outVariable localId="130000000011">
                       <position x="0" y="0" />
                       <connectionPointIn>
-                        <connection refLocalId="130000000008" formalParameter="Out1" />
+                        <connection refLocalId="130000000010" formalParameter="Out1" />
                       </connectionPointIn>
-                      <expression>signal_open_route_208</expression>
+                      <expression>variable_list.signal_open_route_208</expression>
                     </outVariable>
                   </FBD>
                 </body>
@@ -4063,7 +4697,7 @@
               <pou name="AUTO_DESTRUCT" pouType="functionBlock">
                 <interface>
                   <inputVars>
-                    <variable name="route_state">
+                    <variable name="route_open">
                       <type>
                         <BOOL />
                       </type>
@@ -4137,7 +4771,7 @@
                     <inVariable localId="3">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>route_state</expression>
+                      <expression>route_open</expression>
                     </inVariable>
                     <transition localId="4">
                       <position x="0" y="0" />
@@ -4152,7 +4786,7 @@
                       <addData>
                         <data name="http://www.3s-software.com/plcopenxml/sfc/element" handleUnknown="implementation">
                           <attributes xmlns="">
-                            <attribute guid="38391c6d-6d4a-42f8-8ee7-9f45e5adafa8">route_state</attribute>
+                            <attribute guid="38391c6d-6d4a-42f8-8ee7-9f45e5adafa8">route_open</attribute>
                             <attribute guid="01580b27-6378-448b-8ecb-0e4b795b58d6">FALSE</attribute>
                             <attribute guid="bc882c11-1e91-4dd8-a6b8-2075724ed18b">0</attribute>
                             <attribute guid="62e1754b-7629-4e63-9cec-10ae0c536f1f">FALSE</attribute>
@@ -4199,7 +4833,7 @@
                     <inVariable localId="7">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>last_TTD_occupied and NOT destination_TTD_occupied and route_state</expression>
+                      <expression>last_TTD_occupied and NOT destination_TTD_occupied and route_open</expression>
                     </inVariable>
                     <transition localId="8">
                       <position x="0" y="0" />
@@ -4214,7 +4848,7 @@
                       <addData>
                         <data name="http://www.3s-software.com/plcopenxml/sfc/element" handleUnknown="implementation">
                           <attributes xmlns="">
-                            <attribute guid="38391c6d-6d4a-42f8-8ee7-9f45e5adafa8">last_TTD_occupied and NOT destination_TTD_occupied and route_state</attribute>
+                            <attribute guid="38391c6d-6d4a-42f8-8ee7-9f45e5adafa8">last_TTD_occupied and NOT destination_TTD_occupied and route_open</attribute>
                             <attribute guid="01580b27-6378-448b-8ecb-0e4b795b58d6">FALSE</attribute>
                             <attribute guid="bc882c11-1e91-4dd8-a6b8-2075724ed18b">0</attribute>
                             <attribute guid="62e1754b-7629-4e63-9cec-10ae0c536f1f">FALSE</attribute>
@@ -4226,7 +4860,7 @@
                     <inVariable localId="9">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>NOT route_state</expression>
+                      <expression>NOT route_open</expression>
                     </inVariable>
                     <transition localId="10">
                       <position x="0" y="0" />
@@ -4241,7 +4875,7 @@
                       <addData>
                         <data name="http://www.3s-software.com/plcopenxml/sfc/element" handleUnknown="implementation">
                           <attributes xmlns="">
-                            <attribute guid="38391c6d-6d4a-42f8-8ee7-9f45e5adafa8">NOT route_state</attribute>
+                            <attribute guid="38391c6d-6d4a-42f8-8ee7-9f45e5adafa8">NOT route_open</attribute>
                             <attribute guid="01580b27-6378-448b-8ecb-0e4b795b58d6">FALSE</attribute>
                             <attribute guid="bc882c11-1e91-4dd8-a6b8-2075724ed18b">0</attribute>
                             <attribute guid="62e1754b-7629-4e63-9cec-10ae0c536f1f">FALSE</attribute>
@@ -4312,7 +4946,7 @@
                     <inVariable localId="15">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>last_TTD_occupied and destination_TTD_occupied and route_state</expression>
+                      <expression>last_TTD_occupied and destination_TTD_occupied and route_open</expression>
                     </inVariable>
                     <transition localId="16">
                       <position x="0" y="0" />
@@ -4327,7 +4961,7 @@
                       <addData>
                         <data name="http://www.3s-software.com/plcopenxml/sfc/element" handleUnknown="implementation">
                           <attributes xmlns="">
-                            <attribute guid="38391c6d-6d4a-42f8-8ee7-9f45e5adafa8">last_TTD_occupied and destination_TTD_occupied and route_state</attribute>
+                            <attribute guid="38391c6d-6d4a-42f8-8ee7-9f45e5adafa8">last_TTD_occupied and destination_TTD_occupied and route_open</attribute>
                             <attribute guid="01580b27-6378-448b-8ecb-0e4b795b58d6">FALSE</attribute>
                             <attribute guid="bc882c11-1e91-4dd8-a6b8-2075724ed18b">0</attribute>
                             <attribute guid="62e1754b-7629-4e63-9cec-10ae0c536f1f">FALSE</attribute>
@@ -4339,7 +4973,7 @@
                     <inVariable localId="17">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>NOT last_TTD_occupied OR NOT route_state</expression>
+                      <expression>NOT last_TTD_occupied OR NOT route_open</expression>
                     </inVariable>
                     <transition localId="18">
                       <position x="0" y="0" />
@@ -4354,7 +4988,7 @@
                       <addData>
                         <data name="http://www.3s-software.com/plcopenxml/sfc/element" handleUnknown="implementation">
                           <attributes xmlns="">
-                            <attribute guid="38391c6d-6d4a-42f8-8ee7-9f45e5adafa8">NOT last_TTD_occupied OR NOT route_state</attribute>
+                            <attribute guid="38391c6d-6d4a-42f8-8ee7-9f45e5adafa8">NOT last_TTD_occupied OR NOT route_open</attribute>
                             <attribute guid="01580b27-6378-448b-8ecb-0e4b795b58d6">FALSE</attribute>
                             <attribute guid="bc882c11-1e91-4dd8-a6b8-2075724ed18b">0</attribute>
                             <attribute guid="62e1754b-7629-4e63-9cec-10ae0c536f1f">FALSE</attribute>
@@ -4425,7 +5059,7 @@
                     <inVariable localId="23">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>NOT last_TTD_occupied and destination_TTD_occupied and route_state</expression>
+                      <expression>NOT last_TTD_occupied and destination_TTD_occupied and route_open</expression>
                     </inVariable>
                     <transition localId="24">
                       <position x="0" y="0" />
@@ -4440,7 +5074,7 @@
                       <addData>
                         <data name="http://www.3s-software.com/plcopenxml/sfc/element" handleUnknown="implementation">
                           <attributes xmlns="">
-                            <attribute guid="38391c6d-6d4a-42f8-8ee7-9f45e5adafa8">NOT last_TTD_occupied and destination_TTD_occupied and route_state</attribute>
+                            <attribute guid="38391c6d-6d4a-42f8-8ee7-9f45e5adafa8">NOT last_TTD_occupied and destination_TTD_occupied and route_open</attribute>
                             <attribute guid="01580b27-6378-448b-8ecb-0e4b795b58d6">FALSE</attribute>
                             <attribute guid="bc882c11-1e91-4dd8-a6b8-2075724ed18b">0</attribute>
                             <attribute guid="62e1754b-7629-4e63-9cec-10ae0c536f1f">FALSE</attribute>
@@ -4452,7 +5086,7 @@
                     <inVariable localId="25">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>NOT destination_TTD_occupied OR NOT route_state</expression>
+                      <expression>NOT destination_TTD_occupied OR NOT route_open</expression>
                     </inVariable>
                     <transition localId="26">
                       <position x="0" y="0" />
@@ -4467,7 +5101,7 @@
                       <addData>
                         <data name="http://www.3s-software.com/plcopenxml/sfc/element" handleUnknown="implementation">
                           <attributes xmlns="">
-                            <attribute guid="38391c6d-6d4a-42f8-8ee7-9f45e5adafa8">NOT destination_TTD_occupied OR NOT route_state</attribute>
+                            <attribute guid="38391c6d-6d4a-42f8-8ee7-9f45e5adafa8">NOT destination_TTD_occupied OR NOT route_open</attribute>
                             <attribute guid="01580b27-6378-448b-8ecb-0e4b795b58d6">FALSE</attribute>
                             <attribute guid="bc882c11-1e91-4dd8-a6b8-2075724ed18b">0</attribute>
                             <attribute guid="62e1754b-7629-4e63-9cec-10ae0c536f1f">FALSE</attribute>
@@ -5409,6 +6043,256 @@
                 </addData>
               </pou>
             </data>
+            <data name="http://www.3s-software.com/plcopenxml/pou" handleUnknown="implementation">
+              <pou name="simulation" pouType="program">
+                <interface>
+                  <localVars>
+                    <variable name="NOT_switch_detected_left_01">
+                      <type>
+                        <BOOL />
+                      </type>
+                    </variable>
+                    <variable name="NOT_switch_detected_right_01">
+                      <type>
+                        <BOOL />
+                      </type>
+                    </variable>
+                    <variable name="NOT_switch_detected_left_02">
+                      <type>
+                        <BOOL />
+                      </type>
+                    </variable>
+                    <variable name="NOT_switch_detected_right_02">
+                      <type>
+                        <BOOL />
+                      </type>
+                    </variable>
+                    <variable name="NOT_switch_middle_01">
+                      <type>
+                        <BOOL />
+                      </type>
+                    </variable>
+                    <variable name="NOT_switch_middle_02">
+                      <type>
+                        <BOOL />
+                      </type>
+                    </variable>
+                    <variable name="switch_commanded_01">
+                      <type>
+                        <BOOL />
+                      </type>
+                    </variable>
+                    <variable name="switch_commanded_02">
+                      <type>
+                        <BOOL />
+                      </type>
+                    </variable>
+                    <variable name="switch_moving_01">
+                      <type>
+                        <BOOL />
+                      </type>
+                    </variable>
+                    <variable name="switch_moving_02">
+                      <type>
+                        <BOOL />
+                      </type>
+                    </variable>
+                    <variable name="Trains">
+                      <type>
+                        <array>
+                          <dimension lower="1" upper="6" />
+                          <baseType>
+                            <derived name="TRAIN_STATE" />
+                          </baseType>
+                        </array>
+                      </type>
+                      <initialValue>
+                        <arrayValue>
+                          <value repetitionValue="6">
+                            <structValue>
+                              <value member="rear_pos">
+                                <simpleValue value="TC.NIL" />
+                              </value>
+                              <value member="front_pos">
+                                <simpleValue value="TC.NIL" />
+                              </value>
+                              <value member="orientation">
+                                <simpleValue value="DIR.NIL" />
+                              </value>
+                            </structValue>
+                          </value>
+                        </arrayValue>
+                      </initialValue>
+                    </variable>
+                  </localVars>
+                </interface>
+                <body>
+                  <ST>
+                    <xhtml xmlns="http://www.w3.org/1999/xhtml">
+NOT_switch_detected_left_01 := NOT(variable_list.switch_detected_left_01);
+NOT_switch_detected_left_02 := NOT(variable_list.switch_detected_left_02);
+NOT_switch_detected_right_01 := NOT(variable_list.switch_detected_right_01);
+NOT_switch_detected_right_02 := NOT(variable_list.switch_detected_right_02);
+
+NOT_switch_middle_01 := variable_list.switch_detected_left_01 OR variable_list.switch_detected_right_01;
+NOT_switch_middle_02 := variable_list.switch_detected_left_02 OR variable_list.switch_detected_right_02;
+
+switch_commanded_01 := variable_list.switch_command_left_01 OR variable_list.switch_command_right_01;
+switch_commanded_02 := variable_list.switch_command_left_02 OR variable_list.switch_command_right_02;
+
+switch_moving_01 :=
+		variable_list.switch_command_left_01 AND NOT(variable_list.switch_detected_left_01) 
+	OR	variable_list.switch_command_right_01 AND NOT(variable_list.switch_detected_right_01) ;
+switch_moving_02 :=
+		variable_list.switch_command_left_02 AND NOT(variable_list.switch_detected_left_02) 
+	OR	variable_list.switch_command_right_02 AND NOT(variable_list.switch_detected_right_02) ;
+
+</xhtml>
+                  </ST>
+                </body>
+                <addData>
+                  <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                    <ObjectId>bcaee659-b310-4870-b850-1ca7b20b1a40</ObjectId>
+                  </data>
+                </addData>
+              </pou>
+            </data>
+            <data name="http://www.3s-software.com/plcopenxml/pou" handleUnknown="implementation">
+              <pou name="Next_TC" pouType="function">
+                <interface>
+                  <returnType>
+                    <derived name="TC" />
+                  </returnType>
+                  <inputVars>
+                    <variable name="tc">
+                      <type>
+                        <derived name="TC" />
+                      </type>
+                    </variable>
+                    <variable name="dir">
+                      <type>
+                        <derived name="DIR" />
+                      </type>
+                    </variable>
+                    <variable name="sw_pos_1">
+                      <type>
+                        <derived name="SW_POS" />
+                      </type>
+                    </variable>
+                    <variable name="sw_pos_2">
+                      <type>
+                        <derived name="SW_POS" />
+                      </type>
+                    </variable>
+                  </inputVars>
+                  <outputVars>
+                    <variable name="nexttc">
+                      <type>
+                        <derived name="TC" />
+                      </type>
+                    </variable>
+                  </outputVars>
+                </interface>
+                <body>
+                  <ST>
+                    <xhtml xmlns="http://www.w3.org/1999/xhtml">IF dir = DIR.UP THEN
+	IF tc = TC.TC_101 THEN
+		nexttc := TC.TC_103;
+	ELSE IF tc = TC.TC_102 THEN
+		nexttc := TC.TC_104;
+	ELSE IF tc = TC.TC_103 THEN
+		nexttc := TC.TC_105;
+	ELSE IF tc = TC.TC_104 THEN
+		nexttc := TC.TC_106;
+	ELSE IF tc = TC.TC_105 THEN
+		nexttc := TC.TC_107;
+	ELSE IF tc = TC.TC_106 THEN
+		nexttc := TC.TC_108;
+	ELSE IF tc = TC.TC_107 THEN
+		nexttc := TC.TC_109;
+	ELSE IF tc = TC.TC_108 THEN
+		nexttc := TC.TC_110;
+	ELSE IF tc = TC.TC_109 THEN
+		nexttc := TC.TC_111;
+	ELSE IF tc = TC.TC_110 THEN
+		IF sw_pos_1 = SW_POS.LEFT THEN
+			nexttc := TC.TC_112;
+		ELSE IF sw_pos_1 = SW_POS.RIGHT THEN
+			nexttc := TC.TC_109;
+		ELSE (* sw_pos_1 = SW_POS.NIL *)
+			nexttc := TC.NIL;
+		END_IF END_IF
+	ELSE IF tc = TC.TC_111 THEN
+		nexttc := TC.TC_113;
+	ELSE IF tc = TC.TC_112 THEN
+		nexttc := TC.TC_114;
+	ELSE IF tc = TC.TC_113 THEN
+		nexttc := TC.TC_115;
+	ELSE IF tc = TC.TC_114 THEN
+		nexttc := TC.TC_116;
+	ELSE IF tc = TC.TC_115 THEN
+		nexttc := TC.NIL;
+	ELSE IF tc = TC.TC_116 THEN
+		nexttc := TC.NIL;
+	ELSE (* tc = TC.NIL *)
+		nexttc := TC.NIL;
+	END_IF END_IF END_IF END_IF END_IF END_IF END_IF END_IF END_IF END_IF END_IF END_IF END_IF END_IF END_IF END_IF
+	
+ELSE IF dir = DIR.DOWN THEN
+	IF tc = TC.TC_101 THEN
+		nexttc := TC.NIL;
+	ELSE IF tc = TC.TC_102 THEN
+		nexttc := TC.NIL;
+	ELSE IF tc = TC.TC_103 THEN
+		nexttc := TC.TC_101;
+	ELSE IF tc = TC.TC_104 THEN
+		nexttc := TC.TC_102;
+	ELSE IF tc = TC.TC_105 THEN
+		nexttc := TC.TC_103;
+	ELSE IF tc = TC.TC_106 THEN
+		nexttc := TC.TC_104;
+	ELSE IF tc = TC.TC_107 THEN
+		nexttc := TC.TC_105;
+	ELSE IF tc = TC.TC_108 THEN
+		nexttc := TC.TC_106;
+	ELSE IF tc = TC.TC_109 THEN
+		IF sw_pos_2 = SW_POS.LEFT THEN
+			nexttc := TC.TC_107;
+		ELSE IF sw_pos_2 = SW_POS.RIGHT THEN
+			nexttc := TC.TC_110;
+		ELSE (* sw_pos_2 = SW_POS.NIL *)
+			nexttc := TC.NIL;
+		END_IF END_IF
+	ELSE IF tc = TC.TC_110 THEN
+		nexttc := TC.TC_108;
+	ELSE IF tc = TC.TC_111 THEN
+		nexttc := TC.TC_109;
+	ELSE IF tc = TC.TC_112 THEN
+		nexttc := TC.TC_110;
+	ELSE IF tc = TC.TC_113 THEN
+		nexttc := TC.TC_111;
+	ELSE IF tc = TC.TC_114 THEN
+		nexttc := TC.TC_112;
+	ELSE IF tc = TC.TC_115 THEN
+		nexttc := TC.TC_113;
+	ELSE IF tc = TC.TC_116 THEN
+		nexttc := TC.TC_114;
+	ELSE (* tc = TC.NIL *)
+		nexttc := TC.NIL;
+	END_IF END_IF END_IF END_IF END_IF END_IF END_IF END_IF END_IF END_IF END_IF END_IF END_IF END_IF END_IF END_IF
+
+ELSE (* dir = DIR.NIL *)
+	nexttc := TC.NIL;
+END_IF END_IF</xhtml>
+                  </ST>
+                </body>
+                <addData>
+                  <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                    <ObjectId>8004b2f4-31a1-4a06-899f-c8d73477efcf</ObjectId>
+                  </data>
+                </addData>
+              </pou>
+            </data>
             <data name="http://www.3s-software.com/plcopenxml/libraries" handleUnknown="implementation">
               <Libraries>
                 <Library Name="#IoStandard" Namespace="IoStandard" HideWhenReferencedAsDependency="false" PublishSymbolsInContainer="false" SystemLibrary="true" LinkAllContent="true" DefaultResolution="IoStandard, 3.5.17.0 (System)" />
@@ -5418,8 +6302,28 @@
                 <Library Name="#BreakpointLogging" Namespace="BPLog" HideWhenReferencedAsDependency="false" PublishSymbolsInContainer="false" SystemLibrary="true" LinkAllContent="false" DefaultResolution="Breakpoint Logging Functions, * (3S - Smart Software Solutions GmbH)" />
                 <Library Name="#IecSfc" Namespace="IecSfc" HideWhenReferencedAsDependency="false" PublishSymbolsInContainer="false" SystemLibrary="true" LinkAllContent="false" DefaultResolution="IecSfc, 4.1.0.0 (System)" />
                 <Library Name="#Analyzation" Namespace="Analyzation" HideWhenReferencedAsDependency="false" PublishSymbolsInContainer="false" SystemLibrary="true" LinkAllContent="false" DefaultResolution="Analyzation, 4.1.0.0 (System)" />
+                <Library Name="#System_VisuElems" Namespace="VisuElems" HideWhenReferencedAsDependency="false" PublishSymbolsInContainer="false" SystemLibrary="true" LinkAllContent="false" DefaultResolution="VisuElems, 4.5.0.0 (System)" ResolverGuid="2717eb6a-dd07-4c66-8d8d-cacebd7b18ae" />
+                <Library Name="#System_VisuElemMeter" Namespace="VisuElemMeter" HideWhenReferencedAsDependency="false" PublishSymbolsInContainer="false" SystemLibrary="true" LinkAllContent="false" DefaultResolution="VisuElemMeter, 4.5.0.0 (System)" ResolverGuid="2717eb6a-dd07-4c66-8d8d-cacebd7b18ae" />
+                <Library Name="#System_VisuElemsSpecialControls" Namespace="VisuElemsSpecialControls" HideWhenReferencedAsDependency="false" PublishSymbolsInContainer="false" SystemLibrary="true" LinkAllContent="false" DefaultResolution="VisuElemsSpecialControls, 4.5.0.0 (System)" ResolverGuid="2717eb6a-dd07-4c66-8d8d-cacebd7b18ae" />
+                <Library Name="#System_VisuElemsWinControls" Namespace="VisuElemsWinControls" HideWhenReferencedAsDependency="false" PublishSymbolsInContainer="false" SystemLibrary="true" LinkAllContent="false" DefaultResolution="VisuElemsWinControls, 4.5.0.0 (System)" ResolverGuid="2717eb6a-dd07-4c66-8d8d-cacebd7b18ae" />
+                <Library Name="#System_VisuElemTextEditor" Namespace="VisuElemTextEditor" HideWhenReferencedAsDependency="false" PublishSymbolsInContainer="false" SystemLibrary="true" LinkAllContent="false" DefaultResolution="VisuElemTextEditor, 4.5.0.0 (System)" ResolverGuid="2717eb6a-dd07-4c66-8d8d-cacebd7b18ae" />
+                <Library Name="#System_VisuElemTrace" Namespace="VisuElemTrace" HideWhenReferencedAsDependency="false" PublishSymbolsInContainer="false" SystemLibrary="true" LinkAllContent="false" DefaultResolution="VisuElemTrace, 4.5.0.0 (System)" ResolverGuid="2717eb6a-dd07-4c66-8d8d-cacebd7b18ae" />
+                <Library Name="#System_VisuNativeControl" Namespace="VisuNativeControl" HideWhenReferencedAsDependency="false" PublishSymbolsInContainer="false" SystemLibrary="true" LinkAllContent="false" DefaultResolution="VisuNativeControl, 4.5.0.0 (System)" ResolverGuid="2717eb6a-dd07-4c66-8d8d-cacebd7b18ae" />
+                <Library Name="#System_VisuElemsAlarm" Namespace="VisuElemsAlarm" HideWhenReferencedAsDependency="false" PublishSymbolsInContainer="false" SystemLibrary="true" LinkAllContent="false" DefaultResolution="VisuElemsAlarm, 4.5.0.0 (System)" ResolverGuid="2717eb6a-dd07-4c66-8d8d-cacebd7b18ae" />
+                <Library Name="#System_VisuElemCamDisplayer" Namespace="VisuElemCamDisplayer" HideWhenReferencedAsDependency="false" PublishSymbolsInContainer="false" SystemLibrary="true" LinkAllContent="false" DefaultResolution="VisuElemCamDisplayer, 4.5.0.0 (System)" ResolverGuid="2717eb6a-dd07-4c66-8d8d-cacebd7b18ae" />
+                <Library Name="#System_VisuElem3DPath" Namespace="VisuElem3DPath" HideWhenReferencedAsDependency="false" PublishSymbolsInContainer="false" SystemLibrary="true" LinkAllContent="false" DefaultResolution="VisuElem3DPath, 4.5.0.0 (System)" ResolverGuid="2717eb6a-dd07-4c66-8d8d-cacebd7b18ae" />
+                <Library Name="#System_VisuElemsDateTime" Namespace="VisuElemsDateTime" HideWhenReferencedAsDependency="false" PublishSymbolsInContainer="false" SystemLibrary="true" LinkAllContent="false" DefaultResolution="VisuElemsDateTime, 4.5.0.0 (System)" ResolverGuid="2717eb6a-dd07-4c66-8d8d-cacebd7b18ae" />
+                <Library Name="#System_VisuElemXYChart" Namespace="VisuElemXYChart" HideWhenReferencedAsDependency="false" PublishSymbolsInContainer="false" SystemLibrary="true" LinkAllContent="false" DefaultResolution="VisuElemXYChart, 4.5.0.0 (System)" ResolverGuid="2717eb6a-dd07-4c66-8d8d-cacebd7b18ae" />
+                <Library Name="#System_VisuInputs" Namespace="VisuInputs" HideWhenReferencedAsDependency="false" PublishSymbolsInContainer="false" SystemLibrary="true" LinkAllContent="false" DefaultResolution="VisuInputs, 4.5.0.0 (System)" ResolverGuid="2717eb6a-dd07-4c66-8d8d-cacebd7b18ae" />
                 <PlaceholderRedirections>
                   <PlaceholderRedirection Placeholder="Standard" Redirection="Standard, 3.5.18.0 (System)" />
+                  <PlaceholderRedirection Placeholder="StringUtils" Redirection="StringUtils, 3.5.20.0 (System)" />
+                  <PlaceholderRedirection Placeholder="Standard64" Redirection="Standard64, 3.5.20.0 (System)" />
+                  <PlaceholderRedirection Placeholder="Collections" Redirection="Collections, 3.5.17.0 (System)" />
+                  <PlaceholderRedirection Placeholder="FloatingPointUtils" Redirection="FloatingPointUtils, 3.5.17.0 (System)" />
+                  <PlaceholderRedirection Placeholder="Util" Redirection="Util, 3.5.19.0 (System)" />
+                  <PlaceholderRedirection Placeholder="ElementCollections" Redirection="Element Collections, 3.5.17.0 (3S - Smart Software Solutions GmbH)" />
+                  <PlaceholderRedirection Placeholder="CBML" Redirection="Common Behaviour Model, 3.5.17.0 (3S - Smart Software Solutions GmbH)" />
                 </PlaceholderRedirections>
                 <addData>
                   <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
@@ -5427,6 +6331,11 @@
                   </data>
                 </addData>
               </Libraries>
+            </data>
+            <data name="http://www.3s-software.com/plcopenxml/buildproperties" handleUnknown="implementation">
+              <BuildProperties>
+                <CompilerDefines>GENERATE_OVERLAY_VISU,VISU_USEPROPERTYINFO</CompilerDefines>
+              </BuildProperties>
             </data>
             <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
               <ObjectId>d43f70c5-7ac7-4256-94f6-a89fdca42509</ObjectId>
@@ -5438,8 +6347,8 @@
             <Device xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="">
               <DeviceType>
                 <DeviceIdentification>
-                  <Type>4096</Type>
-                  <Id>0000 0004</Id>
+                  <Type>4097</Type>
+                  <Id>0000 000a</Id>
                   <Version>3.5.20.0</Version>
                 </DeviceIdentification>
                 <Connector moduleType="256" interface="Common.PCI" connectorId="0">
@@ -5470,12 +6379,21 @@
             <Object Name="Library Manager" ObjectId="914652d1-2817-47e5-b029-15490a2be99c" />
             <Object Name="PLC_PRG" ObjectId="4dc79ecd-7afb-44bc-b9b5-1946fab2a32d" />
             <Object Name="MainTask" ObjectId="e73b884a-6c58-4915-a3be-3148dd488e09" />
+            <Object Name="VISU_TASK" ObjectId="e33fb16b-beba-4ddb-a984-4bee87746d52" />
             <Object Name="AUTO_DESTRUCT" ObjectId="f5556076-59f3-40d8-9086-bc5522a14472" />
             <Object Name="route_state" ObjectId="003ece96-2ab1-4522-8e51-3a6e84d3a15f" />
             <Object Name="Approaching_train" ObjectId="21ce4863-bfae-45c7-aedb-10302bc5cee1" />
+            <Object Name="simulation" ObjectId="bcaee659-b310-4870-b850-1ca7b20b1a40" />
+            <Object Name="variable_list" ObjectId="2b57834e-8770-4f1a-ae55-3f2934bc1a7b" />
+            <Object Name="TC" ObjectId="07b2792e-82ca-40e5-ba2e-6de4fd949c8a" />
+            <Object Name="SWITCH" ObjectId="e3937b98-79f0-4706-a1e5-4141b387c9c9" />
+            <Object Name="SIGNAL" ObjectId="bbe9ffee-0cf5-408a-8092-942da785967b" />
+            <Object Name="TRAIN_STATE" ObjectId="0192c181-7aa9-4fb9-bc67-3de052ae2397" />
+            <Object Name="DIR" ObjectId="2b35a567-f808-4a96-8ed2-978936df64dc" />
+            <Object Name="Next_TC" ObjectId="8004b2f4-31a1-4a06-899f-c8d73477efcf" />
+            <Object Name="SW_POS" ObjectId="90cf7aaa-f0f6-4395-8448-69b72344c859" />
           </Object>
         </Object>
-        <Object Name="Project Information" ObjectId="11c0fc3a-9bcf-4dd8-ac38-efb93363e521" />
       </ProjectStructure>
     </data>
   </addData>
