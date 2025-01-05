@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <project xmlns="http://www.plcopen.org/xml/tc6_0200">
-  <fileHeader companyName="" productName="CODESYS" productVersion="CODESYS V3.5 SP20" creationDateTime="2025-01-03T23:08:13.7830976" />
-  <contentHeader name="simplified_IXL.project" modificationDateTime="2025-01-03T23:07:12.3834237">
+  <fileHeader companyName="" productName="CODESYS" productVersion="CODESYS V3.5 SP20" creationDateTime="2025-01-05T23:49:17.677039" />
+  <contentHeader name="simplified_IXL.project" modificationDateTime="2025-01-05T23:47:12.9484347">
     <coordinateInfo>
       <fbd>
         <scaling x="1" y="1" />
@@ -69,165 +69,35 @@
             </addData>
           </task>
           <globalVars name="variable_list">
-            <variable name="TC_occupied_101" address="%IX0.0">
+            <variable name="TC_occupied">
               <type>
-                <BOOL />
+                <array>
+                  <dimension lower="1" upper="nTC" />
+                  <baseType>
+                    <BOOL />
+                  </baseType>
+                </array>
               </type>
-              <initialValue>
-                <simpleValue value="FALSE" />
-              </initialValue>
             </variable>
-            <variable name="TC_occupied_103" address="%IX0.1">
+            <variable name="switch_detected_left">
               <type>
-                <BOOL />
+                <array>
+                  <dimension lower="1" upper="nSwitch" />
+                  <baseType>
+                    <BOOL />
+                  </baseType>
+                </array>
               </type>
-              <initialValue>
-                <simpleValue value="FALSE" />
-              </initialValue>
             </variable>
-            <variable name="TC_occupied_105" address="%IX0.2">
+            <variable name="switch_detected_right">
               <type>
-                <BOOL />
+                <array>
+                  <dimension lower="1" upper="nSwitch" />
+                  <baseType>
+                    <BOOL />
+                  </baseType>
+                </array>
               </type>
-              <initialValue>
-                <simpleValue value="FALSE" />
-              </initialValue>
-            </variable>
-            <variable name="TC_occupied_107" address="%IX0.3">
-              <type>
-                <BOOL />
-              </type>
-              <initialValue>
-                <simpleValue value="FALSE" />
-              </initialValue>
-            </variable>
-            <variable name="TC_occupied_109" address="%IX0.4">
-              <type>
-                <BOOL />
-              </type>
-              <initialValue>
-                <simpleValue value="FALSE" />
-              </initialValue>
-            </variable>
-            <variable name="TC_occupied_111" address="%IX0.5">
-              <type>
-                <BOOL />
-              </type>
-              <initialValue>
-                <simpleValue value="FALSE" />
-              </initialValue>
-            </variable>
-            <variable name="TC_occupied_113" address="%IX0.6">
-              <type>
-                <BOOL />
-              </type>
-              <initialValue>
-                <simpleValue value="FALSE" />
-              </initialValue>
-            </variable>
-            <variable name="TC_occupied_115" address="%IX0.7">
-              <type>
-                <BOOL />
-              </type>
-              <initialValue>
-                <simpleValue value="FALSE" />
-              </initialValue>
-            </variable>
-            <variable name="TC_occupied_102" address="%IX1.0">
-              <type>
-                <BOOL />
-              </type>
-              <initialValue>
-                <simpleValue value="FALSE" />
-              </initialValue>
-            </variable>
-            <variable name="TC_occupied_104" address="%IX1.1">
-              <type>
-                <BOOL />
-              </type>
-              <initialValue>
-                <simpleValue value="FALSE" />
-              </initialValue>
-            </variable>
-            <variable name="TC_occupied_106" address="%IX1.2">
-              <type>
-                <BOOL />
-              </type>
-              <initialValue>
-                <simpleValue value="FALSE" />
-              </initialValue>
-            </variable>
-            <variable name="TC_occupied_108" address="%IX1.3">
-              <type>
-                <BOOL />
-              </type>
-              <initialValue>
-                <simpleValue value="FALSE" />
-              </initialValue>
-            </variable>
-            <variable name="TC_occupied_110" address="%IX1.4">
-              <type>
-                <BOOL />
-              </type>
-              <initialValue>
-                <simpleValue value="FALSE" />
-              </initialValue>
-            </variable>
-            <variable name="TC_occupied_112" address="%IX1.5">
-              <type>
-                <BOOL />
-              </type>
-              <initialValue>
-                <simpleValue value="FALSE" />
-              </initialValue>
-            </variable>
-            <variable name="TC_occupied_114" address="%IX1.6">
-              <type>
-                <BOOL />
-              </type>
-              <initialValue>
-                <simpleValue value="FALSE" />
-              </initialValue>
-            </variable>
-            <variable name="TC_occupied_116" address="%IX1.7">
-              <type>
-                <BOOL />
-              </type>
-              <initialValue>
-                <simpleValue value="FALSE" />
-              </initialValue>
-            </variable>
-            <variable name="switch_detected_left_01">
-              <type>
-                <BOOL />
-              </type>
-              <initialValue>
-                <simpleValue value="FALSE" />
-              </initialValue>
-            </variable>
-            <variable name="switch_detected_right_01">
-              <type>
-                <BOOL />
-              </type>
-              <initialValue>
-                <simpleValue value="FALSE" />
-              </initialValue>
-            </variable>
-            <variable name="switch_detected_left_02">
-              <type>
-                <BOOL />
-              </type>
-              <initialValue>
-                <simpleValue value="FALSE" />
-              </initialValue>
-            </variable>
-            <variable name="switch_detected_right_02">
-              <type>
-                <BOOL />
-              </type>
-              <initialValue>
-                <simpleValue value="FALSE" />
-              </initialValue>
             </variable>
             <variable name="route_destruction_demand_AB">
               <type>
@@ -421,37 +291,25 @@
                 <simpleValue value="FALSE" />
               </initialValue>
             </variable>
-            <variable name="switch_command_left_01">
+            <variable name="switch_command_left">
               <type>
-                <BOOL />
+                <array>
+                  <dimension lower="1" upper="nSwitch" />
+                  <baseType>
+                    <BOOL />
+                  </baseType>
+                </array>
               </type>
-              <initialValue>
-                <simpleValue value="FALSE" />
-              </initialValue>
             </variable>
-            <variable name="switch_command_right_01">
+            <variable name="switch_command_right">
               <type>
-                <BOOL />
+                <array>
+                  <dimension lower="1" upper="nSwitch" />
+                  <baseType>
+                    <BOOL />
+                  </baseType>
+                </array>
               </type>
-              <initialValue>
-                <simpleValue value="FALSE" />
-              </initialValue>
-            </variable>
-            <variable name="switch_command_left_02">
-              <type>
-                <BOOL />
-              </type>
-              <initialValue>
-                <simpleValue value="FALSE" />
-              </initialValue>
-            </variable>
-            <variable name="switch_command_right_02">
-              <type>
-                <BOOL />
-              </type>
-              <initialValue>
-                <simpleValue value="FALSE" />
-              </initialValue>
             </variable>
             <variable name="route_open_AB">
               <type>
@@ -597,6 +455,38 @@
                 <simpleValue value="FALSE" />
               </initialValue>
             </variable>
+            <variable name="nTC">
+              <type>
+                <INT />
+              </type>
+              <initialValue>
+                <simpleValue value="16" />
+              </initialValue>
+            </variable>
+            <variable name="nRoute">
+              <type>
+                <INT />
+              </type>
+              <initialValue>
+                <simpleValue value="6" />
+              </initialValue>
+            </variable>
+            <variable name="nSwitch">
+              <type>
+                <INT />
+              </type>
+              <initialValue>
+                <simpleValue value="2" />
+              </initialValue>
+            </variable>
+            <variable name="nSignal">
+              <type>
+                <INT />
+              </type>
+              <initialValue>
+                <simpleValue value="5" />
+              </initialValue>
+            </variable>
             <addData>
               <data name="http://www.3s-software.com/plcopenxml/attributes" handleUnknown="implementation">
                 <Attributes>
@@ -606,6 +496,432 @@
               <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
                 <ObjectId>2b57834e-8770-4f1a-ae55-3f2934bc1a7b</ObjectId>
               </data>
+              <data name="http://www.3s-software.com/plcopenxml/mixedattrsvarlist" handleUnknown="implementation">
+                <MixedAttrsVarList>
+                  <globalVars name="variable_list">
+                    <variable name="TC_occupied">
+                      <type>
+                        <array>
+                          <dimension lower="1" upper="nTC" />
+                          <baseType>
+                            <BOOL />
+                          </baseType>
+                        </array>
+                      </type>
+                    </variable>
+                    <variable name="switch_detected_left">
+                      <type>
+                        <array>
+                          <dimension lower="1" upper="nSwitch" />
+                          <baseType>
+                            <BOOL />
+                          </baseType>
+                        </array>
+                      </type>
+                    </variable>
+                    <variable name="switch_detected_right">
+                      <type>
+                        <array>
+                          <dimension lower="1" upper="nSwitch" />
+                          <baseType>
+                            <BOOL />
+                          </baseType>
+                        </array>
+                      </type>
+                    </variable>
+                    <variable name="route_destruction_demand_AB">
+                      <type>
+                        <BOOL />
+                      </type>
+                      <initialValue>
+                        <simpleValue value="FALSE" />
+                      </initialValue>
+                    </variable>
+                    <variable name="route_destruction_demand_BC">
+                      <type>
+                        <BOOL />
+                      </type>
+                      <initialValue>
+                        <simpleValue value="FALSE" />
+                      </initialValue>
+                    </variable>
+                    <variable name="route_destruction_demand_ED">
+                      <type>
+                        <BOOL />
+                      </type>
+                      <initialValue>
+                        <simpleValue value="FALSE" />
+                      </initialValue>
+                    </variable>
+                    <variable name="route_destruction_demand_CD">
+                      <type>
+                        <BOOL />
+                      </type>
+                      <initialValue>
+                        <simpleValue value="FALSE" />
+                      </initialValue>
+                    </variable>
+                    <variable name="route_destruction_demand_DC">
+                      <type>
+                        <BOOL />
+                      </type>
+                      <initialValue>
+                        <simpleValue value="FALSE" />
+                      </initialValue>
+                    </variable>
+                    <variable name="route_destruction_demand_CB">
+                      <type>
+                        <BOOL />
+                      </type>
+                      <initialValue>
+                        <simpleValue value="FALSE" />
+                      </initialValue>
+                    </variable>
+                    <variable name="route_formation_demand_AB">
+                      <type>
+                        <BOOL />
+                      </type>
+                      <initialValue>
+                        <simpleValue value="FALSE" />
+                      </initialValue>
+                    </variable>
+                    <variable name="route_formation_demand_BC">
+                      <type>
+                        <BOOL />
+                      </type>
+                      <initialValue>
+                        <simpleValue value="FALSE" />
+                      </initialValue>
+                    </variable>
+                    <variable name="route_formation_demand_ED">
+                      <type>
+                        <BOOL />
+                      </type>
+                      <initialValue>
+                        <simpleValue value="FALSE" />
+                      </initialValue>
+                    </variable>
+                    <variable name="route_formation_demand_CD">
+                      <type>
+                        <BOOL />
+                      </type>
+                      <initialValue>
+                        <simpleValue value="FALSE" />
+                      </initialValue>
+                    </variable>
+                    <variable name="route_formation_demand_DC">
+                      <type>
+                        <BOOL />
+                      </type>
+                      <initialValue>
+                        <simpleValue value="FALSE" />
+                      </initialValue>
+                    </variable>
+                    <variable name="route_formation_demand_CB">
+                      <type>
+                        <BOOL />
+                      </type>
+                      <initialValue>
+                        <simpleValue value="FALSE" />
+                      </initialValue>
+                    </variable>
+                    <variable name="switch_manual_override_01">
+                      <type>
+                        <BOOL />
+                      </type>
+                      <initialValue>
+                        <simpleValue value="FALSE" />
+                      </initialValue>
+                    </variable>
+                    <variable name="switch_manual_override_02">
+                      <type>
+                        <BOOL />
+                      </type>
+                      <initialValue>
+                        <simpleValue value="FALSE" />
+                      </initialValue>
+                    </variable>
+                    <variable name="close_command_signal_201">
+                      <type>
+                        <BOOL />
+                      </type>
+                      <initialValue>
+                        <simpleValue value="FALSE" />
+                      </initialValue>
+                    </variable>
+                    <variable name="close_command_signal_203">
+                      <type>
+                        <BOOL />
+                      </type>
+                      <initialValue>
+                        <simpleValue value="FALSE" />
+                      </initialValue>
+                    </variable>
+                    <variable name="close_command_signal_205">
+                      <type>
+                        <BOOL />
+                      </type>
+                      <initialValue>
+                        <simpleValue value="FALSE" />
+                      </initialValue>
+                    </variable>
+                    <variable name="close_command_signal_206">
+                      <type>
+                        <BOOL />
+                      </type>
+                      <initialValue>
+                        <simpleValue value="FALSE" />
+                      </initialValue>
+                    </variable>
+                    <variable name="close_command_signal_208">
+                      <type>
+                        <BOOL />
+                      </type>
+                      <initialValue>
+                        <simpleValue value="FALSE" />
+                      </initialValue>
+                    </variable>
+                    <variable name="signal_open_route_201">
+                      <type>
+                        <BOOL />
+                      </type>
+                      <initialValue>
+                        <simpleValue value="FALSE" />
+                      </initialValue>
+                    </variable>
+                    <variable name="signal_open_route_203">
+                      <type>
+                        <BOOL />
+                      </type>
+                      <initialValue>
+                        <simpleValue value="FALSE" />
+                      </initialValue>
+                    </variable>
+                    <variable name="signal_open_route_205">
+                      <type>
+                        <BOOL />
+                      </type>
+                      <initialValue>
+                        <simpleValue value="FALSE" />
+                      </initialValue>
+                    </variable>
+                    <variable name="signal_open_route_206">
+                      <type>
+                        <BOOL />
+                      </type>
+                      <initialValue>
+                        <simpleValue value="FALSE" />
+                      </initialValue>
+                    </variable>
+                    <variable name="signal_open_route_208">
+                      <type>
+                        <BOOL />
+                      </type>
+                      <initialValue>
+                        <simpleValue value="FALSE" />
+                      </initialValue>
+                    </variable>
+                    <variable name="switch_command_left">
+                      <type>
+                        <array>
+                          <dimension lower="1" upper="nSwitch" />
+                          <baseType>
+                            <BOOL />
+                          </baseType>
+                        </array>
+                      </type>
+                    </variable>
+                    <variable name="switch_command_right">
+                      <type>
+                        <array>
+                          <dimension lower="1" upper="nSwitch" />
+                          <baseType>
+                            <BOOL />
+                          </baseType>
+                        </array>
+                      </type>
+                    </variable>
+                    <variable name="route_open_AB">
+                      <type>
+                        <BOOL />
+                      </type>
+                      <initialValue>
+                        <simpleValue value="FALSE" />
+                      </initialValue>
+                    </variable>
+                    <variable name="route_open_BC">
+                      <type>
+                        <BOOL />
+                      </type>
+                      <initialValue>
+                        <simpleValue value="FALSE" />
+                      </initialValue>
+                    </variable>
+                    <variable name="route_open_ED">
+                      <type>
+                        <BOOL />
+                      </type>
+                      <initialValue>
+                        <simpleValue value="FALSE" />
+                      </initialValue>
+                    </variable>
+                    <variable name="route_open_CD">
+                      <type>
+                        <BOOL />
+                      </type>
+                      <initialValue>
+                        <simpleValue value="FALSE" />
+                      </initialValue>
+                    </variable>
+                    <variable name="route_open_DC">
+                      <type>
+                        <BOOL />
+                      </type>
+                      <initialValue>
+                        <simpleValue value="FALSE" />
+                      </initialValue>
+                    </variable>
+                    <variable name="route_open_CB">
+                      <type>
+                        <BOOL />
+                      </type>
+                      <initialValue>
+                        <simpleValue value="FALSE" />
+                      </initialValue>
+                    </variable>
+                    <variable name="route_occupied_destruction_ack_AB">
+                      <type>
+                        <BOOL />
+                      </type>
+                      <initialValue>
+                        <simpleValue value="FALSE" />
+                      </initialValue>
+                    </variable>
+                    <variable name="route_occupied_destruction_ack_BC">
+                      <type>
+                        <BOOL />
+                      </type>
+                      <initialValue>
+                        <simpleValue value="FALSE" />
+                      </initialValue>
+                    </variable>
+                    <variable name="route_occupied_destruction_ack_ED">
+                      <type>
+                        <BOOL />
+                      </type>
+                      <initialValue>
+                        <simpleValue value="FALSE" />
+                      </initialValue>
+                    </variable>
+                    <variable name="route_occupied_destruction_ack_CD">
+                      <type>
+                        <BOOL />
+                      </type>
+                      <initialValue>
+                        <simpleValue value="FALSE" />
+                      </initialValue>
+                    </variable>
+                    <variable name="route_occupied_destruction_ack_DC">
+                      <type>
+                        <BOOL />
+                      </type>
+                      <initialValue>
+                        <simpleValue value="FALSE" />
+                      </initialValue>
+                    </variable>
+                    <variable name="route_occupied_destruction_ack_CB">
+                      <type>
+                        <BOOL />
+                      </type>
+                      <initialValue>
+                        <simpleValue value="FALSE" />
+                      </initialValue>
+                    </variable>
+                    <variable name="route_destruction_approch_ack_AB">
+                      <type>
+                        <BOOL />
+                      </type>
+                      <initialValue>
+                        <simpleValue value="FALSE" />
+                      </initialValue>
+                    </variable>
+                    <variable name="route_destruction_approch_ack_BC">
+                      <type>
+                        <BOOL />
+                      </type>
+                      <initialValue>
+                        <simpleValue value="FALSE" />
+                      </initialValue>
+                    </variable>
+                    <variable name="route_destruction_approch_ack_ED">
+                      <type>
+                        <BOOL />
+                      </type>
+                      <initialValue>
+                        <simpleValue value="FALSE" />
+                      </initialValue>
+                    </variable>
+                    <variable name="route_destruction_approch_ack_CD">
+                      <type>
+                        <BOOL />
+                      </type>
+                      <initialValue>
+                        <simpleValue value="FALSE" />
+                      </initialValue>
+                    </variable>
+                    <variable name="route_destruction_approch_ack_DC">
+                      <type>
+                        <BOOL />
+                      </type>
+                      <initialValue>
+                        <simpleValue value="FALSE" />
+                      </initialValue>
+                    </variable>
+                    <variable name="route_destruction_approch_ack_CB">
+                      <type>
+                        <BOOL />
+                      </type>
+                      <initialValue>
+                        <simpleValue value="FALSE" />
+                      </initialValue>
+                    </variable>
+                  </globalVars>
+                  <globalVars name="variable_list" constant="true">
+                    <variable name="nTC">
+                      <type>
+                        <INT />
+                      </type>
+                      <initialValue>
+                        <simpleValue value="16" />
+                      </initialValue>
+                    </variable>
+                    <variable name="nRoute">
+                      <type>
+                        <INT />
+                      </type>
+                      <initialValue>
+                        <simpleValue value="6" />
+                      </initialValue>
+                    </variable>
+                    <variable name="nSwitch">
+                      <type>
+                        <INT />
+                      </type>
+                      <initialValue>
+                        <simpleValue value="2" />
+                      </initialValue>
+                    </variable>
+                    <variable name="nSignal">
+                      <type>
+                        <INT />
+                      </type>
+                      <initialValue>
+                        <simpleValue value="5" />
+                      </initialValue>
+                    </variable>
+                  </globalVars>
+                </MixedAttrsVarList>
+              </data>
             </addData>
           </globalVars>
           <addData>
@@ -614,23 +930,23 @@
                 <baseType>
                   <enum>
                     <values>
-                      <value name="TC_101" />
-                      <value name="TC_102" />
-                      <value name="TC_103" />
-                      <value name="TC_104" />
-                      <value name="TC_105" />
-                      <value name="TC_106" />
-                      <value name="TC_107" />
-                      <value name="TC_108" />
-                      <value name="TC_109" />
-                      <value name="TC_110" />
-                      <value name="TC_111" />
-                      <value name="TC_112" />
-                      <value name="TC_113" />
-                      <value name="TC_114" />
-                      <value name="TC_115" />
-                      <value name="TC_116" />
-                      <value name="NIL" />
+                      <value name="NIL" value="-1" />
+                      <value name="TC_101" value="1" />
+                      <value name="TC_102" value="2" />
+                      <value name="TC_103" value="3" />
+                      <value name="TC_104" value="4" />
+                      <value name="TC_105" value="5" />
+                      <value name="TC_106" value="6" />
+                      <value name="TC_107" value="7" />
+                      <value name="TC_108" value="8" />
+                      <value name="TC_109" value="9" />
+                      <value name="TC_110" value="10" />
+                      <value name="TC_111" value="11" />
+                      <value name="TC_112" value="12" />
+                      <value name="TC_113" value="13" />
+                      <value name="TC_114" value="14" />
+                      <value name="TC_115" value="15" />
+                      <value name="TC_116" value="16" />
                     </values>
                   </enum>
                 </baseType>
@@ -652,9 +968,9 @@
                 <baseType>
                   <enum>
                     <values>
-                      <value name="Sw_01" />
-                      <value name="Sw_02" />
-                      <value name="NIL" />
+                      <value name="NIL" value="-1" />
+                      <value name="Sw_01" value="1" />
+                      <value name="Sw_02" value="2" />
                     </values>
                   </enum>
                 </baseType>
@@ -676,12 +992,12 @@
                 <baseType>
                   <enum>
                     <values>
-                      <value name="Sig_201" />
-                      <value name="Sig_203" />
-                      <value name="Sig_205" />
-                      <value name="Sig_206" />
-                      <value name="Sig_208" />
-                      <value name="NIL" />
+                      <value name="NIL" value="-1" />
+                      <value name="Sig_201" value="1" />
+                      <value name="Sig_203" value="2" />
+                      <value name="Sig_205" value="3" />
+                      <value name="Sig_206" value="4" />
+                      <value name="Sig_208" value="5" />
                     </values>
                   </enum>
                 </baseType>
@@ -736,9 +1052,9 @@
                 <baseType>
                   <enum>
                     <values>
-                      <value name="DOWN" />
-                      <value name="UP" />
-                      <value name="NIL" />
+                      <value name="NIL" value="-1" />
+                      <value name="DOWN" value="0" />
+                      <value name="UP" value="1" />
                     </values>
                   </enum>
                 </baseType>
@@ -756,14 +1072,14 @@
               </dataType>
             </data>
             <data name="http://www.3s-software.com/plcopenxml/datatype" handleUnknown="implementation">
-              <dataType name="SW_POS">
+              <dataType name="SW_POS_t">
                 <baseType>
                   <enum>
                     <values>
-                      <value name="LEFT" />
-                      <value name="RIGHT" />
-                      <value name="INTERMEDIATE" />
-                      <value name="NIL" />
+                      <value name="NIL" value="-1" />
+                      <value name="LEFT" value="1" />
+                      <value name="RIGHT" value="2" />
+                      <value name="INTERMEDIATE" value="3" />
                     </values>
                   </enum>
                 </baseType>
@@ -964,12 +1280,12 @@
                     <inVariable localId="10000000005">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>variable_list.TC_occupied_105</expression>
+                      <expression>variable_list.TC_occupied[TC.TC_105]</expression>
                     </inVariable>
                     <inVariable localId="10000000006">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>variable_list.TC_occupied_107</expression>
+                      <expression>variable_list.TC_occupied[TC.TC_107]</expression>
                     </inVariable>
                     <block localId="10000000007" typeName="AUTO_DESTRUCT" instanceName="AUTO_DESTRUCT_AB">
                       <position x="0" y="0" />
@@ -1021,17 +1337,17 @@
                     <inVariable localId="10000000010">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>variable_list.TC_occupied_105</expression>
+                      <expression>variable_list.TC_occupied[TC.TC_105]</expression>
                     </inVariable>
                     <inVariable localId="10000000011">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>variable_list.TC_occupied_101</expression>
+                      <expression>variable_list.TC_occupied[TC.TC_101]</expression>
                     </inVariable>
                     <inVariable localId="10000000012">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>variable_list.TC_occupied_103</expression>
+                      <expression>variable_list.TC_occupied[TC.TC_103]</expression>
                     </inVariable>
                     <block localId="10000000013" typeName="OR">
                       <position x="0" y="0" />
@@ -1308,12 +1624,12 @@
                     <inVariable localId="20000000010">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>variable_list.TC_occupied_109</expression>
+                      <expression>variable_list.TC_occupied[TC.TC_109]</expression>
                     </inVariable>
                     <inVariable localId="20000000011">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>variable_list.TC_occupied_111</expression>
+                      <expression>variable_list.TC_occupied[TC.TC_111]</expression>
                     </inVariable>
                     <block localId="20000000012" typeName="AUTO_DESTRUCT" instanceName="AUTO_DESTRUCT_BC">
                       <position x="0" y="0" />
@@ -1365,17 +1681,17 @@
                     <inVariable localId="20000000015">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>variable_list.TC_occupied_109</expression>
+                      <expression>variable_list.TC_occupied[TC.TC_109]</expression>
                     </inVariable>
                     <inVariable localId="20000000016">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>variable_list.TC_occupied_105</expression>
+                      <expression>variable_list.TC_occupied[TC.TC_105]</expression>
                     </inVariable>
                     <inVariable localId="20000000017">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>variable_list.TC_occupied_107</expression>
+                      <expression>variable_list.TC_occupied[TC.TC_107]</expression>
                     </inVariable>
                     <block localId="20000000018" typeName="OR">
                       <position x="0" y="0" />
@@ -1632,12 +1948,12 @@
                     <inVariable localId="30000000008">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>variable_list.TC_occupied_110</expression>
+                      <expression>variable_list.TC_occupied[TC.TC_110]</expression>
                     </inVariable>
                     <inVariable localId="30000000009">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>variable_list.TC_occupied_108</expression>
+                      <expression>variable_list.TC_occupied[TC.TC_108]</expression>
                     </inVariable>
                     <block localId="30000000010" typeName="AUTO_DESTRUCT" instanceName="AUTO_DESTRUCT_ED">
                       <position x="0" y="0" />
@@ -1689,17 +2005,17 @@
                     <inVariable localId="30000000013">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>variable_list.TC_occupied_110</expression>
+                      <expression>variable_list.TC_occupied[TC.TC_110]</expression>
                     </inVariable>
                     <inVariable localId="30000000014">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>variable_list.TC_occupied_112</expression>
+                      <expression>variable_list.TC_occupied[TC.TC_112]</expression>
                     </inVariable>
                     <inVariable localId="30000000015">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>variable_list.TC_occupied_114</expression>
+                      <expression>variable_list.TC_occupied[TC.TC_114]</expression>
                     </inVariable>
                     <block localId="30000000016" typeName="OR">
                       <position x="0" y="0" />
@@ -1996,12 +2312,12 @@
                     <inVariable localId="40000000012">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>variable_list.TC_occupied_110</expression>
+                      <expression>variable_list.TC_occupied[TC.TC_110]</expression>
                     </inVariable>
                     <inVariable localId="40000000013">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>variable_list.TC_occupied_108</expression>
+                      <expression>variable_list.TC_occupied[TC.TC_108]</expression>
                     </inVariable>
                     <block localId="40000000014" typeName="AUTO_DESTRUCT" instanceName="AUTO_DESTRUCT_CD">
                       <position x="0" y="0" />
@@ -2053,12 +2369,12 @@
                     <inVariable localId="40000000017">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>variable_list.TC_occupied_109</expression>
+                      <expression>variable_list.TC_occupied[TC.TC_109]</expression>
                     </inVariable>
                     <inVariable localId="40000000018">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>variable_list.TC_occupied_110</expression>
+                      <expression>variable_list.TC_occupied[TC.TC_110]</expression>
                     </inVariable>
                     <block localId="40000000019" typeName="OR">
                       <position x="0" y="0" />
@@ -2095,12 +2411,12 @@
                     <inVariable localId="40000000020">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>variable_list.TC_occupied_111</expression>
+                      <expression>variable_list.TC_occupied[TC.TC_111]</expression>
                     </inVariable>
                     <inVariable localId="40000000021">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>variable_list.TC_occupied_113</expression>
+                      <expression>variable_list.TC_occupied[TC.TC_113]</expression>
                     </inVariable>
                     <block localId="40000000022" typeName="OR">
                       <position x="0" y="0" />
@@ -2397,12 +2713,12 @@
                     <inVariable localId="50000000012">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>variable_list.TC_occupied_109</expression>
+                      <expression>variable_list.TC_occupied[TC.TC_109]</expression>
                     </inVariable>
                     <inVariable localId="50000000013">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>variable_list.TC_occupied_111</expression>
+                      <expression>variable_list.TC_occupied[TC.TC_111]</expression>
                     </inVariable>
                     <block localId="50000000014" typeName="AUTO_DESTRUCT" instanceName="AUTO_DESTRUCT_DC">
                       <position x="0" y="0" />
@@ -2454,12 +2770,12 @@
                     <inVariable localId="50000000017">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>variable_list.TC_occupied_110</expression>
+                      <expression>variable_list.TC_occupied[TC.TC_110]</expression>
                     </inVariable>
                     <inVariable localId="50000000018">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>variable_list.TC_occupied_109</expression>
+                      <expression>variable_list.TC_occupied[TC.TC_109]</expression>
                     </inVariable>
                     <block localId="50000000019" typeName="OR">
                       <position x="0" y="0" />
@@ -2496,12 +2812,12 @@
                     <inVariable localId="50000000020">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>variable_list.TC_occupied_106</expression>
+                      <expression>variable_list.TC_occupied[TC.TC_106]</expression>
                     </inVariable>
                     <inVariable localId="50000000021">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>variable_list.TC_occupied_108</expression>
+                      <expression>variable_list.TC_occupied[TC.TC_108]</expression>
                     </inVariable>
                     <block localId="50000000022" typeName="OR">
                       <position x="0" y="0" />
@@ -2798,12 +3114,12 @@
                     <inVariable localId="60000000012">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>variable_list.TC_occupied_110</expression>
+                      <expression>variable_list.TC_occupied[TC.TC_110]</expression>
                     </inVariable>
                     <inVariable localId="60000000013">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>variable_list.TC_occupied_108</expression>
+                      <expression>variable_list.TC_occupied[TC.TC_108]</expression>
                     </inVariable>
                     <block localId="60000000014" typeName="AUTO_DESTRUCT" instanceName="AUTO_DESTRUCT_CB">
                       <position x="0" y="0" />
@@ -2855,17 +3171,17 @@
                     <inVariable localId="60000000017">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>variable_list.TC_occupied_109</expression>
+                      <expression>variable_list.TC_occupied[TC.TC_109]</expression>
                     </inVariable>
                     <inVariable localId="60000000018">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>variable_list.TC_occupied_111</expression>
+                      <expression>variable_list.TC_occupied[TC.TC_111]</expression>
                     </inVariable>
                     <inVariable localId="60000000019">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>variable_list.TC_occupied_113</expression>
+                      <expression>variable_list.TC_occupied[TC.TC_113]</expression>
                     </inVariable>
                     <block localId="60000000020" typeName="OR">
                       <position x="0" y="0" />
@@ -3080,12 +3396,12 @@
                     <inVariable localId="70000000004">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>variable_list.TC_occupied_109</expression>
+                      <expression>variable_list.TC_occupied[TC.TC_109]</expression>
                     </inVariable>
                     <inVariable localId="70000000005">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>variable_list.TC_occupied_110</expression>
+                      <expression>variable_list.TC_occupied[TC.TC_110]</expression>
                     </inVariable>
                     <block localId="70000000006" typeName="OR">
                       <position x="0" y="0" />
@@ -3257,14 +3573,14 @@
                       <connectionPointIn>
                         <connection refLocalId="70000000012" formalParameter="Out1" />
                       </connectionPointIn>
-                      <expression>variable_list.switch_command_left_01</expression>
+                      <expression>variable_list.switch_command_left[SWITCH.Sw_01]</expression>
                     </outVariable>
                     <outVariable localId="70000000014">
                       <position x="0" y="0" />
                       <connectionPointIn>
                         <connection refLocalId="70000000012" formalParameter="Out1" />
                       </connectionPointIn>
-                      <expression>variable_list.switch_command_left_02</expression>
+                      <expression>variable_list.switch_command_left[SWITCH.Sw_02]</expression>
                     </outVariable>
                     <inVariable localId="80000000000">
                       <position x="0" y="0" />
@@ -3311,12 +3627,12 @@
                     <inVariable localId="80000000003">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>variable_list.TC_occupied_109</expression>
+                      <expression>variable_list.TC_occupied[TC.TC_109]</expression>
                     </inVariable>
                     <inVariable localId="80000000004">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>variable_list.TC_occupied_110</expression>
+                      <expression>variable_list.TC_occupied[TC.TC_110]</expression>
                     </inVariable>
                     <block localId="80000000005" typeName="OR">
                       <position x="0" y="0" />
@@ -3488,14 +3804,14 @@
                       <connectionPointIn>
                         <connection refLocalId="80000000011" formalParameter="Out1" />
                       </connectionPointIn>
-                      <expression>variable_list.switch_command_right_01</expression>
+                      <expression>variable_list.switch_command_right[SWITCH.Sw_01]</expression>
                     </outVariable>
                     <outVariable localId="80000000013">
                       <position x="0" y="0" />
                       <connectionPointIn>
                         <connection refLocalId="80000000011" formalParameter="Out1" />
                       </connectionPointIn>
-                      <expression>variable_list.switch_command_right_02</expression>
+                      <expression>variable_list.switch_command_right[SWITCH.Sw_02]</expression>
                     </outVariable>
                     <inVariable localId="90000000000">
                       <position x="0" y="0" />
@@ -3650,12 +3966,12 @@
                     <inVariable localId="100000000003">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>variable_list.switch_detected_left_02</expression>
+                      <expression>variable_list.switch_detected_left[SWITCH.Sw_02]</expression>
                     </inVariable>
                     <inVariable localId="100000000004">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>variable_list.switch_detected_left_01</expression>
+                      <expression>variable_list.switch_detected_left[SWITCH.Sw_01]</expression>
                     </inVariable>
                     <block localId="100000000005" typeName="AND">
                       <position x="0" y="0" />
@@ -3847,12 +4163,12 @@
                     <inVariable localId="110000000003">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>variable_list.switch_detected_right_01</expression>
+                      <expression>variable_list.switch_detected_right[SWITCH.Sw_01]</expression>
                     </inVariable>
                     <inVariable localId="110000000004">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>variable_list.switch_detected_right_02</expression>
+                      <expression>variable_list.switch_detected_right[SWITCH.Sw_02]</expression>
                     </inVariable>
                     <block localId="110000000005" typeName="AND">
                       <position x="0" y="0" />
@@ -4081,12 +4397,12 @@
                     <inVariable localId="120000000003">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>variable_list.switch_detected_left_02</expression>
+                      <expression>variable_list.switch_detected_left[SWITCH.Sw_02]</expression>
                     </inVariable>
                     <inVariable localId="120000000004">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>variable_list.switch_detected_left_01</expression>
+                      <expression>variable_list.switch_detected_left[SWITCH.Sw_01]</expression>
                     </inVariable>
                     <block localId="120000000005" typeName="AND">
                       <position x="0" y="0" />
@@ -4234,12 +4550,12 @@
                     <inVariable localId="120000000012">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>variable_list.switch_detected_right_01</expression>
+                      <expression>variable_list.switch_detected_right[SWITCH.Sw_01]</expression>
                     </inVariable>
                     <inVariable localId="120000000013">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>variable_list.switch_detected_right_02</expression>
+                      <expression>variable_list.switch_detected_right[SWITCH.Sw_02]</expression>
                     </inVariable>
                     <block localId="120000000014" typeName="AND">
                       <position x="0" y="0" />
@@ -4527,12 +4843,12 @@
                     <inVariable localId="130000000003">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>variable_list.switch_detected_left_01</expression>
+                      <expression>variable_list.switch_detected_left[SWITCH.Sw_01]</expression>
                     </inVariable>
                     <inVariable localId="130000000004">
                       <position x="0" y="0" />
                       <connectionPointOut />
-                      <expression>variable_list.switch_detected_right_02</expression>
+                      <expression>variable_list.switch_detected_left[SWITCH.Sw_02]</expression>
                     </inVariable>
                     <block localId="130000000005" typeName="AND">
                       <position x="0" y="0" />
@@ -6047,24 +6363,24 @@
               <pou name="simulation" pouType="program">
                 <interface>
                   <localVars>
-                    <variable name="NOT_switch_detected_left_01">
+                    <variable name="NOT_switch_detected_left">
                       <type>
-                        <BOOL />
+                        <array>
+                          <dimension lower="1" upper="variable_list.nSwitch" />
+                          <baseType>
+                            <BOOL />
+                          </baseType>
+                        </array>
                       </type>
                     </variable>
-                    <variable name="NOT_switch_detected_right_01">
+                    <variable name="NOT_switch_detected_right">
                       <type>
-                        <BOOL />
-                      </type>
-                    </variable>
-                    <variable name="NOT_switch_detected_left_02">
-                      <type>
-                        <BOOL />
-                      </type>
-                    </variable>
-                    <variable name="NOT_switch_detected_right_02">
-                      <type>
-                        <BOOL />
+                        <array>
+                          <dimension lower="1" upper="variable_list.nSwitch" />
+                          <baseType>
+                            <BOOL />
+                          </baseType>
+                        </array>
                       </type>
                     </variable>
                     <variable name="NOT_switch_middle_01">
@@ -6100,52 +6416,262 @@
                     <variable name="Trains">
                       <type>
                         <array>
-                          <dimension lower="1" upper="6" />
+                          <dimension lower="1" upper="nTrains" />
                           <baseType>
                             <derived name="TRAIN_STATE" />
                           </baseType>
                         </array>
                       </type>
+                    </variable>
+                    <variable name="Switch_pos">
+                      <type>
+                        <array>
+                          <dimension lower="1" upper="variable_list.nSwitch" />
+                          <baseType>
+                            <derived name="SW_POS_t" />
+                          </baseType>
+                        </array>
+                      </type>
                       <initialValue>
                         <arrayValue>
-                          <value repetitionValue="6">
-                            <structValue>
-                              <value member="rear_pos">
-                                <simpleValue value="TC.NIL" />
-                              </value>
-                              <value member="front_pos">
-                                <simpleValue value="TC.NIL" />
-                              </value>
-                              <value member="orientation">
-                                <simpleValue value="DIR.NIL" />
-                              </value>
-                            </structValue>
+                          <value>
+                            <simpleValue value="SW_POS_t.INTERMEDIATE" />
+                          </value>
+                          <value>
+                            <simpleValue value="SW_POS_t.INTERMEDIATE" />
                           </value>
                         </arrayValue>
                       </initialValue>
+                    </variable>
+                    <variable name="failure_TC">
+                      <type>
+                        <array>
+                          <dimension lower="1" upper="variable_list.nTC" />
+                          <baseType>
+                            <BOOL />
+                          </baseType>
+                        </array>
+                      </type>
+                    </variable>
+                    <variable name="tc_ind">
+                      <type>
+                        <INT />
+                      </type>
+                    </variable>
+                  </localVars>
+                  <localVars constant="true">
+                    <variable name="nTrains">
+                      <type>
+                        <INT />
+                      </type>
+                    </variable>
+                  </localVars>
+                  <localVars>
+                    <variable name="tempBool">
+                      <type>
+                        <BOOL />
+                      </type>
+                    </variable>
+                    <variable name="train_ind">
+                      <type>
+                        <INT />
+                      </type>
+                    </variable>
+                    <variable name="detect_failure_switch">
+                      <type>
+                        <array>
+                          <dimension lower="1" upper="variable_list.nSwitch" />
+                          <baseType>
+                            <BOOL />
+                          </baseType>
+                        </array>
+                      </type>
+                    </variable>
+                    <variable name="motor_failure_switch">
+                      <type>
+                        <array>
+                          <dimension lower="1" upper="variable_list.nSwitch" />
+                          <baseType>
+                            <BOOL />
+                          </baseType>
+                        </array>
+                      </type>
+                    </variable>
+                    <variable name="sw_ind">
+                      <type>
+                        <INT />
+                      </type>
+                    </variable>
+                  </localVars>
+                  <localVars constant="true">
+                    <variable name="DELAY_TO_INTERMEDIATE">
+                      <type>
+                        <TIME />
+                      </type>
+                      <initialValue>
+                        <simpleValue value="TIME#2s0ms" />
+                      </initialValue>
+                    </variable>
+                    <variable name="DELAY_TO_LEFTRIGHT">
+                      <type>
+                        <TIME />
+                      </type>
+                      <initialValue>
+                        <simpleValue value="TIME#4s0ms" />
+                      </initialValue>
+                    </variable>
+                  </localVars>
+                  <localVars>
+                    <variable name="switch_mov_to_int_TIMER">
+                      <type>
+                        <array>
+                          <dimension lower="1" upper="variable_list.nSwitch" />
+                          <baseType>
+                            <derived name="TON" />
+                          </baseType>
+                        </array>
+                      </type>
+                    </variable>
+                    <variable name="switch_mov_to_right_TIMER">
+                      <type>
+                        <array>
+                          <dimension lower="1" upper="variable_list.nSwitch" />
+                          <baseType>
+                            <derived name="TON" />
+                          </baseType>
+                        </array>
+                      </type>
+                    </variable>
+                    <variable name="switch_mov_to_left_TIMER">
+                      <type>
+                        <array>
+                          <dimension lower="1" upper="variable_list.nSwitch" />
+                          <baseType>
+                            <derived name="TON" />
+                          </baseType>
+                        </array>
+                      </type>
+                    </variable>
+                    <variable name="switch_move_to_int_output">
+                      <type>
+                        <array>
+                          <dimension lower="1" upper="variable_list.nSwitch" />
+                          <baseType>
+                            <BOOL />
+                          </baseType>
+                        </array>
+                      </type>
+                    </variable>
+                    <variable name="switch_move_to_left_output">
+                      <type>
+                        <array>
+                          <dimension lower="1" upper="variable_list.nSwitch" />
+                          <baseType>
+                            <BOOL />
+                          </baseType>
+                        </array>
+                      </type>
+                    </variable>
+                    <variable name="switch_move_to_right_output">
+                      <type>
+                        <array>
+                          <dimension lower="1" upper="variable_list.nSwitch" />
+                          <baseType>
+                            <BOOL />
+                          </baseType>
+                        </array>
+                      </type>
                     </variable>
                   </localVars>
                 </interface>
                 <body>
                   <ST>
                     <xhtml xmlns="http://www.w3.org/1999/xhtml">
-NOT_switch_detected_left_01 := NOT(variable_list.switch_detected_left_01);
-NOT_switch_detected_left_02 := NOT(variable_list.switch_detected_left_02);
-NOT_switch_detected_right_01 := NOT(variable_list.switch_detected_right_01);
-NOT_switch_detected_right_02 := NOT(variable_list.switch_detected_right_02);
+(* SWITCH POSITION UPDATE *)
+(* ---------------------- *)
 
-NOT_switch_middle_01 := variable_list.switch_detected_left_01 OR variable_list.switch_detected_right_01;
-NOT_switch_middle_02 := variable_list.switch_detected_left_02 OR variable_list.switch_detected_right_02;
+FOR sw_ind := 1 TO variable_list.nSwitch DO
+	switch_mov_to_int_TIMER[sw_ind](
+		IN := (		variable_list.switch_command_right[sw_ind] AND NOT(motor_failure_switch[sw_ind]) AND Switch_pos[sw_ind] = SW_POS_t.LEFT
+			  OR 	variable_list.switch_command_left[sw_ind] AND NOT(motor_failure_switch[sw_ind]) AND Switch_pos[sw_ind] = SW_POS_t.RIGHT)
+		, PT := DELAY_TO_INTERMEDIATE);
+	switch_mov_to_left_TIMER[sw_ind](
+		IN := variable_list.switch_command_left[sw_ind] AND NOT(motor_failure_switch[sw_ind]) AND Switch_pos[sw_ind] = SW_POS_t.INTERMEDIATE
+		, PT := DELAY_TO_LEFTRIGHT);
+	switch_mov_to_right_TIMER[sw_ind](
+		IN := variable_list.switch_command_right[sw_ind] AND NOT(motor_failure_switch[sw_ind]) AND Switch_pos[sw_ind] = SW_POS_t.INTERMEDIATE
+		, PT := DELAY_TO_LEFTRIGHT);
+END_FOR
 
-switch_commanded_01 := variable_list.switch_command_left_01 OR variable_list.switch_command_right_01;
-switch_commanded_02 := variable_list.switch_command_left_02 OR variable_list.switch_command_right_02;
+FOR sw_ind := 1 TO variable_list.nSwitch DO
+	IF switch_mov_to_int_TIMER[sw_ind].Q THEN
+		Switch_pos[sw_ind] := SW_POS_t.INTERMEDIATE;
+	ELSE IF switch_mov_to_left_TIMER[sw_ind].Q THEN
+		Switch_pos[sw_ind] := SW_POS_t.LEFT;
+	ELSE IF switch_mov_to_right_TIMER[sw_ind].Q THEN
+		Switch_pos[sw_ind] := SW_POS_t.RIGHT;
+	END_IF END_IF END_IF
+END_FOR
+
+(* TRAINS POSITION UPDATE *)
+(* ---------------------- *)
+
+(* ENTERING TRAINS *)
+(* --------------- *)
+
+
+
+FOR train_ind := 1 TO nTrains DO
+	
+END_FOR
+
+
+
+(* INPUTS OF PLC_PRG *)
+(* ----------------- *)
+
+(* Assume switch detection failure never report erroneous Left/Right positions *)
+variable_list.switch_detected_left[SWITCH.Sw_01] := NOT(detect_failure_switch[SWITCH.Sw_01]) AND (Switch_pos[SWITCH.Sw_01] = SW_POS_t.LEFT);
+variable_list.switch_detected_right[SWITCH.Sw_01] := NOT(detect_failure_switch[SWITCH.Sw_01]) AND (Switch_pos[SWITCH.Sw_01] = SW_POS_t.RIGHT);
+variable_list.switch_detected_left[SWITCH.Sw_02] := NOT(detect_failure_switch[SWITCH.Sw_02]) AND (Switch_pos[SWITCH.Sw_02] = SW_POS_t.LEFT);
+variable_list.switch_detected_right[SWITCH.Sw_02] := NOT(detect_failure_switch[SWITCH.Sw_02]) AND (Switch_pos[SWITCH.Sw_02] = SW_POS_t.RIGHT);
+
+FOR tc_ind := 1 TO variable_list.nTC DO
+	IF failure_TC[tc_ind] THEN
+		variable_list.TC_occupied[tc_ind] := TRUE; (* Assume only right-side failures *)
+	ELSE
+		tempBool := FALSE;
+		FOR train_ind := 1 TO nTrains DO
+			IF Trains[train_ind].front_pos = tc_ind OR Trains[train_ind].rear_pos = tc_ind THEN
+				tempBool := TRUE;
+			END_IF
+		END_FOR
+		variable_list.TC_occupied[tc_ind] := tempBool;
+	END_IF
+END_FOR
+
+
+
+
+(* DRAWING VARIABLES *)
+(* ----------------- *)
+NOT_switch_detected_left[SWITCH.Sw_01] := NOT(variable_list.switch_detected_left[SWITCH.Sw_01]);
+NOT_switch_detected_left[SWITCH.Sw_02] := NOT(variable_list.switch_detected_left[SWITCH.Sw_02]);
+NOT_switch_detected_right[SWITCH.Sw_01] := NOT(variable_list.switch_detected_right[SWITCH.Sw_01]);
+NOT_switch_detected_right[SWITCH.Sw_02] := NOT(variable_list.switch_detected_right[SWITCH.Sw_02]);
+
+NOT_switch_middle_01 := variable_list.switch_detected_left[SWITCH.Sw_01] OR variable_list.switch_detected_right[SWITCH.Sw_01];
+NOT_switch_middle_02 := variable_list.switch_detected_left[SWITCH.Sw_02] OR variable_list.switch_detected_right[SWITCH.Sw_02];
+
+switch_commanded_01 := variable_list.switch_command_left[SWITCH.Sw_01] OR variable_list.switch_command_right[SWITCH.Sw_01];
+switch_commanded_02 := variable_list.switch_command_left[SWITCH.Sw_02] OR variable_list.switch_command_right[SWITCH.Sw_02];
 
 switch_moving_01 :=
-		variable_list.switch_command_left_01 AND NOT(variable_list.switch_detected_left_01) 
-	OR	variable_list.switch_command_right_01 AND NOT(variable_list.switch_detected_right_01) ;
+		variable_list.switch_command_left[SWITCH.Sw_01] AND NOT(variable_list.switch_detected_left[SWITCH.Sw_01]) 
+	OR	variable_list.switch_command_right[SWITCH.Sw_01] AND NOT(variable_list.switch_detected_right[SWITCH.Sw_01]) ;
 switch_moving_02 :=
-		variable_list.switch_command_left_02 AND NOT(variable_list.switch_detected_left_02) 
-	OR	variable_list.switch_command_right_02 AND NOT(variable_list.switch_detected_right_02) ;
+		variable_list.switch_command_left[SWITCH.Sw_02] AND NOT(variable_list.switch_detected_left[SWITCH.Sw_02]) 
+	OR	variable_list.switch_command_right[SWITCH.Sw_02] AND NOT(variable_list.switch_detected_right[SWITCH.Sw_02]) ;
 
 </xhtml>
                   </ST>
@@ -6176,12 +6702,12 @@ switch_moving_02 :=
                     </variable>
                     <variable name="sw_pos_1">
                       <type>
-                        <derived name="SW_POS" />
+                        <derived name="SW_POS_t" />
                       </type>
                     </variable>
                     <variable name="sw_pos_2">
                       <type>
-                        <derived name="SW_POS" />
+                        <derived name="SW_POS_t" />
                       </type>
                     </variable>
                   </inputVars>
@@ -6196,90 +6722,94 @@ switch_moving_02 :=
                 <body>
                   <ST>
                     <xhtml xmlns="http://www.w3.org/1999/xhtml">IF dir = DIR.UP THEN
-	IF tc = TC.TC_101 THEN
+	CASE tc OF
+	TC.TC_101:
 		nexttc := TC.TC_103;
-	ELSE IF tc = TC.TC_102 THEN
+	TC.TC_102:
 		nexttc := TC.TC_104;
-	ELSE IF tc = TC.TC_103 THEN
+	TC.TC_103:
 		nexttc := TC.TC_105;
-	ELSE IF tc = TC.TC_104 THEN
+	TC.TC_104:
 		nexttc := TC.TC_106;
-	ELSE IF tc = TC.TC_105 THEN
+	TC.TC_105:
 		nexttc := TC.TC_107;
-	ELSE IF tc = TC.TC_106 THEN
+	TC.TC_106:
 		nexttc := TC.TC_108;
-	ELSE IF tc = TC.TC_107 THEN
+	TC.TC_107:
 		nexttc := TC.TC_109;
-	ELSE IF tc = TC.TC_108 THEN
+	TC.TC_108:
 		nexttc := TC.TC_110;
-	ELSE IF tc = TC.TC_109 THEN
+	TC.TC_109:
 		nexttc := TC.TC_111;
-	ELSE IF tc = TC.TC_110 THEN
-		IF sw_pos_1 = SW_POS.LEFT THEN
+	TC.TC_110:
+		CASE sw_pos_1 OF
+		SW_POS_t.LEFT:
 			nexttc := TC.TC_112;
-		ELSE IF sw_pos_1 = SW_POS.RIGHT THEN
+		SW_POS_t.RIGHT:
 			nexttc := TC.TC_109;
-		ELSE (* sw_pos_1 = SW_POS.NIL *)
+		ELSE (* SW_POS.NIL or SW_POS.INTERMEDIATE *)
 			nexttc := TC.NIL;
-		END_IF END_IF
-	ELSE IF tc = TC.TC_111 THEN
+		END_CASE
+	TC.TC_111:
 		nexttc := TC.TC_113;
-	ELSE IF tc = TC.TC_112 THEN
+	TC.TC_112:
 		nexttc := TC.TC_114;
-	ELSE IF tc = TC.TC_113 THEN
+	TC.TC_113:
 		nexttc := TC.TC_115;
-	ELSE IF tc = TC.TC_114 THEN
+	TC.TC_114:
 		nexttc := TC.TC_116;
-	ELSE IF tc = TC.TC_115 THEN
+	TC.TC_115:
 		nexttc := TC.NIL;
-	ELSE IF tc = TC.TC_116 THEN
+	TC.TC_116:
 		nexttc := TC.NIL;
 	ELSE (* tc = TC.NIL *)
 		nexttc := TC.NIL;
-	END_IF END_IF END_IF END_IF END_IF END_IF END_IF END_IF END_IF END_IF END_IF END_IF END_IF END_IF END_IF END_IF
+	END_CASE
 	
 ELSE IF dir = DIR.DOWN THEN
-	IF tc = TC.TC_101 THEN
+	CASE tc OF
+	TC.TC_101:
 		nexttc := TC.NIL;
-	ELSE IF tc = TC.TC_102 THEN
+	TC.TC_102:
 		nexttc := TC.NIL;
-	ELSE IF tc = TC.TC_103 THEN
+	TC.TC_103:
 		nexttc := TC.TC_101;
-	ELSE IF tc = TC.TC_104 THEN
+	TC.TC_104:
 		nexttc := TC.TC_102;
-	ELSE IF tc = TC.TC_105 THEN
+	TC.TC_105:
 		nexttc := TC.TC_103;
-	ELSE IF tc = TC.TC_106 THEN
+	TC.TC_106:
 		nexttc := TC.TC_104;
-	ELSE IF tc = TC.TC_107 THEN
+	TC.TC_107:
 		nexttc := TC.TC_105;
-	ELSE IF tc = TC.TC_108 THEN
+	TC.TC_108:
 		nexttc := TC.TC_106;
-	ELSE IF tc = TC.TC_109 THEN
-		IF sw_pos_2 = SW_POS.LEFT THEN
+	TC.TC_109:
+		CASE sw_pos_2 OF
+		SW_POS_t.LEFT:
 			nexttc := TC.TC_107;
-		ELSE IF sw_pos_2 = SW_POS.RIGHT THEN
+		SW_POS_t.RIGHT:
 			nexttc := TC.TC_110;
-		ELSE (* sw_pos_2 = SW_POS.NIL *)
+		ELSE (* SW_POS.NIL or SW_POS.INTERMEDIATE *)
 			nexttc := TC.NIL;
-		END_IF END_IF
-	ELSE IF tc = TC.TC_110 THEN
+		END_CASE
+	TC.TC_110:
 		nexttc := TC.TC_108;
-	ELSE IF tc = TC.TC_111 THEN
+	TC.TC_111:
 		nexttc := TC.TC_109;
-	ELSE IF tc = TC.TC_112 THEN
+	TC.TC_112:
 		nexttc := TC.TC_110;
-	ELSE IF tc = TC.TC_113 THEN
+	TC.TC_113:
 		nexttc := TC.TC_111;
-	ELSE IF tc = TC.TC_114 THEN
+	TC.TC_114:
 		nexttc := TC.TC_112;
-	ELSE IF tc = TC.TC_115 THEN
+	TC.TC_115:
 		nexttc := TC.TC_113;
-	ELSE IF tc = TC.TC_116 THEN
+	TC.TC_116:
 		nexttc := TC.TC_114;
 	ELSE (* tc = TC.NIL *)
 		nexttc := TC.NIL;
-	END_IF END_IF END_IF END_IF END_IF END_IF END_IF END_IF END_IF END_IF END_IF END_IF END_IF END_IF END_IF END_IF
+	END_CASE
 
 ELSE (* dir = DIR.NIL *)
 	nexttc := TC.NIL;
@@ -6347,8 +6877,8 @@ END_IF END_IF</xhtml>
             <Device xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="">
               <DeviceType>
                 <DeviceIdentification>
-                  <Type>4097</Type>
-                  <Id>0000 000a</Id>
+                  <Type>4096</Type>
+                  <Id>0000 0004</Id>
                   <Version>3.5.20.0</Version>
                 </DeviceIdentification>
                 <Connector moduleType="256" interface="Common.PCI" connectorId="0">
@@ -6391,7 +6921,7 @@ END_IF END_IF</xhtml>
             <Object Name="TRAIN_STATE" ObjectId="0192c181-7aa9-4fb9-bc67-3de052ae2397" />
             <Object Name="DIR" ObjectId="2b35a567-f808-4a96-8ed2-978936df64dc" />
             <Object Name="Next_TC" ObjectId="8004b2f4-31a1-4a06-899f-c8d73477efcf" />
-            <Object Name="SW_POS" ObjectId="90cf7aaa-f0f6-4395-8448-69b72344c859" />
+            <Object Name="SW_POS_t" ObjectId="90cf7aaa-f0f6-4395-8448-69b72344c859" />
           </Object>
         </Object>
       </ProjectStructure>
