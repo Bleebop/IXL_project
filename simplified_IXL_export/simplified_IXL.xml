@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <project xmlns="http://www.plcopen.org/xml/tc6_0200">
-  <fileHeader companyName="" productName="CODESYS" productVersion="CODESYS V3.5 SP20" creationDateTime="2025-01-05T23:49:17.677039" />
-  <contentHeader name="simplified_IXL.project" modificationDateTime="2025-01-05T23:47:12.9484347">
+  <fileHeader companyName="" productName="CODESYS" productVersion="CODESYS V3.5 SP20" creationDateTime="2025-01-12T22:48:54.9109482" />
+  <contentHeader name="simplified_IXL.project" modificationDateTime="2025-01-12T22:47:56.2073814">
     <coordinateInfo>
       <fbd>
         <scaling x="1" y="1" />
@@ -947,6 +947,10 @@
                       <value name="TC_114" value="14" />
                       <value name="TC_115" value="15" />
                       <value name="TC_116" value="16" />
+                      <value name="TC_99" value="99" />
+                      <value name="TC_100" value="100" />
+                      <value name="TC_117" value="117" />
+                      <value name="TC_118" value="118" />
                     </values>
                   </enum>
                 </baseType>
@@ -954,7 +958,6 @@
                   <data name="http://www.3s-software.com/plcopenxml/attributes" handleUnknown="implementation">
                     <Attributes>
                       <Attribute Name="qualified_only" Value="" />
-                      <Attribute Name="strict" Value="" />
                     </Attributes>
                   </data>
                   <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
@@ -1038,6 +1041,11 @@
                         <derived name="DIR" />
                       </type>
                     </variable>
+                    <variable name="stopped">
+                      <type>
+                        <BOOL />
+                      </type>
+                    </variable>
                   </struct>
                 </baseType>
                 <addData>
@@ -1092,6 +1100,90 @@
                   </data>
                   <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
                     <ObjectId>90cf7aaa-f0f6-4395-8448-69b72344c859</ObjectId>
+                  </data>
+                </addData>
+              </dataType>
+            </data>
+            <data name="http://www.3s-software.com/plcopenxml/datatype" handleUnknown="implementation">
+              <dataType name="ENTRY_POINT_t">
+                <baseType>
+                  <struct>
+                    <variable name="tc">
+                      <type>
+                        <derived name="TC" />
+                      </type>
+                    </variable>
+                    <variable name="orientation">
+                      <type>
+                        <derived name="DIR" />
+                      </type>
+                    </variable>
+                  </struct>
+                </baseType>
+                <addData>
+                  <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                    <ObjectId>6e1395ac-8204-4ae7-86d0-d66b554b8729</ObjectId>
+                  </data>
+                </addData>
+              </dataType>
+            </data>
+            <data name="http://www.3s-software.com/plcopenxml/datatype" handleUnknown="implementation">
+              <dataType name="EXIT_POINT_t">
+                <baseType>
+                  <struct>
+                    <variable name="tc">
+                      <type>
+                        <derived name="TC" />
+                      </type>
+                    </variable>
+                    <variable name="orientation">
+                      <type>
+                        <derived name="DIR" />
+                      </type>
+                    </variable>
+                  </struct>
+                </baseType>
+                <addData>
+                  <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                    <ObjectId>b6e586b1-0f26-46c7-93fe-7c6fa13f8d99</ObjectId>
+                  </data>
+                </addData>
+              </dataType>
+            </data>
+            <data name="http://www.3s-software.com/plcopenxml/datatype" handleUnknown="implementation">
+              <dataType name="TRAIN_DRAWING_t">
+                <baseType>
+                  <struct>
+                    <variable name="pos_X">
+                      <type>
+                        <INT />
+                      </type>
+                    </variable>
+                    <variable name="pos_Y">
+                      <type>
+                        <INT />
+                      </type>
+                    </variable>
+                    <variable name="angle">
+                      <type>
+                        <INT />
+                      </type>
+                    </variable>
+                    <variable name="to_right">
+                      <type>
+                        <BOOL />
+                      </type>
+                    </variable>
+                    <variable name="to_left">
+                      <type>
+                        <BOOL />
+                      </type>
+                    </variable>
+                  </struct>
+                </baseType>
+                <addData>
+                  <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                    <ObjectId>98b0f1c9-b8de-438f-9efd-d304e712837f</ObjectId>
                   </data>
                 </addData>
               </dataType>
@@ -6422,6 +6514,106 @@
                           </baseType>
                         </array>
                       </type>
+                      <initialValue>
+                        <arrayValue>
+                          <value>
+                            <structValue>
+                              <value member="exists">
+                                <simpleValue value="FALSE" />
+                              </value>
+                              <value member="rear_pos">
+                                <simpleValue value="TC.NIL" />
+                              </value>
+                              <value member="rear_pos">
+                                <simpleValue value="TC.NIL" />
+                              </value>
+                              <value member="orientation">
+                                <simpleValue value="DIR.NIL" />
+                              </value>
+                            </structValue>
+                          </value>
+                          <value>
+                            <structValue>
+                              <value member="exists">
+                                <simpleValue value="FALSE" />
+                              </value>
+                              <value member="rear_pos">
+                                <simpleValue value="TC.NIL" />
+                              </value>
+                              <value member="rear_pos">
+                                <simpleValue value="TC.NIL" />
+                              </value>
+                              <value member="orientation">
+                                <simpleValue value="DIR.NIL" />
+                              </value>
+                            </structValue>
+                          </value>
+                          <value>
+                            <structValue>
+                              <value member="exists">
+                                <simpleValue value="FALSE" />
+                              </value>
+                              <value member="rear_pos">
+                                <simpleValue value="TC.NIL" />
+                              </value>
+                              <value member="rear_pos">
+                                <simpleValue value="TC.NIL" />
+                              </value>
+                              <value member="orientation">
+                                <simpleValue value="DIR.NIL" />
+                              </value>
+                            </structValue>
+                          </value>
+                          <value>
+                            <structValue>
+                              <value member="exists">
+                                <simpleValue value="FALSE" />
+                              </value>
+                              <value member="rear_pos">
+                                <simpleValue value="TC.NIL" />
+                              </value>
+                              <value member="rear_pos">
+                                <simpleValue value="TC.NIL" />
+                              </value>
+                              <value member="orientation">
+                                <simpleValue value="DIR.NIL" />
+                              </value>
+                            </structValue>
+                          </value>
+                          <value>
+                            <structValue>
+                              <value member="exists">
+                                <simpleValue value="FALSE" />
+                              </value>
+                              <value member="rear_pos">
+                                <simpleValue value="TC.NIL" />
+                              </value>
+                              <value member="rear_pos">
+                                <simpleValue value="TC.NIL" />
+                              </value>
+                              <value member="orientation">
+                                <simpleValue value="DIR.NIL" />
+                              </value>
+                            </structValue>
+                          </value>
+                          <value>
+                            <structValue>
+                              <value member="exists">
+                                <simpleValue value="FALSE" />
+                              </value>
+                              <value member="rear_pos">
+                                <simpleValue value="TC.NIL" />
+                              </value>
+                              <value member="rear_pos">
+                                <simpleValue value="TC.NIL" />
+                              </value>
+                              <value member="orientation">
+                                <simpleValue value="DIR.NIL" />
+                              </value>
+                            </structValue>
+                          </value>
+                        </arrayValue>
+                      </initialValue>
                     </variable>
                     <variable name="Switch_pos">
                       <type>
@@ -6464,6 +6656,9 @@
                       <type>
                         <INT />
                       </type>
+                      <initialValue>
+                        <simpleValue value="6" />
+                      </initialValue>
                     </variable>
                   </localVars>
                   <localVars>
@@ -6552,32 +6747,224 @@
                         </array>
                       </type>
                     </variable>
-                    <variable name="switch_move_to_int_output">
+                    <variable name="send_train">
                       <type>
                         <array>
-                          <dimension lower="1" upper="variable_list.nSwitch" />
+                          <dimension lower="1" upper="nEntryPoints" />
                           <baseType>
                             <BOOL />
                           </baseType>
                         </array>
                       </type>
                     </variable>
-                    <variable name="switch_move_to_left_output">
+                    <variable name="send_train_prev">
                       <type>
                         <array>
-                          <dimension lower="1" upper="variable_list.nSwitch" />
+                          <dimension lower="1" upper="nEntryPoints" />
                           <baseType>
                             <BOOL />
                           </baseType>
                         </array>
                       </type>
                     </variable>
-                    <variable name="switch_move_to_right_output">
+                    <variable name="stop_train">
                       <type>
                         <array>
-                          <dimension lower="1" upper="variable_list.nSwitch" />
+                          <dimension lower="1" upper="nTrains" />
                           <baseType>
                             <BOOL />
+                          </baseType>
+                        </array>
+                      </type>
+                    </variable>
+                  </localVars>
+                  <localVars constant="true">
+                    <variable name="nExitPoints">
+                      <type>
+                        <INT />
+                      </type>
+                      <initialValue>
+                        <simpleValue value="2" />
+                      </initialValue>
+                    </variable>
+                    <variable name="nEntryPoints">
+                      <type>
+                        <INT />
+                      </type>
+                      <initialValue>
+                        <simpleValue value="2" />
+                      </initialValue>
+                    </variable>
+                  </localVars>
+                  <localVars>
+                    <variable name="limit_ind">
+                      <type>
+                        <INT />
+                      </type>
+                    </variable>
+                    <variable name="new_entry">
+                      <type>
+                        <BOOL />
+                      </type>
+                    </variable>
+                  </localVars>
+                  <localVars constant="true">
+                    <variable name="entry_points">
+                      <type>
+                        <array>
+                          <dimension lower="1" upper="nEntryPoints" />
+                          <baseType>
+                            <derived name="ENTRY_POINT_t" />
+                          </baseType>
+                        </array>
+                      </type>
+                      <initialValue>
+                        <arrayValue>
+                          <value>
+                            <structValue>
+                              <value member="tc">
+                                <simpleValue value="TC.TC_101" />
+                              </value>
+                              <value member="orientation">
+                                <simpleValue value="DIR.UP" />
+                              </value>
+                            </structValue>
+                          </value>
+                          <value>
+                            <structValue>
+                              <value member="tc">
+                                <simpleValue value="TC.TC_116" />
+                              </value>
+                              <value member="orientation">
+                                <simpleValue value="DIR.DOWN" />
+                              </value>
+                            </structValue>
+                          </value>
+                        </arrayValue>
+                      </initialValue>
+                    </variable>
+                    <variable name="exit_points">
+                      <type>
+                        <array>
+                          <dimension lower="1" upper="nExitPoints" />
+                          <baseType>
+                            <derived name="EXIT_POINT_t" />
+                          </baseType>
+                        </array>
+                      </type>
+                      <initialValue>
+                        <arrayValue>
+                          <value>
+                            <structValue>
+                              <value member="tc">
+                                <simpleValue value="TC.TC_115" />
+                              </value>
+                              <value member="orientation">
+                                <simpleValue value="DIR.UP" />
+                              </value>
+                            </structValue>
+                          </value>
+                          <value>
+                            <structValue>
+                              <value member="tc">
+                                <simpleValue value="TC.TC_102" />
+                              </value>
+                              <value member="orientation">
+                                <simpleValue value="DIR.DOWN" />
+                              </value>
+                            </structValue>
+                          </value>
+                        </arrayValue>
+                      </initialValue>
+                    </variable>
+                  </localVars>
+                  <localVars>
+                    <variable name="move_train_TIMER">
+                      <type>
+                        <array>
+                          <dimension lower="1" upper="nTrains" />
+                          <baseType>
+                            <derived name="TON" />
+                          </baseType>
+                        </array>
+                      </type>
+                    </variable>
+                    <variable name="train_moved_prev">
+                      <type>
+                        <array>
+                          <dimension lower="1" upper="nTrains" />
+                          <baseType>
+                            <BOOL />
+                          </baseType>
+                        </array>
+                      </type>
+                    </variable>
+                    <variable name="train_moved">
+                      <type>
+                        <array>
+                          <dimension lower="1" upper="nTrains" />
+                          <baseType>
+                            <BOOL />
+                          </baseType>
+                        </array>
+                      </type>
+                    </variable>
+                  </localVars>
+                  <localVars constant="true">
+                    <variable name="DELAY_TRAIN_MOV">
+                      <type>
+                        <TIME />
+                      </type>
+                      <initialValue>
+                        <simpleValue value="TIME#1s0ms" />
+                      </initialValue>
+                    </variable>
+                  </localVars>
+                  <localVars>
+                    <variable name="train_draw">
+                      <type>
+                        <array>
+                          <dimension lower="1" upper="nTrains" />
+                          <baseType>
+                            <derived name="TRAIN_DRAWING_t" />
+                          </baseType>
+                        </array>
+                      </type>
+                    </variable>
+                    <variable name="evacuation">
+                      <type>
+                        <BOOL />
+                      </type>
+                      <initialValue>
+                        <simpleValue value="FALSE" />
+                      </initialValue>
+                    </variable>
+                    <variable name="train_reverse_TC_108">
+                      <type>
+                        <BOOL />
+                      </type>
+                    </variable>
+                    <variable name="train_reverse_TC_111">
+                      <type>
+                        <BOOL />
+                      </type>
+                    </variable>
+                    <variable name="train_reverse_TC_108_prev">
+                      <type>
+                        <BOOL />
+                      </type>
+                    </variable>
+                    <variable name="train_reverse_TC_111_prev">
+                      <type>
+                        <BOOL />
+                      </type>
+                    </variable>
+                    <variable name="occup_TC">
+                      <type>
+                        <array>
+                          <dimension lower="1" upper="variable_list.nTC" />
+                          <baseType>
+                            <INT />
                           </baseType>
                         </array>
                       </type>
@@ -6616,15 +7003,138 @@ END_FOR
 (* TRAINS POSITION UPDATE *)
 (* ---------------------- *)
 
+FOR train_ind := 1 TO nTrains DO
+	train_moved[train_ind] := FALSE;
+END_FOR
+
+(* TODO empecher les trains de se superposer
+FOR tc_ind := 1 TO variable_list.nTC DO
+	occup_TC[tc_ind] := 0;
+	FOR train_ind := 1 TO nTrains DO
+		IF Trains[train_ind].front_pos = tc_ind AND Trains[train_ind].rear_pos = tc_ind THEN
+			occup_TC[tc_ind] := 4;
+		ELSE IF Trains[train_ind].front_pos = tc_ind AND NOT(Trains[train_ind].rear_pos = tc_ind) THEN
+			IF occup_TC[tc_ind] = 2 THEN
+				occup_TC[tc_ind] := 4;
+			ELSE
+				occup_TC[tc_ind] := 1;
+			END_IF
+		ELSE IF NOT(Trains[train_ind].front_pos = tc_ind) AND Trains[train_ind].rear_pos = tc_ind THEN
+			IF occup_TC[tc_ind] = 1 THEN
+				occup_TC[tc_ind] := 4;
+			ELSE
+				occup_TC[tc_ind] := 2;
+			END_IF
+		END_IF END_IF END_IF
+	END_FOR
+END_FOR
+*)
+
 (* ENTERING TRAINS *)
 (* --------------- *)
 
-
-
-FOR train_ind := 1 TO nTrains DO
-	
+FOR limit_ind := 1 TO nEntryPoints DO
+	IF send_train[limit_ind] AND NOT(send_train_prev[limit_ind]) (* AND NOT(entry_points[limit_ind].tc) TODO*) THEN
+		new_entry := TRUE;
+		FOR train_ind := 1 TO nTrains DO
+			IF NOT(Trains[train_ind].exists) AND new_entry THEN
+				new_entry := FALSE;
+				Trains[train_ind].exists := TRUE;
+				Trains[train_ind].rear_pos := Next_TC(entry_points[limit_ind].tc, Opposite_dir(entry_points[limit_ind].orientation), Switch_pos);
+				Trains[train_ind].front_pos := entry_points[limit_ind].tc;
+				Trains[train_ind].orientation := entry_points[limit_ind].orientation;
+				train_moved[train_ind] := TRUE;
+				
+				
+			END_IF
+		END_FOR
+	END_IF
+	send_train_prev[limit_ind] := send_train[limit_ind];
 END_FOR
 
+(* TRAIN TURN BACK *)
+(* --------------- *)
+
+FOR train_ind := 1 TO nTrains DO
+	IF Trains[train_ind].exists AND Trains[train_ind].stopped THEN
+		IF (	Trains[train_ind].front_pos = TC.TC_108
+			AND Trains[train_ind].rear_pos = TC.TC_108
+			AND	train_reverse_TC_108 AND NOT(train_reverse_TC_108_prev)) THEN
+			Trains[train_ind].orientation := Opposite_dir(Trains[train_ind].orientation);
+		END_IF
+		IF (	Trains[train_ind].front_pos = TC.TC_111
+			AND Trains[train_ind].rear_pos = TC.TC_111
+			AND	train_reverse_TC_111 AND NOT(train_reverse_TC_111_prev)) THEN
+			Trains[train_ind].orientation := Opposite_dir(Trains[train_ind].orientation);
+		END_IF
+	END_IF
+END_FOR
+
+train_reverse_TC_108_prev := train_reverse_TC_108;
+train_reverse_TC_111_prev := train_reverse_TC_111;
+
+(* TRAIN MOVEMENT TIMERS *)
+(* --------------------- *)
+
+FOR train_ind := 1 TO nTrains DO
+	move_train_TIMER[train_ind](IN := Trains[train_ind].exists AND NOT(train_moved_prev[train_ind]) AND NOT(Trains[train_ind].stopped), PT := DELAY_TRAIN_MOV);
+END_FOR
+
+(* EXITING TRAINS *)
+(* -------------- *)
+
+FOR limit_ind := 1 TO nExitPoints DO
+	FOR train_ind := 1 TO nTrains DO
+		IF Trains[train_ind].exists THEN
+			IF (Trains[train_ind].rear_pos = exit_points[limit_ind].tc
+				AND	Trains[train_ind].front_pos = Next_TC(exit_points[limit_ind].tc, exit_points[limit_ind].orientation, Switch_pos)
+				AND	Trains[train_ind].orientation = exit_points[limit_ind].orientation
+				AND NOT(Trains[train_ind].stopped)
+				AND move_train_TIMER[train_ind].Q) THEN
+					Trains[train_ind].exists := FALSE;
+					Trains[train_ind].rear_pos := TC.NIL;
+					Trains[train_ind].front_pos := TC.NIL;
+					Trains[train_ind].orientation := DIR.NIL;
+			END_IF
+		END_IF
+	END_FOR
+END_FOR
+
+IF evacuation THEN
+	FOR train_ind := 1 TO nTrains DO
+		Trains[train_ind].exists := FALSE;
+		Trains[train_ind].rear_pos := TC.NIL;
+		Trains[train_ind].front_pos := TC.NIL;
+		Trains[train_ind].orientation := DIR.NIL;
+	END_FOR
+END_IF
+
+(* TRAIN MOVEMENT *)
+(* -------------- *)
+
+FOR train_ind := 1 TO nTrains DO
+	IF Trains[train_ind].exists AND move_train_TIMER[train_ind].Q THEN
+		IF Trains[train_ind].rear_pos = Trains[train_ind].front_pos THEN
+			IF (	NOT(Trains[train_ind].front_pos = TC.TC_103 AND Trains[train_ind].orientation = DIR.UP AND NOT(variable_list.signal_open_route_201))
+				AND	NOT(Trains[train_ind].front_pos = TC.TC_107 AND Trains[train_ind].orientation = DIR.UP AND NOT(variable_list.signal_open_route_203))
+				AND	NOT(Trains[train_ind].front_pos = TC.TC_108 AND Trains[train_ind].orientation = DIR.UP AND NOT(variable_list.signal_open_route_205))
+				AND	NOT(Trains[train_ind].front_pos = TC.TC_111 AND Trains[train_ind].orientation = DIR.DOWN AND NOT(variable_list.signal_open_route_206))
+				AND	NOT(Trains[train_ind].front_pos = TC.TC_112 AND Trains[train_ind].orientation = DIR.DOWN AND NOT(variable_list.signal_open_route_208))
+				AND	NOT(Trains[train_ind].front_pos = TC.TC_107 AND Trains[train_ind].orientation = DIR.DOWN)
+				) THEN
+				Trains[train_ind].front_pos := Next_TC(Trains[train_ind].front_pos, Trains[train_ind].orientation, Switch_pos);
+				train_moved[train_ind] := TRUE;
+			END_IF
+		ELSE IF Trains[train_ind].front_pos = Next_TC(Trains[train_ind].rear_pos, Trains[train_ind].orientation, Switch_pos) THEN
+			Trains[train_ind].rear_pos := Trains[train_ind].front_pos;
+			train_moved[train_ind] := TRUE;
+		END_IF END_IF
+	END_IF
+END_FOR
+
+FOR train_ind := 1 TO nTrains DO
+	train_moved_prev[train_ind] := train_moved[train_ind];
+END_FOR
 
 
 (* INPUTS OF PLC_PRG *)
@@ -6651,8 +7161,6 @@ FOR tc_ind := 1 TO variable_list.nTC DO
 END_FOR
 
 
-
-
 (* DRAWING VARIABLES *)
 (* ----------------- *)
 NOT_switch_detected_left[SWITCH.Sw_01] := NOT(variable_list.switch_detected_left[SWITCH.Sw_01]);
@@ -6672,6 +7180,12 @@ switch_moving_01 :=
 switch_moving_02 :=
 		variable_list.switch_command_left[SWITCH.Sw_02] AND NOT(variable_list.switch_detected_left[SWITCH.Sw_02]) 
 	OR	variable_list.switch_command_right[SWITCH.Sw_02] AND NOT(variable_list.switch_detected_right[SWITCH.Sw_02]) ;
+	
+
+FOR train_ind := 1 TO nTrains DO
+	train_draw[train_ind] := TC_to_draw_pos(Trains[train_ind], Switch_pos, train_ind);
+END_FOR
+
 
 </xhtml>
                   </ST>
@@ -6690,135 +7204,493 @@ switch_moving_02 :=
                     <derived name="TC" />
                   </returnType>
                   <inputVars>
-                    <variable name="tc">
+                    <variable name="prev_tc">
                       <type>
                         <derived name="TC" />
                       </type>
                     </variable>
-                    <variable name="dir">
+                    <variable name="orientation">
                       <type>
                         <derived name="DIR" />
                       </type>
                     </variable>
-                    <variable name="sw_pos_1">
+                    <variable name="sw_pos">
                       <type>
-                        <derived name="SW_POS_t" />
-                      </type>
-                    </variable>
-                    <variable name="sw_pos_2">
-                      <type>
-                        <derived name="SW_POS_t" />
+                        <array>
+                          <dimension lower="1" upper="variable_list.nSwitch" />
+                          <baseType>
+                            <derived name="SW_POS_t" />
+                          </baseType>
+                        </array>
                       </type>
                     </variable>
                   </inputVars>
-                  <outputVars>
-                    <variable name="nexttc">
-                      <type>
-                        <derived name="TC" />
-                      </type>
-                    </variable>
-                  </outputVars>
                 </interface>
                 <body>
                   <ST>
-                    <xhtml xmlns="http://www.w3.org/1999/xhtml">IF dir = DIR.UP THEN
-	CASE tc OF
+                    <xhtml xmlns="http://www.w3.org/1999/xhtml">IF orientation = DIR.UP THEN
+	CASE prev_tc OF
 	TC.TC_101:
-		nexttc := TC.TC_103;
+		Next_TC := TC.TC_103;
 	TC.TC_102:
-		nexttc := TC.TC_104;
+		Next_TC := TC.TC_104;
 	TC.TC_103:
-		nexttc := TC.TC_105;
+		Next_TC := TC.TC_105;
 	TC.TC_104:
-		nexttc := TC.TC_106;
+		Next_TC := TC.TC_106;
 	TC.TC_105:
-		nexttc := TC.TC_107;
+		Next_TC := TC.TC_107;
 	TC.TC_106:
-		nexttc := TC.TC_108;
+		Next_TC := TC.TC_108;
 	TC.TC_107:
-		nexttc := TC.TC_109;
+		Next_TC := TC.TC_109;
 	TC.TC_108:
-		nexttc := TC.TC_110;
+		Next_TC := TC.TC_110;
 	TC.TC_109:
-		nexttc := TC.TC_111;
+		Next_TC := TC.TC_111;
 	TC.TC_110:
-		CASE sw_pos_1 OF
+		CASE sw_pos[1] OF
 		SW_POS_t.LEFT:
-			nexttc := TC.TC_112;
+			Next_TC := TC.TC_112;
 		SW_POS_t.RIGHT:
-			nexttc := TC.TC_109;
+			Next_TC := TC.TC_109;
 		ELSE (* SW_POS.NIL or SW_POS.INTERMEDIATE *)
-			nexttc := TC.NIL;
+			Next_TC := TC.NIL;
 		END_CASE
 	TC.TC_111:
-		nexttc := TC.TC_113;
+		Next_TC := TC.TC_113;
 	TC.TC_112:
-		nexttc := TC.TC_114;
+		Next_TC := TC.TC_114;
 	TC.TC_113:
-		nexttc := TC.TC_115;
+		Next_TC := TC.TC_115;
 	TC.TC_114:
-		nexttc := TC.TC_116;
+		Next_TC := TC.TC_116;
 	TC.TC_115:
-		nexttc := TC.NIL;
+		Next_TC := TC.TC_117;
 	TC.TC_116:
-		nexttc := TC.NIL;
-	ELSE (* tc = TC.NIL *)
-		nexttc := TC.NIL;
+		Next_TC := TC.TC_118;
+		
+	TC.TC_99:
+		Next_TC := TC.TC_101;
+	TC.TC_100:
+		Next_TC := TC.TC_102;
+	ELSE (* prev_tc = TC.NIL *)
+		Next_TC := TC.NIL;
 	END_CASE
 	
-ELSE IF dir = DIR.DOWN THEN
-	CASE tc OF
+ELSE IF orientation = DIR.DOWN THEN
+	CASE prev_tc OF
 	TC.TC_101:
-		nexttc := TC.NIL;
+		Next_TC := TC.TC_99;
 	TC.TC_102:
-		nexttc := TC.NIL;
+		Next_TC := TC.TC_100;
 	TC.TC_103:
-		nexttc := TC.TC_101;
+		Next_TC := TC.TC_101;
 	TC.TC_104:
-		nexttc := TC.TC_102;
+		Next_TC := TC.TC_102;
 	TC.TC_105:
-		nexttc := TC.TC_103;
+		Next_TC := TC.TC_103;
 	TC.TC_106:
-		nexttc := TC.TC_104;
+		Next_TC := TC.TC_104;
 	TC.TC_107:
-		nexttc := TC.TC_105;
+		Next_TC := TC.TC_105;
 	TC.TC_108:
-		nexttc := TC.TC_106;
+		Next_TC := TC.TC_106;
 	TC.TC_109:
-		CASE sw_pos_2 OF
+		CASE sw_pos[2] OF
 		SW_POS_t.LEFT:
-			nexttc := TC.TC_107;
+			Next_TC := TC.TC_107;
 		SW_POS_t.RIGHT:
-			nexttc := TC.TC_110;
+			Next_TC := TC.TC_110;
 		ELSE (* SW_POS.NIL or SW_POS.INTERMEDIATE *)
-			nexttc := TC.NIL;
+			Next_TC := TC.NIL;
 		END_CASE
 	TC.TC_110:
-		nexttc := TC.TC_108;
+		Next_TC := TC.TC_108;
 	TC.TC_111:
-		nexttc := TC.TC_109;
+		Next_TC := TC.TC_109;
 	TC.TC_112:
-		nexttc := TC.TC_110;
+		Next_TC := TC.TC_110;
 	TC.TC_113:
-		nexttc := TC.TC_111;
+		Next_TC := TC.TC_111;
 	TC.TC_114:
-		nexttc := TC.TC_112;
+		Next_TC := TC.TC_112;
 	TC.TC_115:
-		nexttc := TC.TC_113;
+		Next_TC := TC.TC_113;
 	TC.TC_116:
-		nexttc := TC.TC_114;
-	ELSE (* tc = TC.NIL *)
-		nexttc := TC.NIL;
+		Next_TC := TC.TC_114;
+		
+	TC.TC_117:
+		Next_TC := TC.TC_115;
+	TC.TC_118:
+		Next_TC := TC.TC_116;
+	ELSE (* prev_tc = TC.NIL *)
+		Next_TC := TC.NIL;
 	END_CASE
 
 ELSE (* dir = DIR.NIL *)
-	nexttc := TC.NIL;
+	Next_TC := TC.NIL;
 END_IF END_IF</xhtml>
                   </ST>
                 </body>
                 <addData>
                   <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
                     <ObjectId>8004b2f4-31a1-4a06-899f-c8d73477efcf</ObjectId>
+                  </data>
+                </addData>
+              </pou>
+            </data>
+            <data name="http://www.3s-software.com/plcopenxml/pou" handleUnknown="implementation">
+              <pou name="Opposite_dir" pouType="function">
+                <interface>
+                  <returnType>
+                    <derived name="DIR" />
+                  </returnType>
+                  <inputVars>
+                    <variable name="inDir">
+                      <type>
+                        <derived name="DIR" />
+                      </type>
+                    </variable>
+                  </inputVars>
+                </interface>
+                <body>
+                  <ST>
+                    <xhtml xmlns="http://www.w3.org/1999/xhtml">CASE inDir OF
+DIR.UP:
+	Opposite_dir := DIR.DOWN;
+DIR.DOWN:
+	Opposite_dir := DIR.UP;
+ELSE
+	Opposite_dir := DIR.NIL;
+END_CASE</xhtml>
+                  </ST>
+                </body>
+                <addData>
+                  <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                    <ObjectId>1576addd-aaf4-4e86-8812-aeebe9b622b1</ObjectId>
+                  </data>
+                </addData>
+              </pou>
+            </data>
+            <data name="http://www.3s-software.com/plcopenxml/pou" handleUnknown="implementation">
+              <pou name="TC_to_draw_pos" pouType="function">
+                <interface>
+                  <returnType>
+                    <derived name="TRAIN_DRAWING_t" />
+                  </returnType>
+                  <inputVars>
+                    <variable name="train_state">
+                      <type>
+                        <derived name="TRAIN_STATE" />
+                      </type>
+                    </variable>
+                    <variable name="sw_pos">
+                      <type>
+                        <array>
+                          <dimension lower="1" upper="variable_list.nSwitch" />
+                          <baseType>
+                            <derived name="SW_POS_t" />
+                          </baseType>
+                        </array>
+                      </type>
+                    </variable>
+                    <variable name="train_ind">
+                      <type>
+                        <INT />
+                      </type>
+                    </variable>
+                  </inputVars>
+                  <localVars>
+                    <variable name="ERROR">
+                      <type>
+                        <BOOL />
+                      </type>
+                    </variable>
+                  </localVars>
+                </interface>
+                <body>
+                  <ST>
+                    <xhtml xmlns="http://www.w3.org/1999/xhtml">IF NOT(train_state.exists) THEN
+	TC_to_draw_pos.to_right := TRUE;
+	TC_to_draw_pos.to_left := FALSE;
+	TC_to_draw_pos.pos_X := 115;
+	TC_to_draw_pos.pos_Y := 26+train_ind*42;
+	TC_to_draw_pos.angle := 0;
+ELSE
+	ERROR := FALSE;
+	
+	CASE train_state.orientation OF
+	DIR.UP:
+		TC_to_draw_pos.to_right := TRUE;
+		TC_to_draw_pos.to_left := FALSE;
+	DIR.DOWN:
+		TC_to_draw_pos.to_right := FALSE;
+		TC_to_draw_pos.to_left := TRUE;
+	ELSE
+		ERROR := TRUE;
+	END_CASE
+	
+	TC_to_draw_pos.angle := 0;
+	
+	CASE train_state.rear_pos OF
+	TC.TC_99, TC.TC_101, TC.TC_103, TC.TC_105, TC.TC_107, TC.TC_109, TC.TC_111, TC.TC_113, TC.TC_115, TC.TC_117:
+		TC_to_draw_pos.pos_Y := 432;
+	TC.TC_100, TC.TC_102, TC.TC_104, TC.TC_106, TC.TC_108, TC.TC_110, TC.TC_112, TC.TC_114, TC.TC_116, TC.TC_118:
+		TC_to_draw_pos.pos_Y := 340;
+	END_CASE
+	
+	(* UPSTREAM LINE*)
+	CASE train_state.rear_pos OF
+	TC.TC_99:
+		CASE train_state.front_pos OF
+		TC.TC_101:
+			TC_to_draw_pos.pos_X := 200;
+		ELSE
+			ERROR := TRUE;
+		END_CASE
+	TC.TC_101:
+		CASE train_state.front_pos OF
+		TC.TC_99:
+			TC_to_draw_pos.pos_X := 200;
+		TC.TC_101:
+			TC_to_draw_pos.pos_X := 251;
+		TC.TC_103:
+			TC_to_draw_pos.pos_X := 303;
+		ELSE
+			ERROR := TRUE;
+		END_CASE
+	TC.TC_103:
+		CASE train_state.front_pos OF
+		TC.TC_101:
+			TC_to_draw_pos.pos_X := 303;
+		TC.TC_103:
+			TC_to_draw_pos.pos_X := 356;
+		TC.TC_105:
+			TC_to_draw_pos.pos_X := 407;
+		ELSE
+			ERROR := TRUE;
+		END_CASE
+	TC.TC_105:
+		CASE train_state.front_pos OF
+		TC.TC_103:
+			TC_to_draw_pos.pos_X := 407;
+		TC.TC_105:
+			TC_to_draw_pos.pos_X := 460;
+		TC.TC_107:
+			TC_to_draw_pos.pos_X := 511;
+		ELSE
+			ERROR := TRUE;
+		END_CASE
+	TC.TC_107:
+		CASE train_state.front_pos OF
+		TC.TC_105:
+			TC_to_draw_pos.pos_X := 511;
+		TC.TC_107:
+			TC_to_draw_pos.pos_X := 563;
+		TC.TC_109:
+			TC_to_draw_pos.pos_X := 615;
+		ELSE
+			ERROR := TRUE;
+		END_CASE
+	TC.TC_109:
+		CASE train_state.front_pos OF
+		TC.TC_107:
+			TC_to_draw_pos.pos_X := 615;
+		TC.TC_109:
+			CASE sw_pos[SWITCH.Sw_02] OF
+			SW_POS_t.LEFT:
+				TC_to_draw_pos.pos_X := 692;
+			SW_POS_t.RIGHT:
+				TC_to_draw_pos.pos_X := 767;
+				TC_to_draw_pos.pos_Y := 418;
+				TC_to_draw_pos.angle := 37;
+			ELSE
+				ERROR := TRUE;
+			END_CASE
+		TC.TC_110:
+			TC_to_draw_pos.pos_X := 734;
+			TC_to_draw_pos.pos_Y := 396;
+			TC_to_draw_pos.angle := 37;
+		TC.TC_111:
+			TC_to_draw_pos.pos_X := 804;
+		ELSE
+			ERROR := TRUE;
+		END_CASE
+	TC.TC_111:
+		CASE train_state.front_pos OF
+		TC.TC_109:
+			TC_to_draw_pos.pos_X := 804;
+		TC.TC_111:
+			TC_to_draw_pos.pos_X := 856;
+		TC.TC_113:
+			TC_to_draw_pos.pos_X := 908;
+		ELSE
+			ERROR := TRUE;
+		END_CASE
+	TC.TC_113:
+		CASE train_state.front_pos OF
+		TC.TC_111:
+			TC_to_draw_pos.pos_X := 908;
+		TC.TC_113:
+			TC_to_draw_pos.pos_X := 960;
+		TC.TC_115:
+			TC_to_draw_pos.pos_X := 1012;
+		ELSE
+			ERROR := TRUE;
+		END_CASE
+	TC.TC_115:
+		CASE train_state.front_pos OF
+		TC.TC_113:
+			TC_to_draw_pos.pos_X := 1012;
+		TC.TC_115:
+			TC_to_draw_pos.pos_X := 1064;
+		TC.TC_117:
+			TC_to_draw_pos.pos_X := 1116;
+		ELSE
+			ERROR := TRUE;
+		END_CASE
+	TC.TC_117:
+		CASE train_state.front_pos OF
+		TC.TC_115:
+			TC_to_draw_pos.pos_X := 1116;
+		ELSE
+			ERROR := TRUE;
+		END_CASE
+		
+	(* DOWNSTREAM LINE*)
+	TC.TC_100:
+		CASE train_state.front_pos OF
+		TC.TC_102:
+			TC_to_draw_pos.pos_X := 200;
+		ELSE
+			ERROR := TRUE;
+		END_CASE
+	TC.TC_102:
+		CASE train_state.front_pos OF
+		TC.TC_100:
+			TC_to_draw_pos.pos_X := 200;
+		TC.TC_102:
+			TC_to_draw_pos.pos_X := 251;
+		TC.TC_104:
+			TC_to_draw_pos.pos_X := 303;
+		ELSE
+			ERROR := TRUE;
+		END_CASE
+	TC.TC_104:
+		CASE train_state.front_pos OF
+		TC.TC_102:
+			TC_to_draw_pos.pos_X := 303;
+		TC.TC_104:
+			TC_to_draw_pos.pos_X := 356;
+		TC.TC_106:
+			TC_to_draw_pos.pos_X := 407;
+		ELSE
+			ERROR := TRUE;
+		END_CASE
+	TC.TC_106:
+		CASE train_state.front_pos OF
+		TC.TC_104:
+			TC_to_draw_pos.pos_X := 407;
+		TC.TC_106:
+			TC_to_draw_pos.pos_X := 460;
+		TC.TC_108:
+			TC_to_draw_pos.pos_X := 511;
+		ELSE
+			ERROR := TRUE;
+		END_CASE
+	TC.TC_108:
+		CASE train_state.front_pos OF
+		TC.TC_106:
+			TC_to_draw_pos.pos_X := 511;
+		TC.TC_108:
+			TC_to_draw_pos.pos_X := 563;
+		TC.TC_110:
+			TC_to_draw_pos.pos_X := 615;
+		ELSE
+			ERROR := TRUE;
+		END_CASE
+	TC.TC_110:
+		CASE train_state.front_pos OF
+		TC.TC_108:
+			TC_to_draw_pos.pos_X := 615;
+		TC.TC_109:
+			TC_to_draw_pos.pos_X := 734;
+			TC_to_draw_pos.pos_Y := 396;
+			TC_to_draw_pos.angle := 37;
+		TC.TC_110:
+			CASE sw_pos[SWITCH.Sw_01] OF
+			SW_POS_t.LEFT:
+				TC_to_draw_pos.pos_X := 712;
+			SW_POS_t.RIGHT:
+				TC_to_draw_pos.pos_X := 691;
+				TC_to_draw_pos.pos_Y := 363;
+				TC_to_draw_pos.angle := 37;
+			ELSE
+				ERROR := TRUE;
+			END_CASE
+		TC.TC_112:
+			TC_to_draw_pos.pos_X := 804;
+		ELSE
+			ERROR := TRUE;
+		END_CASE
+	TC.TC_112:
+		CASE train_state.front_pos OF
+		TC.TC_110:
+			TC_to_draw_pos.pos_X := 804;
+		TC.TC_112:
+			TC_to_draw_pos.pos_X := 856;
+		TC.TC_114:
+			TC_to_draw_pos.pos_X := 908;
+		ELSE
+			ERROR := TRUE;
+		END_CASE
+	TC.TC_114:
+		CASE train_state.front_pos OF
+		TC.TC_112:
+			TC_to_draw_pos.pos_X := 908;
+		TC.TC_114:
+			TC_to_draw_pos.pos_X := 960;
+		TC.TC_116:
+			TC_to_draw_pos.pos_X := 1012;
+		ELSE
+			ERROR := TRUE;
+		END_CASE
+	TC.TC_116:
+		CASE train_state.front_pos OF
+		TC.TC_114:
+			TC_to_draw_pos.pos_X := 1012;
+		TC.TC_116:
+			TC_to_draw_pos.pos_X := 1064;
+		TC.TC_118:
+			TC_to_draw_pos.pos_X := 1116;
+		ELSE
+			ERROR := TRUE;
+		END_CASE
+	TC.TC_118:
+		CASE train_state.front_pos OF
+		TC.TC_116:
+			TC_to_draw_pos.pos_X := 1116;
+		ELSE
+			ERROR := TRUE;
+		END_CASE
+	ELSE
+		ERROR := TRUE;
+	END_CASE
+END_IF
+
+IF ERROR THEN
+	TC_to_draw_pos.to_right := TRUE;
+	TC_to_draw_pos.to_left := FALSE;
+	TC_to_draw_pos.pos_X := 990+train_ind*10;
+	TC_to_draw_pos.pos_Y := 65+train_ind*10;
+	TC_to_draw_pos.angle := 0;
+END_IF</xhtml>
+                  </ST>
+                </body>
+                <addData>
+                  <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                    <ObjectId>c3649eaa-05aa-4bb4-b41a-82efd8036e0b</ObjectId>
                   </data>
                 </addData>
               </pou>
@@ -6847,12 +7719,12 @@ END_IF END_IF</xhtml>
                 <Library Name="#System_VisuInputs" Namespace="VisuInputs" HideWhenReferencedAsDependency="false" PublishSymbolsInContainer="false" SystemLibrary="true" LinkAllContent="false" DefaultResolution="VisuInputs, 4.5.0.0 (System)" ResolverGuid="2717eb6a-dd07-4c66-8d8d-cacebd7b18ae" />
                 <PlaceholderRedirections>
                   <PlaceholderRedirection Placeholder="Standard" Redirection="Standard, 3.5.18.0 (System)" />
-                  <PlaceholderRedirection Placeholder="StringUtils" Redirection="StringUtils, 3.5.20.0 (System)" />
                   <PlaceholderRedirection Placeholder="Standard64" Redirection="Standard64, 3.5.20.0 (System)" />
-                  <PlaceholderRedirection Placeholder="Collections" Redirection="Collections, 3.5.17.0 (System)" />
-                  <PlaceholderRedirection Placeholder="FloatingPointUtils" Redirection="FloatingPointUtils, 3.5.17.0 (System)" />
                   <PlaceholderRedirection Placeholder="Util" Redirection="Util, 3.5.19.0 (System)" />
+                  <PlaceholderRedirection Placeholder="StringUtils" Redirection="StringUtils, 3.5.20.0 (System)" />
+                  <PlaceholderRedirection Placeholder="Collections" Redirection="Collections, 3.5.17.0 (System)" />
                   <PlaceholderRedirection Placeholder="ElementCollections" Redirection="Element Collections, 3.5.17.0 (3S - Smart Software Solutions GmbH)" />
+                  <PlaceholderRedirection Placeholder="FloatingPointUtils" Redirection="FloatingPointUtils, 3.5.17.0 (System)" />
                   <PlaceholderRedirection Placeholder="CBML" Redirection="Common Behaviour Model, 3.5.17.0 (3S - Smart Software Solutions GmbH)" />
                 </PlaceholderRedirections>
                 <addData>
@@ -6877,8 +7749,8 @@ END_IF END_IF</xhtml>
             <Device xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="">
               <DeviceType>
                 <DeviceIdentification>
-                  <Type>4096</Type>
-                  <Id>0000 0004</Id>
+                  <Type>4097</Type>
+                  <Id>0000 000a</Id>
                   <Version>3.5.20.0</Version>
                 </DeviceIdentification>
                 <Connector moduleType="256" interface="Common.PCI" connectorId="0">
@@ -6922,6 +7794,11 @@ END_IF END_IF</xhtml>
             <Object Name="DIR" ObjectId="2b35a567-f808-4a96-8ed2-978936df64dc" />
             <Object Name="Next_TC" ObjectId="8004b2f4-31a1-4a06-899f-c8d73477efcf" />
             <Object Name="SW_POS_t" ObjectId="90cf7aaa-f0f6-4395-8448-69b72344c859" />
+            <Object Name="ENTRY_POINT_t" ObjectId="6e1395ac-8204-4ae7-86d0-d66b554b8729" />
+            <Object Name="EXIT_POINT_t" ObjectId="b6e586b1-0f26-46c7-93fe-7c6fa13f8d99" />
+            <Object Name="Opposite_dir" ObjectId="1576addd-aaf4-4e86-8812-aeebe9b622b1" />
+            <Object Name="TC_to_draw_pos" ObjectId="c3649eaa-05aa-4bb4-b41a-82efd8036e0b" />
+            <Object Name="TRAIN_DRAWING_t" ObjectId="98b0f1c9-b8de-438f-9efd-d304e712837f" />
           </Object>
         </Object>
       </ProjectStructure>
