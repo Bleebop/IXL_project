@@ -45,7 +45,7 @@ Here are the functions used in the controller program :
 
 ## Data
 
-For our purpose, an IXL can be antirely described using the following data:
+For our purpose, an IXL can be entirely described using the following data:
 
 - List of Track Circuits
 - List of Signals
