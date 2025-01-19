@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <project xmlns="http://www.plcopen.org/xml/tc6_0200">
-  <fileHeader companyName="" productName="CODESYS" productVersion="CODESYS V3.5 SP20" creationDateTime="2025-01-12T22:48:54.9109482" />
-  <contentHeader name="simplified_IXL.project" modificationDateTime="2025-01-12T22:47:56.2073814">
+  <fileHeader companyName="" productName="CODESYS" productVersion="CODESYS V3.5 SP20" creationDateTime="2025-01-19T23:46:19.9049879" />
+  <contentHeader name="simplified_IXL.project" modificationDateTime="2025-01-19T23:46:03.9234821">
     <coordinateInfo>
       <fbd>
         <scaling x="1" y="1" />
@@ -947,10 +947,10 @@
                       <value name="TC_114" value="14" />
                       <value name="TC_115" value="15" />
                       <value name="TC_116" value="16" />
-                      <value name="TC_99" value="99" />
-                      <value name="TC_100" value="100" />
-                      <value name="TC_117" value="117" />
-                      <value name="TC_118" value="118" />
+                      <value name="TC_99" value="17" />
+                      <value name="TC_100" value="18" />
+                      <value name="TC_117" value="19" />
+                      <value name="TC_118" value="20" />
                     </values>
                   </enum>
                 </baseType>
@@ -6949,6 +6949,11 @@
                         <BOOL />
                       </type>
                     </variable>
+                    <variable name="train_reverse_TC_107">
+                      <type>
+                        <BOOL />
+                      </type>
+                    </variable>
                     <variable name="train_reverse_TC_108_prev">
                       <type>
                         <BOOL />
@@ -6959,15 +6964,66 @@
                         <BOOL />
                       </type>
                     </variable>
-                    <variable name="occup_TC">
+                    <variable name="train_reverse_TC_107_prev">
+                      <type>
+                        <BOOL />
+                      </type>
+                    </variable>
+                    <variable name="occup_partial_TC">
                       <type>
                         <array>
-                          <dimension lower="1" upper="variable_list.nTC" />
+                          <dimension lower="1" upper="nTC_simu" />
+                          <dimension lower="0" upper="1" />
                           <baseType>
                             <INT />
                           </baseType>
                         </array>
                       </type>
+                    </variable>
+                    <variable name="train_waiting_for_signal">
+                      <type>
+                        <array>
+                          <dimension lower="1" upper="nTrains" />
+                          <baseType>
+                            <BOOL />
+                          </baseType>
+                        </array>
+                      </type>
+                    </variable>
+                  </localVars>
+                  <localVars constant="true">
+                    <variable name="nTC_simu">
+                      <type>
+                        <INT />
+                      </type>
+                      <initialValue>
+                        <simpleValue value="20" />
+                      </initialValue>
+                    </variable>
+                  </localVars>
+                  <localVars>
+                    <variable name="collision_alarm">
+                      <type>
+                        <BOOL />
+                      </type>
+                    </variable>
+                    <variable name="temp_other_train">
+                      <type>
+                        <INT />
+                      </type>
+                    </variable>
+                    <variable name="raise_error">
+                      <type>
+                        <INT />
+                      </type>
+                    </variable>
+                    <variable name="zero">
+                      <type>
+                        <INT />
+                      </type>
+                      <initialValue>
+                        <simpleValue value="0" />
+                      </initialValue>
                     </variable>
                   </localVars>
                 </interface>
@@ -7007,47 +7063,29 @@ FOR train_ind := 1 TO nTrains DO
 	train_moved[train_ind] := FALSE;
 END_FOR
 
-(* TODO empecher les trains de se superposer
-FOR tc_ind := 1 TO variable_list.nTC DO
-	occup_TC[tc_ind] := 0;
-	FOR train_ind := 1 TO nTrains DO
-		IF Trains[train_ind].front_pos = tc_ind AND Trains[train_ind].rear_pos = tc_ind THEN
-			occup_TC[tc_ind] := 4;
-		ELSE IF Trains[train_ind].front_pos = tc_ind AND NOT(Trains[train_ind].rear_pos = tc_ind) THEN
-			IF occup_TC[tc_ind] = 2 THEN
-				occup_TC[tc_ind] := 4;
-			ELSE
-				occup_TC[tc_ind] := 1;
-			END_IF
-		ELSE IF NOT(Trains[train_ind].front_pos = tc_ind) AND Trains[train_ind].rear_pos = tc_ind THEN
-			IF occup_TC[tc_ind] = 1 THEN
-				occup_TC[tc_ind] := 4;
-			ELSE
-				occup_TC[tc_ind] := 2;
-			END_IF
-		END_IF END_IF END_IF
-	END_FOR
-END_FOR
-*)
-
 (* ENTERING TRAINS *)
 (* --------------- *)
 
 FOR limit_ind := 1 TO nEntryPoints DO
-	IF send_train[limit_ind] AND NOT(send_train_prev[limit_ind]) (* AND NOT(entry_points[limit_ind].tc) TODO*) THEN
-		new_entry := TRUE;
-		FOR train_ind := 1 TO nTrains DO
-			IF NOT(Trains[train_ind].exists) AND new_entry THEN
-				new_entry := FALSE;
-				Trains[train_ind].exists := TRUE;
-				Trains[train_ind].rear_pos := Next_TC(entry_points[limit_ind].tc, Opposite_dir(entry_points[limit_ind].orientation), Switch_pos);
-				Trains[train_ind].front_pos := entry_points[limit_ind].tc;
-				Trains[train_ind].orientation := entry_points[limit_ind].orientation;
-				train_moved[train_ind] := TRUE;
-				
-				
-			END_IF
-		END_FOR
+	new_entry := FALSE;
+	IF	(	send_train[limit_ind] AND NOT(send_train_prev[limit_ind])
+	   	AND occup_partial_TC[entry_points[limit_ind].tc, Opposite_dir(entry_points[limit_ind].orientation)] = 0
+		)
+		THEN
+			new_entry := TRUE;
+			FOR train_ind := 1 TO nTrains DO
+				IF NOT(Trains[train_ind].exists) AND new_entry THEN
+					new_entry := FALSE;
+					Trains[train_ind].exists := TRUE;
+					Trains[train_ind].rear_pos := Next_TC(entry_points[limit_ind].tc, Opposite_dir(entry_points[limit_ind].orientation), Switch_pos);
+					Trains[train_ind].front_pos := entry_points[limit_ind].tc;
+					Trains[train_ind].orientation := entry_points[limit_ind].orientation;
+					train_moved[train_ind] := TRUE;
+					
+					occup_partial_TC[Trains[train_ind].front_pos, Opposite_dir(entry_points[limit_ind].orientation)] := train_ind;
+					occup_partial_TC[Trains[train_ind].rear_pos, entry_points[limit_ind].orientation] := train_ind;
+				END_IF
+			END_FOR
 	END_IF
 	send_train_prev[limit_ind] := send_train[limit_ind];
 END_FOR
@@ -7067,17 +7105,43 @@ FOR train_ind := 1 TO nTrains DO
 			AND	train_reverse_TC_111 AND NOT(train_reverse_TC_111_prev)) THEN
 			Trains[train_ind].orientation := Opposite_dir(Trains[train_ind].orientation);
 		END_IF
+		IF (	Trains[train_ind].front_pos = TC.TC_107
+			AND Trains[train_ind].rear_pos = TC.TC_107
+			AND	train_reverse_TC_107 AND NOT(train_reverse_TC_107_prev)) THEN
+			Trains[train_ind].orientation := Opposite_dir(Trains[train_ind].orientation);
+		END_IF
 	END_IF
 END_FOR
 
 train_reverse_TC_108_prev := train_reverse_TC_108;
 train_reverse_TC_111_prev := train_reverse_TC_111;
+train_reverse_TC_107_prev := train_reverse_TC_107;
 
 (* TRAIN MOVEMENT TIMERS *)
 (* --------------------- *)
 
 FOR train_ind := 1 TO nTrains DO
-	move_train_TIMER[train_ind](IN := Trains[train_ind].exists AND NOT(train_moved_prev[train_ind]) AND NOT(Trains[train_ind].stopped), PT := DELAY_TRAIN_MOV);
+	train_waiting_for_signal[train_ind] := FALSE;
+	IF Trains[train_ind].exists AND Trains[train_ind].rear_pos = Trains[train_ind].front_pos THEN
+		IF (	(Trains[train_ind].front_pos = TC.TC_103 AND Trains[train_ind].orientation = DIR.UP AND NOT(variable_list.signal_open_route_201))
+			OR	(Trains[train_ind].front_pos = TC.TC_107 AND Trains[train_ind].orientation = DIR.UP AND NOT(variable_list.signal_open_route_203))
+			OR	(Trains[train_ind].front_pos = TC.TC_108 AND Trains[train_ind].orientation = DIR.UP AND NOT(variable_list.signal_open_route_205))
+			OR	(Trains[train_ind].front_pos = TC.TC_111 AND Trains[train_ind].orientation = DIR.DOWN AND NOT(variable_list.signal_open_route_206))
+			OR	(Trains[train_ind].front_pos = TC.TC_112 AND Trains[train_ind].orientation = DIR.DOWN AND NOT(variable_list.signal_open_route_208))
+			OR	(Trains[train_ind].front_pos = TC.TC_107 AND Trains[train_ind].orientation = DIR.DOWN)
+			) THEN
+				train_waiting_for_signal[train_ind] := TRUE;
+		END_IF
+	END_IF
+END_FOR
+
+FOR train_ind := 1 TO nTrains DO
+	move_train_TIMER[train_ind](
+		IN := Trains[train_ind].exists
+			  AND NOT(train_moved_prev[train_ind])
+			  AND NOT(Trains[train_ind].stopped)
+			  AND NOT(train_waiting_for_signal[train_ind]),
+		PT := DELAY_TRAIN_MOV);
 END_FOR
 
 (* EXITING TRAINS *)
@@ -7091,6 +7155,10 @@ FOR limit_ind := 1 TO nExitPoints DO
 				AND	Trains[train_ind].orientation = exit_points[limit_ind].orientation
 				AND NOT(Trains[train_ind].stopped)
 				AND move_train_TIMER[train_ind].Q) THEN
+				
+					occup_partial_TC[Trains[train_ind].front_pos, Opposite_dir(exit_points[limit_ind].orientation)] := 0;
+					occup_partial_TC[Trains[train_ind].rear_pos, exit_points[limit_ind].orientation] := 0;
+				
 					Trains[train_ind].exists := FALSE;
 					Trains[train_ind].rear_pos := TC.NIL;
 					Trains[train_ind].front_pos := TC.NIL;
@@ -7107,6 +7175,10 @@ IF evacuation THEN
 		Trains[train_ind].front_pos := TC.NIL;
 		Trains[train_ind].orientation := DIR.NIL;
 	END_FOR
+	FOR tc_ind := 1 TO nTC_simu DO
+		occup_partial_TC[tc_ind, 0] := 0;
+		occup_partial_TC[tc_ind, 1] := 0;
+	END_FOR
 END_IF
 
 (* TRAIN MOVEMENT *)
@@ -7114,20 +7186,39 @@ END_IF
 
 FOR train_ind := 1 TO nTrains DO
 	IF Trains[train_ind].exists AND move_train_TIMER[train_ind].Q THEN
-		IF Trains[train_ind].rear_pos = Trains[train_ind].front_pos THEN
-			IF (	NOT(Trains[train_ind].front_pos = TC.TC_103 AND Trains[train_ind].orientation = DIR.UP AND NOT(variable_list.signal_open_route_201))
-				AND	NOT(Trains[train_ind].front_pos = TC.TC_107 AND Trains[train_ind].orientation = DIR.UP AND NOT(variable_list.signal_open_route_203))
-				AND	NOT(Trains[train_ind].front_pos = TC.TC_108 AND Trains[train_ind].orientation = DIR.UP AND NOT(variable_list.signal_open_route_205))
-				AND	NOT(Trains[train_ind].front_pos = TC.TC_111 AND Trains[train_ind].orientation = DIR.DOWN AND NOT(variable_list.signal_open_route_206))
-				AND	NOT(Trains[train_ind].front_pos = TC.TC_112 AND Trains[train_ind].orientation = DIR.DOWN AND NOT(variable_list.signal_open_route_208))
-				AND	NOT(Trains[train_ind].front_pos = TC.TC_107 AND Trains[train_ind].orientation = DIR.DOWN)
-				) THEN
+		IF (Trains[train_ind].rear_pos = Trains[train_ind].front_pos AND NOT(train_waiting_for_signal[train_ind])) THEN
+			temp_other_train := occup_partial_TC[Next_TC(Trains[train_ind].front_pos
+														 , Trains[train_ind].orientation
+														 , Switch_pos)
+												, Opposite_dir(Trains[train_ind].orientation)
+												];
+			IF temp_other_train &lt;&gt; 0 THEN
+				IF (Trains[temp_other_train].orientation &lt;&gt; Trains[train_ind].orientation AND NOT(train_waiting_for_signal[temp_other_train])) THEN
+					collision_alarm := TRUE;
+				END_IF
+			ELSE
 				Trains[train_ind].front_pos := Next_TC(Trains[train_ind].front_pos, Trains[train_ind].orientation, Switch_pos);
 				train_moved[train_ind] := TRUE;
+				
+				occup_partial_TC[Trains[train_ind].front_pos, Opposite_dir(Trains[train_ind].orientation)] := train_ind;
+				occup_partial_TC[Trains[train_ind].rear_pos, Opposite_dir(Trains[train_ind].orientation)] := 0;
 			END_IF
+			
 		ELSE IF Trains[train_ind].front_pos = Next_TC(Trains[train_ind].rear_pos, Trains[train_ind].orientation, Switch_pos) THEN
-			Trains[train_ind].rear_pos := Trains[train_ind].front_pos;
-			train_moved[train_ind] := TRUE;
+			temp_other_train := occup_partial_TC[Trains[train_ind].front_pos
+												, Trains[train_ind].orientation
+												];
+			IF temp_other_train &lt;&gt; 0 THEN
+				IF (Trains[temp_other_train].orientation &lt;&gt; Trains[train_ind].orientation AND NOT(train_waiting_for_signal[temp_other_train])) THEN
+					collision_alarm := TRUE;
+				END_IF
+			ELSE
+				occup_partial_TC[Trains[train_ind].front_pos, Trains[train_ind].orientation] := train_ind;
+				occup_partial_TC[Trains[train_ind].rear_pos, Trains[train_ind].orientation] := 0;
+				
+				Trains[train_ind].rear_pos := Trains[train_ind].front_pos;
+				train_moved[train_ind] := TRUE;
+			END_IF
 		END_IF END_IF
 	END_IF
 END_FOR
@@ -7186,8 +7277,9 @@ FOR train_ind := 1 TO nTrains DO
 	train_draw[train_ind] := TC_to_draw_pos(Trains[train_ind], Switch_pos, train_ind);
 END_FOR
 
-
-</xhtml>
+IF collision_alarm THEN
+	raise_error := 1/zero;
+END_IF</xhtml>
                   </ST>
                 </body>
                 <addData>
@@ -7749,8 +7841,8 @@ END_IF</xhtml>
             <Device xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="">
               <DeviceType>
                 <DeviceIdentification>
-                  <Type>4097</Type>
-                  <Id>0000 000a</Id>
+                  <Type>4096</Type>
+                  <Id>0000 0004</Id>
                   <Version>3.5.20.0</Version>
                 </DeviceIdentification>
                 <Connector moduleType="256" interface="Common.PCI" connectorId="0">
