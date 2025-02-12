@@ -1,0 +1,253 @@
+<interlocking>
+	<assetsForIL>
+		<segments>
+			<segment id="Seg_101">
+				<containingTvd ref="TC_101"/>
+				<nextSegUpRight ref="Seg_103" nextDir="Up"/>
+			</segment>
+			<segment id="Seg_102">
+				<containingTvd ref="TC_102"/>
+				<nextSegUpRight ref="Seg_104" nextDir="Up"/>
+			</segment>
+			<segment id="Seg_103">
+				<containingTvd ref="TC_103"/>
+				<nextSegUpRight ref="Seg_105" nextDir="Up"/>
+				<nextSegDownRight ref="Seg_101" nextDir="Down"/>
+			</segment>
+			<segment id="Seg_104">
+				<containingTvd ref="TC_104"/>
+				<nextSegUpRight ref="Seg_106" nextDir="Up"/>
+				<nextSegDownRight ref="Seg_102" nextDir="Down"/>
+			</segment>
+			<segment id="Seg_105">
+				<containingTvd ref="TC_105"/>
+				<nextSegUpRight ref="Seg_107" nextDir="Up"/>
+				<nextSegDownRight ref="Seg_103" nextDir="Down"/>
+			</segment>
+			<segment id="Seg_106">
+				<containingTvd ref="TC_106"/>
+				<nextSegUpRight ref="Seg_108" nextDir="Up"/>
+				<nextSegDownRight ref="Seg_104" nextDir="Down"/>
+			</segment>
+			<segment id="Seg_107">
+				<containingTvd ref="TC_107"/>
+				<nextSegUpRight ref="Seg_109_L" nextDir="Up"/>
+				<nextSegDownRight ref="Seg_105" nextDir="Down"/>
+			</segment>
+			<segment id="Seg_108">
+				<containingTvd ref="TC_108"/>
+				<nextSegUpRight ref="Seg_110_T" nextDir="Up"/>
+				<nextSegDownRight ref="Seg_106" nextDir="Down"/>
+			</segment>
+			<segment id="Seg_109_T">
+				<containingTvd ref="TC_109"/>
+				<nextSegUpRight ref="Seg_111" nextDir="Up"/>
+				<nextSegDownRight ref="Seg_109_R" nextDir="Down"/>
+				<nextSegDownLeft ref="Seg_109_L" nextDir="Down"/>
+			</segment>
+			<segment id="Seg_109_L">
+				<containingTvd ref="TC_109"/>
+				<nextSegUpRight ref="Seg_109_T" nextDir="Up"/>
+				<nextSegDownRight ref="Seg_107" nextDir="Down"/>
+			</segment>
+			<segment id="Seg_109_R">
+				<containingTvd ref="TC_109"/>
+				<nextSegUpRight ref="Seg_109_T" nextDir="Up"/>
+				<nextSegDownRight ref="Seg_110_R" nextDir="Down"/>
+			</segment>
+			<segment id="Seg_110_T">
+				<containingTvd ref="TC_110"/>
+				<nextSegUpRight ref="Seg_110_R" nextDir="Up"/>
+				<nextSegUpLeft ref="Seg_110_L" nextDir="Up"/>
+				<nextSegDownRight ref="Seg_108" nextDir="Down"/>
+			</segment>
+			<segment id="Seg_110_L">
+				<containingTvd ref="TC_110"/>
+				<nextSegUpRight ref="Seg_112" nextDir="Up"/>
+				<nextSegDownRight ref="Seg_110_T" nextDir="Down"/>
+			</segment>
+			<segment id="Seg_110_R">
+				<containingTvd ref="TC_110"/>
+				<nextSegUpRight ref="Seg_109_R" nextDir="Up"/>
+				<nextSegDownRight ref="Seg_110_T" nextDir="Down"/>
+			</segment>
+			<segment id="Seg_111">
+				<containingTvd ref="TC_111"/>
+				<nextSegUpRight ref="Seg_113" nextDir="Up"/>
+				<nextSegDownRight ref="Seg_109_T" nextDir="Down"/>
+			</segment>
+			<segment id="Seg_112">
+				<containingTvd ref="TC_112"/>
+				<nextSegUpRight ref="Seg_114" nextDir="Up"/>
+				<nextSegDownRight ref="Seg_110_L" nextDir="Down"/>
+			</segment>
+			<segment id="Seg_113">
+				<containingTvd ref="TC_113"/>
+				<nextSegUpRight ref="Seg_115" nextDir="Up"/>
+				<nextSegDownRight ref="Seg_111" nextDir="Down"/>
+			</segment>
+			<segment id="Seg_114">
+				<containingTvd ref="TC_114"/>
+				<nextSegUpRight ref="Seg_116" nextDir="Up"/>
+				<nextSegDownRight ref="Seg_112" nextDir="Down"/>
+			</segment>
+			<segment id="Seg_115">
+				<containingTvd ref="TC_115"/>
+				<nextSegDownRight ref="Seg_113" nextDir="Down"/>
+			</segment>
+			<segment id="Seg_116">
+				<containingTvd ref="TC_116"/>
+				<nextSegDownRight ref="Seg_114" nextDir="Down"/>
+			</segment>
+		</segments>
+		<tvdSections>
+			<tvdSection id="TC_101"/>
+			<tvdSection id="TC_102"/>
+			<tvdSection id="TC_103"/>
+			<tvdSection id="TC_104"/>
+			<tvdSection id="TC_105"/>
+			<tvdSection id="TC_106"/>
+			<tvdSection id="TC_107"/>
+			<tvdSection id="TC_108"/>
+			<tvdSection id="TC_109"/>
+			<tvdSection id="TC_110"/>
+			<tvdSection id="TC_111"/>
+			<tvdSection id="TC_112"/>
+			<tvdSection id="TC_113"/>
+			<tvdSection id="TC_114"/>
+			<tvdSection id="TC_115"/>
+			<tvdSection id="TC_116"/>
+		</tvdSections>
+		<switchesIL>
+			<switchIL id="Sw_01">
+				<paired ref="Sw_02" corresp="RR"/>
+				<leftSegment ref="Seg_110_L"/>
+				<rightSegment ref="Seg_110_R"/>
+				<tipSegment ref="Seg_110_T"/>
+				<isInFoulingPoint ref="Seg_110_L">
+				<isInFoulingPoint ref="Seg_110_R">
+				<isInFoulingPoint ref="Seg_109_R">
+			</switchIL>
+			<switchIL id="Sw_02">
+				<paired ref="Sw_01" corresp="RR"/>
+				<leftSegment ref="Seg_109_L"/>
+				<rightSegment ref="Seg_109_R"/>
+				<tipSegment ref="Seg_109_T"/>
+				<isInFoulingPoint ref="Seg_109_L">
+				<isInFoulingPoint ref="Seg_109_R">
+				<isInFoulingPoint ref="Seg_110_R">
+			</switchIL>
+		</switchesIL>
+		<signalsIL>
+			<signalIL id="Sig_201" isAlwayClosed="False">
+				<previousSegment ref="Seg_103" dir="Up">
+				<nextSegment ref="Seg_105">
+				<approachArea ref="Seg_101"/>
+				<approachArea ref="Seg_103"/>
+			</signalIL>
+			<signalIL id="Sig_203" isAlwayClosed="False">
+				<previousSegment ref="Seg_107" dir="Up">
+				<nextSegment ref="Seg_109_L">
+				<approachArea ref="Seg_105"/>
+				<approachArea ref="Seg_107"/>
+			</signalIL>
+			<signalIL id="Sig_205" isAlwayClosed="False">
+				<previousSegment ref="Seg_108" dir="Up">
+				<nextSegment ref="Seg_110_T">
+				<approachArea ref="Seg_106"/>
+				<approachArea ref="Seg_108"/>
+			</signalIL>
+			<signalIL id="Sig_206" isAlwayClosed="False">
+				<previousSegment ref="Seg_111" dir="Down">
+				<nextSegment ref="Seg_109_T">
+				<approachArea ref="Seg_111"/>
+				<approachArea ref="Seg_113"/>
+			</signalIL>
+			<signalIL id="Sig_208" isAlwayClosed="False">
+				<previousSegment ref="Seg_112" dir="Down">
+				<nextSegment ref="Seg_110_R">
+				<approachArea ref="Seg_112"/>
+				<approachArea ref="Seg_114"/>
+			</signalIL>
+			<signalIL id="PS_02" isAlwayClosed="True">
+				<previousSegment ref="Seg_107" dir="Down">
+				<nextSegment ref="Seg_105">
+			</signalIL>
+		</signalsIL>
+		<routes>
+			<route id="AB">
+				<startSignal ref="Sig_201"/>
+				<startSegment ref="Seg_103" dir="Up"/>
+				<intermediateSegment ref="Seg_105"/>
+				<destinationSegment ref="Seg_107"/>
+				<incompatibleRoute ref="CB"/>
+			</route>
+			<route id="BC">
+				<startSignal ref="Sig_203"/>
+				<startSegment ref="Seg_107" dir="Up"/>
+				<intermediateSegment ref="Seg_109_L"/>
+				<intermediateSegment ref="Seg_109_T"/>
+				<destinationSegment ref="Seg_111"/>
+				<incompatibleRoute ref="CD"/>
+				<incompatibleRoute ref="DC"/>
+				<incompatibleRoute ref="CB"/>
+				<crossSwitch ref="Sw_02" pos="Left"/>
+				<requireSwitch ref="Sw_01" pos="Left">
+			</route>
+			<route id="ED">
+				<startSignal ref="Sig_208"/>
+				<startSegment ref="Seg_112" dir="Down"/>
+				<intermediateSegment ref="Seg_110_L"/>
+				<intermediateSegment ref="Seg_110_T"/>
+				<destinationSegment ref="Seg_108"/>
+				<incompatibleRoute ref="CD"/>
+				<incompatibleRoute ref="DC"/>
+				<crossSwitch ref="Sw_01" pos="Left"/>
+				<requireSwitch ref="Sw_02" pos="Left">
+			</route>
+			<route id="CD">
+				<startSignal ref="Sig_206"/>
+				<startSegment ref="Seg_111" dir="Down"/>
+				<intermediateSegment ref="Seg_109_T"/>
+				<intermediateSegment ref="Seg_109_R"/>
+				<intermediateSegment ref="Seg_110_R"/>
+				<intermediateSegment ref="Seg_110_T"/>
+				<destinationSegment ref="Seg_108"/>
+				<incompatibleRoute ref="BC"/>
+				<incompatibleRoute ref="ED"/>
+				<incompatibleRoute ref="DC"/>
+				<incompatibleRoute ref="CB"/>
+				<crossSwitch ref="Sw_02" pos="Right"/>
+				<crossSwitch ref="Sw_01" pos="Right"/>
+			</route>
+			<route id="DC">
+				<startSignal ref="Sig_205"/>
+				<startSegment ref="Seg_108" dir="Down"/>
+				<intermediateSegment ref="Seg_110_T"/>
+				<intermediateSegment ref="Seg_110_R"/>
+				<intermediateSegment ref="Seg_109_R"/>
+				<intermediateSegment ref="Seg_109_T"/>
+				<destinationSegment ref="Seg_111"/>
+				<incompatibleRoute ref="BC"/>
+				<incompatibleRoute ref="ED"/>
+				<incompatibleRoute ref="CD"/>
+				<incompatibleRoute ref="CB"/>
+				<crossSwitch ref="Sw_01" pos="Right"/>
+				<crossSwitch ref="Sw_02" pos="Right"/>
+			</route>
+			<route id="CB">
+				<startSignal ref="Sig_206"/>
+				<startSegment ref="Seg_111" dir="Up"/>
+				<intermediateSegment ref="Seg_109_T"/>
+				<intermediateSegment ref="Seg_109_L"/>
+				<destinationSegment ref="Seg_107"/>
+				<incompatibleRoute ref="AB"/>
+				<incompatibleRoute ref="BC"/>
+				<incompatibleRoute ref="CD"/>
+				<incompatibleRoute ref="DC"/>
+				<crossSwitch ref="Sw_02" pos="Left"/>
+				<requireSwitch ref="Sw_01" pos="Left">
+			</route>
+		</routes>
+	</assetsForIL>
+</interlocking>

@@ -3,7 +3,7 @@
 - [ ] Code a safety PLC for this station (manual and automatic trains)
 - [x] Code a basic non safety part for this station
 - [ ] Code different non safety programs for this station
-- [ ] Determine a data model for stations
+- [ ] Determine a data model for stations => RailML ?
 - [ ] Translator data -> PLC program (safety+non safety) (with options)
 - [ ] Translator PLC program -> HLL
 - [ ] Translator data -> HLL (?)
