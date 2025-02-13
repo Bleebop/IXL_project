@@ -124,75 +124,75 @@
 				<leftSegment ref="Seg_110_L"/>
 				<rightSegment ref="Seg_110_R"/>
 				<tipSegment ref="Seg_110_T"/>
-				<isInFoulingPoint ref="Seg_110_L">
-				<isInFoulingPoint ref="Seg_110_R">
-				<isInFoulingPoint ref="Seg_109_R">
+				<isInFoulingPoint ref="Seg_110_L"/>
+				<isInFoulingPoint ref="Seg_110_R"/>
+				<isInFoulingPoint ref="Seg_109_R"/>
 			</switchIL>
 			<switchIL id="Sw_02">
 				<paired ref="Sw_01" corresp="RR"/>
 				<leftSegment ref="Seg_109_L"/>
 				<rightSegment ref="Seg_109_R"/>
 				<tipSegment ref="Seg_109_T"/>
-				<isInFoulingPoint ref="Seg_109_L">
-				<isInFoulingPoint ref="Seg_109_R">
-				<isInFoulingPoint ref="Seg_110_R">
+				<isInFoulingPoint ref="Seg_109_L"/>
+				<isInFoulingPoint ref="Seg_109_R"/>
+				<isInFoulingPoint ref="Seg_110_R"/>
 			</switchIL>
 		</switchesIL>
 		<signalsIL>
 			<signalIL id="Sig_201" isAlwayClosed="False">
-				<previousSegment ref="Seg_103" dir="Up">
-				<nextSegment ref="Seg_105">
+				<previousSegment ref="Seg_103" dir="Up"/>
+				<nextSegment ref="Seg_105"/>
 				<approachArea ref="Seg_101"/>
 				<approachArea ref="Seg_103"/>
 			</signalIL>
 			<signalIL id="Sig_203" isAlwayClosed="False">
-				<previousSegment ref="Seg_107" dir="Up">
-				<nextSegment ref="Seg_109_L">
+				<previousSegment ref="Seg_107" dir="Up"/>
+				<nextSegment ref="Seg_109_L"/>
 				<approachArea ref="Seg_105"/>
 				<approachArea ref="Seg_107"/>
 			</signalIL>
 			<signalIL id="Sig_205" isAlwayClosed="False">
-				<previousSegment ref="Seg_108" dir="Up">
-				<nextSegment ref="Seg_110_T">
+				<previousSegment ref="Seg_108" dir="Up"/>
+				<nextSegment ref="Seg_110_T"/>
 				<approachArea ref="Seg_106"/>
 				<approachArea ref="Seg_108"/>
 			</signalIL>
 			<signalIL id="Sig_206" isAlwayClosed="False">
-				<previousSegment ref="Seg_111" dir="Down">
-				<nextSegment ref="Seg_109_T">
+				<previousSegment ref="Seg_111" dir="Down"/>
+				<nextSegment ref="Seg_109_T"/>
 				<approachArea ref="Seg_111"/>
 				<approachArea ref="Seg_113"/>
 			</signalIL>
 			<signalIL id="Sig_208" isAlwayClosed="False">
-				<previousSegment ref="Seg_112" dir="Down">
-				<nextSegment ref="Seg_110_R">
+				<previousSegment ref="Seg_112" dir="Down"/>
+				<nextSegment ref="Seg_110_R"/>
 				<approachArea ref="Seg_112"/>
 				<approachArea ref="Seg_114"/>
 			</signalIL>
 			<signalIL id="PS_02" isAlwayClosed="True">
-				<previousSegment ref="Seg_107" dir="Down">
-				<nextSegment ref="Seg_105">
+				<previousSegment ref="Seg_107" dir="Down"/>
+				<nextSegment ref="Seg_105"/>
 			</signalIL>
 		</signalsIL>
 		<routes>
-			<route id="AB">
-				<startSignal ref="Sig_201"/>
-				<startSegment ref="Seg_103" dir="Up"/>
-				<intermediateSegment ref="Seg_105"/>
-				<destinationSegment ref="Seg_107"/>
-				<incompatibleRoute ref="CB"/>
+			<route id="AB"> <!-- IDs must be unique -->
+				<startSignal ref="Sig_201"/> <!-- optional, unique -->
+				<startSegment ref="Seg_103" dir="Up"/> <!-- mandatory ?, unique ? -->
+				<intermediateSegment ref="Seg_105"/> <!-- optional -->
+				<destinationSegment ref="Seg_107"/> <!-- mandatory ?, unique ? -->
+				<incompatibleRoute ref="CB"/> <!-- optional -->
 			</route>
 			<route id="BC">
 				<startSignal ref="Sig_203"/>
 				<startSegment ref="Seg_107" dir="Up"/>
-				<intermediateSegment ref="Seg_109_L"/>
+				<intermediateSegment ref="Seg_109_L"/> <!-- Order is important -->
 				<intermediateSegment ref="Seg_109_T"/>
 				<destinationSegment ref="Seg_111"/>
 				<incompatibleRoute ref="CD"/>
 				<incompatibleRoute ref="DC"/>
 				<incompatibleRoute ref="CB"/>
-				<crossSwitch ref="Sw_02" pos="Left"/>
-				<requireSwitch ref="Sw_01" pos="Left">
+				<crossSwitch ref="Sw_02" pos="Left"/> <!-- optional -->
+				<requireSwitch ref="Sw_01" pos="Left"/> <!-- optional -->
 			</route>
 			<route id="ED">
 				<startSignal ref="Sig_208"/>
@@ -203,7 +203,7 @@
 				<incompatibleRoute ref="CD"/>
 				<incompatibleRoute ref="DC"/>
 				<crossSwitch ref="Sw_01" pos="Left"/>
-				<requireSwitch ref="Sw_02" pos="Left">
+				<requireSwitch ref="Sw_02" pos="Left"/>
 			</route>
 			<route id="CD">
 				<startSignal ref="Sig_206"/>
@@ -246,7 +246,7 @@
 				<incompatibleRoute ref="CD"/>
 				<incompatibleRoute ref="DC"/>
 				<crossSwitch ref="Sw_02" pos="Left"/>
-				<requireSwitch ref="Sw_01" pos="Left">
+				<requireSwitch ref="Sw_01" pos="Left"/>
 			</route>
 		</routes>
 	</assetsForIL>
