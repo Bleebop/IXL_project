@@ -15,13 +15,13 @@
 				<nextSegDownRight ref="Seg_101" nextDir="Down"/>
 			</segment>
 			<segment id="Seg_104">
-				<containingTvd ref="TC_104"/>
-				<nextSegUpRight ref="Seg_106" nextDir="Up"/>
-				<nextSegDownRight ref="Seg_102" nextDir="Down"/>
+				<containingTvd ref="TC_104"/> <!-- optional? -->
+				<nextSegUpRight ref="Seg_106" nextDir="Up"/> <!-- optional -->
+				<nextSegDownRight ref="Seg_102" nextDir="Down"/> <!-- optional -->
 			</segment>
 			<segment id="Seg_105">
 				<containingTvd ref="TC_105"/>
-				<nextSegUpRight ref="Seg_107" nextDir="Up"/>
+				<nextSegUpRight ref="Seg_107" nextDir="Up"/> <!-- A "nextDir" = "Down" for a "nextSegUpRight" would indicate a polarity change -->
 				<nextSegDownRight ref="Seg_103" nextDir="Down"/>
 			</segment>
 			<segment id="Seg_106">
@@ -43,7 +43,7 @@
 				<containingTvd ref="TC_109"/>
 				<nextSegUpRight ref="Seg_111" nextDir="Up"/>
 				<nextSegDownRight ref="Seg_109_R" nextDir="Down"/>
-				<nextSegDownLeft ref="Seg_109_L" nextDir="Down"/>
+				<nextSegDownLeft ref="Seg_109_L" nextDir="Down"/> <!-- optional, indicates a switch -->
 			</segment>
 			<segment id="Seg_109_L">
 				<containingTvd ref="TC_109"/>
@@ -120,8 +120,8 @@
 		</tvdSections>
 		<switchesIL>
 			<switchIL id="Sw_01">
-				<paired ref="Sw_02" corresp="RR"/>
-				<leftSegment ref="Seg_110_L"/>
+				<pairedSw ref="Sw_02" corresp="RR"/> <!-- optional, "RR" means both are commanded right or left at the same time -->
+				<leftSegment ref="Seg_110_L"/> <!-- Left and Right required, trap points are not switches -->
 				<rightSegment ref="Seg_110_R"/>
 				<tipSegment ref="Seg_110_T"/>
 				<isInFoulingPoint ref="Seg_110_L"/>
@@ -129,7 +129,7 @@
 				<isInFoulingPoint ref="Seg_109_R"/>
 			</switchIL>
 			<switchIL id="Sw_02">
-				<paired ref="Sw_01" corresp="RR"/>
+				<pairedSw ref="Sw_01" corresp="RR"/>
 				<leftSegment ref="Seg_109_L"/>
 				<rightSegment ref="Seg_109_R"/>
 				<tipSegment ref="Seg_109_T"/>
@@ -139,37 +139,37 @@
 			</switchIL>
 		</switchesIL>
 		<signalsIL>
-			<signalIL id="Sig_201" isAlwayClosed="False">
-				<previousSegment ref="Seg_103" dir="Up"/>
-				<nextSegment ref="Seg_105"/>
-				<approachArea ref="Seg_101"/>
-				<approachArea ref="Seg_103"/>
+			<signalIL id="Sig_201" isAlwaysClosed="False"> <!-- isAlwaysClosed at False by default -->
+				<previousSegment ref="Seg_103" dir="Up"/> <!-- optional -->
+				<nextSegment ref="Seg_105"/> <!-- optional -->
+				<approachArea ref="Seg_101"/> <!-- optional -->
+				<approachArea ref="Seg_103"/> <!-- optional -->
 			</signalIL>
-			<signalIL id="Sig_203" isAlwayClosed="False">
-				<previousSegment ref="Seg_107" dir="Up"/>
+			<signalIL id="Sig_203" isAlwaysClosed="False">
+				<previousSegment ref="Seg_107" dir="Up"/> <!-- direction on previousSegment if it exists, otherwise on nextSegment -->
 				<nextSegment ref="Seg_109_L"/>
 				<approachArea ref="Seg_105"/>
 				<approachArea ref="Seg_107"/>
 			</signalIL>
-			<signalIL id="Sig_205" isAlwayClosed="False">
+			<signalIL id="Sig_205" isAlwaysClosed="False">
 				<previousSegment ref="Seg_108" dir="Up"/>
 				<nextSegment ref="Seg_110_T"/>
 				<approachArea ref="Seg_106"/>
 				<approachArea ref="Seg_108"/>
 			</signalIL>
-			<signalIL id="Sig_206" isAlwayClosed="False">
+			<signalIL id="Sig_206" isAlwaysClosed="False">
 				<previousSegment ref="Seg_111" dir="Down"/>
 				<nextSegment ref="Seg_109_T"/>
 				<approachArea ref="Seg_111"/>
 				<approachArea ref="Seg_113"/>
 			</signalIL>
-			<signalIL id="Sig_208" isAlwayClosed="False">
+			<signalIL id="Sig_208" isAlwaysClosed="False">
 				<previousSegment ref="Seg_112" dir="Down"/>
 				<nextSegment ref="Seg_110_R"/>
 				<approachArea ref="Seg_112"/>
 				<approachArea ref="Seg_114"/>
 			</signalIL>
-			<signalIL id="PS_02" isAlwayClosed="True">
+			<signalIL id="PS_02" isAlwaysClosed="True">
 				<previousSegment ref="Seg_107" dir="Down"/>
 				<nextSegment ref="Seg_105"/>
 			</signalIL>
@@ -202,7 +202,7 @@
 				<destinationSegment ref="Seg_108"/>
 				<incompatibleRoute ref="CD"/>
 				<incompatibleRoute ref="DC"/>
-				<crossSwitch ref="Sw_01" pos="Left"/>
+				<crossSwitch ref="Sw_01" pos="Left"/> <!-- a crossed switch is required in the specified position-->
 				<requireSwitch ref="Sw_02" pos="Left"/>
 			</route>
 			<route id="CD">
