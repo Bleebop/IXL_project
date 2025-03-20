@@ -1,0 +1,46 @@
+FBD_input_variable:
+---
+            <inVariable localId="[[[toReplace:localId]]]">
+              <position x="0" y="0" />
+              <connectionPointOut />
+              <expression>[[[toReplace:expression]]]</expression>
+            </inVariable>
+---
+FBD_block
+---
+            <block localId="[[[toReplace:localId]]]" typeName="[[[toReplace:typeName]]]"[[[toReplace:instanceName]]]>
+              <position x="0" y="0" />
+              <inputVariables>
+                [[[toReplace:blockInputs]]]
+              </inputVariables>
+              <inOutVariables />
+              <outputVariables>
+                [[[toReplace:blockOutputs]]]
+              </outputVariables>
+            </block>
+---
+FBD_block_input
+---
+                <variable formalParameter="[[[toReplace:inputRef]]]">
+                  <connectionPointIn>
+                    <connection refLocalId="[[[toReplace:refLocalId]]]" [[[toReplace:blockOutputRef]]]/>
+                  </connectionPointIn>
+                </variable>
+---
+FBD_block_output
+---
+                <variable formalParameter="[[[toReplace:outputRef]]]">
+                  <connectionPointOut />
+                </variable>
+---
+FBD_output_variable:
+---
+            <outVariable localId="[[[toReplace:localId]]]">
+              <position x="0" y="0" />
+              <connectionPointIn>
+                <connection refLocalId="[[[toReplace:refLocalId]]]" formalParameter="[[[toReplace:blockOutputRef]]]" />
+              </connectionPointIn>
+              <expression>[[[toReplace:expression]]]</expression>
+            </outVariable>
+---
+

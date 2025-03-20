@@ -1,4 +1,4 @@
-<interlocking>
+<interlocking id="OpenIXL_Interlocking_example">
 	<assetsForIL>
 		<segments>
 			<segment id="Seg_101">
@@ -175,14 +175,14 @@
 			</signalIL>
 		</signalsIL>
 		<routes>
-			<route id="AB"> <!-- IDs must be unique -->
+			<route id="AB" delayDestruct="30"> <!-- IDs must be unique -->
 				<startSignal ref="Sig_201"/> <!-- optional, unique -->
 				<startSegment ref="Seg_103" dir="Up"/> <!-- mandatory ?, unique ? -->
 				<intermediateSegment ref="Seg_105"/> <!-- optional -->
 				<destinationSegment ref="Seg_107"/> <!-- mandatory ?, unique ? -->
 				<incompatibleRoute ref="CB"/> <!-- optional -->
 			</route>
-			<route id="BC">
+			<route id="BC" delayDestruct="30"> <!-- delayDestruct value in seconds, optional, default is infinite -->
 				<startSignal ref="Sig_203"/>
 				<startSegment ref="Seg_107" dir="Up"/>
 				<intermediateSegment ref="Seg_109_L"/> <!-- Order is important -->
@@ -194,7 +194,7 @@
 				<crossSwitch ref="Sw_02" pos="Left"/> <!-- optional -->
 				<requireSwitch ref="Sw_01" pos="Left"/> <!-- optional -->
 			</route>
-			<route id="ED">
+			<route id="ED" delayDestruct="30">
 				<startSignal ref="Sig_208"/>
 				<startSegment ref="Seg_112" dir="Down"/>
 				<intermediateSegment ref="Seg_110_L"/>
@@ -205,7 +205,7 @@
 				<crossSwitch ref="Sw_01" pos="Left"/> <!-- a crossed switch is required in the specified position-->
 				<requireSwitch ref="Sw_02" pos="Left"/>
 			</route>
-			<route id="CD">
+			<route id="CD" delayDestruct="30">
 				<startSignal ref="Sig_206"/>
 				<startSegment ref="Seg_111" dir="Down"/>
 				<intermediateSegment ref="Seg_109_T"/>
@@ -220,9 +220,9 @@
 				<crossSwitch ref="Sw_02" pos="Right"/>
 				<crossSwitch ref="Sw_01" pos="Right"/>
 			</route>
-			<route id="DC">
+			<route id="DC" delayDestruct="30">
 				<startSignal ref="Sig_205"/>
-				<startSegment ref="Seg_108" dir="Down"/>
+				<startSegment ref="Seg_108" dir="Up"/>
 				<intermediateSegment ref="Seg_110_T"/>
 				<intermediateSegment ref="Seg_110_R"/>
 				<intermediateSegment ref="Seg_109_R"/>
@@ -235,9 +235,9 @@
 				<crossSwitch ref="Sw_01" pos="Right"/>
 				<crossSwitch ref="Sw_02" pos="Right"/>
 			</route>
-			<route id="CB">
+			<route id="CB" delayDestruct="30">
 				<startSignal ref="Sig_206"/>
-				<startSegment ref="Seg_111" dir="Up"/>
+				<startSegment ref="Seg_111" dir="Down"/>
 				<intermediateSegment ref="Seg_109_T"/>
 				<intermediateSegment ref="Seg_109_L"/>
 				<destinationSegment ref="Seg_107"/>
@@ -247,6 +247,25 @@
 				<incompatibleRoute ref="DC"/>
 				<crossSwitch ref="Sw_02" pos="Left"/>
 				<requireSwitch ref="Sw_01" pos="Left"/>
+			</route>
+			<route id="C_EXT_UP" isNeverClosed="True" isExitRoute="True">
+				<startSegment ref="Seg_111" dir="Up"/>
+				<intermediateSegment ref="Seg_113"/>
+				<destinationSegment ref="Seg_115"/>
+			</route>
+			<route id="D_EXT_DOWN" isNeverClosed="True" isExitRoute="True">
+				<startSegment ref="Seg_106" dir="Down"/>
+				<intermediateSegment ref="Seg_104"/>
+				<destinationSegment ref="Seg_102"/>
+			</route>
+			<route id="EXT_A_UP" isNeverClosed="True" isEntryRoute="True">
+				<startSegment ref="Seg_101" dir="Up"/>
+				<destinationSegment ref="Seg_103"/>
+			</route>
+			<route id="EXT_E_DOWN" isNeverClosed="True" isEntryRoute="True">
+				<startSegment ref="Seg_116" dir="Down"/>
+				<intermediateSegment ref="Seg_114"/>
+				<destinationSegment ref="Seg_112"/>
 			</route>
 		</routes>
 	</assetsForIL>
