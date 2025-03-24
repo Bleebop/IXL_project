@@ -11,12 +11,84 @@ def is_number(s):
         return False
 
 
+def fbd_input_variable_str(local_id, expression):
+    output_str = \
+        '            <inVariable localId="{}">\n' \
+        '              <position x="0" y="0" />\n' \
+        '              <connectionPointOut />\n' \
+        '              <expression>{}</expression>\n' \
+        '            </inVariable>\n'.format(local_id, expression)
+    return output_str
+
+
+def fbd_output_variable_str(local_id, input_addr, expression):
+    if input_addr[1]:
+        input_addr[1] = ' formalParameter="' + input_addr[1] + '"'
+    output_str = \
+        '            <outVariable localId="{}">\n' \
+        '              <position x="0" y="0" />\n' \
+        '              <connectionPointIn>\n' \
+        '                <connection refLocalId="{}"{} />\n' \
+        '              </connectionPointIn>\n' \
+        '              <expression>{}</expression>\n' \
+        '            </outVariable>\n'.format(local_id, *input_addr, expression)
+    return output_str
+
+
+def fbd_block_str(local_id, type_name, instance_name,
+                  input_addr_list, input_port_name_list,
+                  block_outputs):
+    block_inputs_str = ''
+    for i, input_addr in enumerate(input_addr_list):
+        if not input_port_name_list:
+            input_port_name = 'In'+str(i+1)
+        else:
+            input_port_name = input_port_name_list[i]
+        if input_addr[1]:
+            upstream_port_name = ' formalParameter="' + input_addr[1] + '"'
+        else:
+            upstream_port_name = ''
+        block_input_formatted = [input_port_name,
+                                 input_addr[0],
+                                 upstream_port_name]
+        block_inputs_str += \
+            '                <variable formalParameter="{}">\n' \
+            '                  <connectionPointIn>\n' \
+            '                    <connection refLocalId="{}"{} />\n' \
+            '                  </connectionPointIn>\n' \
+            '                </variable>\n'.format(*block_input_formatted)
+    block_outputs_str = ''
+    for i, block_output in enumerate(block_outputs):
+        block_outputs_str += \
+            '                <variable formalParameter="{}">\n' \
+            '                  <connectionPointOut />\n' \
+            '                </variable>\n'.format(block_output)
+    if instance_name:
+        instance_name = ' instanceName="' + instance_name + '"'
+    output_str = \
+        '            <block localId="{}" typeName="{}"{}>\n' \
+        '              <position x="0" y="0" />\n' \
+        '              <inputVariables>\n' \
+        '{}' \
+        '              </inputVariables>\n' \
+        '              <inOutVariables />\n' \
+        '              <outputVariables>\n' \
+        '{}' \
+        '              </outputVariables>\n' \
+        '            </block>\n' \
+        .format(local_id, type_name, instance_name,
+                block_inputs_str, block_outputs_str)
+
+    return output_str
+
+
 class Route:
     def __init__(self, name, enum_val):
         self.name = name
         self.enum_val = enum_val
         self.intermediate_segment = []
         self.incompatible_route = []
+        self.start_signal = None
         self.cross_switch = []
         self.require_switch = []
         self.delay_destruct = "Inf"
@@ -52,6 +124,8 @@ class Switch:
         self.enum_val = enum_val
         self.paired = []
         self.fouling_point_segments = []
+        self.required_left_routes = []
+        self.required_right_routes = []
 
 
 class Tvd:
@@ -153,9 +227,9 @@ def xml_to_python(xml_file):
     for segment_elem in root.findall("./assetsForIL/segments/segment"):
         nSeg += 1
         segment_dict[segment_elem.get("id")] = Segment(segment_elem.get("id"), nSeg)
+        segment_elem_dict[segment_elem.get("id")] = segment_elem
 
     # second pass: making the links
-    #for route_elem in root.findall("./assetsForIL/routes/route"):
     for route_elem in route_elem_dict.values():
         route_name = route_elem.get("id")
         route_obj = route_dict[route_name]
@@ -196,14 +270,24 @@ def xml_to_python(xml_file):
                 [route_dict[incomp_route_elem.get("ref")]]
 
         for cross_switch_elem in route_elem.findall("crossSwitch"):
+            switch_obj = switch_dict[cross_switch_elem.get("ref")]
+            required_pos = cross_switch_elem.get("pos")
             route_obj.cross_switch +=\
-                [switch_dict[cross_switch_elem.get("ref")],
-                 cross_switch_elem.get("pos")]
+                [switch_obj, required_pos]
+            if required_pos == 'Left':
+                switch_obj.required_left_routes += [route_obj]
+            elif required_pos == 'Right':
+                switch_obj.required_right_routes += [route_obj]
 
         for require_switch_elem in route_elem.findall("requireSwitch"):
+            switch_obj = switch_dict[require_switch_elem.get("ref")]
+            required_pos = require_switch_elem.get("pos")
             route_obj.require_switch +=\
-                [switch_dict[require_switch_elem.get("ref")],
-                 require_switch_elem.get("pos")]
+                [switch_obj, required_pos]
+            if required_pos == 'Left':
+                switch_obj.required_left_routes += [route_obj]
+            elif required_pos == 'Right':
+                switch_obj.required_right_routes += [route_obj]
 
     for static_route_elem in static_route_elem_dict.values():
         static_route_name = static_route_elem.get("id")
@@ -227,7 +311,6 @@ def xml_to_python(xml_file):
         static_route_obj.destination_segment = \
             segment_dict[dest_seg_elem.get("ref")]
 
-    #for signal_elem in root.findall("./assetsForIL/signalsIL/signalIL"):
     for signal_elem in signal_elem_dict.values():
         signal_name = signal_elem.get("id")
         signal_obj = signal_dict[signal_name]
@@ -268,7 +351,6 @@ def xml_to_python(xml_file):
             closed_signal_obj.next_seg_dir = \
                 next_seg_elem.get("dir")
 
-    #for switch_elem in root.findall("./assetsForIL/switchesIL/switchIL"):
     for switch_elem in switch_elem_dict.values():
         switch_name = switch_elem.get("id")
         switch_obj = switch_dict[switch_name]
@@ -294,7 +376,6 @@ def xml_to_python(xml_file):
             switch_obj.fouling_point_segments +=\
                 [segment_dict[fouling_seg_elem.get("ref")]]
 
-    #for segment_elem in root.findall("./assetsForIL/segments/segment"):
     for segment_elem in segment_elem_dict.values():
         segment_name = segment_elem.get("id")
         segment_obj = segment_dict[segment_name]
@@ -414,7 +495,367 @@ def python_to_openplc(interlocking, openplc_mold, openplc_file_path):
             '                    <simpleValue value="{}" />\n' \
             '                  </value>\n'.format(route_delay_destruct)
 
+    safety_PLC_FBD = ''
+    fbd_page = 0
+    for route_name in interlocking.routes:
+        fbd_page += 1
+        # Route formation demand
+        route = interlocking.routes[route_name]
+        local_id = (fbd_page*10000000000)
+        route_formation_demand_expr =\
+            'var_g.route_formation_demand[ROUTE.' + route_name + ']'
+        safety_PLC_FBD += fbd_input_variable_str(
+            str(local_id),
+            route_formation_demand_expr)
+        route_formation_demand_addr = [str(local_id), '']
+
+        # Incompatible routes demands
+        if not route.incompatible_route:  # Use a static route instead...
+            local_id += 1
+            safety_PLC_FBD += fbd_input_variable_str(
+                str(local_id), 'FALSE')
+            incompatible_route_demand_addr = [str(local_id), '']
+        else:
+            or_incomp_demand_inputs = []
+            for incomp_route in route.incompatible_route:
+                local_id += 1
+                incompatible_route_demand_expr = \
+                    'var_g.route_formation_demand[ROUTE.' + \
+                    incomp_route.name + ']'
+                safety_PLC_FBD += fbd_input_variable_str(
+                    str(local_id),
+                    incompatible_route_demand_expr)
+                or_incomp_demand_inputs += [[str(local_id), '']]
+            if len(route.incompatible_route) == 1:
+                incompatible_route_demand_addr = [str(local_id), '']
+            else:
+                local_id += 1
+                safety_PLC_FBD += fbd_block_str(local_id, 'OR', '',
+                                                or_incomp_demand_inputs, [],
+                                                ['Out1'])
+                incompatible_route_demand_addr = [str(local_id), 'Out1']
+
+        # Incompatible routes states
+        if not route.incompatible_route:  # Use a static route instead...
+            local_id += 1
+            safety_PLC_FBD += fbd_input_variable_str(
+                str(local_id), 'FALSE')
+            incompatible_route_state_addr = [str(local_id), '']
+        else:
+            or_incomp_state_inputs = []
+            for incomp_route in route.incompatible_route:
+                local_id += 1
+                incompatible_route_state_expr = \
+                    'route_open[ROUTE.' + incomp_route.name + ']'
+                safety_PLC_FBD += fbd_input_variable_str(
+                    str(local_id),
+                    incompatible_route_state_expr)
+                or_incomp_state_inputs += [[str(local_id), '']]
+            if len(or_incomp_state_inputs) == 1:
+                incompatible_route_state_addr = [str(local_id), '']
+            else:
+                local_id += 1
+                safety_PLC_FBD += fbd_block_str(local_id, 'OR', '',
+                                                or_incomp_state_inputs, [],
+                                                ['Out1'])
+                incompatible_route_state_addr = [str(local_id), 'Out1']
+
+        # Route destruction demand
+        local_id += 1
+        route_destruction_demand_expr = \
+            'PLC_not_safety.route_destruction_demand[ROUTE.' + route_name + ']'
+        safety_PLC_FBD += fbd_input_variable_str(
+            str(local_id),
+            route_destruction_demand_expr)
+        route_destruction_demand_addr = [str(local_id), '']
+
+        # Transit TVDs occupation
+        routes_tvds = [route.start_segment[0].containing_tvd]
+        for seg in route.intermediate_segment:
+            if seg.containing_tvd != routes_tvds[-1]:
+                routes_tvds += [seg.containing_tvd]
+        if route.destination_segment.containing_tvd != routes_tvds[-1]:
+            routes_tvds += [route.destination_segment.containing_tvd]
+            # TODO better way to avoid duplicates
+
+        if len(routes_tvds) <= 2:
+            local_id += 1
+            safety_PLC_FBD += fbd_input_variable_str(
+                str(local_id),
+                'TRUE')
+            transit_tvds_free_addr = [str(local_id), '']
+        else:
+            and_transit_tvds_inputs = []
+            for tvd in routes_tvds[1:-1]:
+                local_id += 1
+                transit_tvd_occupied_expr = \
+                    'var_g.TC_occupied[TC.' + tvd.name + ']'
+                safety_PLC_FBD += fbd_input_variable_str(
+                    str(local_id),
+                    transit_tvd_occupied_expr)
+                local_id += 1
+                safety_PLC_FBD += fbd_block_str(local_id, 'NOT', '',
+                                                [[str(local_id-1), '']], [],
+                                                ['Out1'])
+                unoccupied_tvd_addr = [str(local_id), 'Out1']
+                local_id += 1
+                transit_tvd_ignore_expr = \
+                    'var_g.ignore_TC_occupation[TC.' + tvd.name + ']'
+                safety_PLC_FBD += fbd_input_variable_str(
+                    str(local_id),
+                    transit_tvd_ignore_expr)
+                ignore_tvd_addr = [str(local_id), '']
+                local_id += 1
+                safety_PLC_FBD += fbd_block_str(
+                    local_id, 'OR', '',
+                    [unoccupied_tvd_addr, ignore_tvd_addr], [],
+                    ['Out1'])
+                and_transit_tvds_inputs += [[str(local_id), 'Out1']]
+            if len(and_transit_tvds_inputs) == 1:
+                transit_tvds_free_addr = [str(local_id), 'Out1']
+            else:
+                local_id += 1
+                safety_PLC_FBD += fbd_block_str(local_id, 'AND', '',
+                                                and_transit_tvds_inputs, [],
+                                                ['Out1'])
+                transit_tvds_free_addr = [str(local_id), 'Out1']
+
+        # Approach area occupation
+        if not route.start_signal or not route.start_signal.approach_area:
+            local_id += 1
+            safety_PLC_FBD += fbd_input_variable_str(
+                str(local_id), 'TRUE')
+            # TODO parametrize what to do when no approach area/start signal
+            approach_area_occupied_addr = [str(local_id), '']
+        else:
+            approach_tvds = []
+            for seg in route.start_signal.approach_area:
+                if (not approach_tvds or
+                        approach_tvds[-1] != seg.containing_tvd):
+                    approach_tvds += [seg.containing_tvd]
+                # TODO better way to avoid duplicates
+
+            or_approach_area_inputs = []
+            for tvd in approach_tvds:
+                local_id += 1
+                approach_tvd_occupied_expr = \
+                    'var_g.TC_occupied[TC.' + tvd.name + ']'
+                safety_PLC_FBD += fbd_input_variable_str(
+                    str(local_id),
+                    approach_tvd_occupied_expr)
+                or_approach_area_inputs += [[str(local_id), '']]
+            if len(or_approach_area_inputs) == 1:
+                approach_area_occupied_addr = [str(local_id), '']
+            else:
+                local_id += 1
+                safety_PLC_FBD += fbd_block_str(local_id, 'OR', '',
+                                                or_approach_area_inputs, [],
+                                                ['Out1'])
+                approach_area_occupied_addr = [str(local_id), 'Out1']
+
+        if not route.start_signal:
+            origin_signal_open_expr = 'TRUE'
+            # TODO parametrize what to do when no approach area/start signal
+        else:
+            origin_signal_open_expr = \
+                'signal_open_maneuver[SIGNAL.' + route.start_signal.name + ']'
+        local_id += 1
+        safety_PLC_FBD += fbd_input_variable_str(
+            str(local_id),
+            origin_signal_open_expr)
+        origin_signal_open_addr = [str(local_id), '']
+
+        if route.delay_destruct == 'Inf':
+            # TODO parametrize what to do when no destruct delay
+            delay_destruct_expr = 'DELAY_DESTRUCT[ROUTE.' + route.name + ']'
+        else:
+            delay_destruct_expr = 'DELAY_DESTRUCT[ROUTE.' + route.name + ']'
+        local_id += 1
+        safety_PLC_FBD += fbd_input_variable_str(
+            str(local_id),
+            delay_destruct_expr)
+        delay_destruct_addr = [str(local_id), '']
+
+        local_id += 1
+        ignore_approach_expr = 'var_g.ignore_approach[ROUTE.' + route.name + ']'
+        safety_PLC_FBD += fbd_input_variable_str(
+            str(local_id),
+            ignore_approach_expr)
+        ignore_approach_addr = [str(local_id), '']
+
+        # Risk of approaching train
+        local_id += 1
+        appr_train_inst_name = 'Approaching_train[ROUTE.' + route.name + ']'
+        appr_train_input_addr_list = [approach_area_occupied_addr,
+                                      origin_signal_open_addr,
+                                      delay_destruct_addr,
+                                      ignore_approach_addr]
+        appr_train_input_name_list = ['approach_area_occupied',
+                                      'origin_signal_open',
+                                      'DELAY_DESTRUCT',
+                                      'route_destruction_approach_ack']
+        safety_PLC_FBD += fbd_block_str(local_id, 'Approaching_train',
+                                        appr_train_inst_name,
+                                        appr_train_input_addr_list,
+                                        appr_train_input_name_list,
+                                        ['risk_of_approaching_train'])
+        risk_of_approaching_train_addr = [str(local_id),
+                                          'risk_of_approaching_train']
+
+        # Route state
+        local_id += 1
+        route_state_inst_name = 'route_state[ROUTE.' + route.name + ']'
+        route_state_input_addr_list = [route_formation_demand_addr,
+                                      incompatible_route_demand_addr,
+                                      incompatible_route_state_addr,
+                                      route_destruction_demand_addr,
+                                      transit_tvds_free_addr,
+                                      risk_of_approaching_train_addr]
+        route_state_input_name_list = ['route_formation_demand',
+                                       'incompatible_routes_demand',
+                                       'incompatible_routes_opened',
+                                       'route_destruction_demand',
+                                       'Transit_TCs_free',
+                                       'risk_of_approaching_train']
+        safety_PLC_FBD += fbd_block_str(local_id, 'route_state',
+                                        route_state_inst_name,
+                                        route_state_input_addr_list,
+                                        route_state_input_name_list,
+                                        ['route_open'])
+
+        local_id += 1
+        route_state_expr = 'route_open[ROUTE.' + route.name + ']'
+        safety_PLC_FBD += fbd_output_variable_str(local_id,
+                                                  [local_id-1, 'route_open'],
+                                                  route_state_expr)
+
+    for switch_name in interlocking.switches:
+        switch = interlocking.switches[switch_name]
+
+        # Switch locked
+        fbd_page += 1
+        local_id = (fbd_page*10000000000)-1
+
+        # Switch TVDs occupation
+        switch_tvds = []
+        for seg in switch.fouling_point_segments:
+            if (not switch_tvds or
+                    seg.containing_tvd != switch_tvds[-1]):
+                switch_tvds += [seg.containing_tvd]
+            # TODO better way to avoid duplicates
+
+        and_switch_tvds_inputs = []
+        for tvd in switch_tvds:
+            local_id += 1
+            switch_tvd_occupied_expr = \
+                'var_g.TC_occupied[TC.' + tvd.name + ']'
+            safety_PLC_FBD += fbd_input_variable_str(
+                str(local_id), switch_tvd_occupied_expr)
+            local_id += 1
+            safety_PLC_FBD += fbd_block_str(local_id, 'NOT', '',
+                                            [[str(local_id - 1), '']], [],
+                                            ['Out1'])
+            unoccupied_tvd_addr = [str(local_id), 'Out1']
+            local_id += 1
+            switch_tvd_ignore_expr = \
+                'var_g.ignore_TC_occupation[TC.' + tvd.name + ']'
+            safety_PLC_FBD += fbd_input_variable_str(
+                str(local_id), switch_tvd_ignore_expr)
+            ignore_tvd_addr = [str(local_id), '']
+            local_id += 1
+            safety_PLC_FBD += fbd_block_str(
+                local_id, 'OR', '',
+                [unoccupied_tvd_addr, ignore_tvd_addr], [],
+                ['Out1'])
+            and_switch_tvds_inputs += [[str(local_id), 'Out1']]
+        if len(and_switch_tvds_inputs) == 1:
+            switch_tvds_free_addr = [str(local_id), 'Out1']
+        else:
+            local_id += 1
+            safety_PLC_FBD += fbd_block_str(local_id, 'AND', '',
+                                            and_switch_tvds_inputs, [],
+                                            ['Out1'])
+            switch_tvds_free_addr = [str(local_id), 'Out1']
+
+        # Switch manual override
+        local_id += 1
+        switch_manual_cmd_expr = \
+            'var_g.switch_manual_override[SWITCH.' + switch.name + ']'
+        safety_PLC_FBD += fbd_input_variable_str(
+            str(local_id), switch_manual_cmd_expr)
+        local_id += 1
+        safety_PLC_FBD += fbd_block_str(local_id, 'NOT', '',
+                                        [[str(local_id - 1), '']], [],
+                                        ['Out1'])
+        switch_not_manual_cmd_addr = [str(local_id), 'Out1']
+
+        # Switch locked
+        local_id += 1
+        and_switch_locked_inputs = [switch_tvds_free_addr,
+                                 switch_not_manual_cmd_addr]
+        safety_PLC_FBD += fbd_block_str(local_id, 'AND', '',
+                                        and_switch_locked_inputs, [],
+                                        ['Out1'])
+
+        local_id += 1
+        switch_locked_expr = 'switch_locked[SWITCH.' + switch.name + ']'
+        safety_PLC_FBD += fbd_output_variable_str(local_id,
+                                                  [local_id-1, 'Out1'],
+                                                  switch_locked_expr)
+
+        for position in ['left', 'right']:
+            fbd_page += 1
+            local_id = (fbd_page*10000000000)-1
+
+            # Route states
+            if position == 'left':
+                route_list = switch.required_left_routes
+            else:
+                route_list = switch.required_right_routes
+            or_route_state_inputs = []
+            for route_require_pos in route_list:
+                local_id += 1
+                route_opened_expr = \
+                    'route_open[ROUTE.' + route_require_pos.name + ']'
+                safety_PLC_FBD += fbd_input_variable_str(
+                    str(local_id), route_opened_expr)
+                or_route_state_inputs += [[str(local_id), '']]
+            if len(or_route_state_inputs) == 1:
+                pos_required_addr = [str(local_id), '']
+            else:
+                local_id += 1
+                safety_PLC_FBD += fbd_block_str(local_id, 'OR', '',
+                                                or_route_state_inputs, [],
+                                                ['Out1'])
+                pos_required_addr = [str(local_id), 'Out1']
+
+            local_id += 1
+            switch_locked_expr = 'switch_locked[SWITCH.' + switch.name + ']'
+            safety_PLC_FBD += fbd_input_variable_str(
+                str(local_id), switch_locked_expr)
+            switch_locked_addr = [str(local_id), '']
+
+            # Switch command "and" block
+            local_id += 1
+            and_switch_cmd_inputs = [pos_required_addr,
+                                     switch_locked_addr]
+            safety_PLC_FBD += fbd_block_str(local_id, 'AND', '',
+                                            and_switch_cmd_inputs, [],
+                                            ['Out1'])
+
+            local_id += 1
+            if position == 'left':
+                switch_cmd_expr =\
+                    'switch_command_left[SWITCH.' + switch.name + ']'
+            else:
+                switch_cmd_expr =\
+                    'switch_command_right[SWITCH.' + switch.name + ']'
+            safety_PLC_FBD += fbd_output_variable_str(local_id,
+                                                      [local_id - 1, 'Out1'],
+                                                      switch_cmd_expr)
+
     bla = ''
+
 
 
 def generate_plc_program(xml_file, openplc_mold, openplc_file_path):

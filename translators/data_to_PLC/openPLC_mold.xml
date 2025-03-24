@@ -229,6 +229,16 @@
                 <xhtml xmlns="http://www.w3.org/1999/xhtml"> Signal is opened for CBTC trains (downstream block occupation is ignored)</xhtml>
               </documentation>
             </variable>
+            <variable name="switch_locked">
+              <type>
+                <array>
+                  <dimension lower="1" upper="var_g.nSwitch" />
+                  <baseType>
+                    <BOOL />
+                  </baseType>
+                </array>
+              </type>
+            </variable>
             <variable name="switch_command_left">
               <type>
                 <array>
