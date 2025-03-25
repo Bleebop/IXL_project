@@ -187,6 +187,16 @@
                 </array>
               </type>
             </variable>
+            <variable name="switch_locked">
+              <type>
+                <array>
+                  <dimension lower="1" upper="var_g.nSwitch" />
+                  <baseType>
+                    <BOOL />
+                  </baseType>
+                </array>
+              </type>
+            </variable>
           </localVars>
           <localVars constant="true">
             <variable name="DELAY_DESTRUCT">
@@ -216,6 +226,19 @@
                 </array>
               </type>
             </variable>
+            <variable name="route_entry_authorization">
+              <type>
+                <array>
+                  <dimension lower="1" upper="var_g.nRoute" />
+                  <baseType>
+                    <BOOL />
+                  </baseType>
+                </array>
+              </type>
+              <documentation>
+                <xhtml xmlns="http://www.w3.org/1999/xhtml"> The starting signal of the route can be opened to go through this route</xhtml>
+              </documentation>
+            </variable>
             <variable name="signal_open_maneuver">
               <type>
                 <array>
@@ -228,16 +251,6 @@
               <documentation>
                 <xhtml xmlns="http://www.w3.org/1999/xhtml"> Signal is opened for CBTC trains (downstream block occupation is ignored)</xhtml>
               </documentation>
-            </variable>
-            <variable name="switch_locked">
-              <type>
-                <array>
-                  <dimension lower="1" upper="var_g.nSwitch" />
-                  <baseType>
-                    <BOOL />
-                  </baseType>
-                </array>
-              </type>
             </variable>
             <variable name="switch_command_left">
               <type>

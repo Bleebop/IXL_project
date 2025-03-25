@@ -273,7 +273,7 @@ def xml_to_python(xml_file):
             switch_obj = switch_dict[cross_switch_elem.get("ref")]
             required_pos = cross_switch_elem.get("pos")
             route_obj.cross_switch +=\
-                [switch_obj, required_pos]
+                [[switch_obj, required_pos]]
             if required_pos == 'Left':
                 switch_obj.required_left_routes += [route_obj]
             elif required_pos == 'Right':
@@ -283,7 +283,7 @@ def xml_to_python(xml_file):
             switch_obj = switch_dict[require_switch_elem.get("ref")]
             required_pos = require_switch_elem.get("pos")
             route_obj.require_switch +=\
-                [switch_obj, required_pos]
+                [[switch_obj, required_pos]]
             if required_pos == 'Left':
                 switch_obj.required_left_routes += [route_obj]
             elif required_pos == 'Right':
@@ -853,6 +853,142 @@ def python_to_openplc(interlocking, openplc_mold, openplc_file_path):
             safety_PLC_FBD += fbd_output_variable_str(local_id,
                                                       [local_id - 1, 'Out1'],
                                                       switch_cmd_expr)
+
+    # Conditions for opening the start signal of a route
+    for route_name in interlocking.routes:
+        fbd_page += 1
+        route = interlocking.routes[route_name]
+        and_signal_open_conditions = []
+
+        # Route state
+        local_id = (fbd_page*10000000000)
+        route_opened_expr = 'route_open[ROUTE.' + route.name + ']'
+        safety_PLC_FBD += fbd_input_variable_str(
+            str(local_id), route_opened_expr)
+        and_signal_open_conditions += [[str(local_id), '']]
+
+        # Route destruction demand
+        local_id += 1
+        route_destruct_demand_expr =\
+            'PLC_not_safety.route_destruction_demand[ROUTE.' + route.name + ']'
+        safety_PLC_FBD += fbd_input_variable_str(
+            str(local_id), route_destruct_demand_expr)
+        local_id += 1
+        safety_PLC_FBD += fbd_block_str(local_id, 'NOT', '',
+                                        [[str(local_id - 1), '']], [],
+                                        ['Out1'])
+        and_signal_open_conditions += [[str(local_id), 'Out1']]
+
+        # Switch positions
+        and_switch_pos_inputs = []
+        for [switch, sw_pos_up] in route.cross_switch + route.require_switch:
+            local_id += 1
+            sw_pos = sw_pos_up.lower()
+            switch_pos_expr = \
+                'var_g.switch_detected_' + sw_pos + '[SWITCH.' + switch.name + ']'
+            safety_PLC_FBD += fbd_input_variable_str(
+                str(local_id), switch_pos_expr)
+            and_switch_pos_inputs += [[str(local_id), '']]
+        if not and_switch_pos_inputs:
+            pass
+        elif len(and_switch_pos_inputs) == 1:
+            and_signal_open_conditions += [[str(local_id), '']]
+        else:
+            local_id += 1
+            safety_PLC_FBD += fbd_block_str(local_id, 'AND', '',
+                                            and_switch_pos_inputs, [],
+                                            ['Out1'])
+            and_signal_open_conditions += [[str(local_id), 'Out1']]
+
+        # Switch manual override
+        or_switch_manual_cmd_inputs = []
+        for [switch, _] in route.cross_switch:
+            local_id += 1
+            switch_manual_cmd_expr = \
+                'var_g.switch_manual_override[SWITCH.' + switch.name + ']'
+            safety_PLC_FBD += fbd_input_variable_str(
+                str(local_id), switch_manual_cmd_expr)
+            or_switch_manual_cmd_inputs += [[str(local_id), '']]
+        if not or_switch_manual_cmd_inputs:
+            pass
+        elif len(or_switch_manual_cmd_inputs) == 1:
+            local_id += 1
+            safety_PLC_FBD += fbd_block_str(local_id, 'NOT', '',
+                                            or_switch_manual_cmd_inputs, [],
+                                            ['Out1'])
+            and_signal_open_conditions += [[str(local_id), 'Out1']]
+        else:
+            local_id += 1
+            safety_PLC_FBD += fbd_block_str(local_id, 'OR', '',
+                                            or_switch_manual_cmd_inputs, [],
+                                            ['Out1'])
+            local_id += 1
+            safety_PLC_FBD += fbd_block_str(local_id, 'NOT', '',
+                                            [[str(local_id - 1), '']], [],
+                                            ['Out1'])
+            and_signal_open_conditions += [[str(local_id), 'Out1']]
+
+        local_id += 1
+        safety_PLC_FBD += fbd_block_str(local_id, 'AND', '',
+                                        and_signal_open_conditions, [],
+                                        ['Out1'])
+        local_id += 1
+        route_signal_open_expr =\
+            'route_entry_authorization[ROUTE.' + route.name + ']'
+        safety_PLC_FBD += fbd_output_variable_str(local_id,
+                                                  [local_id - 1, 'Out1'],
+                                                  route_signal_open_expr)
+
+    # Signal command
+    for signal_name in interlocking.signals:
+        fbd_page += 1
+        local_id = (fbd_page * 10000000000) - 1
+        signal = interlocking.signals[signal_name]
+
+        # Route entry authorizations
+        or_diverging_routes = []
+        for route_name in interlocking.routes:
+            route = interlocking.routes[route_name]
+            if route.start_signal == signal:
+                local_id += 1
+                route_authorization_expr =\
+                    'route_entry_authorization[ROUTE.' + route.name + ']'
+                safety_PLC_FBD += fbd_input_variable_str(
+                    str(local_id), route_authorization_expr)
+                or_diverging_routes += [[str(local_id), '']]
+        if len(or_diverging_routes) == 1:
+            diverging_routes_author_addr = [str(local_id), '']
+        else:
+            local_id += 1
+            safety_PLC_FBD += fbd_block_str(local_id, 'OR', '',
+                                            or_diverging_routes, [],
+                                            ['Out1'])
+            diverging_routes_author_addr = [str(local_id), 'Out1']
+
+        # Route manual closing
+        local_id += 1
+        route_manual_closing_expr = \
+            'var_g.close_command[SIGNAL.' + signal.name + ']'
+        safety_PLC_FBD += fbd_input_variable_str(
+            str(local_id), route_manual_closing_expr)
+        local_id += 1
+        safety_PLC_FBD += fbd_block_str(local_id, 'NOT', '',
+                                        [[str(local_id-1), '']], [],
+                                        ['Out1'])
+        no_manual_closing_addr = [str(local_id), 'Out1']
+
+        local_id += 1
+        safety_PLC_FBD += fbd_block_str(local_id, 'AND', '',
+                                        [diverging_routes_author_addr,
+                                         no_manual_closing_addr], [],
+                                        ['Out1'])
+        local_id += 1
+        signal_maneuver_open_expr =\
+            'signal_open_maneuver[SIGNAL.' + signal.name + ']'
+        safety_PLC_FBD += fbd_output_variable_str(local_id,
+                                                  [local_id - 1, 'Out1'],
+                                                  signal_maneuver_open_expr)
+
 
     bla = ''
 
