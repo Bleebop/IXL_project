@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <project xmlns="http://www.plcopen.org/xml/tc6_0200">
-  <fileHeader companyName="" productName="OpenIXl generator" productVersion="OpenIXL generator v0.1" companyURL="https://github.com/Bleebop/IXL_project" creationDateTime="[[[toReplace:creationDateTime]]]" />
-  <contentHeader name="[[[toReplace:projectName]]]" modificationDateTime="[[[toReplace:creationDateTime]]]">
+  <fileHeader companyName="" productName="OpenIXl generator" productVersion="OpenIXL generator v0.1" companyURL="https://github.com/Bleebop/IXL_project" creationDateTime="{creation_date_time}" />
+  <contentHeader name="{project_name}" modificationDateTime="{creation_date_time}">
     <coordinateInfo>
       <fbd>
         <scaling x="1" y="1" />
@@ -21,7 +21,7 @@
           <enum>
             <values>
               <value name="NIL" value="-1" />
-              [[[toReplace:tcEnumValues]]]
+{tc_enum_values}
             </values>
           </enum>
         </baseType>
@@ -31,7 +31,7 @@
           <enum>
             <values>
               <value name="NIL" value="-1" />
-              [[[toReplace:switchEnumValues]]]
+{switch_enum_values}
             </values>
           </enum>
         </baseType>
@@ -41,7 +41,7 @@
           <enum>
             <values>
               <value name="NIL" value="-1" />
-              [[[toReplace:signalEnumValues]]]
+{signal_enum_values}
             </values>
           </enum>
         </baseType>
@@ -51,7 +51,7 @@
           <enum>
             <values>
               <value name="NIL" value="-1" />
-              [[[toReplace:closedSignalEnumValues]]]
+{closed_signal_enum_values}
             </values>
           </enum>
         </baseType>
@@ -147,7 +147,7 @@
           <enum>
             <values>
               <value name="NIL" value="-1" />
-              [[[toReplace:routeEnumValues]]]
+{route_enum_values}
             </values>
           </enum>
         </baseType>
@@ -157,7 +157,7 @@
           <enum>
             <values>
               <value name="NIL" value="-1" />
-              [[[toReplace:staticRouteEnumValues]]]
+{static_route_enum_values}
             </values>
           </enum>
         </baseType>
@@ -210,7 +210,7 @@
               </type>
               <initialValue>
                 <arrayValue>
-                  [[[toReplace:delayDestructValues]]]
+{delay_destruct_values}
                 </arrayValue>
               </initialValue>
             </variable>
@@ -276,64 +276,7 @@
         </interface>
         <body>
           <FBD>
-            [[[toReplace:for each route]]]
-              [[[toReplace:input__RouteFormationDemand]]]
-              [[[toReplace:input__IncompRouteFormationDemand]]]
-              [[[toReplace:input__IncompRouteState]]]
-              [[[toReplace:input__RouteDestructDemand]]]
-              [[[toReplace:input__TransitTcOccupation]]]
-              [[[toReplace:input__TransitTcIgnoreOccupation]]]
-              [[[toReplace:input__ApproachTcOccupation]]]
-              [[[toReplace:input__OriginSignalOpen]]]
-              [[[toReplace:param__DelayDestruct]]]
-              [[[toReplace:input__IgnoreApproach]]]
-              
-              [[[toReplace:blockOr__IncompRouteFormationDemand]]]
-              [[[toReplace:blockOr__IncompRouteState]]]
-              [[[toReplace:for each transit TC]]]
-                [[[toReplace:blockOr__TcNotOccupationIgnore]]]
-              [[[toReplace:blockAnd__TransitTcOccupation]]]
-              [[[toReplace:blockOr__ApproachTcOccupation]]]
-              
-              [[[toReplace:block__Approach]]]
-              [[[toReplace:block__RouteState]]]
-              
-              [[[toReplace:output_RouteState]]]
-              
-              
-            [[[toReplace:for each switch/pair of switches]]]
-              [[[toReplace:input__RouteState]]]
-              [[[toReplace:input__SwitchTcOccupation]]]
-              [[[toReplace:input__SwitchTcIgnoreOccupation]]]
-              [[[toReplace:input__SwitchManualOverride]]]
-              
-              [[[toReplace:blockOr__RouteState]]]
-              [[[toReplace:for each switch TC]]]
-                [[[toReplace:blockOr__SwitchNotOccupationIgnore]]]
-              [[[toReplace:blockAnd__SwitchTcOccupation]]]
-              [[[toReplace:blockNot__SwitchManualOverride]]]
-              [[[toReplace:blockOr__SwitchManualOverride]]]
-              
-              [[[toReplace:blockAnd__SwitchCommandConditions]]]
-              
-              [[[toReplace:output_SwitchCommands]]]
-            
-            [[[toReplace:for each route]]]
-              [[[toReplace:input__RouteState]]]
-              [[[toReplace:input__RouteDestructDemand]]]
-              [[[toReplace:input__SwitchPosition]]]
-              [[[toReplace:input__SwitchManualOverride]]]
-              [[[toReplace:input__SignalCloseCommand]]] <!-- function signal -> route ? -->
-              
-              [[[toReplace:blockNot__RouteDestructDemand]]]
-              [[[toReplace:blockAnd__SwitchPosition]]]
-              [[[toReplace:blockNot__SwitchManualOverride]]]
-              [[[toReplace:blockOr__SwitchManualOverride]]]
-              [[[toReplace:blockNot__SignalCloseCommand]]]
-              
-              [[[toReplace:blockAnd__SignalCommandConditions]]]
-              
-              [[[toReplace:output_RouteSignalOpen]]]
+{safety_PLC_FBD}
           </FBD>
         </body>
       </pou>
@@ -357,7 +300,7 @@
             </variable>
           </inputVars>
           <outputVars>
-            <variable name="route_auto_destruc_command">
+            <variable name="route_auto_destruct_command">
               <type>
                 <BOOL />
               </type>
@@ -371,18 +314,6 @@
               <connectionPointIn />
               <connectionPointOut formalParameter="sfc" />
               <connectionPointOutAction formalParameter="x" />
-              TODO check specificities CoDeSys
-              <addData>
-                <data name="http://www.3s-software.com/plcopenxml/sfc/element" handleUnknown="implementation">
-                  <attributes xmlns="">
-                    <attribute guid="38391c6d-6d4a-42f8-8ee7-9f45e5adafa8">Init</attribute>
-                    <attribute guid="01580b27-6378-448b-8ecb-0e4b795b58d6">FALSE</attribute>
-                    <attribute guid="bc882c11-1e91-4dd8-a6b8-2075724ed18b">0</attribute>
-                    <attribute guid="6844a48e-46c2-4cc8-a185-a478f3b99cc0">TRUE</attribute>
-                    <attribute guid="62e1754b-7629-4e63-9cec-10ae0c536f1f">FALSE</attribute>
-                  </attributes>
-                </data>
-              </addData>
             </step>
             <actionBlock localId="2">
               <position x="0" y="0" />
@@ -393,16 +324,6 @@
                 <relPosition x="0" y="0" />
                 <reference name="route_auto_destruc_command" />
                 <connectionPointOut />
-                <addData>
-                  <data name="http://www.3s-software.com/plcopenxml/sfc/element" handleUnknown="implementation">
-                    <attributes xmlns="">
-                      <attribute guid="38391c6d-6d4a-42f8-8ee7-9f45e5adafa8">route_auto_destruc_command</attribute>
-                      <attribute guid="01580b27-6378-448b-8ecb-0e4b795b58d6">FALSE</attribute>
-                      <attribute guid="bc882c11-1e91-4dd8-a6b8-2075724ed18b">0</attribute>
-                      <attribute guid="e174fc0d-80b0-4a9e-a530-ca239c249a50">R</attribute>
-                    </attributes>
-                  </data>
-                </addData>
               </action>
             </actionBlock>
             <inVariable localId="3">
@@ -420,17 +341,6 @@
                   <connection refLocalId="3" />
                 </connectionPointIn>
               </condition>
-              <addData>
-                <data name="http://www.3s-software.com/plcopenxml/sfc/element" handleUnknown="implementation">
-                  <attributes xmlns="">
-                    <attribute guid="38391c6d-6d4a-42f8-8ee7-9f45e5adafa8">route_open</attribute>
-                    <attribute guid="01580b27-6378-448b-8ecb-0e4b795b58d6">FALSE</attribute>
-                    <attribute guid="bc882c11-1e91-4dd8-a6b8-2075724ed18b">0</attribute>
-                    <attribute guid="62e1754b-7629-4e63-9cec-10ae0c536f1f">FALSE</attribute>
-                    <attribute guid="8294df19-5962-4dee-a874-1051dabb0e3e">0</attribute>
-                  </attributes>
-                </data>
-              </addData>
             </transition>
             <step localId="5" name="Route_opened">
               <position x="0" y="0" />
@@ -438,17 +348,6 @@
                 <connection refLocalId="4" />
               </connectionPointIn>
               <connectionPointOut formalParameter="sfc" />
-              <addData>
-                <data name="http://www.3s-software.com/plcopenxml/sfc/element" handleUnknown="implementation">
-                  <attributes xmlns="">
-                    <attribute guid="38391c6d-6d4a-42f8-8ee7-9f45e5adafa8">Route_opened</attribute>
-                    <attribute guid="01580b27-6378-448b-8ecb-0e4b795b58d6">FALSE</attribute>
-                    <attribute guid="bc882c11-1e91-4dd8-a6b8-2075724ed18b">0</attribute>
-                    <attribute guid="6844a48e-46c2-4cc8-a185-a478f3b99cc0">FALSE</attribute>
-                    <attribute guid="62e1754b-7629-4e63-9cec-10ae0c536f1f">FALSE</attribute>
-                  </attributes>
-                </data>
-              </addData>
             </step>
             <selectionDivergence localId="6">
               <position x="0" y="0" />
@@ -457,15 +356,6 @@
               </connectionPointIn>
               <connectionPointOut formalParameter="sfc" />
               <connectionPointOut formalParameter="sfc" />
-              <addData>
-                <data name="http://www.3s-software.com/plcopenxml/sfc/element" handleUnknown="implementation">
-                  <attributes xmlns="">
-                    <attribute guid="38391c6d-6d4a-42f8-8ee7-9f45e5adafa8">Branch0</attribute>
-                    <attribute guid="01580b27-6378-448b-8ecb-0e4b795b58d6">FALSE</attribute>
-                    <attribute guid="23bdaa98-72ec-41f7-817b-9dede5697086">FALSE</attribute>
-                  </attributes>
-                </data>
-              </addData>
             </selectionDivergence>
             <inVariable localId="7">
               <position x="0" y="0" />
@@ -482,17 +372,6 @@
                   <connection refLocalId="7" />
                 </connectionPointIn>
               </condition>
-              <addData>
-                <data name="http://www.3s-software.com/plcopenxml/sfc/element" handleUnknown="implementation">
-                  <attributes xmlns="">
-                    <attribute guid="38391c6d-6d4a-42f8-8ee7-9f45e5adafa8">last_TTD_occupied and NOT destination_TTD_occupied and route_open</attribute>
-                    <attribute guid="01580b27-6378-448b-8ecb-0e4b795b58d6">FALSE</attribute>
-                    <attribute guid="bc882c11-1e91-4dd8-a6b8-2075724ed18b">0</attribute>
-                    <attribute guid="62e1754b-7629-4e63-9cec-10ae0c536f1f">FALSE</attribute>
-                    <attribute guid="8294df19-5962-4dee-a874-1051dabb0e3e">0</attribute>
-                  </attributes>
-                </data>
-              </addData>
             </transition>
             <inVariable localId="9">
               <position x="0" y="0" />
@@ -509,31 +388,12 @@
                   <connection refLocalId="9" />
                 </connectionPointIn>
               </condition>
-              <addData>
-                <data name="http://www.3s-software.com/plcopenxml/sfc/element" handleUnknown="implementation">
-                  <attributes xmlns="">
-                    <attribute guid="38391c6d-6d4a-42f8-8ee7-9f45e5adafa8">NOT route_open</attribute>
-                    <attribute guid="01580b27-6378-448b-8ecb-0e4b795b58d6">FALSE</attribute>
-                    <attribute guid="bc882c11-1e91-4dd8-a6b8-2075724ed18b">0</attribute>
-                    <attribute guid="62e1754b-7629-4e63-9cec-10ae0c536f1f">FALSE</attribute>
-                    <attribute guid="8294df19-5962-4dee-a874-1051dabb0e3e">0</attribute>
-                  </attributes>
-                </data>
-              </addData>
             </transition>
             <jumpStep localId="11" targetName="Init">
               <position x="0" y="0" />
               <connectionPointIn>
                 <connection refLocalId="10" />
               </connectionPointIn>
-              <addData>
-                <data name="http://www.3s-software.com/plcopenxml/sfc/element" handleUnknown="implementation">
-                  <attributes xmlns="">
-                    <attribute guid="38391c6d-6d4a-42f8-8ee7-9f45e5adafa8">Init</attribute>
-                    <attribute guid="01580b27-6378-448b-8ecb-0e4b795b58d6">FALSE</attribute>
-                  </attributes>
-                </data>
-              </addData>
             </jumpStep>
             <selectionConvergence localId="12">
               <position x="0" y="0" />
@@ -551,17 +411,6 @@
                 <connection refLocalId="12" />
               </connectionPointIn>
               <connectionPointOut formalParameter="sfc" />
-              <addData>
-                <data name="http://www.3s-software.com/plcopenxml/sfc/element" handleUnknown="implementation">
-                  <attributes xmlns="">
-                    <attribute guid="38391c6d-6d4a-42f8-8ee7-9f45e5adafa8">Train_on_last_TTD</attribute>
-                    <attribute guid="01580b27-6378-448b-8ecb-0e4b795b58d6">FALSE</attribute>
-                    <attribute guid="bc882c11-1e91-4dd8-a6b8-2075724ed18b">0</attribute>
-                    <attribute guid="6844a48e-46c2-4cc8-a185-a478f3b99cc0">FALSE</attribute>
-                    <attribute guid="62e1754b-7629-4e63-9cec-10ae0c536f1f">FALSE</attribute>
-                  </attributes>
-                </data>
-              </addData>
             </step>
             <selectionDivergence localId="14">
               <position x="0" y="0" />
@@ -570,15 +419,6 @@
               </connectionPointIn>
               <connectionPointOut formalParameter="sfc" />
               <connectionPointOut formalParameter="sfc" />
-              <addData>
-                <data name="http://www.3s-software.com/plcopenxml/sfc/element" handleUnknown="implementation">
-                  <attributes xmlns="">
-                    <attribute guid="38391c6d-6d4a-42f8-8ee7-9f45e5adafa8">Branch1</attribute>
-                    <attribute guid="01580b27-6378-448b-8ecb-0e4b795b58d6">FALSE</attribute>
-                    <attribute guid="23bdaa98-72ec-41f7-817b-9dede5697086">FALSE</attribute>
-                  </attributes>
-                </data>
-              </addData>
             </selectionDivergence>
             <inVariable localId="15">
               <position x="0" y="0" />
@@ -595,17 +435,6 @@
                   <connection refLocalId="15" />
                 </connectionPointIn>
               </condition>
-              <addData>
-                <data name="http://www.3s-software.com/plcopenxml/sfc/element" handleUnknown="implementation">
-                  <attributes xmlns="">
-                    <attribute guid="38391c6d-6d4a-42f8-8ee7-9f45e5adafa8">last_TTD_occupied and destination_TTD_occupied and route_open</attribute>
-                    <attribute guid="01580b27-6378-448b-8ecb-0e4b795b58d6">FALSE</attribute>
-                    <attribute guid="bc882c11-1e91-4dd8-a6b8-2075724ed18b">0</attribute>
-                    <attribute guid="62e1754b-7629-4e63-9cec-10ae0c536f1f">FALSE</attribute>
-                    <attribute guid="8294df19-5962-4dee-a874-1051dabb0e3e">0</attribute>
-                  </attributes>
-                </data>
-              </addData>
             </transition>
             <inVariable localId="17">
               <position x="0" y="0" />
@@ -622,31 +451,12 @@
                   <connection refLocalId="17" />
                 </connectionPointIn>
               </condition>
-              <addData>
-                <data name="http://www.3s-software.com/plcopenxml/sfc/element" handleUnknown="implementation">
-                  <attributes xmlns="">
-                    <attribute guid="38391c6d-6d4a-42f8-8ee7-9f45e5adafa8">NOT last_TTD_occupied OR NOT route_open</attribute>
-                    <attribute guid="01580b27-6378-448b-8ecb-0e4b795b58d6">FALSE</attribute>
-                    <attribute guid="bc882c11-1e91-4dd8-a6b8-2075724ed18b">0</attribute>
-                    <attribute guid="62e1754b-7629-4e63-9cec-10ae0c536f1f">FALSE</attribute>
-                    <attribute guid="8294df19-5962-4dee-a874-1051dabb0e3e">0</attribute>
-                  </attributes>
-                </data>
-              </addData>
             </transition>
             <jumpStep localId="19" targetName="Init">
               <position x="0" y="0" />
               <connectionPointIn>
                 <connection refLocalId="18" />
               </connectionPointIn>
-              <addData>
-                <data name="http://www.3s-software.com/plcopenxml/sfc/element" handleUnknown="implementation">
-                  <attributes xmlns="">
-                    <attribute guid="38391c6d-6d4a-42f8-8ee7-9f45e5adafa8">Init</attribute>
-                    <attribute guid="01580b27-6378-448b-8ecb-0e4b795b58d6">FALSE</attribute>
-                  </attributes>
-                </data>
-              </addData>
             </jumpStep>
             <selectionConvergence localId="20">
               <position x="0" y="0" />
@@ -664,17 +474,6 @@
                 <connection refLocalId="20" />
               </connectionPointIn>
               <connectionPointOut formalParameter="sfc" />
-              <addData>
-                <data name="http://www.3s-software.com/plcopenxml/sfc/element" handleUnknown="implementation">
-                  <attributes xmlns="">
-                    <attribute guid="38391c6d-6d4a-42f8-8ee7-9f45e5adafa8">Train_entered_destination</attribute>
-                    <attribute guid="01580b27-6378-448b-8ecb-0e4b795b58d6">FALSE</attribute>
-                    <attribute guid="bc882c11-1e91-4dd8-a6b8-2075724ed18b">0</attribute>
-                    <attribute guid="6844a48e-46c2-4cc8-a185-a478f3b99cc0">FALSE</attribute>
-                    <attribute guid="62e1754b-7629-4e63-9cec-10ae0c536f1f">FALSE</attribute>
-                  </attributes>
-                </data>
-              </addData>
             </step>
             <selectionDivergence localId="22">
               <position x="0" y="0" />
@@ -683,15 +482,6 @@
               </connectionPointIn>
               <connectionPointOut formalParameter="sfc" />
               <connectionPointOut formalParameter="sfc" />
-              <addData>
-                <data name="http://www.3s-software.com/plcopenxml/sfc/element" handleUnknown="implementation">
-                  <attributes xmlns="">
-                    <attribute guid="38391c6d-6d4a-42f8-8ee7-9f45e5adafa8">Branch2</attribute>
-                    <attribute guid="01580b27-6378-448b-8ecb-0e4b795b58d6">FALSE</attribute>
-                    <attribute guid="23bdaa98-72ec-41f7-817b-9dede5697086">FALSE</attribute>
-                  </attributes>
-                </data>
-              </addData>
             </selectionDivergence>
             <inVariable localId="23">
               <position x="0" y="0" />
@@ -708,17 +498,6 @@
                   <connection refLocalId="23" />
                 </connectionPointIn>
               </condition>
-              <addData>
-                <data name="http://www.3s-software.com/plcopenxml/sfc/element" handleUnknown="implementation">
-                  <attributes xmlns="">
-                    <attribute guid="38391c6d-6d4a-42f8-8ee7-9f45e5adafa8">NOT last_TTD_occupied and destination_TTD_occupied and route_open</attribute>
-                    <attribute guid="01580b27-6378-448b-8ecb-0e4b795b58d6">FALSE</attribute>
-                    <attribute guid="bc882c11-1e91-4dd8-a6b8-2075724ed18b">0</attribute>
-                    <attribute guid="62e1754b-7629-4e63-9cec-10ae0c536f1f">FALSE</attribute>
-                    <attribute guid="8294df19-5962-4dee-a874-1051dabb0e3e">0</attribute>
-                  </attributes>
-                </data>
-              </addData>
             </transition>
             <inVariable localId="25">
               <position x="0" y="0" />
@@ -735,31 +514,12 @@
                   <connection refLocalId="25" />
                 </connectionPointIn>
               </condition>
-              <addData>
-                <data name="http://www.3s-software.com/plcopenxml/sfc/element" handleUnknown="implementation">
-                  <attributes xmlns="">
-                    <attribute guid="38391c6d-6d4a-42f8-8ee7-9f45e5adafa8">NOT destination_TTD_occupied OR NOT route_open</attribute>
-                    <attribute guid="01580b27-6378-448b-8ecb-0e4b795b58d6">FALSE</attribute>
-                    <attribute guid="bc882c11-1e91-4dd8-a6b8-2075724ed18b">0</attribute>
-                    <attribute guid="62e1754b-7629-4e63-9cec-10ae0c536f1f">FALSE</attribute>
-                    <attribute guid="8294df19-5962-4dee-a874-1051dabb0e3e">0</attribute>
-                  </attributes>
-                </data>
-              </addData>
             </transition>
             <jumpStep localId="27" targetName="Init">
               <position x="0" y="0" />
               <connectionPointIn>
                 <connection refLocalId="26" />
               </connectionPointIn>
-              <addData>
-                <data name="http://www.3s-software.com/plcopenxml/sfc/element" handleUnknown="implementation">
-                  <attributes xmlns="">
-                    <attribute guid="38391c6d-6d4a-42f8-8ee7-9f45e5adafa8">Init</attribute>
-                    <attribute guid="01580b27-6378-448b-8ecb-0e4b795b58d6">FALSE</attribute>
-                  </attributes>
-                </data>
-              </addData>
             </jumpStep>
             <selectionConvergence localId="28">
               <position x="0" y="0" />
@@ -778,17 +538,6 @@
               </connectionPointIn>
               <connectionPointOut formalParameter="sfc" />
               <connectionPointOutAction formalParameter="x" />
-              <addData>
-                <data name="http://www.3s-software.com/plcopenxml/sfc/element" handleUnknown="implementation">
-                  <attributes xmlns="">
-                    <attribute guid="38391c6d-6d4a-42f8-8ee7-9f45e5adafa8">Train_left_route</attribute>
-                    <attribute guid="01580b27-6378-448b-8ecb-0e4b795b58d6">FALSE</attribute>
-                    <attribute guid="bc882c11-1e91-4dd8-a6b8-2075724ed18b">0</attribute>
-                    <attribute guid="6844a48e-46c2-4cc8-a185-a478f3b99cc0">FALSE</attribute>
-                    <attribute guid="62e1754b-7629-4e63-9cec-10ae0c536f1f">FALSE</attribute>
-                  </attributes>
-                </data>
-              </addData>
             </step>
             <actionBlock localId="31">
               <position x="0" y="0" />
@@ -799,16 +548,6 @@
                 <relPosition x="0" y="0" />
                 <reference name="route_auto_destruc_command" />
                 <connectionPointOut />
-                <addData>
-                  <data name="http://www.3s-software.com/plcopenxml/sfc/element" handleUnknown="implementation">
-                    <attributes xmlns="">
-                      <attribute guid="38391c6d-6d4a-42f8-8ee7-9f45e5adafa8">route_auto_destruc_command</attribute>
-                      <attribute guid="01580b27-6378-448b-8ecb-0e4b795b58d6">FALSE</attribute>
-                      <attribute guid="bc882c11-1e91-4dd8-a6b8-2075724ed18b">0</attribute>
-                      <attribute guid="e174fc0d-80b0-4a9e-a530-ca239c249a50">S</attribute>
-                    </attributes>
-                  </data>
-                </addData>
               </action>
             </actionBlock>
             <inVariable localId="32">
@@ -826,31 +565,12 @@
                   <connection refLocalId="32" />
                 </connectionPointIn>
               </condition>
-              <addData>
-                <data name="http://www.3s-software.com/plcopenxml/sfc/element" handleUnknown="implementation">
-                  <attributes xmlns="">
-                    <attribute guid="38391c6d-6d4a-42f8-8ee7-9f45e5adafa8">TRUE</attribute>
-                    <attribute guid="01580b27-6378-448b-8ecb-0e4b795b58d6">FALSE</attribute>
-                    <attribute guid="bc882c11-1e91-4dd8-a6b8-2075724ed18b">0</attribute>
-                    <attribute guid="62e1754b-7629-4e63-9cec-10ae0c536f1f">FALSE</attribute>
-                    <attribute guid="8294df19-5962-4dee-a874-1051dabb0e3e">0</attribute>
-                  </attributes>
-                </data>
-              </addData>
             </transition>
             <jumpStep localId="34" targetName="Init">
               <position x="0" y="0" />
               <connectionPointIn>
                 <connection refLocalId="33" />
               </connectionPointIn>
-              <addData>
-                <data name="http://www.3s-software.com/plcopenxml/sfc/element" handleUnknown="implementation">
-                  <attributes xmlns="">
-                    <attribute guid="38391c6d-6d4a-42f8-8ee7-9f45e5adafa8">Init</attribute>
-                    <attribute guid="01580b27-6378-448b-8ecb-0e4b795b58d6">FALSE</attribute>
-                  </attributes>
-                </data>
-              </addData>
             </jumpStep>
           </SFC>
         </body>
@@ -1355,16 +1075,7 @@
         </interface>
         <body>
           <FBD>
-            [[[toReplace:for each route]]]
-              [[[toReplace:input__RouteState]]]
-              [[[toReplace:input__LastTcOccupation]]]
-              [[[toReplace:input__DestinationTcOccupation]]]
-              [[[toReplace:input__RouteDestructDemandManual]]]
-              
-              [[[toReplace:block__AutoDestruct]]]
-              [[[toReplace:blockOr__RouteDestructDemand]]]
-              
-              [[[toReplace:output_RouteDestructDemand]]]
+{non_safety_PLC_FBD}
           </FBD>
         </body>
       </pou>
@@ -1374,7 +1085,7 @@
     <configurations>
       <configuration name="Device">
         <resource name="Application">
-          <task name="MainTask" interval="[[[toReplace:period]]]" priority="1">
+          <task name="MainTask" interval="{plc_period}" priority="1">
             <pouInstance name="non_safety_PLC" typeName="">
               <documentation>
                 <xhtml xmlns="http://www.w3.org/1999/xhtml" />
@@ -1503,7 +1214,7 @@
                 <INT />
               </type>
               <initialValue>
-                <simpleValue value="[[[toReplace:numberOfTc]]]" />
+                <simpleValue value="{n_tvd}" />
               </initialValue>
               <documentation>
                 <xhtml xmlns="http://www.w3.org/1999/xhtml"> Track Circuits used by the IXL</xhtml>
@@ -1514,7 +1225,7 @@
                 <INT />
               </type>
               <initialValue>
-                <simpleValue value="[[[toReplace:numberOfRoutes]]]" />
+                <simpleValue value="{n_route}" />
               </initialValue>
               <documentation>
                 <xhtml xmlns="http://www.w3.org/1999/xhtml"> Routes that can be formed and destroyed</xhtml>
@@ -1525,7 +1236,7 @@
                 <INT />
               </type>
               <initialValue>
-                <simpleValue value="[[[toReplace:numberOfSwitches]]]" />
+                <simpleValue value="{n_switch}" />
               </initialValue>
             </variable>
             <variable name="nSignal">
@@ -1533,7 +1244,15 @@
                 <INT />
               </type>
               <initialValue>
-                <simpleValue value="[[[toReplace:numberOfSignals]]]" />
+                <simpleValue value="{n_signal}" />
+              </initialValue>
+            </variable>
+            <variable name="nClosedSignal">
+              <type>
+                <INT />
+              </type>
+              <initialValue>
+                <simpleValue value="{n_closed_signal}" />
               </initialValue>
             </variable>
             <variable name="nRouteStatic">
@@ -1541,7 +1260,7 @@
                 <INT />
               </type>
               <initialValue>
-                <simpleValue value="[[[toReplace:numberOfStaticRoutes]]]" />
+                <simpleValue value="{n_static_route}" />
               </initialValue>
               <documentation>
                 <xhtml xmlns="http://www.w3.org/1999/xhtml"> "Routes" that are always formed</xhtml>
@@ -1550,7 +1269,7 @@
           </globalVars>
         </resource>
         <addData>
-          <data name="Device" handleUnknown="discard"> TODO useful but not sure how it works
+          <data name="Device" handleUnknown="discard">
             <Device xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="">
               <DeviceType>
                 <DeviceIdentification>

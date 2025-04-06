@@ -87,6 +87,7 @@ class Route:
         self.name = name
         self.enum_val = enum_val
         self.intermediate_segment = []
+        self.tvds = []
         self.incompatible_route = []
         self.start_signal = None
         self.cross_switch = []
@@ -144,6 +145,7 @@ class Interlocking:
     def __init__(self, name, routes, static_routes, signals, closed_signals,
                  switches, tvds, segments):
         self.name = name
+        self.period = 100  # ms
         self.routes = routes
         self.static_routes = static_routes
         self.signals = signals
@@ -217,10 +219,10 @@ def xml_to_python(xml_file):
         switch_dict[switch_elem.get("id")] = Switch(switch_elem.get("id"), nSwitch)
         switch_elem_dict[switch_elem.get("id")] = switch_elem
 
-    nTC = 0
+    nTVD = 0
     for tvd_elem in root.findall("./assetsForIL/tvdSections/tvdSection"):
-        nTC += 1
-        tvd_dict[tvd_elem.get("id")] = Tvd(tvd_elem.get("id"), nTC)
+        nTVD += 1
+        tvd_dict[tvd_elem.get("id")] = Tvd(tvd_elem.get("id"), nTVD)
         tvd_elem_dict[tvd_elem.get("id")] = tvd_elem
 
     nSeg = 0
@@ -421,7 +423,17 @@ def xml_to_python(xml_file):
             segment_obj.next_down_left =\
                 [segment_dict[next_down_left_elem.get("ref")], polarity_change]
 
-    interlocking.nTC = nTC
+    for route in interlocking.routes.values():
+        routes_tvds = [route.start_segment[0].containing_tvd]
+        for seg in route.intermediate_segment:
+            if seg.containing_tvd != routes_tvds[-1]:
+                routes_tvds += [seg.containing_tvd]
+        if route.destination_segment.containing_tvd != routes_tvds[-1]:
+            routes_tvds += [route.destination_segment.containing_tvd]
+            # TODO better way to avoid duplicates
+        route.tvds = routes_tvds
+
+    interlocking.nTVD = nTVD
     interlocking.nSeg = nSeg
     interlocking.nRoute = nRoute
     interlocking.nSwitch = nSwitch
@@ -432,68 +444,6 @@ def xml_to_python(xml_file):
 
 
 def python_to_openplc(interlocking, openplc_mold, openplc_file_path):
-    cur_time = time.localtime()
-    creationDateTime = '{}-{:0>2}-{:0>2}T{:0>2}:{:0>2}:{:0>2}'\
-                       .format(cur_time.tm_year,
-                               cur_time.tm_mon,
-                               cur_time.tm_mday,
-                               cur_time.tm_hour,
-                               cur_time.tm_min,
-                               cur_time.tm_sec)
-    projectName = interlocking.name
-
-    tcEnumValues = ''
-    for tc in interlocking.tvds:
-        tc_enum_val = interlocking.tvds[tc].enum_val
-        tcEnumValues +=\
-            '              <value name="{}" value="{}" />\n'\
-            .format(tc, tc_enum_val)
-
-    switchEnumValues = ''
-    for switch in interlocking.switches:
-        switch_enum_val = interlocking.switches[switch].enum_val
-        switchEnumValues +=\
-            '              <value name="{}" value="{}" />\n'\
-            .format(switch, switch_enum_val)
-
-    signalEnumValues = ''
-    for sig in interlocking.signals:
-        sig_enum_val = interlocking.signals[sig].enum_val
-        signalEnumValues +=\
-            '              <value name="{}" value="{}" />\n'\
-            .format(sig, sig_enum_val)
-
-    closedSignalEnumValues = ''
-    for closed_sig in interlocking.closed_signals:
-        closed_sig_enum_val = interlocking.closed_signals[closed_sig].enum_val
-        closedSignalEnumValues +=\
-            '              <value name="{}" value="{}" />\n'\
-            .format(closed_sig, closed_sig_enum_val)
-
-    routeEnumValues = ''
-    for route in interlocking.routes:
-        route_enum_val = interlocking.routes[route].enum_val
-        routeEnumValues +=\
-            '              <value name="{}" value="{}" />\n'\
-            .format(route, route_enum_val)
-
-    staticRouteEnumValues = ''
-    for static_route in interlocking.static_routes:
-        static_route_enum_val = interlocking.static_routes[static_route].enum_val
-        staticRouteEnumValues +=\
-            '              <value name="{}" value="{}" />\n'\
-            .format(static_route, static_route_enum_val)
-
-    delayDestructValues = ''
-    for route in interlocking.routes.values():
-        if route.delay_destruct == 'Inf':
-            route_delay_destruct = 'TIME#99999s0ms'
-        else:
-            route_delay_destruct = 'TIME#' + route.delay_destruct + 's0ms'
-        delayDestructValues +=\
-            '                  <value>\n' \
-            '                    <simpleValue value="{}" />\n' \
-            '                  </value>\n'.format(route_delay_destruct)
 
     safety_PLC_FBD = ''
     fbd_page = 0
@@ -570,15 +520,7 @@ def python_to_openplc(interlocking, openplc_mold, openplc_file_path):
         route_destruction_demand_addr = [str(local_id), '']
 
         # Transit TVDs occupation
-        routes_tvds = [route.start_segment[0].containing_tvd]
-        for seg in route.intermediate_segment:
-            if seg.containing_tvd != routes_tvds[-1]:
-                routes_tvds += [seg.containing_tvd]
-        if route.destination_segment.containing_tvd != routes_tvds[-1]:
-            routes_tvds += [route.destination_segment.containing_tvd]
-            # TODO better way to avoid duplicates
-
-        if len(routes_tvds) <= 2:
+        if len(route.tvds) <= 2:
             local_id += 1
             safety_PLC_FBD += fbd_input_variable_str(
                 str(local_id),
@@ -586,7 +528,7 @@ def python_to_openplc(interlocking, openplc_mold, openplc_file_path):
             transit_tvds_free_addr = [str(local_id), '']
         else:
             and_transit_tvds_inputs = []
-            for tvd in routes_tvds[1:-1]:
+            for tvd in route.tvds[1:-1]:
                 local_id += 1
                 transit_tvd_occupied_expr = \
                     'var_g.TC_occupied[TC.' + tvd.name + ']'
@@ -744,38 +686,38 @@ def python_to_openplc(interlocking, openplc_mold, openplc_file_path):
                 switch_tvds += [seg.containing_tvd]
             # TODO better way to avoid duplicates
 
-        and_switch_tvds_inputs = []
+        or_switch_tvds_inputs = []
         for tvd in switch_tvds:
             local_id += 1
             switch_tvd_occupied_expr = \
                 'var_g.TC_occupied[TC.' + tvd.name + ']'
             safety_PLC_FBD += fbd_input_variable_str(
                 str(local_id), switch_tvd_occupied_expr)
-            local_id += 1
-            safety_PLC_FBD += fbd_block_str(local_id, 'NOT', '',
-                                            [[str(local_id - 1), '']], [],
-                                            ['Out1'])
-            unoccupied_tvd_addr = [str(local_id), 'Out1']
+            occupied_tvd_addr = [str(local_id), '']
             local_id += 1
             switch_tvd_ignore_expr = \
                 'var_g.ignore_TC_occupation[TC.' + tvd.name + ']'
             safety_PLC_FBD += fbd_input_variable_str(
                 str(local_id), switch_tvd_ignore_expr)
-            ignore_tvd_addr = [str(local_id), '']
+            local_id += 1
+            safety_PLC_FBD += fbd_block_str(local_id, 'NOT', '',
+                                            [[str(local_id - 1), '']], [],
+                                            ['Out1'])
+            not_ignore_tvd_addr = [str(local_id), 'Out1']
             local_id += 1
             safety_PLC_FBD += fbd_block_str(
-                local_id, 'OR', '',
-                [unoccupied_tvd_addr, ignore_tvd_addr], [],
+                local_id, 'AND', '',
+                [occupied_tvd_addr, not_ignore_tvd_addr], [],
                 ['Out1'])
-            and_switch_tvds_inputs += [[str(local_id), 'Out1']]
-        if len(and_switch_tvds_inputs) == 1:
-            switch_tvds_free_addr = [str(local_id), 'Out1']
+            or_switch_tvds_inputs += [[str(local_id), 'Out1']]
+        if len(or_switch_tvds_inputs) == 1:
+            switch_tvds_occup_addr = [str(local_id), 'Out1']
         else:
             local_id += 1
-            safety_PLC_FBD += fbd_block_str(local_id, 'AND', '',
-                                            and_switch_tvds_inputs, [],
+            safety_PLC_FBD += fbd_block_str(local_id, 'OR', '',
+                                            or_switch_tvds_inputs, [],
                                             ['Out1'])
-            switch_tvds_free_addr = [str(local_id), 'Out1']
+            switch_tvds_occup_addr = [str(local_id), 'Out1']
 
         # Switch manual override
         local_id += 1
@@ -783,18 +725,14 @@ def python_to_openplc(interlocking, openplc_mold, openplc_file_path):
             'var_g.switch_manual_override[SWITCH.' + switch.name + ']'
         safety_PLC_FBD += fbd_input_variable_str(
             str(local_id), switch_manual_cmd_expr)
-        local_id += 1
-        safety_PLC_FBD += fbd_block_str(local_id, 'NOT', '',
-                                        [[str(local_id - 1), '']], [],
-                                        ['Out1'])
-        switch_not_manual_cmd_addr = [str(local_id), 'Out1']
+        switch_manual_cmd_addr = [str(local_id), '']
 
         # Switch locked
         local_id += 1
-        and_switch_locked_inputs = [switch_tvds_free_addr,
-                                 switch_not_manual_cmd_addr]
-        safety_PLC_FBD += fbd_block_str(local_id, 'AND', '',
-                                        and_switch_locked_inputs, [],
+        or_switch_locked_inputs = [switch_tvds_occup_addr,
+                                   switch_manual_cmd_addr]
+        safety_PLC_FBD += fbd_block_str(local_id, 'OR', '',
+                                        or_switch_locked_inputs, [],
                                         ['Out1'])
 
         local_id += 1
@@ -833,23 +771,23 @@ def python_to_openplc(interlocking, openplc_mold, openplc_file_path):
             switch_locked_expr = 'switch_locked[SWITCH.' + switch.name + ']'
             safety_PLC_FBD += fbd_input_variable_str(
                 str(local_id), switch_locked_expr)
-            switch_locked_addr = [str(local_id), '']
+            local_id += 1
+            safety_PLC_FBD += fbd_block_str(local_id, 'NOT', '',
+                                            [[str(local_id-1), '']], [],
+                                            ['Out1'])
+            switch_not_locked_addr = [str(local_id), 'Out1']
 
             # Switch command "and" block
             local_id += 1
             and_switch_cmd_inputs = [pos_required_addr,
-                                     switch_locked_addr]
+                                     switch_not_locked_addr]
             safety_PLC_FBD += fbd_block_str(local_id, 'AND', '',
                                             and_switch_cmd_inputs, [],
                                             ['Out1'])
 
             local_id += 1
-            if position == 'left':
-                switch_cmd_expr =\
-                    'switch_command_left[SWITCH.' + switch.name + ']'
-            else:
-                switch_cmd_expr =\
-                    'switch_command_right[SWITCH.' + switch.name + ']'
+            switch_cmd_expr = \
+                'switch_command_' + position + '[SWITCH.' + switch.name + ']'
             safety_PLC_FBD += fbd_output_variable_str(local_id,
                                                       [local_id - 1, 'Out1'],
                                                       switch_cmd_expr)
@@ -990,17 +928,172 @@ def python_to_openplc(interlocking, openplc_mold, openplc_file_path):
                                                   signal_maneuver_open_expr)
 
 
-    bla = ''
+    non_safety_PLC_FBD = ''
+    fbd_page = 0
+    for route_name in interlocking.routes:
+        route = interlocking.routes[route_name]
+        fbd_page += 1
+
+        # Auto-destruct inputs
+        auto_destruct_inputs = []
+        local_id = (fbd_page*10000000000)
+        route_open_expr =\
+            'PLC_safety.route_open[ROUTE.' + route_name + ']'
+        non_safety_PLC_FBD += fbd_input_variable_str(
+            str(local_id), route_open_expr)
+        auto_destruct_inputs += [[str(local_id), '']]
+
+        # final TVDs occupation
+        for tvd in route.tvds[-2:]:
+            local_id += 1
+            tvd_occupied_expr = \
+                'var_g.TC_occupied[TC.' + tvd.name + ']'
+            non_safety_PLC_FBD += fbd_input_variable_str(
+                str(local_id), tvd_occupied_expr)
+            auto_destruct_inputs += [[str(local_id), '']]
+
+        local_id += 1
+        auto_destruct_inst_name = 'AUTO_DESTRUCT[ROUTE.' + route_name + ']'
+        auto_destruct_input_name_list = ['route_open',
+                                         'last_TTD_occupied',
+                                         'destination_TTD_occupied']
+        non_safety_PLC_FBD += fbd_block_str(local_id, 'AUTO_DESTRUCT',
+                                            auto_destruct_inst_name,
+                                            auto_destruct_inputs,
+                                            auto_destruct_input_name_list,
+                                            ['route_auto_destruct_command'])
+        route_auto_destruct_command_addr = \
+            [local_id, 'route_auto_destruct_command']
+
+        local_id += 1
+        route_manual_dest_cmd_expr = \
+            'var_g.route_destruct_manual_demand[ROUTE.' + route.name + ']'
+        non_safety_PLC_FBD += fbd_input_variable_str(
+            str(local_id), route_manual_dest_cmd_expr)
+
+        local_id += 1
+        non_safety_PLC_FBD += fbd_block_str(local_id, 'OR', '',
+                                            [route_auto_destruct_command_addr,
+                                             [str(local_id-1), '']],
+                                            [],
+                                            ['Out1'])
+        local_id += 1
+        route_destruct_cmd =\
+            'route_destruction_demand[ROUTE.' + route.name + ']'
+        non_safety_PLC_FBD += fbd_output_variable_str(local_id,
+                                                      [local_id - 1, 'Out1'],
+                                                      route_destruct_cmd)
+    cur_time = time.localtime()
+    creation_date_time_str = '{}-{:0>2}-{:0>2}T{:0>2}:{:0>2}:{:0>2}'\
+                             .format(cur_time.tm_year,
+                                     cur_time.tm_mon,
+                                     cur_time.tm_mday,
+                                     cur_time.tm_hour,
+                                     cur_time.tm_min,
+                                     cur_time.tm_sec)
+    project_name_str = interlocking.name
+
+    tc_enum_values_str = ''
+    for tc in interlocking.tvds:
+        tc_enum_val = interlocking.tvds[tc].enum_val
+        tc_enum_values_str +=\
+            '              <value name="{}" value="{}" />\n'\
+            .format(tc, tc_enum_val)
+
+    switch_enum_values_str = ''
+    for switch in interlocking.switches:
+        switch_enum_val = interlocking.switches[switch].enum_val
+        switch_enum_values_str +=\
+            '              <value name="{}" value="{}" />\n'\
+            .format(switch, switch_enum_val)
+
+    signal_enum_values_str = ''
+    for sig in interlocking.signals:
+        sig_enum_val = interlocking.signals[sig].enum_val
+        signal_enum_values_str +=\
+            '              <value name="{}" value="{}" />\n'\
+            .format(sig, sig_enum_val)
+
+    closed_signal_enum_values_str = ''
+    for closed_sig in interlocking.closed_signals:
+        closed_sig_enum_val = interlocking.closed_signals[closed_sig].enum_val
+        closed_signal_enum_values_str +=\
+            '              <value name="{}" value="{}" />\n'\
+            .format(closed_sig, closed_sig_enum_val)
+
+    route_enum_values_str = ''
+    for route in interlocking.routes:
+        route_enum_val = interlocking.routes[route].enum_val
+        route_enum_values_str +=\
+            '              <value name="{}" value="{}" />\n'\
+            .format(route, route_enum_val)
+
+    static_route_enum_values_str = ''
+    for static_route in interlocking.static_routes:
+        static_route_enum_val = interlocking.static_routes[static_route].enum_val
+        static_route_enum_values_str +=\
+            '              <value name="{}" value="{}" />\n'\
+            .format(static_route, static_route_enum_val)
+
+    delay_destruct_values_str = ''
+    for route in interlocking.routes.values():
+        if route.delay_destruct == 'Inf':
+            route_delay_destruct = 'TIME#99999s0ms'
+        else:
+            route_delay_destruct = 'TIME#' + route.delay_destruct + 's0ms'
+        delay_destruct_values_str +=\
+            '                  <value>\n' \
+            '                    <simpleValue value="{}" />\n' \
+            '                  </value>\n'.format(route_delay_destruct)
+
+    plc_period_str = 'PT' + str(interlocking.period/1000) + 'S'
+    n_tvd_str = str(interlocking.nTVD)
+    n_route_str = str(interlocking.nRoute)
+    n_switch_str = str(interlocking.nSwitch)
+    n_signal_str = str(interlocking.nSignal)
+    n_closed_signal_str = str(interlocking.nClosedSignal)
+    n_static_route_str = str(interlocking.nRouteStatic)
+
+    with open(openplc_mold, 'r') as mold:
+        openplc_mold_str = mold.read()
+        complete_file_str = openplc_mold_str.format(
+            creation_date_time=creation_date_time_str,
+            project_name=project_name_str,
+            tc_enum_values=tc_enum_values_str,
+            switch_enum_values=switch_enum_values_str,
+            signal_enum_values=signal_enum_values_str,
+            closed_signal_enum_values=closed_signal_enum_values_str,
+            route_enum_values=route_enum_values_str,
+            static_route_enum_values=static_route_enum_values_str,
+            delay_destruct_values=delay_destruct_values_str,
+            non_safety_PLC_FBD=non_safety_PLC_FBD,
+            safety_PLC_FBD=safety_PLC_FBD,
+            plc_period=plc_period_str,
+            n_tvd=n_tvd_str,
+            n_route=n_route_str,
+            n_switch=n_switch_str,
+            n_signal=n_signal_str,
+            n_closed_signal=n_closed_signal_str,
+            n_static_route=n_static_route_str
+        )
+
+    with open(openplc_file_path, 'w') as f:
+        f.write(complete_file_str)
 
 
 
-def generate_plc_program(xml_file, openplc_mold, openplc_file_path):
+def generate_plc_program(xml_file, PLC_period, openplc_mold, openplc_file_path):
     interlocking = xml_to_python(xml_file)
+    interlocking.period = int(PLC_period)
     python_to_openplc(interlocking, openplc_mold, openplc_file_path)
 
 
 if __name__ == '__main__':
     XML_file_path = sys.argv[1]
-    openplc_mold = sys.argv[2]
-    openplc_file_path = sys.argv[3]
-    generate_plc_program(XML_file_path, openplc_mold, openplc_file_path)
+    PLC_period = sys.argv[2]  # in ms
+    openplc_mold = sys.argv[3]
+    openplc_file_path = sys.argv[4]
+    generate_plc_program(XML_file_path,
+                         PLC_period,
+                         openplc_mold,
+                         openplc_file_path)

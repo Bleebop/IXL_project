@@ -6,8 +6,8 @@
 - [x] Make a simulator in CoDeSys
 - [ ] Make an external simulator (JS+HTML ?)
 - [ ] Interface it with CoDeSys
-- [ ] Determine a data model for stations => RailML ?
-- [ ] Translator data -> PLC program (safety+non safety) (with options)
+- [x] Determine a data model for stations => RailML ?
+- [x] Translator data -> PLC program (safety+non safety) (with options)
 - [ ] Translator PLC program -> HLL
 - [ ] Translator data -> HLL (?)
 - [ ] Write scientific article?
