@@ -513,7 +513,7 @@ def python_to_openplc(interlocking, openplc_mold, openplc_file_path):
         # Route destruction demand
         local_id += 1
         route_destruction_demand_expr = \
-            'PLC_not_safety.route_destruction_demand[ROUTE.' + route_name + ']'
+            'non_safety_PLC.route_destruction_demand[ROUTE.' + route_name + ']'
         safety_PLC_FBD += fbd_input_variable_str(
             str(local_id),
             route_destruction_demand_expr)
@@ -808,7 +808,7 @@ def python_to_openplc(interlocking, openplc_mold, openplc_file_path):
         # Route destruction demand
         local_id += 1
         route_destruct_demand_expr =\
-            'PLC_not_safety.route_destruction_demand[ROUTE.' + route.name + ']'
+            'non_safety_PLC.route_destruction_demand[ROUTE.' + route.name + ']'
         safety_PLC_FBD += fbd_input_variable_str(
             str(local_id), route_destruct_demand_expr)
         local_id += 1
@@ -938,7 +938,7 @@ def python_to_openplc(interlocking, openplc_mold, openplc_file_path):
         auto_destruct_inputs = []
         local_id = (fbd_page*10000000000)
         route_open_expr =\
-            'PLC_safety.route_open[ROUTE.' + route_name + ']'
+            'safety_PLC.route_open[ROUTE.' + route_name + ']'
         non_safety_PLC_FBD += fbd_input_variable_str(
             str(local_id), route_open_expr)
         auto_destruct_inputs += [[str(local_id), '']]

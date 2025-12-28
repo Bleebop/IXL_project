@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="hmi_exemple.css">
+<script src="hmi_script.js"></script> 
+</head>
+<body>
+<div id="page">
+  <stop_train>
+    <table style="width:100%">
+      <tr><th>Stop train</th></tr>
+      <tr><td>T1 <input type="checkbox" id="Stop_Train_T1" /></td></tr>
+      <tr><td>T2 <input type="checkbox" id="Stop_Train_T2" /></td></tr>
+      <tr><td>T3 <input type="checkbox" id="Stop_Train_T3" /></td></tr>
+      <tr><td>T4 <input type="checkbox" id="Stop_Train_T4" /></td></tr>
+      <tr><td>T5 <input type="checkbox" id="Stop_Train_T5" /></td></tr>
+      <tr><td>T6 <input type="checkbox" id="Stop_Train_T6" /></td></tr>
+    </table>
+  </stop_train>
+  <remove_trains><button onclick="removeTrains()">Remove trains</button></remove_trains>
+  <trains_error>
+    <table style="width:100%">
+      <tr><th>Train error</th></tr>
+      <tr><td id="Train_Error_T1">Train 1 OK</td></tr>
+      <tr><td id="Train_Error_T2">Train 2 OK</td></tr>
+      <tr><td id="Train_Error_T3">Train 3 OK</td></tr>
+      <tr><td id="Train_Error_T4">Train 4 OK</td></tr>
+      <tr><td id="Train_Error_T5">Train 5 OK</td></tr>
+      <tr><td id="Train_Error_T6">Train 6 OK</td></tr>
+    </table>
+  </trains_error>
+  <switch_info>
+    <table style="width:100%">
+      <tr>
+        <th>Switches info</th>
+        <th>Command left</th>
+        <th>Command right</th>
+        <th>Switch moving</th>
+        <th>Manual control</th>
+        <th>Manual command</th>
+        <th>Sensor failure</th>
+        <th>Motor failure</th>
+      </tr>
+      <tr>
+        <td>Sw_01</td>
+        <td>
+          <svg width="20px" height="20px" xmlns="http://www.w3.org/2000/svg">
+            <circle r="10" cx="10" cy="10" fill="#303030" stroke="black" stroke-width="1" id="Command_Left_Sw_01" />
+          </svg>
+        </td>
+        <td>
+          <svg width="20px" height="20px" xmlns="http://www.w3.org/2000/svg">
+            <circle r="10" cx="10" cy="10" fill="#303030" stroke="black" stroke-width="1" id="Command_Right_Sw_01" />
+          </svg>
+        </td>
+        <td>
+          <svg width="20px" height="20px" xmlns="http://www.w3.org/2000/svg">
+            <circle r="10" cx="10" cy="10" fill="#303030" stroke="black" stroke-width="1" id="Switch_Moving_Sw_01" />
+          </svg>
+        </td>
+        <td><input type="checkbox" id="MC_Sw_01" /></td>
+        <td>L <input type="checkbox" id="ML_Sw_01" /> R <input type="checkbox" id="MR_Sw_01" /></td>
+        <td>L <input type="checkbox" id="SF_L_Sw_01" /> R <input type="checkbox" id="SF_R_Sw_01" /></td>
+        <td><input type="checkbox" id="MF_Sw_01" /></td>
+      </tr>
+      <tr>
+        <td>Sw_02</td>
+        <td>
+          <svg width="20px" height="20px" xmlns="http://www.w3.org/2000/svg">
+            <circle r="10" cx="10" cy="10" fill="#303030" stroke="black" stroke-width="1" id="Command_Left_Sw_02" />
+          </svg>
+        </td>
+        <td>
+          <svg width="20px" height="20px" xmlns="http://www.w3.org/2000/svg">
+            <circle r="10" cx="10" cy="10" fill="#303030" stroke="black" stroke-width="1" id="Command_Right_Sw_02" />
+          </svg>
+        </td>
+        <td>
+          <svg width="20px" height="20px" xmlns="http://www.w3.org/2000/svg">
+            <circle r="10" cx="10" cy="10" fill="#303030" stroke="black" stroke-width="1" id="Switch_Moving_Sw_02" />
+          </svg>
+        </td>
+        <td><input type="checkbox" id="MC_Sw_02" /></td>
+        <td>L <input type="checkbox" id="ML_Sw_02" /> R <input type="checkbox" id="MR_Sw_02" /></td>
+        <td>L <input type="checkbox" id="SF_L_Sw_02" /> R <input type="checkbox" id="SF_R_Sw_02" /></td>
+        <td><input type="checkbox" id="MF_Sw_02" /></td>
+      </tr>
+    </table>
+  </switch_info>
+  <route_commands>
+    <table style="width:100%">
+      <tr>
+        <th>Route commands</th>
+        <th>Formation</th>
+        <th>Destruction</th>
+        <th>Ignore Approach</th>
+      </tr>
+      <tr>
+        <td>AB</td>
+        <td><input type="checkbox" id="routeFormation_route_AB" /></td>
+        <td><input type="checkbox" id="routeDestruction_route_AB" /></td>
+        <td><input type="checkbox" id="ignoreApproach_route_AB" /></td>
+      </tr>
+      <tr>
+        <td>BC</td>
+        <td><input type="checkbox" id="routeFormation_route_BC" /></td>
+        <td><input type="checkbox" id="routeDestruction_route_BC" /></td>
+        <td><input type="checkbox" id="ignoreApproach_route_BC" /></td>
+      </tr>
+      <tr>
+        <td>ED</td>
+        <td><input type="checkbox" id="routeFormation_route_ED" /></td>
+        <td><input type="checkbox" id="routeDestruction_route_ED" /></td>
+        <td><input type="checkbox" id="ignoreApproach_route_ED" /></td>
+      </tr>
+      <tr>
+        <td>CD</td>
+        <td><input type="checkbox" id="routeFormation_route_CD" /></td>
+        <td><input type="checkbox" id="routeDestruction_route_CD" /></td>
+        <td><input type="checkbox" id="ignoreApproach_route_CD" /></td>
+      </tr>
+      <tr>
+        <td>DC</td>
+        <td><input type="checkbox" id="routeFormation_route_DC" /></td>
+        <td><input type="checkbox" id="routeDestruction_route_DC" /></td>
+        <td><input type="checkbox" id="ignoreApproach_route_DC" /></td>
+      </tr>
+      <tr>
+        <td>CB</td>
+        <td><input type="checkbox" id="routeFormation_route_CB" /></td>
+        <td><input type="checkbox" id="routeDestruction_route_CB" /></td>
+        <td><input type="checkbox" id="ignoreApproach_route_CB" /></td>
+      </tr>
+    </table>
+  </route_commands>
+  <track_plan>
+    <svg  width="1300px" height="400px" xmlns="http://www.w3.org/2000/svg">
+    
+      <circle r="10" cx="10" cy="15" fill="#303030" stroke="black" stroke-width="1" id="Connexion_Light" />
+      <text x="25" y="25" fill="black" id="Connexion_Text" >Not connected</text>
+      <text x="25" y="45" fill="black" id="Connexion_Test" >bla</text>
+    
+      <polyline points="720,65 460,65 480,57 460,65 480,73"
+        style="fill:none;stroke:black;stroke-width:2" id="hmi_route_ED" />
+      <polyline points="720,200 460,200 480,192 460,200 480,208"
+        style="fill:none;stroke:black;stroke-width:2" id="hmi_route_CB" />
+      <polyline points="460,255 720,255 700,247 720,255 700,262"
+        style="fill:none;stroke:black;stroke-width:2" id="hmi_route_BC" />
+      <polyline points="260,245 400,245 380,237 400,245 380,252"
+        style="fill:none;stroke:black;stroke-width:2" id="hmi_route_AB" />
+      <polyline points="720,185 650,185 585,80 460,80 480,72 460,80 480,88"
+        style="fill:none;stroke:black;stroke-width:2" id="hmi_route_CD" />
+      <polyline points="460,120 520,120 590,240 720,240 700,232 720,240 700,248"
+        style="fill:none;stroke:black;stroke-width:2" id="hmi_route_DC" />
+    
+      <line x1="100" y1="100" x2="180" y2="100" style="stroke:black;stroke-width:5" id="hmi_seg_102" />
+      <text x="120" y="120" fill="black">102</text>
+      <line x1="200" y1="100" x2="280" y2="100" style="stroke:black;stroke-width:5" id="hmi_seg_104" />
+      <text x="220" y="120" fill="black">104</text>
+      <line x1="300" y1="100" x2="380" y2="100" style="stroke:black;stroke-width:5" id="hmi_seg_106" />
+      <text x="320" y="120" fill="black">106</text>
+      <line x1="400" y1="100" x2="480" y2="100" style="stroke:black;stroke-width:5" id="hmi_seg_108" />
+      <text x="420" y="120" fill="black">108</text>
+      <line x1="700" y1="100" x2="780" y2="100" style="stroke:black;stroke-width:5" id="hmi_seg_112" />
+      <text x="720" y="120" fill="black">112</text>
+      <line x1="800" y1="100" x2="880" y2="100" style="stroke:black;stroke-width:5" id="hmi_seg_114" />
+      <text x="820" y="120" fill="black">114</text>
+      <line x1="900" y1="100" x2="980" y2="100" style="stroke:black;stroke-width:5" id="hmi_seg_116" />
+      <text x="920" y="120" fill="black">116</text>
+      
+      <line x1="100" y1="220" x2="180" y2="220" style="stroke:black;stroke-width:5" id="hmi_seg_101" />
+      <text x="120" y="240" fill="black">101</text>
+      <line x1="200" y1="220" x2="280" y2="220" style="stroke:black;stroke-width:5" id="hmi_seg_103" />
+      <text x="220" y="240" fill="black">103</text>
+      <line x1="300" y1="220" x2="380" y2="220" style="stroke:black;stroke-width:5" id="hmi_seg_105" />
+      <text x="320" y="240" fill="black">105</text>
+      <line x1="400" y1="220" x2="480" y2="220" style="stroke:black;stroke-width:5" id="hmi_seg_107" />
+      <text x="420" y="240" fill="black">107</text>
+      <line x1="700" y1="220" x2="780" y2="220" style="stroke:black;stroke-width:5" id="hmi_seg_111" />
+      <text x="720" y="240" fill="black">111</text>
+      <line x1="800" y1="220" x2="880" y2="220" style="stroke:black;stroke-width:5" id="hmi_seg_113" />
+      <text x="820" y="240" fill="black">113</text>
+      <line x1="900" y1="220" x2="980" y2="220" style="stroke:black;stroke-width:5" id="hmi_seg_115" />
+      <text x="920" y="240" fill="black">115</text>
+      
+      <line x1="500" y1="100" x2="550" y2="100" style="stroke:black;stroke-width:5" id="hmi_seg_110_t" />
+      <line x1="570" y1="100" x2="680" y2="100" style="stroke:black;stroke-width:5" id="hmi_seg_110_l" />
+      <text x="620" y="120" fill="black">110</text>
+      <line x1="560" y1="115" x2="580" y2="150" style="stroke:black;stroke-width:5" id="hmi_seg_110_r" />
+      <line x1="550" y1="100" x2="565" y2="107" style="stroke:black;stroke-width:5" id="hmi_seg_110_sw" />
+      
+      <line x1="630" y1="220" x2="680" y2="220" style="stroke:black;stroke-width:5" id="hmi_seg_109_t" />
+      <line x1="500" y1="220" x2="610" y2="220" style="stroke:black;stroke-width:5" id="hmi_seg_109_l" />
+      <text x="520" y="240" fill="black">109</text>
+      <line x1="590" y1="165" x2="615" y2="205" style="stroke:black;stroke-width:5" id="hmi_seg_109_r" />
+      <line x1="630" y1="220" x2="612" y2="212" style="stroke:black;stroke-width:5" id="hmi_seg_109_sw" />
+      
+      <line x1="460" y1="100" x2="460" y2="140" style="stroke:black;stroke-width:1" />
+      <line x1="460" y1="140" x2="480" y2="140" style="stroke:black;stroke-width:1" />
+      <rect width="20" height="20" x="480" y="130" style="fill:red;stroke-width:1;stroke:black" id="hmi_sig_205" />
+      <text x="475" y="170" fill="black">205</text>
+      
+      <line x1="460" y1="220" x2="460" y2="260" style="stroke:black;stroke-width:1" />
+      <line x1="460" y1="260" x2="480" y2="260" style="stroke:black;stroke-width:1" />
+      <rect width="20" height="20" x="480" y="250" style="fill:red;stroke-width:1;stroke:black" id="hmi_sig_203" />
+      <text x="475" y="290" fill="black">203</text>
+      
+      <line x1="260" y1="220" x2="260" y2="260" style="stroke:black;stroke-width:1" />
+      <line x1="260" y1="260" x2="280" y2="260" style="stroke:black;stroke-width:1" />
+      <rect width="20" height="20" x="280" y="250" style="fill:red;stroke-width:1;stroke:black" id="hmi_sig_201" />
+      <text x="275" y="290" fill="black">201</text>
+      
+      <line x1="720" y1="220" x2="720" y2="180" style="stroke:black;stroke-width:1" />
+      <line x1="720" y1="180" x2="700" y2="180" style="stroke:black;stroke-width:1" />
+      <rect width="20" height="20" x="680" y="170" style="fill:red;stroke-width:1;stroke:black" id="hmi_sig_206" />
+      <text x="675" y="165" fill="black">206</text>
+      
+      <line x1="720" y1="100" x2="720" y2="60" style="stroke:black;stroke-width:1" />
+      <line x1="720" y1="60" x2="700" y2="60" style="stroke:black;stroke-width:1" />
+      <rect width="20" height="20" x="680" y="50" style="fill:red;stroke-width:1;stroke:black" id="hmi_sig_208" />
+      <text x="675" y="45" fill="black">208</text>
+      
+      <text x="430" y="85" fill="black">D</text>
+      <text x="730" y="85" fill="black">E</text>
+      <text x="430" y="205" fill="black">B</text>
+      <text x="730" y="205" fill="black">C</text>
+      <text x="230" y="205" fill="black">A</text>
+      
+      <circle r="15" cx="60" cy="220" fill="#e1e1e1" stroke="black" stroke-width="1" class="svg-button" onclick="sendTrain(seg_101, 'up')"/>
+      <text x="20" y="255" fill="black">Send train</text>
+      <circle r="15" cx="1020" cy="100" fill="#e1e1e1" stroke="black" stroke-width="1" class="svg-button" onclick="sendTrain(seg_116, 'down')"/>
+      <text x="980" y="135" fill="black">Send train</text>
+      
+      <circle r="15" cx="440" cy="40" fill="#e1e1e1" stroke="black" stroke-width="1" class="svg-button" onclick="reverseTrain(seg_108)"/>
+      <text x="240" y="45" fill="black">Train reverse TC_108</text>
+      <circle r="15" cx="440" cy="280" fill="#e1e1e1" stroke="black" stroke-width="1" class="svg-button" onclick="reverseTrain(seg_107)"/>
+      <text x="350" y="315" fill="black">Train reverse TC_107</text>
+      <circle r="15" cx="740" cy="280" fill="#e1e1e1" stroke="black" stroke-width="1" class="svg-button" onclick="reverseTrain(seg_111)"/>
+      <text x="650" y="315" fill="black">Train reverse TC_111</text>
+      
+      <polyline points="0,0" style="fill:none;stroke:#FF0000;stroke-width:3" id="hmi_train_1" visibility="hidden"/>
+      <polyline points="0,0" style="fill:none;stroke:#00FF00;stroke-width:3" id="hmi_train_2" visibility="hidden"/>
+      <polyline points="0,0" style="fill:none;stroke:#0000FF;stroke-width:3" id="hmi_train_3" visibility="hidden"/>
+      <polyline points="0,0" style="fill:none;stroke:#FFFF00;stroke-width:3" id="hmi_train_4" visibility="hidden"/>
+      <polyline points="0,0" style="fill:none;stroke:#FF00FF;stroke-width:3" id="hmi_train_5" visibility="hidden"/>
+      <polyline points="0,0" style="fill:none;stroke:#00FFFF;stroke-width:3" id="hmi_train_6" visibility="hidden"/>
+    </svg>
+  </track_plan>
+  <close_sig>
+    <table style="width:100%">
+      <tr>
+        <th></th>
+        <th>201</th>
+        <th>203</th>
+        <th>205</th>
+        <th>206</th>
+        <th>208</th>
+      </tr>
+      <tr>
+        <td>Close signal</td>
+        <td><input type="checkbox" id="closeSignal_201" /></td>
+        <td><input type="checkbox" id="closeSignal_203" /></td>
+        <td><input type="checkbox" id="closeSignal_205" /></td>
+        <td><input type="checkbox" id="closeSignal_206" /></td>
+        <td><input type="checkbox" id="closeSignal_208" /></td>
+      </tr>
+    </table>
+  </close_sig>
+  <cdv_fail>
+    <svg  width="1300px" height="200px" xmlns="http://www.w3.org/2000/svg">
+    
+      <line x1="100" y1="40" x2="180" y2="40" style="stroke:black;stroke-width:10" class="svg-line-button" id="hmi_TC_102_fail" onclick="failureTC(TC_102)"/>
+      <line x1="100" y1="70" x2="180" y2="70" style="stroke:black;stroke-width:10" class="svg-line-button" id="hmi_TC_102_ign" onclick="ignoreOccupation(TC_102)"/>
+      <text x="120" y="60" fill="black">102</text>
+      <line x1="200" y1="40" x2="280" y2="40" style="stroke:black;stroke-width:10" class="svg-line-button" id="hmi_TC_104_fail" onclick="failureTC(TC_104)"/>
+      <line x1="200" y1="70" x2="280" y2="70" style="stroke:black;stroke-width:10" class="svg-line-button" id="hmi_TC_104_ign" onclick="ignoreOccupation(TC_104)"/>
+      <text x="220" y="60" fill="black">104</text>
+      <line x1="300" y1="40" x2="380" y2="40" style="stroke:black;stroke-width:10" class="svg-line-button" id="hmi_TC_106_fail" onclick="failureTC(TC_106)"/>
+      <line x1="300" y1="70" x2="380" y2="70" style="stroke:black;stroke-width:10" class="svg-line-button" id="hmi_TC_106_ign" onclick="ignoreOccupation(TC_106)"/>
+      <text x="320" y="60" fill="black">106</text>
+      <line x1="400" y1="40" x2="480" y2="40" style="stroke:black;stroke-width:10" class="svg-line-button" id="hmi_TC_108_fail" onclick="failureTC(TC_108)"/>
+      <line x1="400" y1="70" x2="480" y2="70" style="stroke:black;stroke-width:10" class="svg-line-button" id="hmi_TC_108_ign" onclick="ignoreOccupation(TC_108)"/>
+      <text x="420" y="60" fill="black">108</text>
+      <line x1="500" y1="40" x2="680" y2="40" style="stroke:black;stroke-width:10" class="svg-line-button" id="hmi_TC_110_fail" onclick="failureTC(TC_110)"/>
+      <line x1="500" y1="70" x2="680" y2="70" style="stroke:black;stroke-width:10" class="svg-line-button" id="hmi_TC_110_ign" onclick="ignoreOccupation(TC_110)"/>
+      <text x="620" y="60" fill="black">110</text>
+      <line x1="700" y1="40" x2="780" y2="40" style="stroke:black;stroke-width:10" class="svg-line-button" id="hmi_TC_112_fail" onclick="failureTC(TC_112)"/>
+      <line x1="700" y1="70" x2="780" y2="70" style="stroke:black;stroke-width:10" class="svg-line-button" id="hmi_TC_112_ign" onclick="ignoreOccupation(TC_112)"/>
+      <text x="720" y="60" fill="black">112</text>
+      <line x1="800" y1="40" x2="880" y2="40" style="stroke:black;stroke-width:10" class="svg-line-button" id="hmi_TC_114_fail" onclick="failureTC(TC_114)"/>
+      <line x1="800" y1="70" x2="880" y2="70" style="stroke:black;stroke-width:10" class="svg-line-button" id="hmi_TC_114_ign" onclick="ignoreOccupation(TC_114)"/>
+      <text x="820" y="60" fill="black">114</text>
+      <line x1="900" y1="40" x2="980" y2="40" style="stroke:black;stroke-width:10" class="svg-line-button" id="hmi_TC_116_fail" onclick="failureTC(TC_116)"/>
+      <line x1="900" y1="70" x2="980" y2="70" style="stroke:black;stroke-width:10" class="svg-line-button" id="hmi_TC_116_ign" onclick="ignoreOccupation(TC_116)"/>
+      <text x="920" y="60" fill="black">116</text>
+      
+      <line x1="100" y1="140" x2="180" y2="140" style="stroke:black;stroke-width:10" class="svg-line-button" id="hmi_TC_101_fail" onclick="failureTC(TC_101)"/>
+      <line x1="100" y1="170" x2="180" y2="170" style="stroke:black;stroke-width:10" class="svg-line-button" id="hmi_TC_101_ign" onclick="ignoreOccupation(TC_101)"/>
+      <text x="120" y="160" fill="black">101</text>
+      <line x1="200" y1="140" x2="280" y2="140" style="stroke:black;stroke-width:10" class="svg-line-button" id="hmi_TC_103_fail" onclick="failureTC(TC_103)"/>
+      <line x1="200" y1="170" x2="280" y2="170" style="stroke:black;stroke-width:10" class="svg-line-button" id="hmi_TC_103_ign" onclick="ignoreOccupation(TC_103)"/>
+      <text x="220" y="160" fill="black">103</text>
+      <line x1="300" y1="140" x2="380" y2="140" style="stroke:black;stroke-width:10" class="svg-line-button" id="hmi_TC_105_fail" onclick="failureTC(TC_105)"/>
+      <line x1="300" y1="170" x2="380" y2="170" style="stroke:black;stroke-width:10" class="svg-line-button" id="hmi_TC_105_ign" onclick="ignoreOccupation(TC_105)"/>
+      <text x="320" y="160" fill="black">105</text>
+      <line x1="400" y1="140" x2="480" y2="140" style="stroke:black;stroke-width:10" class="svg-line-button" id="hmi_TC_107_fail" onclick="failureTC(TC_107)"/>
+      <line x1="400" y1="170" x2="480" y2="170" style="stroke:black;stroke-width:10" class="svg-line-button" id="hmi_TC_107_ign" onclick="ignoreOccupation(TC_107)"/>
+      <text x="420" y="160" fill="black">107</text>
+      <line x1="500" y1="140" x2="680" y2="140" style="stroke:black;stroke-width:10" class="svg-line-button" id="hmi_TC_109_fail" onclick="failureTC(TC_109)"/>
+      <line x1="500" y1="170" x2="680" y2="170" style="stroke:black;stroke-width:10" class="svg-line-button" id="hmi_TC_109_ign" onclick="ignoreOccupation(TC_109)"/>
+      <text x="520" y="160" fill="black">109</text>
+      <line x1="700" y1="140" x2="780" y2="140" style="stroke:black;stroke-width:10" class="svg-line-button" id="hmi_TC_111_fail" onclick="failureTC(TC_111)"/>
+      <line x1="700" y1="170" x2="780" y2="170" style="stroke:black;stroke-width:10" class="svg-line-button" id="hmi_TC_111_ign" onclick="ignoreOccupation(TC_111)"/>
+      <text x="720" y="160" fill="black">111</text>
+      <line x1="800" y1="140" x2="880" y2="140" style="stroke:black;stroke-width:10" class="svg-line-button" id="hmi_TC_113_fail" onclick="failureTC(TC_113)"/>
+      <line x1="800" y1="170" x2="880" y2="170" style="stroke:black;stroke-width:10" class="svg-line-button" id="hmi_TC_113_ign" onclick="ignoreOccupation(TC_113)"/>
+      <text x="820" y="160" fill="black">113</text>
+      <line x1="900" y1="140" x2="980" y2="140" style="stroke:black;stroke-width:10" class="svg-line-button" id="hmi_TC_115_fail" onclick="failureTC(TC_115)"/>
+      <line x1="900" y1="170" x2="980" y2="170" style="stroke:black;stroke-width:10" class="svg-line-button" id="hmi_TC_115_ign" onclick="ignoreOccupation(TC_115)"/>
+      <text x="920" y="160" fill="black">115</text>
+      
+      <text x="0" y="40" fill="black">Failure</text>
+      <text x="0" y="70" fill="black">Ignore</text>
+      <text x="0" y="85" fill="black">occupation</text>
+      
+      <text x="0" y="140" fill="black">Failure</text>
+      <text x="0" y="170" fill="black">Ignore</text>
+      <text x="0" y="185" fill="black">occupation</text>
+      
+    </svg>
+  </cdv_fail>
+</div>
+
+
+</body>
+</html>

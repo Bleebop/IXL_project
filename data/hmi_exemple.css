@@ -1,0 +1,93 @@
+#page {
+  display: grid;
+  width: 100%;
+  gap: 2px;
+  padding: 2px;
+  background-color: black;
+  grid-template:
+    "stop_train remove_trains trains_error switch_info route_commands" 1fr
+    "track_plan track_plan    track_plan   track_plan  route_commands" 400px
+    "close_sig  close_sig     close_sig    close_sig   route_commands" 0.4fr
+    "cdv_fail   cdv_fail      cdv_fail     cdv_fail    route_commands" 1fr
+    / 1fr 1fr 1fr 5fr 3fr;
+}
+
+.svg-button:hover {
+  fill: #c1c1c1;
+  cursor: pointer;
+}
+
+.svg-line-button:hover {
+  cursor: pointer;
+}
+
+.push_button {
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+th, td {
+  padding: 5px;
+}
+
+stop_train {
+  grid-area: stop_train;
+  font-size: 20px;
+  text-align: center;
+  background-color: #f1f1f1;
+}
+
+remove_trains {
+  grid-area: remove_trains;
+  font-size: 20px;
+  text-align: center;
+  background-color: #f1f1f1;
+}
+
+trains_error {
+  grid-area: trains_error;
+  font-size: 20px;
+  text-align: center;
+  background-color: #f1f1f1;
+}
+
+switch_info {
+  grid-area: switch_info;
+  font-size: 20px;
+  text-align: center;
+  background-color: #f1f1f1;
+}
+
+route_commands {
+  grid-area: route_commands;
+  font-size: 20px;
+  text-align: center;
+  background-color: #f1f1f1;
+}
+
+track_plan {
+  grid-area: track_plan;
+  font-size: 20px;
+  text-align: center;
+  background-color: #f1f1f1;
+}
+
+close_sig {
+  grid-area: close_sig;
+  font-size: 20px;
+  text-align: center;
+  background-color: #f1f1f1;
+}
+
+cdv_fail {
+  grid-area: cdv_fail;
+  font-size: 20px;
+  text-align: center;
+  background-color: #f1f1f1;
+}

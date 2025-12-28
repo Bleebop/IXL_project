@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<project xmlns="http://www.plcopen.org/xml/tc6_0200">
+<project xmlns="http://www.plcopen.org/xml/tc6_0201" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:ns1="http://www.plcopen.org/xml/tc6.xsd">
   <fileHeader companyName="" productName="OpenIXl generator" productVersion="OpenIXL generator v0.1" companyURL="https://github.com/Bleebop/IXL_project" creationDateTime="{creation_date_time}" />
   <contentHeader name="{project_name}" modificationDateTime="{creation_date_time}">
     <coordinateInfo>
@@ -164,13 +164,13 @@
       </dataType>
     </dataTypes>
     <pous>
-      <pou name="PLC_safety" pouType="program">
+      <pou name="safety_PLC" pouType="program">
         <interface>
           <localVars>
             <variable name="route_state">
               <type>
                 <array>
-                  <dimension lower="1" upper="var_g.nRoute" />
+                  <dimension lower="1" upper="const_g.nRoute" />
                   <baseType>
                     <derived name="route_state" />
                   </baseType>
@@ -180,7 +180,7 @@
             <variable name="Approaching_train">
               <type>
                 <array>
-                  <dimension lower="1" upper="var_g.nRoute" />
+                  <dimension lower="1" upper="const_g.nRoute" />
                   <baseType>
                     <derived name="Approaching_train" />
                   </baseType>
@@ -190,7 +190,7 @@
             <variable name="switch_locked">
               <type>
                 <array>
-                  <dimension lower="1" upper="var_g.nSwitch" />
+                  <dimension lower="1" upper="const_g.nSwitch" />
                   <baseType>
                     <BOOL />
                   </baseType>
@@ -202,7 +202,7 @@
             <variable name="DELAY_DESTRUCT">
               <type>
                 <array>
-                  <dimension lower="1" upper="var_g.nRoute" />
+                  <dimension lower="1" upper="const_g.nRoute" />
                   <baseType>
                     <TIME />
                   </baseType>
@@ -219,7 +219,7 @@
             <variable name="route_open">
               <type>
                 <array>
-                  <dimension lower="1" upper="var_g.nRoute" />
+                  <dimension lower="1" upper="const_g.nRoute" />
                   <baseType>
                     <BOOL />
                   </baseType>
@@ -229,7 +229,7 @@
             <variable name="route_entry_authorization">
               <type>
                 <array>
-                  <dimension lower="1" upper="var_g.nRoute" />
+                  <dimension lower="1" upper="const_g.nRoute" />
                   <baseType>
                     <BOOL />
                   </baseType>
@@ -242,7 +242,7 @@
             <variable name="signal_open_maneuver">
               <type>
                 <array>
-                  <dimension lower="1" upper="var_g.nSignal" />
+                  <dimension lower="1" upper="const_g.nSignal" />
                   <baseType>
                     <BOOL />
                   </baseType>
@@ -255,7 +255,7 @@
             <variable name="switch_command_left">
               <type>
                 <array>
-                  <dimension lower="1" upper="var_g.nSwitch" />
+                  <dimension lower="1" upper="const_g.nSwitch" />
                   <baseType>
                     <BOOL />
                   </baseType>
@@ -265,7 +265,7 @@
             <variable name="switch_command_right">
               <type>
                 <array>
-                  <dimension lower="1" upper="var_g.nSwitch" />
+                  <dimension lower="1" upper="const_g.nSwitch" />
                   <baseType>
                     <BOOL />
                   </baseType>
@@ -322,7 +322,7 @@
               </connectionPointIn>
               <action localId="1" qualifier="R" duration="" indicator="">
                 <relPosition x="0" y="0" />
-                <reference name="route_auto_destruc_command" />
+                <reference name="route_auto_destruct_command" />
                 <connectionPointOut />
               </action>
             </actionBlock>
@@ -546,7 +546,7 @@
               </connectionPointIn>
               <action localId="30" qualifier="S" duration="" indicator="">
                 <relPosition x="0" y="0" />
-                <reference name="route_auto_destruc_command" />
+                <reference name="route_auto_destruct_command" />
                 <connectionPointOut />
               </action>
             </actionBlock>
@@ -1046,13 +1046,13 @@
           </FBD>
         </body>
       </pou>
-      <pou name="PLC_not_safety" pouType="program">
+      <pou name="non_safety_PLC" pouType="program">
         <interface>
           <localVars>
             <variable name="AUTO_DESTRUCT">
               <type>
                 <array>
-                  <dimension lower="1" upper="var_g.nRoute" />
+                  <dimension lower="1" upper="const_g.nRoute" />
                   <baseType>
                     <derived name="AUTO_DESTRUCT" />
                   </baseType>
@@ -1064,7 +1064,7 @@
             <variable name="route_destruction_demand">
               <type>
                 <array>
-                  <dimension lower="1" upper="var_g.nRoute" />
+                  <dimension lower="1" upper="const_g.nRoute" />
                   <baseType>
                     <BOOL />
                   </baseType>
@@ -1101,7 +1101,7 @@
             <variable name="TC_occupied">
               <type>
                 <array>
-                  <dimension lower="1" upper="nTC" />
+                  <dimension lower="1" upper="const_g.nTC" />
                   <baseType>
                     <BOOL />
                   </baseType>
@@ -1114,7 +1114,7 @@
             <variable name="switch_detected_left">
               <type>
                 <array>
-                  <dimension lower="1" upper="nSwitch" />
+                  <dimension lower="1" upper="const_g.nSwitch" />
                   <baseType>
                     <BOOL />
                   </baseType>
@@ -1127,7 +1127,7 @@
             <variable name="switch_detected_right">
               <type>
                 <array>
-                  <dimension lower="1" upper="nSwitch" />
+                  <dimension lower="1" upper="const_g.nSwitch" />
                   <baseType>
                     <BOOL />
                   </baseType>
@@ -1140,7 +1140,7 @@
             <variable name="switch_manual_override">
               <type>
                 <array>
-                  <dimension lower="1" upper="nSwitch" />
+                  <dimension lower="1" upper="const_g.nSwitch" />
                   <baseType>
                     <BOOL />
                   </baseType>
@@ -1153,7 +1153,7 @@
             <variable name="close_command">
               <type>
                 <array>
-                  <dimension lower="1" upper="nSignal" />
+                  <dimension lower="1" upper="const_g.nSignal" />
                   <baseType>
                     <BOOL />
                   </baseType>
@@ -1166,7 +1166,7 @@
             <variable name="ignore_TC_occupation">
               <type>
                 <array>
-                  <dimension lower="1" upper="nTC" />
+                  <dimension lower="1" upper="const_g.nTC" />
                   <baseType>
                     <BOOL />
                   </baseType>
@@ -1179,7 +1179,7 @@
             <variable name="ignore_approach">
               <type>
                 <array>
-                  <dimension lower="1" upper="nRoute" />
+                  <dimension lower="1" upper="const_g.nRoute" />
                   <baseType>
                     <BOOL />
                   </baseType>
@@ -1192,7 +1192,7 @@
             <variable name="route_formation_demand">
               <type>
                 <array>
-                  <dimension lower="1" upper="nRoute" />
+                  <dimension lower="1" upper="const_g.nRoute" />
                   <baseType>
                     <BOOL />
                   </baseType>
@@ -1202,13 +1202,15 @@
             <variable name="route_destruct_manual_demand">
               <type>
                 <array>
-                  <dimension lower="1" upper="nRoute" />
+                  <dimension lower="1" upper="const_g.nRoute" />
                   <baseType>
                     <BOOL />
                   </baseType>
                 </array>
               </type>
             </variable>
+          </globalVars>
+          <globalVars name="const_g" constant="true">
             <variable name="nTC">
               <type>
                 <INT />
@@ -1267,6 +1269,16 @@
               </documentation>
             </variable>
           </globalVars>
+          <addData>
+            <data name="http://www.3s-software.com/plcopenxml/libraries" handleUnknown="implementation">
+              <Libraries>
+                <Library Name="#Standard" Namespace="Standard" HideWhenReferencedAsDependency="false" PublishSymbolsInContainer="false" SystemLibrary="false" LinkAllContent="false" DefaultResolution="Standard, * (System)" />
+                <PlaceholderRedirections>
+                  <PlaceholderRedirection Placeholder="Standard" Redirection="Standard, 3.5.18.0 (System)" />
+                </PlaceholderRedirections>
+              </Libraries>
+            </data>
+          </addData>
         </resource>
         <addData>
           <data name="Device" handleUnknown="discard">
