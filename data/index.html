@@ -2,7 +2,7 @@
 <html>
 <head>
 <link rel="stylesheet" href="hmi_exemple.css">
-<script src="hmi_script.js"></script> 
+<script type="module" src="./main.js"></script>
 </head>
 <body>
 <div id="page">
@@ -17,7 +17,7 @@
       <tr><td>T6 <input type="checkbox" id="Stop_Train_T6" /></td></tr>
     </table>
   </stop_train>
-  <remove_trains><button onclick="removeTrains()">Remove trains</button></remove_trains>
+  <remove_trains><button id="remove_trains">Remove trains</button></remove_trains>
   <trains_error>
     <table style="width:100%">
       <tr><th>Train error</th></tr>
@@ -226,16 +226,16 @@
       <text x="730" y="205" fill="black">C</text>
       <text x="230" y="205" fill="black">A</text>
       
-      <circle r="15" cx="60" cy="220" fill="#e1e1e1" stroke="black" stroke-width="1" class="svg-button" onclick="sendTrain(seg_101, 'up')"/>
+      <circle r="15" cx="60" cy="220" fill="#e1e1e1" stroke="black" stroke-width="1" class="svg-button" data-buttontype="send_train" data-seg="seg_101" data-dir="up"/>
       <text x="20" y="255" fill="black">Send train</text>
-      <circle r="15" cx="1020" cy="100" fill="#e1e1e1" stroke="black" stroke-width="1" class="svg-button" onclick="sendTrain(seg_116, 'down')"/>
+      <circle r="15" cx="1020" cy="100" fill="#e1e1e1" stroke="black" stroke-width="1" class="svg-button" data-buttontype="send_train" data-seg="seg_116" data-dir="down"/>
       <text x="980" y="135" fill="black">Send train</text>
       
-      <circle r="15" cx="440" cy="40" fill="#e1e1e1" stroke="black" stroke-width="1" class="svg-button" onclick="reverseTrain(seg_108)"/>
+      <circle r="15" cx="440" cy="40" fill="#e1e1e1" stroke="black" stroke-width="1" class="svg-button" data-buttontype="reverse_train" data-seg="seg_108"/>
       <text x="240" y="45" fill="black">Train reverse TC_108</text>
-      <circle r="15" cx="440" cy="280" fill="#e1e1e1" stroke="black" stroke-width="1" class="svg-button" onclick="reverseTrain(seg_107)"/>
+      <circle r="15" cx="440" cy="280" fill="#e1e1e1" stroke="black" stroke-width="1" class="svg-button" data-buttontype="reverse_train" data-seg="seg_107"/>
       <text x="350" y="315" fill="black">Train reverse TC_107</text>
-      <circle r="15" cx="740" cy="280" fill="#e1e1e1" stroke="black" stroke-width="1" class="svg-button" onclick="reverseTrain(seg_111)"/>
+      <circle r="15" cx="740" cy="280" fill="#e1e1e1" stroke="black" stroke-width="1" class="svg-button" data-buttontype="reverse_train" data-seg="seg_111"/>
       <text x="650" y="315" fill="black">Train reverse TC_111</text>
       
       <polyline points="0,0" style="fill:none;stroke:#FF0000;stroke-width:3" id="hmi_train_1" visibility="hidden"/>
@@ -269,54 +269,54 @@
   <cdv_fail>
     <svg  width="1300px" height="200px" xmlns="http://www.w3.org/2000/svg">
     
-      <line x1="100" y1="40" x2="180" y2="40" style="stroke:black;stroke-width:10" class="svg-line-button" id="hmi_TC_102_fail" onclick="failureTC(TC_102)"/>
-      <line x1="100" y1="70" x2="180" y2="70" style="stroke:black;stroke-width:10" class="svg-line-button" id="hmi_TC_102_ign" onclick="ignoreOccupation(TC_102)"/>
+      <line x1="100" y1="40" x2="180" y2="40" style="stroke:black;stroke-width:10" class="svg-line-button" id="hmi_TC_102_fail" data-buttontype="failure_TC" data-tc="TC_102"/>
+      <line x1="100" y1="70" x2="180" y2="70" style="stroke:black;stroke-width:10" class="svg-line-button" id="hmi_TC_102_ign" data-buttontype="ignore_TC" data-tc="TC_102"/>
       <text x="120" y="60" fill="black">102</text>
-      <line x1="200" y1="40" x2="280" y2="40" style="stroke:black;stroke-width:10" class="svg-line-button" id="hmi_TC_104_fail" onclick="failureTC(TC_104)"/>
-      <line x1="200" y1="70" x2="280" y2="70" style="stroke:black;stroke-width:10" class="svg-line-button" id="hmi_TC_104_ign" onclick="ignoreOccupation(TC_104)"/>
+      <line x1="200" y1="40" x2="280" y2="40" style="stroke:black;stroke-width:10" class="svg-line-button" id="hmi_TC_104_fail" data-buttontype="failure_TC" data-tc="TC_104"/>
+      <line x1="200" y1="70" x2="280" y2="70" style="stroke:black;stroke-width:10" class="svg-line-button" id="hmi_TC_104_ign" data-buttontype="ignore_TC" data-tc="TC_104"/>
       <text x="220" y="60" fill="black">104</text>
-      <line x1="300" y1="40" x2="380" y2="40" style="stroke:black;stroke-width:10" class="svg-line-button" id="hmi_TC_106_fail" onclick="failureTC(TC_106)"/>
-      <line x1="300" y1="70" x2="380" y2="70" style="stroke:black;stroke-width:10" class="svg-line-button" id="hmi_TC_106_ign" onclick="ignoreOccupation(TC_106)"/>
+      <line x1="300" y1="40" x2="380" y2="40" style="stroke:black;stroke-width:10" class="svg-line-button" id="hmi_TC_106_fail" data-buttontype="failure_TC" data-tc="TC_106"/>
+      <line x1="300" y1="70" x2="380" y2="70" style="stroke:black;stroke-width:10" class="svg-line-button" id="hmi_TC_106_ign" data-buttontype="ignore_TC" data-tc="TC_106"/>
       <text x="320" y="60" fill="black">106</text>
-      <line x1="400" y1="40" x2="480" y2="40" style="stroke:black;stroke-width:10" class="svg-line-button" id="hmi_TC_108_fail" onclick="failureTC(TC_108)"/>
-      <line x1="400" y1="70" x2="480" y2="70" style="stroke:black;stroke-width:10" class="svg-line-button" id="hmi_TC_108_ign" onclick="ignoreOccupation(TC_108)"/>
+      <line x1="400" y1="40" x2="480" y2="40" style="stroke:black;stroke-width:10" class="svg-line-button" id="hmi_TC_108_fail" data-buttontype="failure_TC" data-tc="TC_108"/>
+      <line x1="400" y1="70" x2="480" y2="70" style="stroke:black;stroke-width:10" class="svg-line-button" id="hmi_TC_108_ign" data-buttontype="ignore_TC" data-tc="TC_108"/>
       <text x="420" y="60" fill="black">108</text>
-      <line x1="500" y1="40" x2="680" y2="40" style="stroke:black;stroke-width:10" class="svg-line-button" id="hmi_TC_110_fail" onclick="failureTC(TC_110)"/>
-      <line x1="500" y1="70" x2="680" y2="70" style="stroke:black;stroke-width:10" class="svg-line-button" id="hmi_TC_110_ign" onclick="ignoreOccupation(TC_110)"/>
+      <line x1="500" y1="40" x2="680" y2="40" style="stroke:black;stroke-width:10" class="svg-line-button" id="hmi_TC_110_fail" data-buttontype="failure_TC" data-tc="TC_110"/>
+      <line x1="500" y1="70" x2="680" y2="70" style="stroke:black;stroke-width:10" class="svg-line-button" id="hmi_TC_110_ign" data-buttontype="ignore_TC" data-tc="TC_110"/>
       <text x="620" y="60" fill="black">110</text>
-      <line x1="700" y1="40" x2="780" y2="40" style="stroke:black;stroke-width:10" class="svg-line-button" id="hmi_TC_112_fail" onclick="failureTC(TC_112)"/>
-      <line x1="700" y1="70" x2="780" y2="70" style="stroke:black;stroke-width:10" class="svg-line-button" id="hmi_TC_112_ign" onclick="ignoreOccupation(TC_112)"/>
+      <line x1="700" y1="40" x2="780" y2="40" style="stroke:black;stroke-width:10" class="svg-line-button" id="hmi_TC_112_fail" data-buttontype="failure_TC" data-tc="TC_112"/>
+      <line x1="700" y1="70" x2="780" y2="70" style="stroke:black;stroke-width:10" class="svg-line-button" id="hmi_TC_112_ign" data-buttontype="ignore_TC" data-tc="TC_112"/>
       <text x="720" y="60" fill="black">112</text>
-      <line x1="800" y1="40" x2="880" y2="40" style="stroke:black;stroke-width:10" class="svg-line-button" id="hmi_TC_114_fail" onclick="failureTC(TC_114)"/>
-      <line x1="800" y1="70" x2="880" y2="70" style="stroke:black;stroke-width:10" class="svg-line-button" id="hmi_TC_114_ign" onclick="ignoreOccupation(TC_114)"/>
+      <line x1="800" y1="40" x2="880" y2="40" style="stroke:black;stroke-width:10" class="svg-line-button" id="hmi_TC_114_fail" data-buttontype="failure_TC" data-tc="TC_114"/>
+      <line x1="800" y1="70" x2="880" y2="70" style="stroke:black;stroke-width:10" class="svg-line-button" id="hmi_TC_114_ign" data-buttontype="ignore_TC" data-tc="TC_114"/>
       <text x="820" y="60" fill="black">114</text>
-      <line x1="900" y1="40" x2="980" y2="40" style="stroke:black;stroke-width:10" class="svg-line-button" id="hmi_TC_116_fail" onclick="failureTC(TC_116)"/>
-      <line x1="900" y1="70" x2="980" y2="70" style="stroke:black;stroke-width:10" class="svg-line-button" id="hmi_TC_116_ign" onclick="ignoreOccupation(TC_116)"/>
+      <line x1="900" y1="40" x2="980" y2="40" style="stroke:black;stroke-width:10" class="svg-line-button" id="hmi_TC_116_fail" data-buttontype="failure_TC" data-tc="TC_116"/>
+      <line x1="900" y1="70" x2="980" y2="70" style="stroke:black;stroke-width:10" class="svg-line-button" id="hmi_TC_116_ign" data-buttontype="ignore_TC" data-tc="TC_116"/>
       <text x="920" y="60" fill="black">116</text>
       
-      <line x1="100" y1="140" x2="180" y2="140" style="stroke:black;stroke-width:10" class="svg-line-button" id="hmi_TC_101_fail" onclick="failureTC(TC_101)"/>
-      <line x1="100" y1="170" x2="180" y2="170" style="stroke:black;stroke-width:10" class="svg-line-button" id="hmi_TC_101_ign" onclick="ignoreOccupation(TC_101)"/>
+      <line x1="100" y1="140" x2="180" y2="140" style="stroke:black;stroke-width:10" class="svg-line-button" id="hmi_TC_101_fail" data-buttontype="failure_TC" data-tc="TC_101"/>
+      <line x1="100" y1="170" x2="180" y2="170" style="stroke:black;stroke-width:10" class="svg-line-button" id="hmi_TC_101_ign" data-buttontype="ignore_TC" data-tc="TC_101"/>
       <text x="120" y="160" fill="black">101</text>
-      <line x1="200" y1="140" x2="280" y2="140" style="stroke:black;stroke-width:10" class="svg-line-button" id="hmi_TC_103_fail" onclick="failureTC(TC_103)"/>
-      <line x1="200" y1="170" x2="280" y2="170" style="stroke:black;stroke-width:10" class="svg-line-button" id="hmi_TC_103_ign" onclick="ignoreOccupation(TC_103)"/>
+      <line x1="200" y1="140" x2="280" y2="140" style="stroke:black;stroke-width:10" class="svg-line-button" id="hmi_TC_103_fail" data-buttontype="failure_TC" data-tc="TC_103"/>
+      <line x1="200" y1="170" x2="280" y2="170" style="stroke:black;stroke-width:10" class="svg-line-button" id="hmi_TC_103_ign" data-buttontype="ignore_TC" data-tc="TC_103"/>
       <text x="220" y="160" fill="black">103</text>
-      <line x1="300" y1="140" x2="380" y2="140" style="stroke:black;stroke-width:10" class="svg-line-button" id="hmi_TC_105_fail" onclick="failureTC(TC_105)"/>
-      <line x1="300" y1="170" x2="380" y2="170" style="stroke:black;stroke-width:10" class="svg-line-button" id="hmi_TC_105_ign" onclick="ignoreOccupation(TC_105)"/>
+      <line x1="300" y1="140" x2="380" y2="140" style="stroke:black;stroke-width:10" class="svg-line-button" id="hmi_TC_105_fail" data-buttontype="failure_TC" data-tc="TC_105"/>
+      <line x1="300" y1="170" x2="380" y2="170" style="stroke:black;stroke-width:10" class="svg-line-button" id="hmi_TC_105_ign" data-buttontype="ignore_TC" data-tc="TC_105"/>
       <text x="320" y="160" fill="black">105</text>
-      <line x1="400" y1="140" x2="480" y2="140" style="stroke:black;stroke-width:10" class="svg-line-button" id="hmi_TC_107_fail" onclick="failureTC(TC_107)"/>
-      <line x1="400" y1="170" x2="480" y2="170" style="stroke:black;stroke-width:10" class="svg-line-button" id="hmi_TC_107_ign" onclick="ignoreOccupation(TC_107)"/>
+      <line x1="400" y1="140" x2="480" y2="140" style="stroke:black;stroke-width:10" class="svg-line-button" id="hmi_TC_107_fail" data-buttontype="failure_TC" data-tc="TC_107"/>
+      <line x1="400" y1="170" x2="480" y2="170" style="stroke:black;stroke-width:10" class="svg-line-button" id="hmi_TC_107_ign" data-buttontype="ignore_TC" data-tc="TC_107"/>
       <text x="420" y="160" fill="black">107</text>
-      <line x1="500" y1="140" x2="680" y2="140" style="stroke:black;stroke-width:10" class="svg-line-button" id="hmi_TC_109_fail" onclick="failureTC(TC_109)"/>
-      <line x1="500" y1="170" x2="680" y2="170" style="stroke:black;stroke-width:10" class="svg-line-button" id="hmi_TC_109_ign" onclick="ignoreOccupation(TC_109)"/>
+      <line x1="500" y1="140" x2="680" y2="140" style="stroke:black;stroke-width:10" class="svg-line-button" id="hmi_TC_109_fail" data-buttontype="failure_TC" data-tc="TC_109"/>
+      <line x1="500" y1="170" x2="680" y2="170" style="stroke:black;stroke-width:10" class="svg-line-button" id="hmi_TC_109_ign" data-buttontype="ignore_TC" data-tc="TC_109"/>
       <text x="520" y="160" fill="black">109</text>
-      <line x1="700" y1="140" x2="780" y2="140" style="stroke:black;stroke-width:10" class="svg-line-button" id="hmi_TC_111_fail" onclick="failureTC(TC_111)"/>
-      <line x1="700" y1="170" x2="780" y2="170" style="stroke:black;stroke-width:10" class="svg-line-button" id="hmi_TC_111_ign" onclick="ignoreOccupation(TC_111)"/>
+      <line x1="700" y1="140" x2="780" y2="140" style="stroke:black;stroke-width:10" class="svg-line-button" id="hmi_TC_111_fail" data-buttontype="failure_TC" data-tc="TC_111"/>
+      <line x1="700" y1="170" x2="780" y2="170" style="stroke:black;stroke-width:10" class="svg-line-button" id="hmi_TC_111_ign" data-buttontype="ignore_TC" data-tc="TC_111"/>
       <text x="720" y="160" fill="black">111</text>
-      <line x1="800" y1="140" x2="880" y2="140" style="stroke:black;stroke-width:10" class="svg-line-button" id="hmi_TC_113_fail" onclick="failureTC(TC_113)"/>
-      <line x1="800" y1="170" x2="880" y2="170" style="stroke:black;stroke-width:10" class="svg-line-button" id="hmi_TC_113_ign" onclick="ignoreOccupation(TC_113)"/>
+      <line x1="800" y1="140" x2="880" y2="140" style="stroke:black;stroke-width:10" class="svg-line-button" id="hmi_TC_113_fail" data-buttontype="failure_TC" data-tc="TC_113"/>
+      <line x1="800" y1="170" x2="880" y2="170" style="stroke:black;stroke-width:10" class="svg-line-button" id="hmi_TC_113_ign" data-buttontype="ignore_TC" data-tc="TC_113"/>
       <text x="820" y="160" fill="black">113</text>
-      <line x1="900" y1="140" x2="980" y2="140" style="stroke:black;stroke-width:10" class="svg-line-button" id="hmi_TC_115_fail" onclick="failureTC(TC_115)"/>
-      <line x1="900" y1="170" x2="980" y2="170" style="stroke:black;stroke-width:10" class="svg-line-button" id="hmi_TC_115_ign" onclick="ignoreOccupation(TC_115)"/>
+      <line x1="900" y1="140" x2="980" y2="140" style="stroke:black;stroke-width:10" class="svg-line-button" id="hmi_TC_115_fail" data-buttontype="failure_TC" data-tc="TC_115"/>
+      <line x1="900" y1="170" x2="980" y2="170" style="stroke:black;stroke-width:10" class="svg-line-button" id="hmi_TC_115_ign" data-buttontype="ignore_TC" data-tc="TC_115"/>
       <text x="920" y="160" fill="black">115</text>
       
       <text x="0" y="40" fill="black">Failure</text>
