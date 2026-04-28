@@ -2,14 +2,14 @@
 
 In railway signalling, an interlocking (IXL) is a set of signals, switches, controller(s) and sensors that allows trains to move without risks of collision or derailment.
 
-The goal of this repository is to demonstrate the possibility of making a simple and generic interlocking controller using relatively recent technology (ie, not [invented 200 years ago](https://en.wikipedia.org/wiki/Relay)).
+The goal of this repository is to demonstrate the possibility of making a simple, safe and generic interlocking controller using relatively recent technology (ie, not [invented 200 years ago](https://en.wikipedia.org/wiki/Relay)).
 
-## test IXL
+## Test IXL
 
 Test IXL is an example of a handmade controller using IEC 61131-3 languages.
 This one is quite close to programs implemented in a current big city subway, including their idiosyncrasies (e.g. the "direction locks").
 
-## simplified IXL
+## Simplified IXL
 
 Simplified IXL is another example of a handmade controller using IEC 61131-3 languages.
 It should be simpler/more streamlined but have the same functionality.
@@ -30,18 +30,15 @@ Routes are, fundamentally, a token to reserve part of the track and guaranty tha
 
 Here are the functions used in the controller program :
 
-- The central part is a function managing the states of the routes (formed (a train can pass through it), or destroyed (trains can't pass through it)), that includes 3 sub-functions
-	- Route formation is relatively straightforward: if the formation or a route is demanded and no incompatible route is already formed or demanded, then the first route shall be formed
-	- Automatic destruction is a way to automatically destroy a route when a train has finished running through it. It is safety critical (destroying a route allow incompatible routes to be formed) and, contrary to other safety critical functions, relies on the *occupation* of the track, so it requires special care.
-	- Manual destruction allows to destruct routes manually. Various methods, mainly approach areas and timers, are used to ensure that a route won't be destroyed just in front of a train.
-- Track occupation: if using only one kind of detection, this is pretty much only an input. If the interlocking controller use more than one method (track circuits, axle counter, ponctual detector, data from the CBTC system...), this function may need to merge this data.
-- Automatic switch command: in nominal cases, a switch included in a formed route is commanded to the position which is suitable for the route. However this command may be disabled if the switch is moved manually.
-- Manual switch command: in degraded cases a switch may be moved mechanically by an operator on the track. We need to disable automatic switch command if that's the case, as well as close any signal that can reach this switch to avoid injuring the operator.
-- Signal aspects: a signal is opened only if:
-	- a route starting from this signal is formed (and destruction is not demanded)
-	- and all the switches included in this route are at the correct position for this route
-	- and the track behind the signal is free from other trains (may depend on whether CBTC is used)
-	- and other conditions are respected (e.g. no switch behind the signal is manually commanded)
+- The central part is a function managing the states of the routes (formed (a train can pass through it), or destroyed (trains can't pass through it)).
+  - A route is formed if it is requested and no incompatible routes are formed or requested.
+  - A route is destroyed if its destruction is requested, no train are currently on the route and no train risk entring the route.
+- Automatic switch command: in nominal cases, a switch included in a formed route is commanded to the position which is suitable for the route. However this command may be disabled if the switch is moved manually. Occupation of the TVD containing the switch prevents it from moving.
+- Signal aspects: a signal is opened if and only if:
+	- a route starting from this signal is formed (and destruction is not demanded),
+	- and all the switches included in this route are at the correct position for this route and not manually commanded,
+	- and the track behind the signal is free from other trains (may depend on whether CBTC is used),
+  - and the direct command to close the signal is false.
 
 ## Data
 
@@ -61,6 +58,9 @@ For our purpose, an IXL can be entirely described using the following data:
 - Position of the switches (e.g. Sw_02 is on TC_109)
 - For each switch, its fouling point (e.g. the lower part of TC_110 is inside the fouling point of Sw_02, as well as both lines of TC_109)
 
+## Automatic generation 
+
+The python program `translators/data_to_PLC/main.py` generates a PLC program equivalent to "Simplified IXL" from the station data in `data/data_exemple_station_1.xml`. This file use a format close to RailML. The generated PLC program was imported and tested successfully in Codesys.
 
 ## Proof
 
@@ -68,6 +68,6 @@ Ideally, the correctness of the controller program should be provable formally.
 For example, by translating this program into a language that can be processed by a model checker, by writing properties to verify and using the model checker to verify that the properties are verified.
 As [HLL](https://hal.science/hal-01799749/file/RATP-STF-16-01805_Publication_HLL_v.2.7.pdf) is the formal language I'm more familiar with, this will be the one used in this project.
 
-Additionally, since the computing cost of model checking depend exponentially of the size of the interlocking (number of track circuit, signals, switches, etc.) the translation and proof should use smart ways to portion the track to simplify the proof. Again, routes are central to this: I am relatively confident we can portion the interlocking into each of its routes and prove separately the properties on each route, which should be quite fast. If a neighbouring route respect the simple rule of not letting a train pass through when it is not formed, the only information that need to be exchanged is the state of routes (and the state of route formation demands to cover the case of two routes demanded simultaneously).
+Additionally, since the computing cost of model checking depend exponentially of the size of the interlocking (number of track circuit, signals, switches, etc.) the translation and proof should use smart ways to portion the track to simplify the proof. Again, routes are central to this: I am relatively confident we can portion the interlocking into each of its routes and prove separately the properties on each route, which should be quite fast. If a neighbouring route respect the simple rule of not letting a train pass through when it is not formed, the only information that need to be exchanged is the state of routes (and the state of route formation demands to cover the case of two routes requested simultaneously).
 
 

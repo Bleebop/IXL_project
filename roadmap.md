@@ -4,8 +4,8 @@
 - [x] Code a basic non safety part for this station
 - [ ] Code different non safety programs for this station
 - [x] Make a simulator in CoDeSys
-- [ ] Make an external simulator (JS+HTML ?)
-- [ ] Interface it with CoDeSys
+- [x] Make an external simulator (JS+HTML ?)
+- [x] Interface it with CoDeSys
 - [x] Determine a data model for stations => RailML ?
 - [x] Translator data -> PLC program (safety+non safety) (with options)
 - [ ] Translator PLC program -> HLL
