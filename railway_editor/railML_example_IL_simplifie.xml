@@ -1,0 +1,1604 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<railML xmlns="https://www.railml.org/schemas/3.2" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:gml4rail3="https://www.railml.org/schemas/3.2/gml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="3.2" xsi:schemaLocation="https://www.railml.org/schemas/3.2 https://www.railml.org/schemas/3.2/railml3.xsd">
+  <metadata>
+    <dc:title xml:lang="en">Advanced Example of railML.org (v14) simplified</dc:title>
+	<dc:source>https://www.railml.org/en/example-data</dc:source>
+    <dc:date>2026-04-01T17:00:00Z</dc:date>
+	<dc:rights>Creative Commons Attribution-NonCommercial-NoDerivs 4.0 License (CC-BY-NC-ND-4.0)</dc:rights>
+	<dc:rights>https://www.railml.org/en/licence</dc:rights>
+    <dc:creator xml:lang="en">railML.org e.V. Dresden/Germany; Mail: coordination@railML.org; Phone: +49 351 47582911</dc:creator>
+    <dc:contributor>https://www.jernbanedirektoratet.no/railml</dc:contributor>
+    <dc:contributor>https://railoscope.com/workspace/685a5777d01f760d44046826?modelId=68c3ff02721aa0f61ca8cc42&amp;revision=50 (rev 50)</dc:contributor>
+	<dc:publisher xml:lang="en">railML.org e.V. Dresden/Germany; Mail: coordination@railML.org; Phone: +49 351 47582911</dc:publisher>
+  </metadata>
+  <infrastructure id="is_01">
+    <topology>
+      <netElements>
+        <netElement id="ne_1"/>
+        <netElement id="ne_16"/>
+        <netElement id="ne_31"/>
+        <netElement id="ne_39"/>
+        <netElement id="ne_55"/>
+        <netElement id="ne_60"/>
+        <netElement id="ne_64"/>
+        <netElement id="ne_77"/>
+        <netElement id="ne_90"/>
+      </netElements>
+      <netRelations>
+        <netRelation id="nr_16_0_55_1" navigability="Both" positionOnA="0" positionOnB="1">
+          <elementA ref="ne_16"/>
+          <elementB ref="ne_55"/>
+        </netRelation>
+        <netRelation id="nr_16_1_31_0" navigability="Both" positionOnA="1" positionOnB="0">
+          <elementA ref="ne_16"/>
+          <elementB ref="ne_31"/>
+        </netRelation>
+        <netRelation id="nr_1_1_39_1" navigability="None" positionOnA="1" positionOnB="1">
+          <elementA ref="ne_1"/>
+          <elementB ref="ne_39"/>
+        </netRelation>
+        <netRelation id="nr_1_1_55_0" navigability="Both" positionOnA="1" positionOnB="0">
+          <elementA ref="ne_1"/>
+          <elementB ref="ne_55"/>
+        </netRelation>
+        <netRelation id="nr_31_1_60_0" navigability="Both" positionOnA="1" positionOnB="0">
+          <elementA ref="ne_31"/>
+          <elementB ref="ne_60"/>
+        </netRelation>
+        <netRelation id="nr_31_1_64_0" navigability="Both" positionOnA="1" positionOnB="0">
+          <elementA ref="ne_31"/>
+          <elementB ref="ne_64"/>
+        </netRelation>
+        <netRelation id="nr_39_1_55_0" navigability="Both" positionOnA="1" positionOnB="0">
+          <elementA ref="ne_39"/>
+          <elementB ref="ne_55"/>
+        </netRelation>
+        <netRelation id="nr_60_0_64_0" navigability="None" positionOnA="0" positionOnB="0">
+          <elementA ref="ne_60"/>
+          <elementB ref="ne_64"/>
+        </netRelation>
+        <netRelation id="nr_60_1_77_1" navigability="None" positionOnA="1" positionOnB="1">
+          <elementA ref="ne_60"/>
+          <elementB ref="ne_77"/>
+        </netRelation>
+        <netRelation id="nr_60_1_90_0" navigability="Both" positionOnA="1" positionOnB="0">
+          <elementA ref="ne_60"/>
+          <elementB ref="ne_90"/>
+        </netRelation>
+        <netRelation id="nr_77_1_90_0" navigability="Both" positionOnA="1" positionOnB="0">
+          <elementA ref="ne_77"/>
+          <elementB ref="ne_90"/>
+        </netRelation>
+      </netRelations>
+    </topology>
+    <functionalInfrastructure>
+      <signalsIS>
+        <signalIS id="sig13" isSwitchable="false">
+          <name language="no" name="68N2"/>
+          <spotLocation applicationDirection="normal" id="sig13_sloc01_8176" netElementRef="ne_1" intrinsicCoord="0.5">
+          </spotLocation>
+          <isTrainMovementSignal/>
+        </signalIS>
+        <signalIS id="sig19" isSwitchable="false">
+          <name language="no" name="68N2"/>
+          <spotLocation applicationDirection="reverse" id="sig19_sloc01_8176" netElementRef="ne_55" intrinsicCoord="0.2">
+          </spotLocation>
+          <isTrainMovementSignal/>
+        </signalIS>
+        <signalIS id="sig34" isSwitchable="true">
+          <name language="no" name="69A"/>
+          <spotLocation applicationDirection="normal" id="sig34_sloc01_8176" netElementRef="ne_31" intrinsicCoord="0.0"/>
+          <isTrainMovementSignal/>
+        </signalIS>
+        <signalIS id="sig51" isSwitchable="false">
+          <name language="no" name="68N1"/>
+          <spotLocation applicationDirection="normal" id="sig51_sloc01_8176" netElementRef="ne_39" intrinsicCoord="0.8">
+          </spotLocation>
+          <isTrainMovementSignal/>
+        </signalIS>
+        <signalIS id="sig67" isSwitchable="true">
+          <name language="no" name="69P2"/>
+          <spotLocation applicationDirection="reverse" id="sig67_sloc01_8176" netElementRef="ne_64" intrinsicCoord="0.5">
+          </spotLocation>
+          <isTrainMovementSignal/>
+        </signalIS>
+        <signalIS id="sig74" isSwitchable="true">
+          <name language="no" name="69N2"/>
+          <spotLocation applicationDirection="normal" id="sig74_sloc01_8176" netElementRef="ne_64" intrinsicCoord="0.9">
+          </spotLocation>
+          <isTrainMovementSignal/>
+        </signalIS>
+        <signalIS id="sig81" isSwitchable="true">
+          <name language="no" name="71C"/>
+          <spotLocation applicationDirection="normal" id="sig81_sloc01_8176" netElementRef="ne_77" intrinsicCoord="0.1">
+          </spotLocation>
+          <isTrainMovementSignal/>
+        </signalIS>
+        <signalIS id="sig108" isSwitchable="true">
+          <name language="no" name="69Va"/>
+          <spotLocation applicationDirection="normal" id="sig108_sloc01_8176" netElementRef="ne_16" intrinsicCoord="0.5">
+          </spotLocation>
+          <isTrainMovementSignal/>
+        </signalIS>
+        <signalIS id="sig790" isSwitchable="false">
+          <name language="no" name="69P2"/>
+          <spotLocation applicationDirection="reverse" id="sig790_sloc01_8176" netElementRef="ne_64" intrinsicCoord="0.5">
+          </spotLocation>
+          <isTrainMovementSignal/>
+        </signalIS>
+        <signalIS id="sig795" isSwitchable="false">
+          <name language="no" name="69N2"/>
+          <spotLocation applicationDirection="normal" id="sig795_sloc01_8176" netElementRef="ne_64" intrinsicCoord="0.8">
+          </spotLocation>
+          <isTrainMovementSignal/>
+        </signalIS>
+      </signalsIS>
+      <switchesIS>
+        <switchIS id="swi122" type="ordinarySwitch">
+          <name language="no" name="68W02"/>
+          <spotLocation id="swi122_sloc01_8176" intrinsicCoord="0.0" netElementRef="ne_55">
+          </spotLocation>
+          <leftBranch netRelationRef="nr_39_1_55_0"/>
+          <rightBranch netRelationRef="nr_1_1_55_0"/>
+        </switchIS>
+        <switchIS id="swi123" type="ordinarySwitch">
+          <name language="no" name="69W03"/>
+          <spotLocation id="swi123_sloc01_8176" intrinsicCoord="0.0" netElementRef="ne_64">
+          </spotLocation>
+          <leftBranch netRelationRef="nr_31_1_64_0"/>
+          <rightBranch netRelationRef="nr_31_1_60_0"/>
+        </switchIS>
+        <switchIS id="swi124" type="ordinarySwitch">
+          <name language="no" name="69W04"/>
+          <spotLocation id="swi124_sloc01_8176" intrinsicCoord="0.0" netElementRef="ne_90">
+          </spotLocation>
+          <leftBranch netRelationRef="nr_77_1_90_0"/>
+          <rightBranch netRelationRef="nr_60_1_90_0"/>
+        </switchIS>
+      </switchesIS>
+      <trainDetectionElements>
+        <trainDetectionElement id="tde14">
+          <spotLocation applicationDirection="both" id="tde14_sloc01_8176" netElementRef="ne_1" intrinsicCoord="0.5">
+          </spotLocation>
+        </trainDetectionElement>
+        <trainDetectionElement id="tde20">
+          <spotLocation applicationDirection="both" id="tde20_sloc01_8176" netElementRef="ne_16" intrinsicCoord="0.0">
+          </spotLocation>
+        </trainDetectionElement>
+        <trainDetectionElement id="tde36">
+          <spotLocation applicationDirection="both" id="tde36_sloc01_8176" netElementRef="ne_31" intrinsicCoord="1.0">
+          </spotLocation>
+        </trainDetectionElement>
+        <trainDetectionElement id="tde38">
+          <spotLocation applicationDirection="both" id="tde38_sloc01_8176" netElementRef="ne_31" intrinsicCoord="0.5">
+          </spotLocation>
+        </trainDetectionElement>
+        <trainDetectionElement id="tde52">
+          <spotLocation applicationDirection="both" id="tde52_sloc01_8176" netElementRef="ne_39" intrinsicCoord="0.8">
+          </spotLocation>
+        </trainDetectionElement>
+        <trainDetectionElement id="tde58">
+          <spotLocation applicationDirection="both" id="tde58_sloc01_8176" netElementRef="ne_55" intrinsicCoord="0.1">
+          </spotLocation>
+        </trainDetectionElement>
+        <trainDetectionElement id="tde69">
+          <spotLocation applicationDirection="both" id="tde69_sloc01_8176" netElementRef="ne_64" intrinsicCoord="0.3">
+          </spotLocation>
+        </trainDetectionElement>
+        <trainDetectionElement id="tde149">
+          <spotLocation applicationDirection="both" id="tde149_sloc01_8176" netElementRef="ne_16" intrinsicCoord="0.2">
+          </spotLocation>
+        </trainDetectionElement>
+        <trainDetectionElement id="tde150">
+          <spotLocation applicationDirection="both" id="tde150_sloc01_8176" netElementRef="ne_16" intrinsicCoord="0.3">
+          </spotLocation>
+        </trainDetectionElement>
+        <trainDetectionElement id="tde152">
+          <spotLocation applicationDirection="both" id="tde152_sloc01_8176" netElementRef="ne_60" intrinsicCoord="0.5">
+          </spotLocation>
+        </trainDetectionElement>
+        <trainDetectionElement id="tde178">
+          <spotLocation applicationDirection="both" id="tde178_sloc01_8176" netElementRef="ne_64" intrinsicCoord="0.9">
+          </spotLocation>
+        </trainDetectionElement>
+        <trainDetectionElement id="tde187">
+          <spotLocation applicationDirection="both" id="tde187_sloc01_8176" netElementRef="ne_77" intrinsicCoord="0.1">
+          </spotLocation>
+        </trainDetectionElement>
+        <trainDetectionElement id="tde225">
+          <spotLocation applicationDirection="both" id="tde225_sloc01_8176" netElementRef="ne_90" intrinsicCoord="0.1">
+          </spotLocation>
+        </trainDetectionElement>
+      </trainDetectionElements>
+    </functionalInfrastructure>
+  </infrastructure>
+  <interlocking>
+    <assetsForInterlockings>
+      <assetsForInterlocking id="afi_01">
+        <tvdSections>
+          <tvdSection id="trs130">
+            <assetName language="no" name="01"/>
+            <hasDemarcatingBufferstop ref="bus126"/>
+            <hasDemarcatingTraindetector ref="tde52"/>
+          </tvdSection>
+          <tvdSection id="trs131">
+            <assetName language="no" name="02"/>
+            <hasDemarcatingBufferstop ref="bus125"/>
+            <hasDemarcatingTraindetector ref="tde14"/>
+          </tvdSection>
+          <tvdSection id="trs132">
+            <assetName language="no" name="B"/>
+            <hasDemarcatingTraindetector ref="tde20"/>
+            <hasDemarcatingTraindetector ref="tde58"/>
+          </tvdSection>
+          <tvdSection id="trs133">
+            <assetName language="no" name="A"/>
+            <hasDemarcatingTraindetector ref="tde36"/>
+            <hasDemarcatingTraindetector ref="tde38"/>
+          </tvdSection>
+          <tvdSection id="trs183">
+            <hasDemarcatingTraindetector ref="tde38"/>
+            <hasDemarcatingTraindetector ref="tde69"/>
+            <hasDemarcatingTraindetector ref="tde152"/>
+          </tvdSection>
+          <tvdSection id="trs184">
+            <hasDemarcatingTraindetector ref="tde69"/>
+            <hasDemarcatingTraindetector ref="tde178"/>
+          </tvdSection>
+          <tvdSection id="trs185">
+            <hasDemarcatingTraindetector ref="tde63"/>
+            <hasDemarcatingTraindetector ref="tde95"/>
+          </tvdSection>
+          <tvdSection id="trs212">
+            <hasDemarcatingTraindetector ref="tde178"/>
+            <hasDemarcatingTraindetector ref="tde210"/>
+            <hasDemarcatingTraindetector ref="tde211"/>
+          </tvdSection>
+          <tvdSection id="trs217">
+            <hasDemarcatingTraindetector ref="tde209"/>
+            <hasDemarcatingTraindetector ref="tde214"/>
+          </tvdSection>
+          <tvdSection id="trs219">
+            <hasDemarcatingTraindetector ref="tde210"/>
+            <hasDemarcatingTraindetector ref="tde215"/>
+          </tvdSection>
+          <tvdSection id="trs228">
+            <hasDemarcatingTraindetector ref="tde152"/>
+            <hasDemarcatingTraindetector ref="tde187"/>
+            <hasDemarcatingTraindetector ref="tde225"/>
+          </tvdSection>
+          <tvdSection id="trs263">
+            <hasDemarcatingTraindetector ref="tde95"/>
+            <hasDemarcatingTraindetector ref="tde225"/>
+            <hasDemarcatingTraindetector ref="tde261"/>
+            <hasDemarcatingTraindetector ref="tde262"/>
+          </tvdSection>
+          <tvdSection id="trs443">
+            <hasDemarcatingTraindetector ref="tde303"/>
+            <hasDemarcatingTraindetector ref="tde409"/>
+          </tvdSection>
+          <tvdSection id="trs444">
+            <hasDemarcatingTraindetector ref="tde399"/>
+            <hasDemarcatingTraindetector ref="tde400"/>
+            <hasDemarcatingTraindetector ref="tde401"/>
+          </tvdSection>
+          <tvdSection id="trs446">
+            <hasDemarcatingTraindetector ref="tde400"/>
+            <hasDemarcatingTraindetector ref="tde412"/>
+          </tvdSection>
+          <tvdSection id="trs447">
+            <hasDemarcatingTraindetector ref="tde401"/>
+            <hasDemarcatingTraindetector ref="tde408"/>
+          </tvdSection>
+          <tvdSection id="trs448">
+            <hasDemarcatingTraindetector ref="tde404"/>
+            <hasDemarcatingTraindetector ref="tde406"/>
+          </tvdSection>
+          <tvdSection id="trs449">
+            <hasDemarcatingTraindetector ref="tde404"/>
+            <hasDemarcatingTraindetector ref="tde405"/>
+            <hasDemarcatingTraindetector ref="tde409"/>
+          </tvdSection>
+          <tvdSection id="trs450">
+            <hasDemarcatingTraindetector ref="tde405"/>
+            <hasDemarcatingTraindetector ref="tde407"/>
+          </tvdSection>
+          <tvdSection id="trs451">
+            <hasDemarcatingTraindetector ref="tde406"/>
+            <hasDemarcatingTraindetector ref="tde407"/>
+            <hasDemarcatingTraindetector ref="tde408"/>
+          </tvdSection>
+          <tvdSection id="trs452">
+            <hasDemarcatingTraindetector ref="tde412"/>
+            <hasDemarcatingTraindetector ref="tde413"/>
+            <hasDemarcatingTraindetector ref="tde414"/>
+            <hasDemarcatingTraindetector ref="tde415"/>
+          </tvdSection>
+          <tvdSection id="trs453">
+            <hasDemarcatingTraindetector ref="tde413"/>
+            <hasDemarcatingTraindetector ref="tde422"/>
+          </tvdSection>
+          <tvdSection id="trs454">
+            <hasDemarcatingTraindetector ref="tde414"/>
+            <hasDemarcatingTraindetector ref="tde424"/>
+          </tvdSection>
+          <tvdSection id="trs455">
+            <hasDemarcatingTraindetector ref="tde415"/>
+            <hasDemarcatingTraindetector ref="tde420"/>
+            <hasDemarcatingTraindetector ref="tde421"/>
+            <hasDemarcatingTraindetector ref="tde422"/>
+            <hasDemarcatingTraindetector ref="tde423"/>
+          </tvdSection>
+          <tvdSection id="trs456">
+            <hasDemarcatingBufferstop ref="bus371"/>
+            <hasDemarcatingTraindetector ref="tde420"/>
+          </tvdSection>
+          <tvdSection id="trs457">
+            <hasDemarcatingBufferstop ref="bus372"/>
+            <hasDemarcatingTraindetector ref="tde421"/>
+          </tvdSection>
+          <tvdSection id="trs458">
+            <hasDemarcatingTraindetector ref="tde423"/>
+            <hasDemarcatingTraindetector ref="tde425"/>
+          </tvdSection>
+          <tvdSection id="trs459">
+            <hasDemarcatingTraindetector ref="tde424"/>
+            <hasDemarcatingTraindetector ref="tde425"/>
+            <hasDemarcatingTraindetector ref="tde426"/>
+          </tvdSection>
+          <tvdSection id="trs743">
+            <hasDemarcatingTraindetector ref="tde63"/>
+            <hasDemarcatingTraindetector ref="tde209"/>
+            <hasDemarcatingTraindetector ref="tde211"/>
+            <hasDemarcatingTraindetector ref="tde222"/>
+          </tvdSection>
+          <tvdSection id="trs744">
+            <hasDemarcatingTraindetector ref="tde226"/>
+            <hasDemarcatingTraindetector ref="tde303"/>
+          </tvdSection>
+          <tvdSection id="trs745">
+            <hasDemarcatingTraindetector ref="tde207"/>
+            <hasDemarcatingTraindetector ref="tde226"/>
+            <hasDemarcatingTraindetector ref="tde261"/>
+            <hasDemarcatingTraindetector ref="tde262"/>
+          </tvdSection>
+          <tvdSection id="trs746">
+            <hasDemarcatingTraindetector ref="tde207"/>
+            <hasDemarcatingTraindetector ref="tde222"/>
+          </tvdSection>
+          <tvdSection id="trs771">
+            <assetName language="no" name="2"/>
+            <hasDemarcatingTraindetector ref="tde14"/>
+            <hasDemarcatingTraindetector ref="tde52"/>
+            <hasDemarcatingTraindetector ref="tde58"/>
+          </tvdSection>
+          <tvdSection id="trs773">
+            <hasDemarcatingTraindetector ref="tde763"/>
+          </tvdSection>
+          <tvdSection id="trs774">
+            <hasDemarcatingTraindetector ref="tde763"/>
+            <hasDemarcatingTraindetector ref="tde765"/>
+          </tvdSection>
+          <tvdSection id="trs775">
+            <hasDemarcatingTraindetector ref="tde764"/>
+          </tvdSection>
+          <tvdSection id="trs776">
+            <hasDemarcatingTraindetector ref="tde764"/>
+            <hasDemarcatingTraindetector ref="tde766"/>
+          </tvdSection>
+          <tvdSection id="trs777">
+            <hasDemarcatingTraindetector ref="tde765"/>
+            <hasDemarcatingTraindetector ref="tde768"/>
+          </tvdSection>
+          <tvdSection id="trs778">
+            <hasDemarcatingTraindetector ref="tde766"/>
+            <hasDemarcatingTraindetector ref="tde767"/>
+          </tvdSection>
+          <tvdSection id="trs779">
+            <hasDemarcatingTraindetector ref="tde767"/>
+            <hasDemarcatingTraindetector ref="tde770"/>
+          </tvdSection>
+          <tvdSection id="trs780">
+            <hasDemarcatingTraindetector ref="tde768"/>
+            <hasDemarcatingTraindetector ref="tde769"/>
+          </tvdSection>
+          <tvdSection id="trs781">
+            <hasDemarcatingTraindetector ref="tde215"/>
+            <hasDemarcatingTraindetector ref="tde769"/>
+          </tvdSection>
+          <tvdSection id="trs782">
+            <hasDemarcatingTraindetector ref="tde214"/>
+            <hasDemarcatingTraindetector ref="tde770"/>
+          </tvdSection>
+          <tvdSection id="lcr28_tvd">
+            <hasDemarcatingTraindetector ref="tde149"/>
+            <hasDemarcatingTraindetector ref="tde150"/>
+          </tvdSection>
+        </tvdSections>
+        <switchesIL>
+          <switchIL id="swiIL122" isKeyLocked="false" localOperated="none" maxThrowTime="PT6S">
+            <refersTo ref="swi122"/>
+            <hasGaugeClearanceMarker ref="swi122_cl_0"/>
+            <hasGaugeClearanceMarker ref="swi122_cl_1"/>
+            <hasTvdSection ref="trs771"/>
+            <branchLeft ref="ne_39"/>
+            <branchRight ref="ne_1"/>
+            <branchTip ref="ne_55"/>
+          </switchIL>
+          <switchIL id="swiIL123" isKeyLocked="false" localOperated="none" maxThrowTime="PT5S">
+            <refersTo ref="swi123"/>
+            <hasGaugeClearanceMarker ref="swi123_cl_0"/>
+            <hasGaugeClearanceMarker ref="swi123_cl_1"/>
+            <hasTvdSection ref="trs183"/>
+            <branchLeft ref="ne_64"/>
+            <branchRight ref="ne_60"/>
+            <branchTip ref="ne_31"/>
+          </switchIL>
+          <switchIL id="swiIL124" isKeyLocked="false" localOperated="none" maxThrowTime="PT5S">
+            <refersTo ref="swi124"/>
+            <hasGaugeClearanceMarker ref="swi124_cl_0"/>
+            <hasGaugeClearanceMarker ref="swi124_cl_1"/>
+            <hasTvdSection ref="trs228"/>
+            <branchLeft ref="ne_77"/>
+            <branchRight ref="ne_60"/>
+            <branchTip ref="ne_90"/>
+          </switchIL>
+          <switchIL id="swiIL127" isKeyLocked="false" localOperated="none">
+            <refersTo ref="swi127"/>
+            <hasTvdSection ref="trs212"/>
+            <branchLeft ref="ne_159"/>
+            <branchRight ref="ne_64"/>
+            <branchTip ref="ne_147"/>
+          </switchIL>
+          <switchIL id="swiIL237" isKeyLocked="false" localOperated="none">
+            <refersTo ref="swi237"/>
+            <hasTvdSection ref="trs263"/>
+            <branchLeft ref="ne_236"/>
+            <branchRight ref="ne_233"/>
+            <branchTip ref="ne_90"/>
+          </switchIL>
+          <switchIL id="swiIL241" isKeyLocked="false" localOperated="none">
+            <refersTo ref="swi241"/>
+            <hasTvdSection ref="trs745"/>
+            <branchLeft ref="ne_247"/>
+            <branchRight ref="ne_251"/>
+            <branchTip ref="ne_240"/>
+          </switchIL>
+          <switchIL id="swiIL248" isKeyLocked="false" localOperated="none">
+            <refersTo ref="swi248"/>
+            <hasTvdSection ref="trs745"/>
+            <branchLeft ref="ne_244"/>
+            <branchRight ref="ne_247"/>
+            <branchTip ref="ne_172"/>
+          </switchIL>
+          <switchIL id="swiIL259" isKeyLocked="false" localOperated="none">
+            <refersTo ref="swi259"/>
+            <hasTvdSection ref="trs263"/>
+            <branchLeft ref="ne_255"/>
+            <branchRight ref="ne_236"/>
+            <branchTip ref="ne_258"/>
+          </switchIL>
+          <switchIL id="swiIL283" isKeyLocked="false" localOperated="none">
+            <refersTo ref="swi283"/>
+            <hasGaugeClearanceMarker ref="swi283_cl_0"/>
+            <hasGaugeClearanceMarker ref="swi283_cl_1"/>
+            <hasTvdSection ref="trs449"/>
+            <branchLeft ref="ne_279"/>
+            <branchRight ref="ne_282"/>
+            <branchTip ref="ne_479"/>
+          </switchIL>
+          <switchIL id="swiIL288" isKeyLocked="false" localOperated="none">
+            <refersTo ref="swi288"/>
+            <hasGaugeClearanceMarker ref="swi288_cl_0"/>
+            <hasGaugeClearanceMarker ref="swi288_cl_1"/>
+            <hasTvdSection ref="trs451"/>
+            <branchLeft ref="ne_282"/>
+            <branchRight ref="ne_594"/>
+            <branchTip ref="ne_287"/>
+          </switchIL>
+          <switchIL id="swiIL295" isKeyLocked="true" localOperated="mechanical">
+            <refersTo ref="swi295"/>
+            <hasTvdSection ref="trs444"/>
+            <branchLeft ref="ne_475"/>
+            <branchRight ref="ne_291"/>
+            <branchTip ref="ne_294"/>
+          </switchIL>
+          <switchIL id="swiIL302" isKeyLocked="true" localOperated="mechanical">
+            <refersTo ref="swi302"/>
+            <branchLeft ref="ne_298"/>
+            <branchRight ref="ne_291"/>
+            <branchTip ref="ne_301"/>
+          </switchIL>
+          <switchIL id="swiIL316" isKeyLocked="false" localOperated="none">
+            <refersTo ref="swi316"/>
+            <hasTvdSection ref="trs452"/>
+            <branchLeft ref="ne_336"/>
+            <branchRight ref="ne_312"/>
+            <branchTip ref="ne_315"/>
+          </switchIL>
+          <switchIL id="swiIL322" isKeyLocked="false" localOperated="none">
+            <refersTo ref="swi322"/>
+            <hasTvdSection ref="trs459"/>
+            <branchLeft ref="ne_312"/>
+            <branchRight ref="ne_321"/>
+            <branchTip ref="ne_351"/>
+          </switchIL>
+          <switchIL id="swiIL329" isKeyLocked="false" localOperated="none">
+            <refersTo ref="swi329"/>
+            <hasTvdSection ref="trs452"/>
+            <branchLeft ref="ne_325"/>
+            <branchRight ref="ne_315"/>
+            <branchTip ref="ne_328"/>
+          </switchIL>
+          <switchIL id="swiIL337" isKeyLocked="false" localOperated="none">
+            <refersTo ref="swi337"/>
+            <hasTvdSection ref="trs455"/>
+            <branchLeft ref="ne_333"/>
+            <branchRight ref="ne_321"/>
+            <branchTip ref="ne_336"/>
+          </switchIL>
+          <switchIL id="swiIL352" isKeyLocked="false" localOperated="none">
+            <refersTo ref="swi352"/>
+            <branchLeft ref="ne_308"/>
+            <branchRight ref="ne_348"/>
+            <branchTip ref="ne_351"/>
+          </switchIL>
+          <switchIL id="swiIL359" isKeyLocked="false" localOperated="mechanical">
+            <refersTo ref="swi359"/>
+            <branchLeft ref="ne_355"/>
+            <branchRight ref="ne_365"/>
+            <branchTip ref="ne_358"/>
+          </switchIL>
+          <switchIL id="swiIL366" isKeyLocked="false" localOperated="mechanical">
+            <refersTo ref="swi366"/>
+            <branchLeft ref="ne_362"/>
+            <branchRight ref="ne_365"/>
+            <branchTip ref="ne_348"/>
+          </switchIL>
+          <switchIL id="swiIL595" isKeyLocked="false" localOperated="none">
+            <refersTo ref="swi595"/>
+            <hasTvdSection ref="trs450"/>
+            <branchLeft ref="ne_279"/>
+            <branchRight ref="ne_591"/>
+            <branchTip ref="ne_594"/>
+          </switchIL>
+          <switchIL id="croIL160a" isKeyLocked="false" localOperated="none">
+            <refersTo ref="cro160"/>
+            <hasTvdSection ref="trs743"/>
+            <relatedMovableElement ref="croIL160b"/>
+            <branchLeft ref="ne_240"/>
+            <branchRight ref="ne_258"/>
+          </switchIL>
+          <switchIL id="croIL160b" isKeyLocked="false" localOperated="none">
+            <refersTo ref="cro160"/>
+            <hasTvdSection ref="trs743"/>
+            <relatedMovableElement ref="croIL160a"/>
+            <branchLeft ref="ne_159"/>
+            <branchRight ref="ne_156"/>
+          </switchIL>
+          <switchIL id="croIL341a" isKeyLocked="false" localOperated="none">
+            <refersTo ref="cro341"/>
+            <hasTvdSection ref="trs455"/>
+            <relatedMovableElement ref="croIL341b"/>
+            <branchLeft ref="ne_344"/>
+            <branchRight ref="ne_340"/>
+          </switchIL>
+          <switchIL id="croIL341b" isKeyLocked="false" localOperated="none">
+            <refersTo ref="cro341"/>
+            <hasTvdSection ref="trs455"/>
+            <relatedMovableElement ref="croIL341a"/>
+            <branchLeft ref="ne_333"/>
+            <branchRight ref="ne_325"/>
+          </switchIL>
+        </switchesIL>
+        <derailersIL>
+          <derailerIL id="drlIL169" isKeyLocked="false" preferredPosition="derailingPosition">
+            <refersTo ref="drl169"/>
+            <hasTvdSection ref="trs228"/>
+            <lockedTrack ref="trc6_IL"/>
+          </derailerIL>
+        </derailersIL>
+        <levelCrossingsIL>
+          <levelCrossingIL id="lcrIL28" typicalTimeToClose="PT10S">
+            <isLevelCrossingType ref="lc_type_1_2_Ba"/>
+            <refersTo ref="lcr28"/>
+            <deactivatedBy delay="PT10S">
+              <tvdDetectorRef ref="tde149"/>
+            </deactivatedBy>
+            <deactivatedBy delay="PT10S">
+              <tvdDetectorRef ref="tde150"/>
+            </deactivatedBy>
+            <hasTvdSection ref="lcr28_tvd"/>
+          </levelCrossingIL>
+        </levelCrossingsIL>
+        <keyLocksIL>
+          <keyLockIL id="kloIL398">
+            <takesControlOf ref="swiIL295"/>
+            <takesControlOf ref="swiIL302"/>
+            <refersTo ref="klo398"/>
+            <hasTvdSection ref="trs444"/>
+          </keyLockIL>
+        </keyLocksIL>
+        <signalsIL>
+          <signalIL function="exit" id="sigIL13">
+            <belongsToOperationalPoint ref="opp141"/>
+            <refersTo ref="sig13"/>
+          </signalIL>
+          <signalIL function="entry" id="sigIL19">
+            <belongsToOperationalPoint ref="opp141"/>
+            <refersTo ref="sig19"/>
+          </signalIL>
+          <signalIL function="entry" id="sigIL34">
+            <belongsToOperationalPoint ref="opp142"/>
+            <refersTo ref="sig34"/>
+          </signalIL>
+          <signalIL function="exit" id="sigIL51">
+            <belongsToOperationalPoint ref="opp141"/>
+            <refersTo ref="sig51"/>
+          </signalIL>
+          <signalIL function="exit" id="sigIL67">
+            <belongsToOperationalPoint ref="opp142"/>
+            <refersTo ref="sig67"/>
+          </signalIL>
+          <signalIL function="exit" id="sigIL74">
+            <belongsToOperationalPoint ref="opp142"/>
+            <refersTo ref="sig74"/>
+          </signalIL>
+          <signalIL function="shunting" id="sigIL81" sightDistance="200.0">
+            <belongsToOperationalPoint ref="opp142"/>
+            <refersTo ref="sig81"/>
+          </signalIL>
+          <signalIL function="exit" id="sigIL93">
+            <belongsToOperationalPoint ref="opp142"/>
+            <refersTo ref="sig93"/>
+          </signalIL>
+          <signalIL function="exit" id="sigIL100">
+            <belongsToOperationalPoint ref="opp142"/>
+            <refersTo ref="sig100"/>
+          </signalIL>
+          <signalIL function="distant" id="sigIL108">
+            <belongsToOperationalPoint ref="opp142"/>
+            <refersTo ref="sig108"/>
+          </signalIL>
+          <signalIL id="sigIL148">
+            <refersTo ref="sig148"/>
+          </signalIL>
+          <signalIL function="entry" id="sigIL179">
+            <belongsToOperationalPoint ref="opp142"/>
+            <refersTo ref="sig179"/>
+          </signalIL>
+          <signalIL function="entry" id="sigIL180">
+            <belongsToOperationalPoint ref="opp142"/>
+            <refersTo ref="sig180"/>
+          </signalIL>
+          <signalIL function="distant" id="sigIL181">
+            <refersTo ref="sig181"/>
+          </signalIL>
+          <signalIL function="distant" id="sigIL182">
+            <refersTo ref="sig182"/>
+          </signalIL>
+          <signalIL function="entry" id="sigIL204">
+            <belongsToOperationalPoint ref="opp142"/>
+            <refersTo ref="sig204"/>
+          </signalIL>
+          <signalIL function="exit" id="sigIL206">
+            <belongsToOperationalPoint ref="opp142"/>
+            <refersTo ref="sig206"/>
+          </signalIL>
+          <signalIL function="exit" id="sigIL220">
+            <belongsToOperationalPoint ref="opp142"/>
+            <refersTo ref="sig220"/>
+          </signalIL>
+          <signalIL function="repeater" id="sigIL384">
+            <belongsToOperationalPoint ref="opp142"/>
+            <refersTo ref="sig384"/>
+          </signalIL>
+          <signalIL function="distant" id="sigIL387">
+            <belongsToOperationalPoint ref="opp142"/>
+            <refersTo ref="sig387"/>
+          </signalIL>
+          <signalIL function="distant" id="sigIL393">
+            <belongsToOperationalPoint ref="opp375"/>
+            <refersTo ref="sig393"/>
+          </signalIL>
+          <signalIL function="entry" id="sigIL394">
+            <belongsToOperationalPoint ref="opp375"/>
+            <refersTo ref="sig394"/>
+          </signalIL>
+          <signalIL function="exit" id="sigIL395">
+            <belongsToOperationalPoint ref="opp375"/>
+            <refersTo ref="sig395"/>
+          </signalIL>
+          <signalIL function="distant" id="sigIL396">
+            <refersTo ref="sig396"/>
+          </signalIL>
+          <signalIL function="distant" id="sigIL397">
+            <refersTo ref="sig397"/>
+          </signalIL>
+          <signalIL function="entry" id="sigIL402">
+            <belongsToOperationalPoint ref="opp375"/>
+            <refersTo ref="sig402"/>
+          </signalIL>
+          <signalIL function="entry" id="sigIL410">
+            <belongsToOperationalPoint ref="opp373"/>
+            <refersTo ref="sig410"/>
+          </signalIL>
+          <signalIL function="exit" id="sigIL411">
+            <belongsToOperationalPoint ref="opp373"/>
+            <refersTo ref="sig411"/>
+          </signalIL>
+          <signalIL function="intermediate" id="sigIL416">
+            <belongsToOperationalPoint ref="opp373"/>
+            <refersTo ref="sig416"/>
+          </signalIL>
+          <signalIL function="intermediate" id="sigIL417">
+            <belongsToOperationalPoint ref="opp373"/>
+            <refersTo ref="sig417"/>
+          </signalIL>
+          <signalIL function="intermediate" id="sigIL418">
+            <belongsToOperationalPoint ref="opp373"/>
+            <refersTo ref="sig418"/>
+          </signalIL>
+          <signalIL function="intermediate" id="sigIL419">
+            <belongsToOperationalPoint ref="opp373"/>
+            <refersTo ref="sig419"/>
+          </signalIL>
+          <signalIL function="exit" id="sigIL482">
+            <belongsToOperationalPoint ref="opp375"/>
+            <refersTo ref="sig482"/>
+          </signalIL>
+          <signalIL function="exit" id="sigIL483">
+            <belongsToOperationalPoint ref="opp375"/>
+            <refersTo ref="sig483"/>
+          </signalIL>
+          <signalIL function="exit" id="sigIL484">
+            <belongsToOperationalPoint ref="opp375"/>
+            <refersTo ref="sig484"/>
+          </signalIL>
+          <signalIL id="sigIL713">
+            <refersTo ref="sig713"/>
+          </signalIL>
+          <signalIL id="sigIL717">
+            <refersTo ref="sig717"/>
+          </signalIL>
+          <signalIL function="distant" id="sigIL749">
+            <refersTo ref="sig749"/>
+          </signalIL>
+          <signalIL function="distant" id="sigIL750">
+            <refersTo ref="sig750"/>
+          </signalIL>
+          <signalIL id="sigIL751">
+            <refersTo ref="sig751"/>
+          </signalIL>
+          <signalIL id="sigIL752">
+            <refersTo ref="sig752"/>
+          </signalIL>
+          <signalIL function="block" id="sigIL753">
+            <refersTo ref="sig753"/>
+          </signalIL>
+          <signalIL function="block" id="sigIL754">
+            <refersTo ref="sig754"/>
+          </signalIL>
+          <signalIL function="block" id="sigIL755">
+            <refersTo ref="sig755"/>
+          </signalIL>
+          <signalIL function="block" id="sigIL756">
+            <refersTo ref="sig756"/>
+          </signalIL>
+          <signalIL function="block" id="sigIL757">
+            <refersTo ref="sig757"/>
+          </signalIL>
+          <signalIL function="block" id="sigIL758">
+            <refersTo ref="sig758"/>
+          </signalIL>
+          <signalIL function="block" id="sigIL759">
+            <refersTo ref="sig759"/>
+          </signalIL>
+          <signalIL function="block" id="sigIL760">
+            <refersTo ref="sig760"/>
+          </signalIL>
+          <signalIL function="block" id="sigIL761">
+            <refersTo ref="sig761"/>
+          </signalIL>
+          <signalIL function="block" id="sigIL762">
+            <refersTo ref="sig762"/>
+          </signalIL>
+          <signalIL function="distant" id="sigIL783">
+            <refersTo ref="sig783"/>
+          </signalIL>
+          <signalIL function="distant" id="sigIL784">
+            <refersTo ref="sig784"/>
+          </signalIL>
+          <signalIL function="block" id="sigIL785">
+            <refersTo ref="sig785"/>
+          </signalIL>
+          <signalIL function="block" id="sigIL786">
+            <refersTo ref="sig786"/>
+          </signalIL>
+          <signalIL function="entry" id="sigIL787">
+            <belongsToOperationalPoint ref="opp142"/>
+            <refersTo ref="sig787"/>
+          </signalIL>
+          <signalIL function="entry" id="sigIL788">
+            <belongsToOperationalPoint ref="opp142"/>
+            <refersTo ref="sig788"/>
+          </signalIL>
+          <signalIL function="entry" id="sigIL789">
+            <belongsToOperationalPoint ref="opp142"/>
+            <refersTo ref="sig789"/>
+          </signalIL>
+          <signalIL function="exit" id="sigIL790">
+            <belongsToOperationalPoint ref="opp142"/>
+            <refersTo ref="sig790"/>
+          </signalIL>
+          <signalIL function="exit" id="sigIL791">
+            <belongsToOperationalPoint ref="opp142"/>
+            <refersTo ref="sig791"/>
+          </signalIL>
+          <signalIL function="exit" id="sigIL792">
+            <belongsToOperationalPoint ref="opp142"/>
+            <refersTo ref="sig792"/>
+          </signalIL>
+          <signalIL function="exit" id="sigIL793">
+            <belongsToOperationalPoint ref="opp142"/>
+            <refersTo ref="sig793"/>
+          </signalIL>
+          <signalIL function="exit" id="sigIL794">
+            <belongsToOperationalPoint ref="opp142"/>
+            <refersTo ref="sig794"/>
+          </signalIL>
+          <signalIL function="exit" id="sigIL795">
+            <belongsToOperationalPoint ref="opp142"/>
+            <refersTo ref="sig795"/>
+          </signalIL>
+          <signalIL id="sigIL796">
+            <refersTo ref="sig796"/>
+          </signalIL>
+          <signalIL id="sigIL797">
+            <refersTo ref="sig797"/>
+          </signalIL>
+          <signalIL id="sigIL798">
+            <refersTo ref="sig798"/>
+          </signalIL>
+          <signalIL id="sigIL799">
+            <refersTo ref="sig799"/>
+          </signalIL>
+          <signalIL id="sigIL800">
+            <refersTo ref="sig800"/>
+          </signalIL>
+          <signalIL id="sigIL801">
+            <refersTo ref="sig801"/>
+          </signalIL>
+          <signalIL id="sigIL802">
+            <refersTo ref="sig802"/>
+          </signalIL>
+          <signalIL id="sigIL803">
+            <refersTo ref="sig803"/>
+          </signalIL>
+          <signalIL id="sigIL804">
+            <refersTo ref="sig804"/>
+          </signalIL>
+          <signalIL id="sigIL805">
+            <refersTo ref="sig805"/>
+          </signalIL>
+          <signalIL id="sigIL806">
+            <refersTo ref="sig806"/>
+          </signalIL>
+          <signalIL id="sigIL807">
+            <refersTo ref="sig807"/>
+          </signalIL>
+          <signalIL id="sigIL808">
+            <refersTo ref="sig808"/>
+          </signalIL>
+          <signalIL id="sigIL810">
+            <refersTo ref="sig810"/>
+          </signalIL>
+          <signalIL id="sigIL811">
+            <refersTo ref="sig811"/>
+          </signalIL>
+          <signalIL function="shunting" id="sigIL812">
+            <refersTo ref="sig812"/>
+          </signalIL>
+        </signalsIL>
+      </assetsForInterlocking>
+    </assetsForInterlockings>
+    <signalBoxes>
+      <signalBox id="sgb143">
+        <hasName language="no" name="Arnau"/>
+        <belongsToOperationalPoint ref="opp141"/>
+        <controlsTrackAsset>
+          <connectedTrackAsset ref="sigIL13"/>
+        </controlsTrackAsset>
+        <controlsTrackAsset>
+          <connectedTrackAsset ref="sigIL19"/>
+        </controlsTrackAsset>
+        <controlsTrackAsset>
+          <connectedTrackAsset ref="sigIL51"/>
+        </controlsTrackAsset>
+        <controlsTrackAsset>
+          <connectedTrackAsset ref="swiIL122"/>
+        </controlsTrackAsset>
+        <hasConfiguration technologyType="electronic"/>
+      </signalBox>
+      <signalBox id="sgb144">
+        <hasName language="no" name="Cranz"/>
+        <belongsToOperationalPoint ref="opp142"/>
+        <controlsTrackAsset>
+          <connectedTrackAsset ref="sigIL34"/>
+        </controlsTrackAsset>
+        <controlsTrackAsset>
+          <connectedTrackAsset ref="sigIL67"/>
+        </controlsTrackAsset>
+        <controlsTrackAsset>
+          <connectedTrackAsset ref="sigIL81"/>
+        </controlsTrackAsset>
+        <controlsTrackAsset>
+          <connectedTrackAsset ref="sigIL93"/>
+        </controlsTrackAsset>
+        <controlsTrackAsset>
+          <connectedTrackAsset ref="sigIL108"/>
+        </controlsTrackAsset>
+        <controlsTrackAsset>
+          <connectedTrackAsset ref="swiIL123"/>
+        </controlsTrackAsset>
+        <controlsTrackAsset>
+          <connectedTrackAsset ref="swiIL124"/>
+        </controlsTrackAsset>
+        <controlsTrackAsset>
+          <connectedTrackAsset ref="sigIL220"/>
+        </controlsTrackAsset>
+        <controlsTrackAsset>
+          <connectedTrackAsset ref="sigIL789"/>
+        </controlsTrackAsset>
+        <controlsTrackAsset>
+          <connectedTrackAsset ref="sigIL790"/>
+        </controlsTrackAsset>
+        <controlsTrackAsset>
+          <connectedTrackAsset ref="sigIL791"/>
+        </controlsTrackAsset>
+        <controlsTrackAsset>
+          <connectedTrackAsset ref="sigIL793"/>
+        </controlsTrackAsset>
+        <hasConfiguration technologyType="electronic"/>
+      </signalBox>
+      <signalBox id="sgb588">
+        <hasName language="no" name="Grestin"/>
+        <belongsToOperationalPoint ref="opp375"/>
+      </signalBox>
+    </signalBoxes>
+    <specificInfrastructureManagers>
+      <specificInfrastructureManager id="sim01">
+        <belongsToInfrastructureManager ref="im01"/>
+        <ownsSetsOfAssets ref="afi_01"/>
+        <usesTypes>
+          <hasAspect genericAspect="informative" id="aspect_temp_id1"/>
+          <hasAspect genericAspect="closed" id="aspect_temp_id2"/>
+          <hasRouteType genericRouteType="normal" id="rt_temp_id"/>
+          <hasLevelCrossingType controlType="fullControlled" id="lc_type_1_2_Ba">
+            <designator entry="1/2 Ba" register="BaneData"/>
+          </hasLevelCrossingType>
+        </usesTypes>
+      </specificInfrastructureManager>
+    </specificInfrastructureManagers>
+  </interlocking>
+  <visualizations>
+    <infrastructureVisualizations>
+      <infrastructureVisualization id="vis01" positioningSystemRef="sps01">
+        <linearElementProjection id="lep_ple193" refersToElement="ple193">
+          <coordinate x="661.7" y="190.0"/>
+          <coordinate x="664.8" y="190.0"/>
+        </linearElementProjection>
+        <linearElementProjection id="lep_ple194" refersToElement="ple194">
+          <coordinate x="661.7" y="170.0"/>
+          <coordinate x="664.8" y="170.0"/>
+        </linearElementProjection>
+        <linearElementProjection id="lep_ple388" refersToElement="ple388">
+          <coordinate x="430.0" y="137.1"/>
+          <coordinate x="430.0" y="132.5"/>
+        </linearElementProjection>
+        <linearElementProjection id="lep_ple390" refersToElement="ple390">
+          <coordinate x="427.5" y="70.0"/>
+          <coordinate x="420.0" y="70.0"/>
+          <coordinate x="407.1" y="57.1"/>
+        </linearElementProjection>
+        <linearElementProjection id="lep_ple391" refersToElement="ple391">
+          <coordinate x="435.4" y="50.0"/>
+          <coordinate x="409.2" y="50.0"/>
+        </linearElementProjection>
+        <linearElementProjection id="lep_ple392" refersToElement="ple392">
+          <coordinate x="544.2" y="150.0"/>
+          <coordinate x="519.4" y="150.0"/>
+        </linearElementProjection>
+        <linearElementProjection id="lep_ple428" refersToElement="ple428">
+          <coordinate x="70.3" y="30.0"/>
+          <coordinate x="90.1" y="30.0"/>
+        </linearElementProjection>
+        <linearElementProjection id="lep_ple429" refersToElement="ple429">
+          <coordinate x="61.3" y="50.0"/>
+          <coordinate x="87.2" y="50.0"/>
+        </linearElementProjection>
+        <linearElementProjection id="lep_ple47" refersToElement="ple47">
+          <coordinate x="44.0" y="170.0"/>
+          <coordinate x="88.0" y="170.0"/>
+        </linearElementProjection>
+        <linearElementProjection id="lep_ple70" refersToElement="ple70">
+          <coordinate x="504.7" y="190.0"/>
+          <coordinate x="539.0" y="190.0"/>
+        </linearElementProjection>
+        <linearElementProjection id="lep_ple742" refersToElement="ple742">
+          <coordinate x="544.2" y="150.0"/>
+          <coordinate x="482.7" y="150.0"/>
+        </linearElementProjection>
+        <linearElementProjection id="lep_ple9" refersToElement="ple9">
+          <coordinate x="44.0" y="190.0"/>
+          <coordinate x="88.0" y="190.0"/>
+        </linearElementProjection>
+        <linearElementProjection id="lep_ple96" refersToElement="ple96">
+          <coordinate x="519.4" y="170.0"/>
+          <coordinate x="544.2" y="170.0"/>
+        </linearElementProjection>
+        <linearElementProjection id="lep_trc1" refersToElement="trc1">
+          <coordinate x="0.0" y="190.0"/>
+          <coordinate x="190.0" y="190.0"/>
+        </linearElementProjection>
+        <linearElementProjection id="lep_trc10" refersToElement="trc10">
+          <coordinate x="620.0" y="170.0"/>
+          <coordinate x="760.0" y="170.0"/>
+        </linearElementProjection>
+        <linearElementProjection id="lep_trc11" refersToElement="trc11">
+          <coordinate x="430.0" y="140.0"/>
+          <coordinate x="440.0" y="150.0"/>
+          <coordinate x="550.0" y="150.0"/>
+          <coordinate x="570.0" y="170.0"/>
+        </linearElementProjection>
+        <linearElementProjection id="lep_trc12" refersToElement="trc12">
+          <coordinate x="460.0" y="170.0"/>
+          <coordinate x="480.0" y="150.0"/>
+        </linearElementProjection>
+        <linearElementProjection id="lep_trc13" refersToElement="trc13">
+          <coordinate x="460.0" y="150.0"/>
+          <coordinate x="470.0" y="160.0"/>
+        </linearElementProjection>
+        <linearElementProjection id="lep_trc14" refersToElement="trc14">
+          <coordinate x="470.0" y="160.0"/>
+          <coordinate x="480.0" y="170.0"/>
+        </linearElementProjection>
+        <linearElementProjection id="lep_trc15" refersToElement="trc15">
+          <coordinate x="520.0" y="70.0"/>
+          <coordinate x="500.0" y="50.0"/>
+          <coordinate x="400.0" y="50.0"/>
+        </linearElementProjection>
+        <linearElementProjection id="lep_trc16" refersToElement="trc16">
+          <coordinate x="550.0" y="80.0"/>
+          <coordinate x="540.0" y="70.0"/>
+          <coordinate x="420.0" y="70.0"/>
+          <coordinate x="400.0" y="50.0"/>
+          <coordinate x="380.0" y="50.0"/>
+        </linearElementProjection>
+        <linearElementProjection id="lep_trc17" refersToElement="trc17">
+          <coordinate x="350.0" y="10.0"/>
+          <coordinate x="310.0" y="50.0"/>
+        </linearElementProjection>
+        <linearElementProjection id="lep_trc18" refersToElement="trc18">
+          <coordinate x="310.0" y="50.0"/>
+          <coordinate x="270.0" y="50.0"/>
+        </linearElementProjection>
+        <linearElementProjection id="lep_trc19" refersToElement="trc19">
+          <coordinate x="330.0" y="30.0"/>
+          <coordinate x="310.0" y="30.0"/>
+        </linearElementProjection>
+        <linearElementProjection id="lep_trc2" refersToElement="trc2">
+          <coordinate x="190.0" y="190.0"/>
+          <coordinate x="390.0" y="190.0"/>
+        </linearElementProjection>
+        <linearElementProjection id="lep_trc20" refersToElement="trc20">
+          <coordinate x="0.0" y="50.0"/>
+          <coordinate x="50.0" y="50.0"/>
+        </linearElementProjection>
+        <linearElementProjection id="lep_trc21" refersToElement="trc21">
+          <coordinate x="60.0" y="50.0"/>
+          <coordinate x="80.0" y="70.0"/>
+          <coordinate x="190.0" y="70.0"/>
+          <coordinate x="210.0" y="50.0"/>
+        </linearElementProjection>
+        <linearElementProjection id="lep_trc22" refersToElement="trc22">
+          <coordinate x="210.0" y="50.0"/>
+          <coordinate x="230.0" y="50.0"/>
+        </linearElementProjection>
+        <linearElementProjection id="lep_trc23" refersToElement="trc23">
+          <coordinate x="60.0" y="50.0"/>
+          <coordinate x="170.0" y="50.0"/>
+        </linearElementProjection>
+        <linearElementProjection id="lep_trc24" refersToElement="trc24">
+          <coordinate x="150.0" y="30.0"/>
+          <coordinate x="200.0" y="30.0"/>
+          <coordinate x="220.0" y="50.0"/>
+        </linearElementProjection>
+        <linearElementProjection id="lep_trc25" refersToElement="trc25">
+          <coordinate x="150.0" y="30.0"/>
+          <coordinate x="170.0" y="50.0"/>
+        </linearElementProjection>
+        <linearElementProjection id="lep_trc26" refersToElement="trc26">
+          <coordinate x="170.0" y="50.0"/>
+          <coordinate x="210.0" y="50.0"/>
+        </linearElementProjection>
+        <linearElementProjection id="lep_trc27" refersToElement="trc27">
+          <coordinate x="70.0" y="30.0"/>
+          <coordinate x="150.0" y="30.0"/>
+        </linearElementProjection>
+        <linearElementProjection id="lep_trc28" refersToElement="trc28">
+          <coordinate x="70.0" y="10.0"/>
+          <coordinate x="130.0" y="10.0"/>
+          <coordinate x="150.0" y="30.0"/>
+        </linearElementProjection>
+        <linearElementProjection id="lep_trc29" refersToElement="trc29">
+          <coordinate x="0.0" y="70.0"/>
+          <coordinate x="30.0" y="70.0"/>
+          <coordinate x="50.0" y="50.0"/>
+        </linearElementProjection>
+        <linearElementProjection id="lep_trc3" refersToElement="trc3">
+          <coordinate x="390.0" y="190.0"/>
+          <coordinate x="620.0" y="190.0"/>
+        </linearElementProjection>
+        <linearElementProjection id="lep_trc30" refersToElement="trc30">
+          <coordinate x="50.0" y="50.0"/>
+          <coordinate x="60.0" y="50.0"/>
+        </linearElementProjection>
+        <linearElementProjection id="lep_trc31" refersToElement="trc31">
+          <coordinate x="10.0" y="90.0"/>
+          <coordinate x="50.0" y="90.0"/>
+        </linearElementProjection>
+        <linearElementProjection id="lep_trc32" refersToElement="trc32">
+          <coordinate x="0.0" y="90.0"/>
+          <coordinate x="10.0" y="90.0"/>
+          <coordinate x="30.0" y="70.0"/>
+        </linearElementProjection>
+        <linearElementProjection id="lep_trc33" refersToElement="trc33">
+          <coordinate x="230.0" y="50.0"/>
+          <coordinate x="270.0" y="50.0"/>
+        </linearElementProjection>
+        <linearElementProjection id="lep_trc34" refersToElement="trc34">
+          <coordinate x="380.0" y="50.0"/>
+          <coordinate x="310.0" y="50.0"/>
+        </linearElementProjection>
+        <linearElementProjection id="lep_trc35" refersToElement="trc35">
+          <coordinate x="480.0" y="30.0"/>
+          <coordinate x="460.0" y="30.0"/>
+          <coordinate x="440.0" y="50.0"/>
+        </linearElementProjection>
+        <linearElementProjection id="lep_trc36" refersToElement="trc36">
+          <coordinate x="430.0" y="140.0"/>
+          <coordinate x="430.0" y="120.0"/>
+          <coordinate x="440.0" y="110.0"/>
+          <coordinate x="540.0" y="110.0"/>
+          <coordinate x="550.0" y="100.0"/>
+          <coordinate x="550.0" y="80.0"/>
+        </linearElementProjection>
+        <linearElementProjection id="lep_trc4" refersToElement="trc4">
+          <coordinate x="0.0" y="170.0"/>
+          <coordinate x="90.0" y="170.0"/>
+          <coordinate x="110.0" y="190.0"/>
+        </linearElementProjection>
+        <linearElementProjection id="lep_trc5" refersToElement="trc5">
+          <coordinate x="430.0" y="190.0"/>
+          <coordinate x="450.0" y="170.0"/>
+        </linearElementProjection>
+        <linearElementProjection id="lep_trc6" refersToElement="trc6">
+          <coordinate x="410.0" y="170.0"/>
+          <coordinate x="450.0" y="170.0"/>
+        </linearElementProjection>
+        <linearElementProjection id="lep_trc7" refersToElement="trc7">
+          <coordinate x="450.0" y="170.0"/>
+          <coordinate x="620.0" y="170.0"/>
+        </linearElementProjection>
+        <linearElementProjection id="lep_trc8" refersToElement="trc8">
+          <coordinate x="570.0" y="170.0"/>
+          <coordinate x="590.0" y="190.0"/>
+        </linearElementProjection>
+        <linearElementProjection id="lep_trc9" refersToElement="trc9">
+          <coordinate x="620.0" y="190.0"/>
+          <coordinate x="760.0" y="190.0"/>
+        </linearElementProjection>
+        <spotElementProjection id="sep_ne_77_aps01_ic2_8176" refersToElement="ne_77_aps01_ic2_8176">
+          <coordinate x="450.0" y="170.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_365_aps01_ic2_2444" refersToElement="ne_365_aps01_ic2_2444">
+          <coordinate x="30.0" y="70.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_282_aps01_ic1_9333" refersToElement="ne_282_aps01_ic1_9333">
+          <coordinate x="520.0" y="70.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_308_aps01_ic1_2444" refersToElement="ne_308_aps01_ic1_2444">
+          <coordinate x="0.0" y="50.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_291_aps01_ic1_9333" refersToElement="ne_291_aps01_ic1_9333">
+          <coordinate x="330.0" y="30.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_362_aps01_ic2_2444" refersToElement="ne_362_aps01_ic2_2444">
+          <coordinate x="30.0" y="70.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_opp581" refersToElement="opp581">
+          <coordinate x="90.0" y="80.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_opp580" refersToElement="opp580">
+          <coordinate x="30.0" y="110.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_724_aps01_ic6_9333" refersToElement="ne_724_aps01_ic6_9333">
+          <coordinate x="550.0" y="80.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_240_aps01_ic1_9333" refersToElement="ne_240_aps01_ic1_9333">
+          <coordinate x="480.0" y="150.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_365_aps01_ic1_2444" refersToElement="ne_365_aps01_ic1_2444">
+          <coordinate x="10.0" y="90.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_244_aps01_ic1_8176" refersToElement="ne_244_aps01_ic1_8176">
+          <coordinate x="460.0" y="150.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_294_aps01_ic2_9333" refersToElement="ne_294_aps01_ic2_9333">
+          <coordinate x="270.0" y="50.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_opp740" refersToElement="opp740">
+          <coordinate x="270.0" y="80.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_147_aps01_ic2_8176" refersToElement="ne_147_aps01_ic2_8176">
+          <coordinate x="620.0" y="190.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_479_aps01_ic1_9333" refersToElement="ne_479_aps01_ic1_9333">
+          <coordinate x="550.0" y="80.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_167_aps01_ic1_8176" refersToElement="ne_167_aps01_ic1_8176">
+          <coordinate x="620.0" y="170.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_340_aps01_ic1_2444" refersToElement="ne_340_aps01_ic1_2444">
+          <coordinate x="70.0" y="30.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_172_aps01_ic3_9333" refersToElement="ne_172_aps01_ic3_9333">
+          <coordinate x="460.0" y="150.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_236_aps01_ic2_8176" refersToElement="ne_236_aps01_ic2_8176">
+          <coordinate x="480.0" y="170.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_247_aps01_ic2_9333" refersToElement="ne_247_aps01_ic2_9333">
+          <coordinate x="480.0" y="150.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_31_aps01_ic1_8176" refersToElement="ne_31_aps01_ic1_8176">
+          <coordinate x="390.0" y="190.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_298_aps01_ic1_9333" refersToElement="ne_298_aps01_ic1_9333">
+          <coordinate x="330.0" y="30.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_159_aps01_ic2_8176" refersToElement="ne_159_aps01_ic2_8176">
+          <coordinate x="590.0" y="190.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_344_aps01_ic3_2444" refersToElement="ne_344_aps01_ic3_2444">
+          <coordinate x="150.0" y="30.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_opp190" refersToElement="opp190">
+          <coordinate x="670.0" y="210.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_64_aps01_ic2_8176" refersToElement="ne_64_aps01_ic2_8176">
+          <coordinate x="590.0" y="190.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_355_aps01_ic1_2444" refersToElement="ne_355_aps01_ic1_2444">
+          <coordinate x="10.0" y="90.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_16_aps01_ic1_8176" refersToElement="ne_16_aps01_ic1_8176">
+          <coordinate x="190.0" y="190.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_312_aps01_ic4_2444" refersToElement="ne_312_aps01_ic4_2444">
+          <coordinate x="210.0" y="50.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_325_aps01_ic1_2444" refersToElement="ne_325_aps01_ic1_2444">
+          <coordinate x="150.0" y="30.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_348_aps01_ic2_2444" refersToElement="ne_348_aps01_ic2_2444">
+          <coordinate x="50.0" y="50.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_561_aps01_ic2_8176" refersToElement="ne_561_aps01_ic2_8176">
+          <coordinate x="760.0" y="190.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_244_aps01_ic2_8176" refersToElement="ne_244_aps01_ic2_8176">
+          <coordinate x="470.0" y="160.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_1_aps01_ic1_8176" refersToElement="ne_1_aps01_ic1_8176">
+          <coordinate x="0.0" y="190.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_163_aps01_ic1_8176" refersToElement="ne_163_aps01_ic1_8176">
+          <coordinate x="620.0" y="190.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_251_aps01_ic1_8176" refersToElement="ne_251_aps01_ic1_8176">
+          <coordinate x="470.0" y="160.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_348_aps01_ic1_2444" refersToElement="ne_348_aps01_ic1_2444">
+          <coordinate x="30.0" y="70.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_561_aps01_ic1_8176" refersToElement="ne_561_aps01_ic1_8176">
+          <coordinate x="630.0" y="190.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_315_aps01_ic2_2444" refersToElement="ne_315_aps01_ic2_2444">
+          <coordinate x="220.0" y="50.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_172_aps01_ic2" refersToElement="ne_172_aps01_ic2">
+          <coordinate x="440.0" y="150.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_240_aps01_ic3_9333" refersToElement="ne_240_aps01_ic3_9333">
+          <coordinate x="570.0" y="170.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_236_aps01_ic1_8176" refersToElement="ne_236_aps01_ic1_8176">
+          <coordinate x="460.0" y="170.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_233_aps01_ic2_8176" refersToElement="ne_233_aps01_ic2_8176">
+          <coordinate x="470.0" y="160.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_344_aps01_ic1_2444" refersToElement="ne_344_aps01_ic1_2444">
+          <coordinate x="70.0" y="10.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_159_aps01_ic1_8176" refersToElement="ne_159_aps01_ic1_8176">
+          <coordinate x="570.0" y="170.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_156_aps01_ic2_8176" refersToElement="ne_156_aps01_ic2_8176">
+          <coordinate x="620.0" y="170.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_724_aps01_ic2" refersToElement="ne_724_aps01_ic2">
+          <coordinate x="430.0" y="120.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_724_aps01_ic3" refersToElement="ne_724_aps01_ic3">
+          <coordinate x="440.0" y="110.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_282_aps01_ic2" refersToElement="ne_282_aps01_ic2">
+          <coordinate x="420.0" y="70.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_475_aps01_ic1_9333" refersToElement="ne_475_aps01_ic1_9333">
+          <coordinate x="380.0" y="50.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_724_aps01_ic4" refersToElement="ne_724_aps01_ic4">
+          <coordinate x="540.0" y="110.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_724_aps01_ic5" refersToElement="ne_724_aps01_ic5">
+          <coordinate x="550.0" y="100.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_167_aps01_ic2_8176" refersToElement="ne_167_aps01_ic2_8176">
+          <coordinate x="630.0" y="170.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_333_aps01_ic1_2444" refersToElement="ne_333_aps01_ic1_2444">
+          <coordinate x="150.0" y="30.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_279_aps01_ic3_9333" refersToElement="ne_279_aps01_ic3_9333">
+          <coordinate x="440.0" y="50.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_344_aps01_ic2" refersToElement="ne_344_aps01_ic2">
+          <coordinate x="130.0" y="10.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_255_aps01_ic1_8176" refersToElement="ne_255_aps01_ic1_8176">
+          <coordinate x="470.0" y="160.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_opp376" refersToElement="opp376">
+          <coordinate x="410.0" y="130.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_opp375" refersToElement="opp375">
+          <coordinate x="420.0" y="40.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_opp374" refersToElement="opp374">
+          <coordinate x="310.0" y="70.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_565_aps01_ic1_8176" refersToElement="ne_565_aps01_ic1_8176">
+          <coordinate x="630.0" y="170.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_opp373" refersToElement="opp373">
+          <coordinate x="120.0" y="100.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_312_aps01_ic1_2444" refersToElement="ne_312_aps01_ic1_2444">
+          <coordinate x="60.0" y="50.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_301_aps01_ic1_9333" refersToElement="ne_301_aps01_ic1_9333">
+          <coordinate x="350.0" y="10.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_321_aps01_ic1_2444" refersToElement="ne_321_aps01_ic1_2444">
+          <coordinate x="60.0" y="50.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_351_aps01_ic1_2444" refersToElement="ne_351_aps01_ic1_2444">
+          <coordinate x="50.0" y="50.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_90_aps01_ic2_8176" refersToElement="ne_90_aps01_ic2_8176">
+          <coordinate x="460.0" y="170.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_358_aps01_ic2_2444" refersToElement="ne_358_aps01_ic2_2444">
+          <coordinate x="10.0" y="90.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_565_aps01_ic2_8176" refersToElement="ne_565_aps01_ic2_8176">
+          <coordinate x="760.0" y="170.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_325_aps01_ic3_2444" refersToElement="ne_325_aps01_ic3_2444">
+          <coordinate x="220.0" y="50.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_328_aps01_ic2_2444" refersToElement="ne_328_aps01_ic2_2444">
+          <coordinate x="230.0" y="50.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_301_aps01_ic2_9333" refersToElement="ne_301_aps01_ic2_9333">
+          <coordinate x="330.0" y="30.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_opp141" refersToElement="opp141">
+          <coordinate x="40.0" y="150.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_60_aps01_ic2_8176" refersToElement="ne_60_aps01_ic2_8176">
+          <coordinate x="450.0" y="170.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_594_aps01_ic2_9333" refersToElement="ne_594_aps01_ic2_9333">
+          <coordinate x="400.0" y="50.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_287_aps01_ic1_9333" refersToElement="ne_287_aps01_ic1_9333">
+          <coordinate x="400.0" y="50.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_591_aps01_ic3_9333" refersToElement="ne_591_aps01_ic3_9333">
+          <coordinate x="440.0" y="50.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_60_aps01_ic1_8176" refersToElement="ne_60_aps01_ic1_8176">
+          <coordinate x="430.0" y="190.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_163_aps01_ic2_8176" refersToElement="ne_163_aps01_ic2_8176">
+          <coordinate x="630.0" y="190.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_opp142" refersToElement="opp142">
+          <coordinate x="500.0" y="140.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_475_aps01_ic2_9333" refersToElement="ne_475_aps01_ic2_9333">
+          <coordinate x="310.0" y="50.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_90_aps01_ic1_8176" refersToElement="ne_90_aps01_ic1_8176">
+          <coordinate x="450.0" y="170.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_258_aps01_ic1_8176" refersToElement="ne_258_aps01_ic1_8176">
+          <coordinate x="480.0" y="170.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_336_aps01_ic1_2444" refersToElement="ne_336_aps01_ic1_2444">
+          <coordinate x="170.0" y="50.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_255_aps01_ic2_8176" refersToElement="ne_255_aps01_ic2_8176">
+          <coordinate x="480.0" y="170.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_333_aps01_ic2_2444" refersToElement="ne_333_aps01_ic2_2444">
+          <coordinate x="170.0" y="50.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_471_aps01_ic2_2444" refersToElement="ne_471_aps01_ic2_2444">
+          <coordinate x="270.0" y="50.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_39_aps01_ic1_8176" refersToElement="ne_39_aps01_ic1_8176">
+          <coordinate x="0.0" y="170.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_321_aps01_ic2_2444" refersToElement="ne_321_aps01_ic2_2444">
+          <coordinate x="170.0" y="50.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_39_aps01_ic2" refersToElement="ne_39_aps01_ic2">
+          <coordinate x="90.0" y="170.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_351_aps01_ic2_2444" refersToElement="ne_351_aps01_ic2_2444">
+          <coordinate x="60.0" y="50.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_591_aps01_ic1_9333" refersToElement="ne_591_aps01_ic1_9333">
+          <coordinate x="480.0" y="30.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_724_aps01_ic1_9333" refersToElement="ne_724_aps01_ic1_9333">
+          <coordinate x="430.0" y="140.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_156_aps01_ic1_8176" refersToElement="ne_156_aps01_ic1_8176">
+          <coordinate x="570.0" y="170.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_471_aps01_ic1_2444" refersToElement="ne_471_aps01_ic1_2444">
+          <coordinate x="230.0" y="50.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_279_aps01_ic1_9333" refersToElement="ne_279_aps01_ic1_9333">
+          <coordinate x="520.0" y="70.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_55_aps01_ic2_8176" refersToElement="ne_55_aps01_ic2_8176">
+          <coordinate x="190.0" y="190.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_251_aps01_ic2_8176" refersToElement="ne_251_aps01_ic2_8176">
+          <coordinate x="480.0" y="150.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_55_aps01_ic1_8176" refersToElement="ne_55_aps01_ic1_8176">
+          <coordinate x="110.0" y="190.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_340_aps01_ic2_2444" refersToElement="ne_340_aps01_ic2_2444">
+          <coordinate x="150.0" y="30.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_336_aps01_ic2_2444" refersToElement="ne_336_aps01_ic2_2444">
+          <coordinate x="210.0" y="50.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_233_aps01_ic1_8176" refersToElement="ne_233_aps01_ic1_8176">
+          <coordinate x="460.0" y="170.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_147_aps01_ic1_8176" refersToElement="ne_147_aps01_ic1_8176">
+          <coordinate x="590.0" y="190.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_479_aps01_ic3_9333" refersToElement="ne_479_aps01_ic3_9333">
+          <coordinate x="520.0" y="70.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_1_aps01_ic2_8176" refersToElement="ne_1_aps01_ic2_8176">
+          <coordinate x="110.0" y="190.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_328_aps01_ic1_2444" refersToElement="ne_328_aps01_ic1_2444">
+          <coordinate x="220.0" y="50.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_591_aps01_ic2" refersToElement="ne_591_aps01_ic2">
+          <coordinate x="460.0" y="30.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_240_aps01_ic2" refersToElement="ne_240_aps01_ic2">
+          <coordinate x="550.0" y="150.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_594_aps01_ic1_9333" refersToElement="ne_594_aps01_ic1_9333">
+          <coordinate x="440.0" y="50.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_358_aps01_ic1_2444" refersToElement="ne_358_aps01_ic1_2444">
+          <coordinate x="0.0" y="90.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_315_aps01_ic1_2444" refersToElement="ne_315_aps01_ic1_2444">
+          <coordinate x="210.0" y="50.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_282_aps01_ic3_9333" refersToElement="ne_282_aps01_ic3_9333">
+          <coordinate x="400.0" y="50.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_39_aps01_ic3_8176" refersToElement="ne_39_aps01_ic3_8176">
+          <coordinate x="110.0" y="190.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_247_aps01_ic1_9333" refersToElement="ne_247_aps01_ic1_9333">
+          <coordinate x="460.0" y="150.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_279_aps01_ic2" refersToElement="ne_279_aps01_ic2">
+          <coordinate x="500.0" y="50.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_479_aps01_ic2" refersToElement="ne_479_aps01_ic2">
+          <coordinate x="540.0" y="70.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_298_aps01_ic2_9333" refersToElement="ne_298_aps01_ic2_9333">
+          <coordinate x="310.0" y="30.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_31_aps01_ic2_8176" refersToElement="ne_31_aps01_ic2_8176">
+          <coordinate x="430.0" y="190.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_77_aps01_ic1_8176" refersToElement="ne_77_aps01_ic1_8176">
+          <coordinate x="410.0" y="170.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_64_aps01_ic1_8176" refersToElement="ne_64_aps01_ic1_8176">
+          <coordinate x="430.0" y="190.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_16_aps01_ic2_8176" refersToElement="ne_16_aps01_ic2_8176">
+          <coordinate x="390.0" y="190.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_172_aps01_ic1_9333" refersToElement="ne_172_aps01_ic1_9333">
+          <coordinate x="430.0" y="140.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_312_aps01_ic2" refersToElement="ne_312_aps01_ic2">
+          <coordinate x="80.0" y="70.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_362_aps01_ic1_2444" refersToElement="ne_362_aps01_ic1_2444">
+          <coordinate x="0.0" y="70.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_287_aps01_ic2_9333" refersToElement="ne_287_aps01_ic2_9333">
+          <coordinate x="380.0" y="50.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_312_aps01_ic3" refersToElement="ne_312_aps01_ic3">
+          <coordinate x="190.0" y="70.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_325_aps01_ic2" refersToElement="ne_325_aps01_ic2">
+          <coordinate x="200.0" y="30.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_294_aps01_ic1_9333" refersToElement="ne_294_aps01_ic1_9333">
+          <coordinate x="310.0" y="50.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_291_aps01_ic2_9333" refersToElement="ne_291_aps01_ic2_9333">
+          <coordinate x="310.0" y="50.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_355_aps01_ic2_2444" refersToElement="ne_355_aps01_ic2_2444">
+          <coordinate x="50.0" y="90.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_308_aps01_ic2_2444" refersToElement="ne_308_aps01_ic2_2444">
+          <coordinate x="50.0" y="50.0"/>
+        </spotElementProjection>
+        <spotElementProjection id="sep_ne_258_aps01_ic2_8176" refersToElement="ne_258_aps01_ic2_8176">
+          <coordinate x="570.0" y="170.0"/>
+        </spotElementProjection>
+      </infrastructureVisualization>
+    </infrastructureVisualizations>
+  </visualizations>
+</railML>

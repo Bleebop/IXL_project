@@ -12,5 +12,5 @@
 - [ ] Translator data -> HLL (?)
 - [ ] Write scientific article?
 
-- [ ] IHM to make a new station (probably too hard...)
+- [x] IHM to make a new station (probably too hard...)
 

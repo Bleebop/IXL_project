@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Éditeur de plan de voie ferrée — v10</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div id="app">
+<div id="toolbar">
+  <div style="font-weight:600;font-size:13px;color:#444;margin-right:6px">🚂 Plan de voie</div>
+  <div class="tsep"></div>
+  <div style="display:flex;gap:3px">
+    <button class="tbtn active" id="btn-select" onclick="setTool('select')">
+      <svg width="11" height="11" viewBox="0 0 12 12"><path d="M2 1l8 5-4 1-2 4z" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg>
+      Sélection
+    </button>
+    <button class="tbtn" id="btn-track" onclick="setTool('track')">
+      <svg width="16" height="8" viewBox="0 0 16 8"><line x1="0" y1="4" x2="16" y2="4" stroke="currentColor" stroke-width="2"/></svg>
+      Tracer voie
+    </button>
+    <button class="tbtn" id="btn-route" onclick="setTool('route')">
+      <svg width="14" height="11" viewBox="0 0 14 11"><circle cx="2" cy="2" r="1.4" fill="currentColor"/><circle cx="12" cy="9" r="1.4" fill="currentColor"/><path d="M2 2 L6 2 L6 5 L10 5 L10 9 L12 9" stroke="currentColor" stroke-width="1.3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Itinéraire
+    </button>
+  </div>
+  <div class="tsep"></div>
+  <div style="display:flex;gap:3px">
+    <button class="tbtn danger" onclick="deleteSelected()">
+      <svg width="11" height="11" viewBox="0 0 12 12"><path d="M2 3h8M5 3V2h2v1M4 3l.5 7h3L8 3" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Supprimer
+    </button>
+    <button class="tbtn" onclick="clearAll()">Vider</button>
+    <button class="tbtn" onclick="resetView()">Vue initiale</button>
+    <button class="tbtn" onclick="exportRailML()">
+      <svg width="11" height="11" viewBox="0 0 12 12"><path d="M6 1v7M3 6l3 3 3-3M2 10h8" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Export railML
+    </button>
+  </div>
+  <div class="tsep"></div>
+  <button class="tbtn" onclick="zoomBtn(1.25)" title="Zoom +">+</button>
+  <button class="tbtn" onclick="zoomBtn(0.8)" title="Zoom −">−</button>
+  <span style="font-size:11px;color:#888;margin-left:4px" id="zoom-info">100%</span>
+</div>
+
+<div id="main">
+  <div id="palette">
+    <h4>Voie</h4>
+    <div class="pitem" id="pe-seg_limit" onclick="selectElem('seg_limit')" title="Limite entre deux segments railML">
+      <svg width="18" height="12"><line x1="0" y1="6" x2="18" y2="6" stroke="#222" stroke-width="2"/><line x1="9" y1="1" x2="9" y2="11" stroke="#534AB7" stroke-width="2"/></svg>
+      Limite segment
+    </div>
+    <div class="pitem" id="pe-joint" onclick="selectElem('joint')" title="Joint isolant — délimite un CdV">
+      <svg width="18" height="12"><line x1="0" y1="6" x2="18" y2="6" stroke="#222" stroke-width="2"/><line x1="6" y1="2" x2="6" y2="10" stroke="#222" stroke-width="1.5"/><line x1="12" y1="2" x2="12" y2="10" stroke="#222" stroke-width="1.5"/></svg>
+      Joint CdV
+    </div>
+    <h4>Signaux</h4>
+    <div class="pitem" id="pe-signal_stop" onclick="selectElem('signal_stop')">
+      <svg width="14" height="12"><rect x="1" y="0" width="12" height="12" rx="1" fill="#222"/></svg>
+      Sig. arrêt
+    </div>
+    <div class="pitem" id="pe-signal_man" onclick="selectElem('signal_man')">
+      <svg width="22" height="14" viewBox="0 0 22 14">
+        <line x1="11" y1="14" x2="11" y2="10" stroke="#222" stroke-width="1.5"/>
+        <rect x="1" y="2" width="20" height="8" fill="#222"/>
+        <circle cx="7" cy="6" r="1.7" fill="white"/>
+        <circle cx="15" cy="6" r="1.7" fill="white"/>
+      </svg>
+      Sig. manœuvre
+    </div>
+    <div class="pitem" id="pe-signal_esp" onclick="selectElem('signal_esp')">
+      <svg width="22" height="14" viewBox="0 0 22 14">
+        <line x1="11" y1="14" x2="11" y2="10" stroke="#222" stroke-width="1.5"/>
+        <circle cx="6" cy="7" r="2" fill="#222"/>
+        <circle cx="15" cy="7" r="3.5" fill="none" stroke="#222" stroke-width="1.5"/>
+      </svg>
+      Sig. espacement
+    </div>
+    <div class="pitem" id="pe-motor" onclick="selectElem('motor')">
+      <svg width="14" height="12"><rect x="1" y="0" width="12" height="12" rx="1" fill="#222"/><text x="7" y="9" text-anchor="middle" font-size="8" fill="white" font-family="sans-serif">M</text></svg>
+      Moteur aig.
+    </div>
+    <hr class="psep">
+    <h4>Réseau</h4>
+    <div class="acc"><div class="acc-head" onclick="toggleAcc('trk')"><span class="acc-arrow" id="acc-arr-trk">▸</span>Traits<span class="acc-cnt" id="cnt-trk">0</span></div><div class="acc-body" id="acc-body-trk"></div></div>
+    <div class="acc"><div class="acc-head" onclick="toggleAcc('sw')"><span class="acc-arrow" id="acc-arr-sw">▸</span>Aiguilles<span class="acc-cnt" id="cnt-sw">0</span></div><div class="acc-body" id="acc-body-sw"></div></div>
+    <div class="acc"><div class="acc-head" onclick="toggleAcc('seg')"><span class="acc-arrow" id="acc-arr-seg">▸</span>Segments<span class="acc-cnt" id="cnt-seg">0</span></div><div class="acc-body" id="acc-body-seg"></div></div>
+    <div class="acc"><div class="acc-head" onclick="toggleAcc('cdv')"><span class="acc-arrow" id="acc-arr-cdv">▸</span>CdV<span class="acc-cnt" id="cnt-cdv">0</span></div><div class="acc-body" id="acc-body-cdv"></div></div>
+    <div class="acc"><div class="acc-head" onclick="toggleAcc('sig')"><span class="acc-arrow" id="acc-arr-sig">▸</span>Signaux<span class="acc-cnt" id="cnt-sig">0</span></div><div class="acc-body" id="acc-body-sig"></div></div>
+    <div class="acc"><div class="acc-head" onclick="toggleAcc('rt')"><span class="acc-arrow" id="acc-arr-rt">▸</span>Itinéraires<span class="acc-cnt" id="cnt-rt">0</span></div><div class="acc-body" id="acc-body-rt"></div></div>
+  </div>
+
+  <div id="cwrap"><canvas id="c"></canvas></div>
+
+  <div id="props">
+    <h4>Propriétés</h4>
+    <div id="props-body">
+      <p style="color:#888;line-height:1.6;font-size:11px">
+        Clic gauche = sélectionner un trait.<br><br>
+        Clic droit = menu contextuel (CdV, segment, aiguille…).<br><br>
+        Trait sélectionné → cliquer sur un cercle d'extrémité pour la déplacer.
+      </p>
+    </div>
+  </div>
+</div>
+
+<div id="statusbar">
+  <span id="status">Prêt — "Tracer voie" pour commencer. Molette = zoom, Espace+drag = déplacer la vue.</span>
+  <span id="zoom-info-bar">100%</span>
+</div>
+</div>
+
+<div id="ctx-menu"></div>
+
+<script type="module" src="js/controller.js"></script>
+</body>
+</html>

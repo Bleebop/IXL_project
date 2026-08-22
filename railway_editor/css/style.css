@@ -1,0 +1,47 @@
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:system-ui,sans-serif;background:#f0efe9;display:flex;align-items:center;justify-content:center;min-height:100vh}
+#app{display:flex;flex-direction:column;width:100vw;height:100vh;background:#fff;position:relative;overflow:hidden}
+#toolbar{display:flex;align-items:center;gap:4px;padding:6px 12px;border-bottom:1px solid #ddd;background:#f8f8f6;flex-wrap:wrap;flex-shrink:0}
+.tsep{width:1px;height:22px;background:#ddd;margin:0 4px}
+.tbtn{padding:4px 10px;border:1px solid #ccc;border-radius:5px;background:#fff;color:#222;font-size:12px;cursor:pointer;display:flex;align-items:center;gap:4px;white-space:nowrap}
+.tbtn:hover{background:#f0eff9}
+.tbtn.active{background:#e6f1fb;border-color:#378add;color:#0c447c}
+.tbtn.danger{color:#a32d2d}
+.tbtn.danger:hover{background:#fdf0f0}
+#main{display:flex;flex:1;overflow:hidden}
+#palette{width:130px;border-right:1px solid #ddd;background:#f8f8f6;padding:8px;display:flex;flex-direction:column;gap:3px;overflow-y:auto;flex-shrink:0}
+#palette h4{font-size:10px;color:#888;font-weight:600;text-transform:uppercase;letter-spacing:.05em;margin:6px 0 3px}
+.pitem{padding:6px 8px;border:1px solid #e0dfda;border-radius:5px;background:#fff;font-size:11px;color:#222;cursor:pointer;display:flex;align-items:center;gap:6px}
+.pitem:hover{border-color:#888}
+.pitem.active{background:#e6f1fb;border-color:#378add;color:#0c447c}
+#cwrap{flex:1;position:relative;overflow:hidden;background:#fff}
+canvas{display:block;cursor:default}
+#props{width:160px;border-left:1px solid #ddd;background:#f8f8f6;padding:10px;font-size:11px;overflow-y:auto;flex-shrink:0}
+#props h4{font-size:10px;color:#888;font-weight:600;text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px}
+.prow{display:flex;justify-content:space-between;margin-bottom:4px;color:#888;font-size:11px}
+
+/* Accordions "Réseau" */
+.acc{margin:0}
+.acc-head{cursor:pointer;padding:3px 4px;font-size:11px;color:#555;display:flex;align-items:center;gap:5px;user-select:none;border-radius:3px}
+.acc-head:hover{background:#efeeea}
+.acc-arrow{font-size:9px;color:#888;width:10px;display:inline-block;text-align:center}
+.acc-cnt{margin-left:auto;color:#666;font-weight:500;font-size:10px;padding:0 6px;background:#ecebe7;border-radius:8px;min-width:18px;text-align:center}
+.acc-body{display:none;padding:1px 0 3px 16px;max-height:200px;overflow-y:auto}
+.acc-body.open{display:block}
+.lst-item{padding:2px 5px;font-size:11px;color:#333;cursor:pointer;border-radius:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lst-item:hover{background:#f0eff9}
+.lst-item.sel{background:#e6f1fb;color:#0c447c;font-weight:500}
+
+.pval{color:#222;font-weight:500}
+.psep{border:none;border-top:1px solid #e0dfda;margin:7px 0}
+#statusbar{padding:3px 12px;font-size:11px;color:#888;border-top:1px solid #ddd;background:#f8f8f6;display:flex;justify-content:space-between;flex-shrink:0}
+input[type=text]{width:100%;margin-top:3px;font-size:11px;padding:3px 6px;border:1px solid #ccc;border-radius:4px;background:#fff;color:#222}
+input[type=text]:focus{outline:none;border-color:#378add}
+.role-badge{display:inline-block;padding:1px 6px;border-radius:9px;font-size:10px;font-weight:500;margin-right:4px}
+
+/* Context menu */
+#ctx-menu{position:fixed;background:#fff;border:1px solid #ccc;border-radius:6px;box-shadow:0 4px 16px rgba(0,0,0,.15);z-index:1000;min-width:170px;padding:3px 0;display:none}
+#ctx-menu .ctx-label{padding:3px 12px;font-size:10px;color:#888;font-weight:600;text-transform:uppercase;letter-spacing:.04em}
+#ctx-menu .ctx-item{padding:5px 12px;font-size:12px;color:#222;cursor:pointer;display:flex;align-items:center;gap:7px;white-space:nowrap}
+#ctx-menu .ctx-item:hover{background:#f0eff9}
+#ctx-menu .ctx-sep{border:none;border-top:1px solid #eee;margin:3px 0}
