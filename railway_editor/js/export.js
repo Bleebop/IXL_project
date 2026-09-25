@@ -4,7 +4,7 @@
 
 import {
   S, isSignalMarker, trackEndPt, ptEq, connectedLegs,
-  routeConflicts, routeTvdSections, computeRouteSwitches
+  routeConflicts, routeTvdSections, computeRouteSwitches, approachZonesOf
 } from './model.js';
 import { status } from './view.js';
 
@@ -140,6 +140,14 @@ export function exportRailML() {
     parts.push(`            <routeExit id="${r.id}_exit">
               <refersTo ref="${r.end.id}_IL"/>
             </routeExit>`);
+    // Zone d'approche : les refs pointent vers les <tvdSection> des CdV retenus.
+    const approach = approachZonesOf(r);
+    if (approach.length) {
+      const sections = approach.map(z => `              <activationSection ref="${z.id}"/>`).join('\n');
+      parts.push(`            <routeActivationSection id="${r.id}_ras">
+${sections}
+            </routeActivationSection>`);
+    }
     (r.flankProtection || []).forEach(fp => {
       parts.push(`            <additionalRelation ref="${r.id}_rr_${fp.sw.id}"/>`);
     });

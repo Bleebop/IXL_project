@@ -33,6 +33,7 @@ export const S = {
   routeBuild: null,    // { start, tracks: [...], state: { track, t, towards } }
   couplingMode: null,  // aiguille en attente de couplage
   flankMode: null,     // { route, phase: 'switch'|'heel', sw }
+  approachMode: null,  // { route, selection: [idCdV, ...] } — sélection en cours
 
   selected: null,
   epDrag: null,        // { track, end:'start'|'end' }
@@ -455,6 +456,24 @@ export function cleanupOrphanRoutes() {
   );
 }
 
+// ── Zones d'approche ───────────────────────────────────────────────────────
+// Stockées par ID de CdV (`route.approachZone = ['CDV1', ...]`) et non par
+// référence : buildZonesOfType() recrée des objets zone neufs à chaque rebuild,
+// seul l'id est reporté d'une reconstruction à l'autre.
+export function approachZonesOf(route) {
+  return (route.approachZone || [])
+    .map(id => S.zones.find(z => z.id === id))
+    .filter(Boolean);
+}
+export function cleanupOrphanApproachZones() {
+  const ids = new Set(S.zones.filter(z => z.markerType === 'joint').map(z => z.id));
+  S.routes.forEach(r => {
+    if (!r.approachZone) return;
+    r.approachZone = r.approachZone.filter(id => ids.has(id));
+  });
+  if (S.approachMode) S.approachMode.selection = S.approachMode.selection.filter(id => ids.has(id));
+}
+
 // ── Zones (segments railML / circuits de voie) ─────────────────────────────
 export function markersOnTrack(tr, type) {
   return S.markers.filter(m => m.track === tr && m.type === type).sort((a, b) => a.t - b.t);
@@ -700,6 +719,12 @@ export function elementsAt(wx, wy) {
     }
   });
   return results;
+}
+
+// CdV sous le curseur, via la même détection que le menu contextuel.
+export function hitCdvZoneW(wx, wy) {
+  const hit = elementsAt(wx, wy).find(r => r.obj.markerType === 'joint');
+  return hit ? hit.obj : null;
 }
 
 // ── Suppressions en cascade ────────────────────────────────────────────────

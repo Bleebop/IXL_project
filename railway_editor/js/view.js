@@ -149,6 +149,18 @@ ${coupleBtn}
     const swList = derivedSw.map(s => `<div style="margin:2px 0;font-size:11px">→ ${s.sw.name || s.sw.id} <span style="color:#888;font-size:10px">(${s.position === 'left' ? 'gauche' : 'droite'})</span></div>`).join('');
     const conflictList = conflicts.map(c => `<div style="margin:2px 0;font-size:11px;color:#a32d2d">⚠ ${c.name || c.id}</div>`).join('');
     const flankList = (obj.flankProtection || []).map(fp => `<div style="margin:2px 0;font-size:11px;display:flex;align-items:center;gap:4px"><span style="flex:1">🛡 ${fp.sw.name || fp.sw.id} <span style="color:#888;font-size:10px">(${fp.position === 'left' ? 'gauche' : 'droite'})</span></span><button class="tbtn danger" style="padding:1px 5px;font-size:10px" onclick="removeFlankProtection('${obj.id}','${fp.sw.id}')" title="Retirer">×</button></div>`).join('');
+    // En mode sélection on affiche la sélection en cours, sinon la liste enregistrée.
+    const inApproach = !!(S.approachMode && S.approachMode.route === obj);
+    const approachIds = inApproach ? S.approachMode.selection : (obj.approachZone || []);
+    const approachList = approachIds.map(id => {
+      const z = S.zones.find(x => x.id === id);
+      return `<div style="margin:2px 0;font-size:11px;display:flex;align-items:center;gap:4px"><span style="flex:1;color:#1A9E5C">▬ ${z ? (z.name || z.id) : id}</span><button class="tbtn danger" style="padding:1px 5px;font-size:10px" onclick="removeApproachZone('${obj.id}','${id}')" title="Retirer">×</button></div>`;
+    }).join('');
+    const approachBtns = inApproach
+      ? `<div style="font-size:10px;color:#1A9E5C;margin:3px 0;line-height:1.4">Cliquez les CdV pour les (dé)sélectionner.</div>
+<button class="tbtn" style="width:100%;margin:2px 0;font-size:11px" onclick="confirmApproachMode()">✓ Valider (${approachIds.length})</button>
+<button class="tbtn" style="width:100%;margin:0 0 4px;font-size:11px" onclick="cancelApproachMode()">Annuler</button>`
+      : `<button class="tbtn" style="width:100%;margin:2px 0 4px;font-size:11px" onclick="startApproachMode('${obj.id}')">▬ Ajouter zone d'approche</button>`;
     b.innerHTML = `<div style="font-weight:600;margin-bottom:6px;color:#E74C3C">Itinéraire</div>
 <div class="prow">ID <span class="pval">${obj.id}</span></div>
 <div class="prow">Départ <span class="pval">${obj.start.name || obj.start.id}</span></div>
@@ -162,6 +174,9 @@ ${conflictList || '<div style="font-size:10px;color:#888">Aucun</div>'}
 <div style="margin:6px 0 2px;font-size:10px;color:#888">Aiguilles en protection (${(obj.flankProtection || []).length}) :</div>
 ${flankList || '<div style="font-size:10px;color:#888">Aucune</div>'}
 <button class="tbtn" style="width:100%;margin:2px 0 4px;font-size:11px" onclick="startFlankMode('${obj.id}')">🛡 Ajouter aiguille en protection</button>
+<div style="margin:6px 0 2px;font-size:10px;color:#888">Zone d'approche (${approachIds.length}) :</div>
+${approachList || '<div style="font-size:10px;color:#888">Aucun CdV</div>'}
+${approachBtns}
 <hr class="psep"><label style="color:#888">Nom</label>
 <input type="text" value="${obj.name || ''}" onchange="renameRoute('${obj.id}',this.value)" placeholder="ex: I_V2A_V1P">
 <label style="color:#888;display:block;margin-top:4px">Délai destruction (s)</label>
@@ -206,6 +221,29 @@ function drawZoneHighlights() {
   S.zones.forEach(z => {
     if (z !== S.selected) return;
     ctx.save(); ctx.globalAlpha = .15; ctx.strokeStyle = z.col; ctx.lineWidth = RAIL_W + 6; ctx.lineCap = 'round';
+    z.spans.forEach(sp => {
+      const tr = sp.track, dx = tr.x2 - tr.x1, dy = tr.y2 - tr.y1;
+      const c1 = toCanvas(tr.x1 + dx * sp.t1, tr.y1 + dy * sp.t1);
+      const c2 = toCanvas(tr.x1 + dx * sp.t2, tr.y1 + dy * sp.t2);
+      ctx.beginPath(); ctx.moveTo(c1.x, c1.y); ctx.lineTo(c2.x, c2.y); ctx.stroke();
+    });
+    ctx.restore();
+  });
+}
+
+// Pendant le mode "zone d'approche" : tous les CdV sont soulignés en pointillés
+// (= cliquables), ceux retenus dans la sélection en trait plein.
+function drawApproachSelection() {
+  const sel = new Set(S.approachMode.selection);
+  S.zones.forEach(z => {
+    if (z.markerType !== 'joint') return;
+    const chosen = sel.has(z.id);
+    ctx.save();
+    ctx.strokeStyle = '#1A9E5C';
+    ctx.globalAlpha = chosen ? 0.5 : 0.18;
+    ctx.lineWidth = RAIL_W + (chosen ? 8 : 5);
+    ctx.lineCap = 'round';
+    if (!chosen) ctx.setLineDash([6, 5]);
     z.spans.forEach(sp => {
       const tr = sp.track, dx = tr.x2 - tr.x1, dy = tr.y2 - tr.y1;
       const c1 = toCanvas(tr.x1 + dx * sp.t1, tr.y1 + dy * sp.t1);
@@ -439,6 +477,7 @@ export function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   drawGrid();
   drawZoneHighlights();
+  if (S.approachMode) drawApproachSelection();
   // Tracés d'itinéraire sous les voies pour que les symboles restent lisibles
   if (S.selected && S.selected.kind === 'route') {
     drawRoutePath(S.selected.start, S.selected.tracks, S.selected.end, '#E74C3C', 0.4);

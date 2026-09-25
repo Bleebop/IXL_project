@@ -10,7 +10,8 @@ import {
   setTrackEnd, isSignalMarker, isJointBoundSignal,
   rebuildSwitches, buildZonesOfType, canTraverseSeg, canTraverseCdv,
   tryReachTarget, cleanupOrphanRoutes, cleanupOrphanSignals, findLegKeysForCb,
-  hitTrackW, hitMarkerW, hitSwitchW, hitEndpoint, hitCbHandle,
+  cleanupOrphanApproachZones,
+  hitTrackW, hitMarkerW, hitSwitchW, hitEndpoint, hitCbHandle, hitCdvZoneW,
   hitLabelCanvas, labelCanvasPos, labelAnchor
 } from './model.js';
 
@@ -29,6 +30,7 @@ function rebuildAll() {
   const segZ = buildZonesOfType('seg_limit', 'SEG', COL_SEG, canTraverseSeg, prev.filter(z => z.markerType === 'seg_limit'));
   const cdvZ = buildZonesOfType('joint', 'CDV', COL, canTraverseCdv, prev.filter(z => z.markerType === 'joint'));
   S.zones = [...segZ, ...cdvZ];
+  cleanupOrphanApproachZones();
   refreshNetworkLists();
 }
 
@@ -48,6 +50,7 @@ function setTool(t) {
   if (t !== 'route') S.routeBuild = null;
   S.couplingMode = null;
   S.flankMode = null;
+  S.approachMode = null;
   draw();
 }
 function selectElem(type) {
@@ -184,6 +187,53 @@ function removeFlankProtection(routeId, swId) {
   draw();
 }
 
+// ── Zone d'approche ────────────────────────────────────────────────────────
+// Mode de sélection multiple : on part de la liste déjà enregistrée, chaque clic
+// sur un CdV l'ajoute ou le retire, et « Valider » remplace la liste de l'itinéraire.
+function startApproachMode(routeId) {
+  const r = S.routes.find(x => x.id === routeId);
+  if (!r) return;
+  S.couplingMode = null;
+  S.flankMode = null;
+  S.approachMode = { route: r, selection: [...(r.approachZone || [])] };
+  status('Zone d\'approche : cliquez les CdV à inclure, puis validez dans le panneau (Échap pour annuler).');
+  showProps(r); draw();
+}
+function toggleApproachZone(zone) {
+  if (!S.approachMode) return;
+  const sel = S.approachMode.selection;
+  const i = sel.indexOf(zone.id);
+  if (i >= 0) sel.splice(i, 1); else sel.push(zone.id);
+  status((i >= 0 ? 'CdV retiré : ' : 'CdV ajouté : ') + (zone.name || zone.id) + ' — ' + sel.length + ' sélectionné(s).');
+  showProps(S.approachMode.route); draw();
+}
+function confirmApproachMode() {
+  if (!S.approachMode) return;
+  const { route, selection } = S.approachMode;
+  route.approachZone = [...selection];
+  S.approachMode = null;
+  status('Zone d\'approche enregistrée : ' + selection.length + ' CdV.');
+  showProps(route); draw();
+}
+function cancelApproachMode() {
+  if (!S.approachMode) return;
+  const route = S.approachMode.route;
+  S.approachMode = null;
+  status('Sélection de zone d\'approche annulée.');
+  showProps(route); draw();
+}
+function removeApproachZone(routeId, zoneId) {
+  const r = S.routes.find(x => x.id === routeId);
+  if (!r) return;
+  // Pendant le mode, le × agit sur la sélection en cours ; sinon sur la liste enregistrée.
+  if (S.approachMode && S.approachMode.route === r) {
+    S.approachMode.selection = S.approachMode.selection.filter(id => id !== zoneId);
+  } else {
+    r.approachZone = (r.approachZone || []).filter(id => id !== zoneId);
+  }
+  showProps(r); draw();
+}
+
 // ── Renommages / propriétés éditables ──────────────────────────────────────
 function renameById(id, cat, val) {
   const arr = cat === 'track' ? S.tracks : S.markers;
@@ -233,7 +283,7 @@ function deleteSelected() {
 function clearAll() {
   S.tracks = []; S.markers = []; S.zones = []; S.switches = []; S.routes = []; S.selected = null;
   S.drawing = false; S.drawStart = null; S.epDrag = null; S.mDrag = null; S.cbDrag = null;
-  S.routeBuild = null; S.couplingMode = null; S.flankMode = null;
+  S.routeBuild = null; S.couplingMode = null; S.flankMode = null; S.approachMode = null;
   S.idTrk = 1; S.idMrk = 1; S.idZone = 1; S.idSw = 1; S.idRoute = 1;
   showProps(null);
   refreshNetworkLists();
@@ -276,6 +326,14 @@ canvas.addEventListener('mousedown', ev => {
       const swH = hitSwitchW(w.x, w.y);
       if (swH) { completeCoupling(swH); return; }
       S.couplingMode = null; status('Couplage annulé.'); return;
+    }
+    // Zone d'approche : chaque clic sur un CdV le bascule. On ne quitte le mode
+    // que par les boutons Valider/Annuler (ou Échap) — un clic à côté ne l'annule pas.
+    if (S.approachMode) {
+      const z = hitCdvZoneW(w.x, w.y);
+      if (z) { toggleApproachZone(z); return; }
+      status('Aucun CdV ici — cliquez un CdV, ou validez dans le panneau.');
+      return;
     }
     // Aiguille en protection : phase 'switch' attend une aiguille, phase 'heel' un trait.
     if (S.flankMode) {
@@ -510,6 +568,7 @@ document.addEventListener('keydown', ev => {
     if (S.drawing) { S.drawing = false; S.drawStart = null; draw(); }
     else if (S.epDrag) { S.epDrag = null; draw(); }
     else if (S.couplingMode) { S.couplingMode = null; status('Couplage annulé.'); }
+    else if (S.approachMode) { cancelApproachMode(); }
     else if (S.flankMode) { S.flankMode = null; status('Ajout d\'aiguille en protection annulé.'); }
     else if (S.routeBuild) { S.routeBuild = null; status('Construction d\'itinéraire annulée.'); draw(); }
     else { S.selected = null; showProps(null); refreshNetworkLists(); draw(); }
@@ -530,7 +589,8 @@ Object.assign(window, {
   renameById, renameZone, renameSw, renameRoute,
   flipMarkerOrient, setRouteReleaseDelay,
   startCouplingMode, uncoupleSwitches,
-  startFlankMode, removeFlankProtection
+  startFlankMode, removeFlankProtection,
+  startApproachMode, confirmApproachMode, cancelApproachMode, removeApproachZone
 });
 
 // ── Démarrage ──────────────────────────────────────────────────────────────
