@@ -82,364 +82,266 @@ def fbd_block_str(local_id, type_name, instance_name,
     return output_str
 
 
-class Route:
-    def __init__(self, name, enum_val):
-        self.name = name
+class NetElement:
+    def __init__(self, railML_id, enum_val, railML_elem):
+        self.railML_id = railML_id
         self.enum_val = enum_val
-        self.intermediate_segment = []
+        self.downtrack_ne = []
+        self.uptrack_ne = []
+        self.railML_elem = railML_elem
+
+
+class Route:
+    def __init__(self, name, railML_id, enum_val, railML_elem):
+        self.name = name
+        self.railML_id = railML_id
+        self.enum_val = enum_val
+        self.railML_elem = railML_elem
         self.tvds = []
         self.incompatible_route = []
         self.start_signal = None
         self.cross_switch = []
         self.require_switch = []
         self.delay_destruct = "Inf"
-        self.is_entry_route = False
-        self.is_exit_route = False
-
-
-class StaticRoute:
-    def __init__(self, name, enum_val):
-        self.name = name
-        self.enum_val = enum_val
-        self.intermediate_segment = []
-        self.is_entry_route = False
-        self.is_exit_route = False
-
-
-class Signal:
-    def __init__(self, name, enum_val):
-        self.name = name
-        self.enum_val = enum_val
         self.approach_area = []
 
 
-class ClosedSignal:
-    def __init__(self, name, enum_val):
+class Signal:
+    def __init__(self, name, railML_id, enum_val, railML_IS_elem):
         self.name = name
+        self.railML_id = railML_id
         self.enum_val = enum_val
+        self.railML_IS_elem = railML_IS_elem
+        self.railML_IL_elem = None
 
 
 class Switch:
-    def __init__(self, name, enum_val):
+    def __init__(self, name, railML_id, enum_val, railML_IS_elem):
         self.name = name
+        self.railML_id = railML_id
         self.enum_val = enum_val
-        self.paired = []
-        self.fouling_point_segments = []
+        self.railML_IS_elem = railML_IS_elem
+        self.railML_IL_elem = None
+        self.paired = {} ## {switch object: True/False}
+                         ## True if both switches have to be commanded left or right at the same time
+                         ## False otherwise (when one is commanded right, the other is commanded left)
+        self.fouling_point_tvd = []
         self.required_left_routes = []
         self.required_right_routes = []
 
 
 class Tvd:
-    def __init__(self, name, enum_val):
+    def __init__(self, name, railML_id, enum_val, railML_elem):
         self.name = name
+        self.railML_id = railML_id
         self.enum_val = enum_val
-
-
-class Segment:
-    def __init__(self, name, enum_val):
-        self.name = name
-        self.enum_val = enum_val
+        self.railML_elem = railML_elem
 
 
 class Interlocking:
-    def __init__(self, name, routes, static_routes, signals, closed_signals,
-                 switches, tvds, segments):
-        self.name = name
+    def __init__(self, netelements, routes, signals, switches, tvds):
         self.period = 100  # ms
+        self.netelements = netelements
         self.routes = routes
-        self.static_routes = static_routes
         self.signals = signals
-        self.closed_signals = closed_signals
         self.switches = switches
         self.tvds = tvds
-        self.segments = segments
 
 
 def xml_to_python(xml_file):
     data_tree = ET.parse(xml_file)
     root = data_tree.getroot()
 
+    netelement_dict = {}
     route_dict = {}
-    static_route_dict = {}
     signal_dict = {}
-    closed_signal_dict = {}
     switch_dict = {}
     tvd_dict = {}
-    segment_dict = {}
 
-    route_elem_dict = {}
-    static_route_elem_dict = {}
-    signal_elem_dict = {}
-    closed_signal_elem_dict = {}
-    switch_elem_dict = {}
-    tvd_elem_dict = {}
-    segment_elem_dict = {}
-
-    interlocking = Interlocking(root.get("id"),
+    interlocking = Interlocking(netelement_dict,
                                 route_dict,
-                                static_route_dict,
                                 signal_dict,
-                                closed_signal_dict,
                                 switch_dict,
-                                tvd_dict,
-                                segment_dict)
+                                tvd_dict)
+
+    signal_IL_to_IS = {}
+    switch_IL_to_IS = {}
+
+    route_rel_elem_dict = {}
 
     # first pass: creating all the instances
+    nNetElement = 0
+    for netelement_elem in root.findall("./infrastructure/topology/netElements/netElement"):
+        nNetElement += 1
+        netelement_dict[netelement_elem.get("id")] =\
+            NetElement(netelement_elem.get("id"), nNetElement, netelement_elem)
+
     nRoute = 0
-    nRouteStatic = 0
-    for route_elem in root.findall("./assetsForIL/routes/route"):
-        if route_elem.get("isNeverClosed") == "True":
-            nRouteStatic += 1
-            static_route_dict[route_elem.get("id")] =\
-                StaticRoute(route_elem.get("id"), nRouteStatic)
-            static_route_elem_dict[route_elem.get("id")] = route_elem
+    for route_elem in root.findall("./interlocking/assetsForInterlockings/assetsForInterlocking/routes/route"):
+        nRoute += 1
+        route_railML_name = route_elem.find("./objectName").get("name")
+        route_railML_id = route_elem.get("id")
+        if route_railML_name:
+            route_name = route_railML_name
         else:
-            nRoute += 1
-            route_dict[route_elem.get("id")] =\
-                Route(route_elem.get("id"), nRoute)
-            route_elem_dict[route_elem.get("id")] = route_elem
+            route_name = route_railML_id
+        route_dict[route_railML_id] =\
+            Route(route_name, route_railML_id, nRoute, route_elem)
 
     nSignal = 0
-    nClosedSignal = 0
-    for signal_elem in root.findall("./assetsForIL/signalsIL/signalIL"):
-        if signal_elem.get("isAlwaysClosed") == "True":
-            nClosedSignal += 1
-            closed_signal_dict[signal_elem.get("id")] =\
-                ClosedSignal(signal_elem.get("id"), nClosedSignal)
-            closed_signal_elem_dict[signal_elem.get("id")] = signal_elem
+    for signalIS_elem in root.findall("./infrastructure/functionalInfrastructure/signalsIS/signalIS"):
+        signal_railML_name = signalIS_elem.find("./name").get("name")
+        signal_railML_IS_id = signalIS_elem.get("id")
+        if signal_railML_name:
+            signal_name = signal_railML_name
         else:
+            signal_name = signal_railML_IS_id
+        if signalIS_elem.get("isSwitchable") == "true":
             nSignal += 1
-            signal_dict[signal_elem.get("id")] =\
-                Signal(signal_elem.get("id"), nSignal)
-            signal_elem_dict[signal_elem.get("id")] = signal_elem
+            signal_dict[signal_railML_IS_id] =\
+                Signal(signal_name, signal_railML_IS_id, nSignal, signalIS_elem)
+
+    for signalIL_elem in root.findall("./interlocking/assetsForInterlockings/assetsForInterlocking/signalsIL/signalIL"):
+        railML_IS_id = signalIL_elem.find("./refersTo").get("ref")
+        signal_IL_to_IS[signalIL_elem.get("id")] = railML_IS_id
+        if railML_IS_id in signal_dict:
+            signal_dict[railML_IS_id].railML_IL_elem = signalIL_elem
 
     nSwitch = 0
-    for switch_elem in root.findall("./assetsForIL/switchesIL/switchIL"):
+    for switchIS_elem in root.findall("./infrastructure/functionalInfrastructure/switchesIS/switchIS"):
         nSwitch += 1
-        switch_dict[switch_elem.get("id")] = Switch(switch_elem.get("id"), nSwitch)
-        switch_elem_dict[switch_elem.get("id")] = switch_elem
+        switch_railML_name = switchIS_elem.find("./name").get("name")
+        switch_railML_IS_id = switchIS_elem.get("id")
+        if switch_railML_name:
+            switch_name = switch_railML_name
+        else:
+            switch_name = switch_railML_IS_id
+        switch_dict[switch_railML_IS_id] = Switch(switch_name, switch_railML_IS_id, nSwitch, switchIS_elem)
+
+    for switchIL_elem in root.findall("./interlocking/assetsForInterlockings/assetsForInterlocking/switchesIL/switchIL"):
+        railML_IS_id = switchIL_elem.find("./refersTo").get("ref")
+        switch_IL_to_IS[switchIL_elem.get("id")] = railML_IS_id
+        switch_dict[railML_IS_id].railML_IL_elem = switchIL_elem
 
     nTVD = 0
-    for tvd_elem in root.findall("./assetsForIL/tvdSections/tvdSection"):
+    for tvd_elem in root.findall("./interlocking/assetsForInterlockings/assetsForInterlocking/tvdSections/tvdSection"):
         nTVD += 1
-        tvd_dict[tvd_elem.get("id")] = Tvd(tvd_elem.get("id"), nTVD)
-        tvd_elem_dict[tvd_elem.get("id")] = tvd_elem
+        tvd_railML_name = tvd_elem.find("./assetName").get("name")
+        tvd_railML_id = tvd_elem.get("id")
+        if tvd_railML_name:
+            tvd_name = tvd_railML_name
+        else:
+            tvd_name = tvd_railML_id
+        tvd_dict[tvd_railML_id] = Tvd(tvd_name, tvd_railML_id, nTVD, tvd_elem)
 
-    nSeg = 0
-    for segment_elem in root.findall("./assetsForIL/segments/segment"):
-        nSeg += 1
-        segment_dict[segment_elem.get("id")] = Segment(segment_elem.get("id"), nSeg)
-        segment_elem_dict[segment_elem.get("id")] = segment_elem
+    for route_rel_elem in root.findall("./interlocking/assetsForInterlockings/assetsForInterlocking/routeRelations/routeRelation"):
+        route_rel_elem_dict[route_rel_elem.get("id")] = route_rel_elem
 
     # second pass: making the links
-    for route_elem in route_elem_dict.values():
-        route_name = route_elem.get("id")
-        route_obj = route_dict[route_name]
+    for route_conflict_elem in root.findall("./interlocking/assetsForInterlockings/assetsForInterlocking/conflictingRoutes/conflictingRoute"):
+        route_1_id = route_conflict_elem.find("./refersToRoute").get("ref")
+        route_2_id = route_conflict_elem.find("./conflictsWithRoute").get("ref")
+        route_dict[route_1_id].incompatible_route += [route_dict[route_2_id]]
 
-        if route_elem.get("isExitRoute") == "True":
-            route_obj.is_exit_route = True
-        if route_elem.get("isEntryRoute") == "True":
-            route_obj.is_entry_route = True
+    for route_obj in route_dict.values():
+        route_elem = route_obj.railML_elem
 
-        route_delay_destruct = route_elem.get("delayDestruct")
-        if route_delay_destruct == "Inf":
-            route_obj.delay_destruct = route_delay_destruct
+        for route_tvds in route_elem.findall("hasTvdSection"):
+            route_obj.tvds +=\
+                [tvd_dict[route_tvds.get("ref")]]
+
+        start_sig_IS_id = signal_IL_to_IS[route_elem.find("./routeEntry/refersTo").get("ref")]
+        if start_sig_IS_id is not None:
+            route_obj.start_signal = signal_dict[start_sig_IS_id]
+
+        for cross_switch_elem in route_elem.findall("facingSwitchInPosition"):
+            cross_switch_IS_id = switch_IL_to_IS[cross_switch_elem.find("./refersToSwitch").get("ref")]
+            switch_obj = switch_dict[cross_switch_IS_id]
+            required_pos = cross_switch_elem.get("inPosition")
+            route_obj.cross_switch +=\
+                [[switch_obj, required_pos]]
+            if required_pos == 'left':
+                switch_obj.required_left_routes += [route_obj]
+            elif required_pos == 'right':
+                switch_obj.required_right_routes += [route_obj]
+
+        for route_rel_ref in route_elem.findall("additionalRelation"):
+            route_rel_elem = route_rel_elem_dict[route_rel_ref.get("ref")]
+            for req_switch_ref in route_rel_elem.findall("requiredSwitchPosition"):
+                req_switch_IS_id = switch_IL_to_IS[req_switch_ref.find("./relatedSwitchAndPosition/refersToSwitch").get("ref")]
+                switch_obj = switch_dict[req_switch_IS_id]
+                required_pos = req_switch_ref.find("./relatedSwitchAndPosition").get("inPosition")
+                route_obj.require_switch +=\
+                    [[switch_obj, required_pos]]
+                if required_pos == 'left':
+                    switch_obj.required_left_routes += [route_obj]
+                elif required_pos == 'right':
+                    switch_obj.required_right_routes += [route_obj]
+        
+        route_delay_destruct = route_elem.get("approachReleaseDelay")
+        if route_delay_destruct == "PT-1S":
+            route_obj.delay_destruct = "Inf"
         elif is_number(route_delay_destruct):
             route_obj.delay_destruct = route_delay_destruct
         else:
             route_obj.delay_destruct = "Inf"
 
-        start_sig_elem = route_elem.find("./startSignal")
-        if start_sig_elem is not None:
-            route_obj.start_signal =\
-                signal_dict[start_sig_elem.get("ref")]
+        for activation_section_elem in route_elem.findall("routeActivationSection/activationSection"):
+            tvd_obj = tvd_dict[activation_section_elem.get("ref")]
+            route_obj.approach_area += [tvd_obj]
 
-        start_seg_elem = route_elem.find("./startSegment")
-        route_obj.start_segment =\
-            [segment_dict[start_seg_elem.get("ref")],
-             start_seg_elem.get("dir")]
 
-        for inter_seg_elem in route_elem.findall("intermediateSegment"):
-            route_obj.intermediate_segment +=\
-                [segment_dict[inter_seg_elem.get("ref")]]
+    for signal_obj in signal_dict.values():
+        signal_IS_elem = signal_obj.railML_IS_elem
+        signal_IL_elem = signal_obj.railML_IL_elem
 
-        dest_seg_elem = route_elem.find("./destinationSegment")
-        route_obj.destination_segment =\
-            segment_dict[dest_seg_elem.get("ref")]
 
-        for incomp_route_elem in route_elem.findall("incompatibleRoute"):
-            route_obj.incompatible_route +=\
-                [route_dict[incomp_route_elem.get("ref")]]
+    for switch_obj in switch_dict.values():
+        switch_IS_elem = switch_obj.railML_IS_elem
+        switch_IL_elem = switch_obj.railML_IL_elem
 
-        for cross_switch_elem in route_elem.findall("crossSwitch"):
-            switch_obj = switch_dict[cross_switch_elem.get("ref")]
-            required_pos = cross_switch_elem.get("pos")
-            route_obj.cross_switch +=\
-                [[switch_obj, required_pos]]
-            if required_pos == 'Left':
-                switch_obj.required_left_routes += [route_obj]
-            elif required_pos == 'Right':
-                switch_obj.required_right_routes += [route_obj]
+        for paired_switch_IL_elem in switch_IL_elem.findall("relatedMovableElement"):
+            paired_switch_IS_id = switch_IL_to_IS[paired_switch_IL_elem.get("ref")]
+            switch_obj.paired[switch_dict[paired_switch_IS_id]] = None
 
-        for require_switch_elem in route_elem.findall("requireSwitch"):
-            switch_obj = switch_dict[require_switch_elem.get("ref")]
-            required_pos = require_switch_elem.get("pos")
-            route_obj.require_switch +=\
-                [[switch_obj, required_pos]]
-            if required_pos == 'Left':
-                switch_obj.required_left_routes += [route_obj]
-            elif required_pos == 'Right':
-                switch_obj.required_right_routes += [route_obj]
+            corresp_set = False
+            for paired_sw_obj in switch_obj.paired:
+                for route_obj_left in switch_obj.required_left_routes:
+                    ## For each common route
+                    if route_obj_left in paired_sw_obj.required_left_routes:
+                        if not corresp_set:
+                            ## If a route require both switches to be in the left position
+                            ## we register that these switch are paired left-left
+                            corresp_set = True
+                            switch_obj.paired[paired_sw_obj] = True
+                        elif not switch_obj.paired[paired_sw_obj]:
+                            ## If another route is incompatible => Error
+                            pass # TODO error handling
+                    elif route_obj_left in paired_sw_obj.required_right_routes:
+                        if not corresp_set:
+                            ## If a route require one at right and the other at left
+                            ## we register that these switch are paired left-right
+                            corresp_set = True
+                            switch_obj.paired[paired_sw_obj] = False
+                        elif switch_obj.paired[paired_sw_obj]:
+                            ## If another route is incompatible => Error
+                            pass # TODO error handling
+                for route_obj_right in switch_obj.required_right_routes:
+                    if route_obj_right in paired_sw_obj.required_left_routes:
+                        if not corresp_set:
+                            corresp_set = True
+                            switch_obj.paired[paired_sw_obj] = False
+                        elif switch_obj.paired[paired_sw_obj]:
+                            pass # TODO error handling
+                    elif route_obj_right in paired_sw_obj.required_right_routes:
+                        if not corresp_set:
+                            corresp_set = True
+                            switch_obj.paired[paired_sw_obj] = True
+                        elif not switch_obj.paired[paired_sw_obj]:
+                            pass # TODO error handling
 
-    for static_route_elem in static_route_elem_dict.values():
-        static_route_name = static_route_elem.get("id")
-        static_route_obj = static_route_dict[static_route_name]
+        # TODO fouling point tvd
 
-        if static_route_elem.get("isExitRoute") == "True":
-            static_route_obj.is_exit_route = True
-        if static_route_elem.get("isEntryRoute") == "True":
-            static_route_obj.is_entry_route = True
-
-        start_seg_elem = static_route_elem.find("./startSegment")
-        static_route_obj.start_segment = \
-            [segment_dict[start_seg_elem.get("ref")],
-             start_seg_elem.get("dir")]
-
-        for inter_seg_elem in static_route_elem.findall("intermediateSegment"):
-            static_route_obj.intermediate_segment += \
-                [segment_dict[inter_seg_elem.get("ref")]]
-
-        dest_seg_elem = static_route_elem.find("./destinationSegment")
-        static_route_obj.destination_segment = \
-            segment_dict[dest_seg_elem.get("ref")]
-
-    for signal_elem in signal_elem_dict.values():
-        signal_name = signal_elem.get("id")
-        signal_obj = signal_dict[signal_name]
-
-        previous_seg_elem = signal_elem.find("./previousSegment")
-        if previous_seg_elem is not None:
-            signal_obj.previous_seg =\
-                segment_dict[previous_seg_elem.get("ref")]
-            signal_obj.prev_seg_dir = \
-                previous_seg_elem.get("dir")
-
-        next_seg_elem = signal_elem.find("./nextSegment")
-        if next_seg_elem is not None:
-            signal_obj.next_seg =\
-                segment_dict[next_seg_elem.get("ref")]
-            signal_obj.next_seg_dir = \
-                next_seg_elem.get("dir")
-
-        for approach_seg_elem in signal_elem.findall("approachArea"):
-            signal_obj.approach_area +=\
-                [segment_dict[approach_seg_elem.get("ref")]]
-
-    for closed_signal_elem in closed_signal_elem_dict.values():
-        closed_signal_name = closed_signal_elem.get("id")
-        closed_signal_obj = closed_signal_dict[closed_signal_name]
-
-        previous_seg_elem = closed_signal_elem.find("./previousSegment")
-        if previous_seg_elem is not None:
-            closed_signal_obj.previous_seg =\
-                segment_dict[previous_seg_elem.get("ref")]
-            closed_signal_obj.prev_seg_dir = \
-                previous_seg_elem.get("dir")
-
-        next_seg_elem = closed_signal_elem.find("./nextSegment")
-        if next_seg_elem is not None:
-            closed_signal_obj.next_seg =\
-                segment_dict[next_seg_elem.get("ref")]
-            closed_signal_obj.next_seg_dir = \
-                next_seg_elem.get("dir")
-
-    for switch_elem in switch_elem_dict.values():
-        switch_name = switch_elem.get("id")
-        switch_obj = switch_dict[switch_name]
-
-        for paired_switch_elem in switch_elem.findall("pairedSw"):
-            switch_obj.paired +=\
-                [[switch_dict[paired_switch_elem.get("ref")],
-                  paired_switch_elem.get("corresp")]]
-
-        left_seg_elem = switch_elem.find("./leftSegment")
-        switch_obj.left_segment = \
-            segment_dict[left_seg_elem.get("ref")]
-
-        right_seg_elem = switch_elem.find("./rightSegment")
-        switch_obj.right_segment = \
-            segment_dict[right_seg_elem.get("ref")]
-
-        tip_seg_elem = switch_elem.find("./tipSegment")
-        switch_obj.tip_segment = \
-            segment_dict[tip_seg_elem.get("ref")]
-
-        for fouling_seg_elem in switch_elem.findall("isInFoulingPoint"):
-            switch_obj.fouling_point_segments +=\
-                [segment_dict[fouling_seg_elem.get("ref")]]
-
-    for segment_elem in segment_elem_dict.values():
-        segment_name = segment_elem.get("id")
-        segment_obj = segment_dict[segment_name]
-
-        containing_tvd_elem = segment_elem.find("./containingTvd")
-        if containing_tvd_elem is not None:
-            segment_obj.containing_tvd =\
-                tvd_dict[containing_tvd_elem.get("ref")]
-
-        next_up_right_elem = segment_elem.find("./nextSegUpRight")
-        if next_up_right_elem is not None:
-            if next_up_right_elem.get("nextDir") == "Up":
-                polarity_change = False
-            else:
-                polarity_change = True
-            segment_obj.next_up_right =\
-                [segment_dict[next_up_right_elem.get("ref")], polarity_change]
-
-        next_up_left_elem = segment_elem.find("./nextSegUpLeft")
-        if next_up_left_elem is not None:
-            if next_up_left_elem.get("nextDir") == "Up":
-                polarity_change = False
-            else:
-                polarity_change = True
-            segment_obj.next_up_left =\
-                [segment_dict[next_up_left_elem.get("ref")], polarity_change]
-
-        next_down_right_elem = segment_elem.find("./nextSegDownRight")
-        if next_down_right_elem is not None:
-            if next_down_right_elem.get("nextDir") == "Down":
-                polarity_change = False
-            else:
-                polarity_change = True
-            segment_obj.next_down_right =\
-                [segment_dict[next_down_right_elem.get("ref")], polarity_change]
-
-        next_down_left_elem = segment_elem.find("./nextSegDownLeft")
-        if next_down_left_elem is not None:
-            if next_down_left_elem.get("nextDir") == "Down":
-                polarity_change = False
-            else:
-                polarity_change = True
-            segment_obj.next_down_left =\
-                [segment_dict[next_down_left_elem.get("ref")], polarity_change]
-
-    for route in interlocking.routes.values():
-        routes_tvds = [route.start_segment[0].containing_tvd]
-        for seg in route.intermediate_segment:
-            if seg.containing_tvd != routes_tvds[-1]:
-                routes_tvds += [seg.containing_tvd]
-        if route.destination_segment.containing_tvd != routes_tvds[-1]:
-            routes_tvds += [route.destination_segment.containing_tvd]
-            # TODO better way to avoid duplicates
-        route.tvds = routes_tvds
-
-    interlocking.nTVD = nTVD
-    interlocking.nSeg = nSeg
-    interlocking.nRoute = nRoute
-    interlocking.nSwitch = nSwitch
-    interlocking.nSignal = nSignal
-    interlocking.nClosedSignal = nClosedSignal
-    interlocking.nRouteStatic = nRouteStatic
     return interlocking
 
 
@@ -447,20 +349,20 @@ def python_to_openplc(interlocking, openplc_mold, openplc_file_path):
 
     safety_PLC_FBD = ''
     fbd_page = 0
-    for route_name in interlocking.routes:
+    for route in interlocking.routes.values():
         fbd_page += 1
+
         # Route formation demand
-        route = interlocking.routes[route_name]
         local_id = (fbd_page*10000000000)
         route_formation_demand_expr =\
-            'var_g.route_formation_demand[ROUTE.' + route_name + ']'
+            'var_g.route_formation_demand[ROUTE.' + route.name + ']'
         safety_PLC_FBD += fbd_input_variable_str(
             str(local_id),
             route_formation_demand_expr)
         route_formation_demand_addr = [str(local_id), '']
 
         # Incompatible routes demands
-        if not route.incompatible_route:  # Use a static route instead...
+        if not route.incompatible_route:
             local_id += 1
             safety_PLC_FBD += fbd_input_variable_str(
                 str(local_id), 'FALSE')
@@ -486,7 +388,7 @@ def python_to_openplc(interlocking, openplc_mold, openplc_file_path):
                 incompatible_route_demand_addr = [str(local_id), 'Out1']
 
         # Incompatible routes states
-        if not route.incompatible_route:  # Use a static route instead...
+        if not route.incompatible_route:
             local_id += 1
             safety_PLC_FBD += fbd_input_variable_str(
                 str(local_id), 'FALSE')
@@ -513,7 +415,7 @@ def python_to_openplc(interlocking, openplc_mold, openplc_file_path):
         # Route destruction demand
         local_id += 1
         route_destruction_demand_expr = \
-            'non_safety_PLC.route_destruction_demand[ROUTE.' + route_name + ']'
+            'route_destruction_demand[ROUTE.' + route.name + ']'
         safety_PLC_FBD += fbd_input_variable_str(
             str(local_id),
             route_destruction_demand_expr)
@@ -528,7 +430,7 @@ def python_to_openplc(interlocking, openplc_mold, openplc_file_path):
             transit_tvds_free_addr = [str(local_id), '']
         else:
             and_transit_tvds_inputs = []
-            for tvd in route.tvds[1:-1]:
+            for tvd in route.tvds[:-1]:
                 local_id += 1
                 transit_tvd_occupied_expr = \
                     'var_g.TC_occupied[TC.' + tvd.name + ']'
@@ -563,22 +465,15 @@ def python_to_openplc(interlocking, openplc_mold, openplc_file_path):
                 transit_tvds_free_addr = [str(local_id), 'Out1']
 
         # Approach area occupation
-        if not route.start_signal or not route.start_signal.approach_area:
+        if not route.approach_area:
             local_id += 1
             safety_PLC_FBD += fbd_input_variable_str(
                 str(local_id), 'TRUE')
             # TODO parametrize what to do when no approach area/start signal
             approach_area_occupied_addr = [str(local_id), '']
         else:
-            approach_tvds = []
-            for seg in route.start_signal.approach_area:
-                if (not approach_tvds or
-                        approach_tvds[-1] != seg.containing_tvd):
-                    approach_tvds += [seg.containing_tvd]
-                # TODO better way to avoid duplicates
-
             or_approach_area_inputs = []
-            for tvd in approach_tvds:
+            for tvd in route.approach_area:
                 local_id += 1
                 approach_tvd_occupied_expr = \
                     'var_g.TC_occupied[TC.' + tvd.name + ']'
@@ -671,20 +566,14 @@ def python_to_openplc(interlocking, openplc_mold, openplc_file_path):
                                                   [local_id-1, 'route_open'],
                                                   route_state_expr)
 
-    for switch_name in interlocking.switches:
-        switch = interlocking.switches[switch_name]
+    for switch in interlocking.switches.values():
 
         # Switch locked
         fbd_page += 1
         local_id = (fbd_page*10000000000)-1
 
         # Switch TVDs occupation
-        switch_tvds = []
-        for seg in switch.fouling_point_segments:
-            if (not switch_tvds or
-                    seg.containing_tvd != switch_tvds[-1]):
-                switch_tvds += [seg.containing_tvd]
-            # TODO better way to avoid duplicates
+        switch_tvds = switch.fouling_point_tvd
 
         or_switch_tvds_inputs = []
         for tvd in switch_tvds:
@@ -710,7 +599,12 @@ def python_to_openplc(interlocking, openplc_mold, openplc_file_path):
                 [occupied_tvd_addr, not_ignore_tvd_addr], [],
                 ['Out1'])
             or_switch_tvds_inputs += [[str(local_id), 'Out1']]
-        if len(or_switch_tvds_inputs) == 1:
+        if len(or_switch_tvds_inputs) == 0:
+            local_id += 1
+            safety_PLC_FBD += fbd_input_variable_str(
+                str(local_id), 'FALSE')
+            switch_tvds_occup_addr = [str(local_id), '']
+        elif len(or_switch_tvds_inputs) == 1:
             switch_tvds_occup_addr = [str(local_id), 'Out1']
         else:
             local_id += 1
@@ -793,9 +687,8 @@ def python_to_openplc(interlocking, openplc_mold, openplc_file_path):
                                                       switch_cmd_expr)
 
     # Conditions for opening the start signal of a route
-    for route_name in interlocking.routes:
+    for route in interlocking.routes.values():
         fbd_page += 1
-        route = interlocking.routes[route_name]
         and_signal_open_conditions = []
 
         # Route state
@@ -878,67 +771,71 @@ def python_to_openplc(interlocking, openplc_mold, openplc_file_path):
                                                   route_signal_open_expr)
 
     # Signal command
-    for signal_name in interlocking.signals:
-        fbd_page += 1
-        local_id = (fbd_page * 10000000000) - 1
-        signal = interlocking.signals[signal_name]
-
-        # Route entry authorizations
-        or_diverging_routes = []
-        for route_name in interlocking.routes:
-            route = interlocking.routes[route_name]
+    for signal in interlocking.signals.values():
+        start_route = False
+        for route in interlocking.routes.values():
             if route.start_signal == signal:
+                start_route = True
+                break
+            
+        if start_route:
+            fbd_page += 1
+            local_id = (fbd_page * 10000000000) - 1
+
+            # Route entry authorizations
+            or_diverging_routes = []
+            for route in interlocking.routes.values():
+                if route.start_signal == signal:
+                    local_id += 1
+                    route_authorization_expr =\
+                        'route_entry_authorization[ROUTE.' + route.name + ']'
+                    safety_PLC_FBD += fbd_input_variable_str(
+                        str(local_id), route_authorization_expr)
+                    or_diverging_routes += [[str(local_id), '']]
+            if len(or_diverging_routes) == 1:
+                diverging_routes_author_addr = [str(local_id), '']
+            else:
                 local_id += 1
-                route_authorization_expr =\
-                    'route_entry_authorization[ROUTE.' + route.name + ']'
-                safety_PLC_FBD += fbd_input_variable_str(
-                    str(local_id), route_authorization_expr)
-                or_diverging_routes += [[str(local_id), '']]
-        if len(or_diverging_routes) == 1:
-            diverging_routes_author_addr = [str(local_id), '']
-        else:
+                safety_PLC_FBD += fbd_block_str(local_id, 'OR', '',
+                                                or_diverging_routes, [],
+                                                ['Out1'])
+                diverging_routes_author_addr = [str(local_id), 'Out1']
+
+            # Route manual closing
             local_id += 1
-            safety_PLC_FBD += fbd_block_str(local_id, 'OR', '',
-                                            or_diverging_routes, [],
+            route_manual_closing_expr = \
+                'var_g.close_command[SIGNAL.' + signal.name + ']'
+            safety_PLC_FBD += fbd_input_variable_str(
+                str(local_id), route_manual_closing_expr)
+            local_id += 1
+            safety_PLC_FBD += fbd_block_str(local_id, 'NOT', '',
+                                            [[str(local_id-1), '']], [],
                                             ['Out1'])
-            diverging_routes_author_addr = [str(local_id), 'Out1']
+            no_manual_closing_addr = [str(local_id), 'Out1']
 
-        # Route manual closing
-        local_id += 1
-        route_manual_closing_expr = \
-            'var_g.close_command[SIGNAL.' + signal.name + ']'
-        safety_PLC_FBD += fbd_input_variable_str(
-            str(local_id), route_manual_closing_expr)
-        local_id += 1
-        safety_PLC_FBD += fbd_block_str(local_id, 'NOT', '',
-                                        [[str(local_id-1), '']], [],
-                                        ['Out1'])
-        no_manual_closing_addr = [str(local_id), 'Out1']
-
-        local_id += 1
-        safety_PLC_FBD += fbd_block_str(local_id, 'AND', '',
-                                        [diverging_routes_author_addr,
-                                         no_manual_closing_addr], [],
-                                        ['Out1'])
-        local_id += 1
-        signal_maneuver_open_expr =\
-            'signal_open_maneuver[SIGNAL.' + signal.name + ']'
-        safety_PLC_FBD += fbd_output_variable_str(local_id,
-                                                  [local_id - 1, 'Out1'],
-                                                  signal_maneuver_open_expr)
+            local_id += 1
+            safety_PLC_FBD += fbd_block_str(local_id, 'AND', '',
+                                            [diverging_routes_author_addr,
+                                            no_manual_closing_addr], [],
+                                            ['Out1'])
+            local_id += 1
+            signal_maneuver_open_expr =\
+                'signal_open_maneuver[SIGNAL.' + signal.name + ']'
+            safety_PLC_FBD += fbd_output_variable_str(local_id,
+                                                    [local_id - 1, 'Out1'],
+                                                    signal_maneuver_open_expr)
 
 
     non_safety_PLC_FBD = ''
     fbd_page = 0
-    for route_name in interlocking.routes:
-        route = interlocking.routes[route_name]
+    for route in interlocking.routes.values():
         fbd_page += 1
 
         # Auto-destruct inputs
         auto_destruct_inputs = []
         local_id = (fbd_page*10000000000)
         route_open_expr =\
-            'safety_PLC.route_open[ROUTE.' + route_name + ']'
+            'safety_PLC.route_open[ROUTE.' + route.name + ']'
         non_safety_PLC_FBD += fbd_input_variable_str(
             str(local_id), route_open_expr)
         auto_destruct_inputs += [[str(local_id), '']]
@@ -953,7 +850,7 @@ def python_to_openplc(interlocking, openplc_mold, openplc_file_path):
             auto_destruct_inputs += [[str(local_id), '']]
 
         local_id += 1
-        auto_destruct_inst_name = 'AUTO_DESTRUCT[ROUTE.' + route_name + ']'
+        auto_destruct_inst_name = 'AUTO_DESTRUCT[ROUTE.' + route.name + ']'
         auto_destruct_input_name_list = ['route_open',
                                          'last_TTD_occupied',
                                          'destination_TTD_occupied']
@@ -983,6 +880,7 @@ def python_to_openplc(interlocking, openplc_mold, openplc_file_path):
         non_safety_PLC_FBD += fbd_output_variable_str(local_id,
                                                       [local_id - 1, 'Out1'],
                                                       route_destruct_cmd)
+    
     cur_time = time.localtime()
     creation_date_time_str = '{}-{:0>2}-{:0>2}T{:0>2}:{:0>2}:{:0>2}'\
                              .format(cur_time.tm_year,
@@ -1014,13 +912,6 @@ def python_to_openplc(interlocking, openplc_mold, openplc_file_path):
             '              <value name="{}" value="{}" />\n'\
             .format(sig, sig_enum_val)
 
-    closed_signal_enum_values_str = ''
-    for closed_sig in interlocking.closed_signals:
-        closed_sig_enum_val = interlocking.closed_signals[closed_sig].enum_val
-        closed_signal_enum_values_str +=\
-            '              <value name="{}" value="{}" />\n'\
-            .format(closed_sig, closed_sig_enum_val)
-
     route_enum_values_str = ''
     for route in interlocking.routes:
         route_enum_val = interlocking.routes[route].enum_val
@@ -1051,7 +942,6 @@ def python_to_openplc(interlocking, openplc_mold, openplc_file_path):
     n_route_str = str(interlocking.nRoute)
     n_switch_str = str(interlocking.nSwitch)
     n_signal_str = str(interlocking.nSignal)
-    n_closed_signal_str = str(interlocking.nClosedSignal)
     n_static_route_str = str(interlocking.nRouteStatic)
 
     with open(openplc_mold, 'r') as mold:
@@ -1062,7 +952,6 @@ def python_to_openplc(interlocking, openplc_mold, openplc_file_path):
             tc_enum_values=tc_enum_values_str,
             switch_enum_values=switch_enum_values_str,
             signal_enum_values=signal_enum_values_str,
-            closed_signal_enum_values=closed_signal_enum_values_str,
             route_enum_values=route_enum_values_str,
             static_route_enum_values=static_route_enum_values_str,
             delay_destruct_values=delay_destruct_values_str,
@@ -1073,7 +962,6 @@ def python_to_openplc(interlocking, openplc_mold, openplc_file_path):
             n_route=n_route_str,
             n_switch=n_switch_str,
             n_signal=n_signal_str,
-            n_closed_signal=n_closed_signal_str,
             n_static_route=n_static_route_str
         )
 
