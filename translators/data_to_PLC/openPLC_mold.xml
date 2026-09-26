@@ -46,16 +46,6 @@
           </enum>
         </baseType>
       </dataType>
-      <dataType name="CLOSED_SIGNAL">
-        <baseType>
-          <enum>
-            <values>
-              <value name="NIL" value="-1" />
-{closed_signal_enum_values}
-            </values>
-          </enum>
-        </baseType>
-      </dataType>
       <dataType name="TRAIN_STATE">
         <baseType>
           <struct>
@@ -152,16 +142,6 @@
           </enum>
         </baseType>
       </dataType>
-      <dataType name="STATIC_ROUTE">
-        <baseType>
-          <enum>
-            <values>
-              <value name="NIL" value="-1" />
-{static_route_enum_values}
-            </values>
-          </enum>
-        </baseType>
-      </dataType>
     </dataTypes>
     <pous>
       <pou name="safety_PLC" pouType="program">
@@ -188,6 +168,26 @@
               </type>
             </variable>
             <variable name="switch_locked">
+              <type>
+                <array>
+                  <dimension lower="1" upper="const_g.nSwitch" />
+                  <baseType>
+                    <BOOL />
+                  </baseType>
+                </array>
+              </type>
+            </variable>
+            <variable name="switch_required_left">
+              <type>
+                <array>
+                  <dimension lower="1" upper="const_g.nSwitch" />
+                  <baseType>
+                    <BOOL />
+                  </baseType>
+                </array>
+              </type>
+            </variable>
+            <variable name="switch_required_right">
               <type>
                 <array>
                   <dimension lower="1" upper="const_g.nSwitch" />
@@ -1046,39 +1046,6 @@
           </FBD>
         </body>
       </pou>
-      <pou name="non_safety_PLC" pouType="program">
-        <interface>
-          <localVars>
-            <variable name="AUTO_DESTRUCT">
-              <type>
-                <array>
-                  <dimension lower="1" upper="const_g.nRoute" />
-                  <baseType>
-                    <derived name="AUTO_DESTRUCT" />
-                  </baseType>
-                </array>
-              </type>
-            </variable>
-          </localVars>
-          <outputVars>
-            <variable name="route_destruction_demand">
-              <type>
-                <array>
-                  <dimension lower="1" upper="const_g.nRoute" />
-                  <baseType>
-                    <BOOL />
-                  </baseType>
-                </array>
-              </type>
-            </variable>
-          </outputVars>
-        </interface>
-        <body>
-          <FBD>
-{non_safety_PLC_FBD}
-          </FBD>
-        </body>
-      </pou>
     </pous>
   </types>
   <instances>
@@ -1086,11 +1053,6 @@
       <configuration name="Device">
         <resource name="Application">
           <task name="MainTask" interval="{plc_period}" priority="1">
-            <pouInstance name="non_safety_PLC" typeName="">
-              <documentation>
-                <xhtml xmlns="http://www.w3.org/1999/xhtml" />
-              </documentation>
-            </pouInstance>
             <pouInstance name="safety_PLC" typeName="">
               <documentation>
                 <xhtml xmlns="http://www.w3.org/1999/xhtml" />
@@ -1248,25 +1210,6 @@
               <initialValue>
                 <simpleValue value="{n_signal}" />
               </initialValue>
-            </variable>
-            <variable name="nClosedSignal">
-              <type>
-                <INT />
-              </type>
-              <initialValue>
-                <simpleValue value="{n_closed_signal}" />
-              </initialValue>
-            </variable>
-            <variable name="nRouteStatic">
-              <type>
-                <INT />
-              </type>
-              <initialValue>
-                <simpleValue value="{n_static_route}" />
-              </initialValue>
-              <documentation>
-                <xhtml xmlns="http://www.w3.org/1999/xhtml"> "Routes" that are always formed</xhtml>
-              </documentation>
             </variable>
           </globalVars>
           <addData>

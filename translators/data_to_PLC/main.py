@@ -10,6 +10,15 @@ def is_number(s):
     except ValueError:
         return False
 
+    
+def opposite_sw_pos(pos):
+    if pos == "left":
+        return "right"
+    elif pos == "right":
+        return "left"
+    else:
+        pass # TODO error handling
+
 
 def fbd_input_variable_str(local_id, expression):
     output_str = \
@@ -122,9 +131,9 @@ class Switch:
         self.enum_val = enum_val
         self.railML_IS_elem = railML_IS_elem
         self.railML_IL_elem = None
-        self.paired = {} ## {switch object: True/False}
-                         ## True if both switches have to be commanded left or right at the same time
-                         ## False otherwise (when one is commanded right, the other is commanded left)
+        self.paired = [] ## [switch object, "left-left"/"left-right"]
+                         ## "left-left" if both switches have to be commanded left or right at the same time
+                         ## "left-right" otherwise (when one is commanded right, the other is commanded left)
         self.fouling_point_tvd = []
         self.required_left_routes = []
         self.required_right_routes = []
@@ -300,45 +309,49 @@ def xml_to_python(xml_file):
         switch_IS_elem = switch_obj.railML_IS_elem
         switch_IL_elem = switch_obj.railML_IL_elem
 
-        for paired_switch_IL_elem in switch_IL_elem.findall("relatedMovableElement"):
-            paired_switch_IS_id = switch_IL_to_IS[paired_switch_IL_elem.get("ref")]
-            switch_obj.paired[switch_dict[paired_switch_IS_id]] = None
+        if switch_IL_elem.find("relatedMovableElement"):
+            paired_switch_IL_elem = switch_IL_elem.find("relatedMovableElement")
+            paired_sw_obj = switch_dict[switch_IL_to_IS[paired_switch_IL_elem.get("ref")]]
+            switch_obj.paired = [paired_sw_obj, None]
 
             corresp_set = False
-            for paired_sw_obj in switch_obj.paired:
-                for route_obj_left in switch_obj.required_left_routes:
-                    ## For each common route
-                    if route_obj_left in paired_sw_obj.required_left_routes:
-                        if not corresp_set:
-                            ## If a route require both switches to be in the left position
-                            ## we register that these switch are paired left-left
-                            corresp_set = True
-                            switch_obj.paired[paired_sw_obj] = True
-                        elif not switch_obj.paired[paired_sw_obj]:
-                            ## If another route is incompatible => Error
-                            pass # TODO error handling
-                    elif route_obj_left in paired_sw_obj.required_right_routes:
-                        if not corresp_set:
-                            ## If a route require one at right and the other at left
-                            ## we register that these switch are paired left-right
-                            corresp_set = True
-                            switch_obj.paired[paired_sw_obj] = False
-                        elif switch_obj.paired[paired_sw_obj]:
-                            ## If another route is incompatible => Error
-                            pass # TODO error handling
-                for route_obj_right in switch_obj.required_right_routes:
-                    if route_obj_right in paired_sw_obj.required_left_routes:
-                        if not corresp_set:
-                            corresp_set = True
-                            switch_obj.paired[paired_sw_obj] = False
-                        elif switch_obj.paired[paired_sw_obj]:
-                            pass # TODO error handling
-                    elif route_obj_right in paired_sw_obj.required_right_routes:
-                        if not corresp_set:
-                            corresp_set = True
-                            switch_obj.paired[paired_sw_obj] = True
-                        elif not switch_obj.paired[paired_sw_obj]:
-                            pass # TODO error handling
+            for route_obj_left in switch_obj.required_left_routes:
+                ## For each common route
+                if route_obj_left in paired_sw_obj.required_left_routes:
+                    if not corresp_set:
+                        ## If a route require both switches to be in the left position
+                        ## we register that these switch are paired left-left
+                        corresp_set = True
+                        switch_obj.paired[1] = "left-left"
+                    elif switch_obj.paired[1] != "left-left":
+                        ## If another route is incompatible => Error
+                        pass # TODO error handling
+                elif route_obj_left in paired_sw_obj.required_right_routes:
+                    if not corresp_set:
+                        ## If a route require one at right and the other at left
+                        ## we register that these switch are paired left-right
+                        corresp_set = True
+                        switch_obj.paired[1] = "left-right"
+                    elif switch_obj.paired[1] != "left-right":
+                        ## If another route is incompatible => Error
+                        pass # TODO error handling
+            for route_obj_right in switch_obj.required_right_routes:
+                if route_obj_right in paired_sw_obj.required_left_routes:
+                    if not corresp_set:
+                        corresp_set = True
+                        switch_obj.paired[1] = "left-right"
+                    elif switch_obj.paired[1] != "left-right":
+                        pass # TODO error handling
+                elif route_obj_right in paired_sw_obj.required_right_routes:
+                    if not corresp_set:
+                        corresp_set = True
+                        switch_obj.paired[1] = "left-left"
+                    elif switch_obj.paired[1] != "left-left":
+                        pass # TODO error handling
+
+            if not corresp_set:
+                ## No common route was found, why are they paired?
+                pass # TODO error handling
 
         # TODO fouling point tvd
 
@@ -652,14 +665,30 @@ def python_to_openplc(interlocking, openplc_mold, openplc_file_path):
                 safety_PLC_FBD += fbd_input_variable_str(
                     str(local_id), route_opened_expr)
                 or_route_state_inputs += [[str(local_id), '']]
-            if len(or_route_state_inputs) == 1:
-                pos_required_addr = [str(local_id), '']
+            if len(or_route_state_inputs) == 0:
+                local_id += 1
+                safety_PLC_FBD += fbd_input_variable_str(
+                    str(local_id), 'FALSE')
+            elif len(or_route_state_inputs) == 1:
+                pass
             else:
                 local_id += 1
                 safety_PLC_FBD += fbd_block_str(local_id, 'OR', '',
                                                 or_route_state_inputs, [],
                                                 ['Out1'])
-                pos_required_addr = [str(local_id), 'Out1']
+
+            local_id += 1
+            switch_required_pos_expr = 'switch_required_' + position + '[SWITCH.' + switch.name + ']'
+            safety_PLC_FBD += fbd_output_variable_str(local_id,
+                                                    [local_id-1, 'Out1'],
+                                                    switch_required_pos_expr)
+
+
+    for switch in interlocking.switches.values():
+        
+        for position in ['left', 'right']:
+            fbd_page += 1
+            local_id = (fbd_page*10000000000)-1
 
             local_id += 1
             switch_locked_expr = 'switch_locked[SWITCH.' + switch.name + ']'
@@ -671,13 +700,61 @@ def python_to_openplc(interlocking, openplc_mold, openplc_file_path):
                                             ['Out1'])
             switch_not_locked_addr = [str(local_id), 'Out1']
 
-            # Switch command "and" block
             local_id += 1
-            and_switch_cmd_inputs = [pos_required_addr,
-                                     switch_not_locked_addr]
-            safety_PLC_FBD += fbd_block_str(local_id, 'AND', '',
-                                            and_switch_cmd_inputs, [],
-                                            ['Out1'])
+            switch_required_pos_expr = 'switch_required_' + position + '[SWITCH.' + switch.name + ']'
+            safety_PLC_FBD += fbd_input_variable_str(
+                    str(local_id), switch_required_pos_expr)
+            pos_required_addr = [str(local_id), '']
+
+            if switch.paired:
+                pair = switch.paired[0]
+                paired_switch_locked_expr = 'switch_locked[SWITCH.' + pair.name + ']'
+
+                local_id += 1
+                safety_PLC_FBD += fbd_input_variable_str(
+                    str(local_id), paired_switch_locked_expr)
+                local_id += 1
+                safety_PLC_FBD += fbd_block_str(local_id, 'NOT', '',
+                                                [[str(local_id-1), '']], [],
+                                                ['Out1'])
+                paired_switch_not_locked_addr = [str(local_id), 'Out1']
+
+                if switch.paired[pair] == "left-left":
+                    pair_pos_required_expr = 'switch_required_' + position + '[SWITCH.' + pair.name + ']'
+                else:
+                    pair_pos_required_expr = 'switch_required_' + opposite_sw_pos(position) + '[SWITCH.' + pair.name + ']'
+
+                local_id += 1
+                safety_PLC_FBD += fbd_input_variable_str(
+                    str(local_id), pair_pos_required_expr)
+                paired_pos_required_addr = [str(local_id), '']
+
+                # Switch pair required "or" block
+                local_id += 1
+                or_switch_req_inputs = [pos_required_addr,
+                                        paired_pos_required_addr]
+                safety_PLC_FBD += fbd_block_str(local_id, 'OR', '',
+                                                or_switch_req_inputs, [],
+                                                ['Out1'])
+                or_switch_required_addr = [str(local_id), 'Out1']
+
+                # Switch command "and" block
+                local_id += 1
+                and_switch_cmd_inputs = [switch_not_locked_addr,
+                                         paired_switch_not_locked_addr,
+                                         or_switch_required_addr]
+                safety_PLC_FBD += fbd_block_str(local_id, 'AND', '',
+                                                and_switch_cmd_inputs, [],
+                                                ['Out1'])
+                
+            else: ## Switch unpaired
+                # Switch command "and" block
+                local_id += 1
+                and_switch_cmd_inputs = [pos_required_addr,
+                                        switch_not_locked_addr]
+                safety_PLC_FBD += fbd_block_str(local_id, 'AND', '',
+                                                and_switch_cmd_inputs, [],
+                                                ['Out1'])
 
             local_id += 1
             switch_cmd_expr = \
@@ -701,7 +778,7 @@ def python_to_openplc(interlocking, openplc_mold, openplc_file_path):
         # Route destruction demand
         local_id += 1
         route_destruct_demand_expr =\
-            'non_safety_PLC.route_destruction_demand[ROUTE.' + route.name + ']'
+            'route_destruction_demand[ROUTE.' + route.name + ']'
         safety_PLC_FBD += fbd_input_variable_str(
             str(local_id), route_destruct_demand_expr)
         local_id += 1
@@ -825,61 +902,6 @@ def python_to_openplc(interlocking, openplc_mold, openplc_file_path):
                                                     [local_id - 1, 'Out1'],
                                                     signal_maneuver_open_expr)
 
-
-    non_safety_PLC_FBD = ''
-    fbd_page = 0
-    for route in interlocking.routes.values():
-        fbd_page += 1
-
-        # Auto-destruct inputs
-        auto_destruct_inputs = []
-        local_id = (fbd_page*10000000000)
-        route_open_expr =\
-            'safety_PLC.route_open[ROUTE.' + route.name + ']'
-        non_safety_PLC_FBD += fbd_input_variable_str(
-            str(local_id), route_open_expr)
-        auto_destruct_inputs += [[str(local_id), '']]
-
-        # final TVDs occupation
-        for tvd in route.tvds[-2:]:
-            local_id += 1
-            tvd_occupied_expr = \
-                'var_g.TC_occupied[TC.' + tvd.name + ']'
-            non_safety_PLC_FBD += fbd_input_variable_str(
-                str(local_id), tvd_occupied_expr)
-            auto_destruct_inputs += [[str(local_id), '']]
-
-        local_id += 1
-        auto_destruct_inst_name = 'AUTO_DESTRUCT[ROUTE.' + route.name + ']'
-        auto_destruct_input_name_list = ['route_open',
-                                         'last_TTD_occupied',
-                                         'destination_TTD_occupied']
-        non_safety_PLC_FBD += fbd_block_str(local_id, 'AUTO_DESTRUCT',
-                                            auto_destruct_inst_name,
-                                            auto_destruct_inputs,
-                                            auto_destruct_input_name_list,
-                                            ['route_auto_destruct_command'])
-        route_auto_destruct_command_addr = \
-            [local_id, 'route_auto_destruct_command']
-
-        local_id += 1
-        route_manual_dest_cmd_expr = \
-            'var_g.route_destruct_manual_demand[ROUTE.' + route.name + ']'
-        non_safety_PLC_FBD += fbd_input_variable_str(
-            str(local_id), route_manual_dest_cmd_expr)
-
-        local_id += 1
-        non_safety_PLC_FBD += fbd_block_str(local_id, 'OR', '',
-                                            [route_auto_destruct_command_addr,
-                                             [str(local_id-1), '']],
-                                            [],
-                                            ['Out1'])
-        local_id += 1
-        route_destruct_cmd =\
-            'route_destruction_demand[ROUTE.' + route.name + ']'
-        non_safety_PLC_FBD += fbd_output_variable_str(local_id,
-                                                      [local_id - 1, 'Out1'],
-                                                      route_destruct_cmd)
     
     cur_time = time.localtime()
     creation_date_time_str = '{}-{:0>2}-{:0>2}T{:0>2}:{:0>2}:{:0>2}'\
@@ -897,6 +919,7 @@ def python_to_openplc(interlocking, openplc_mold, openplc_file_path):
         tc_enum_values_str +=\
             '              <value name="{}" value="{}" />\n'\
             .format(tc, tc_enum_val)
+    # TODO Utiliser les noms donnés (si uniques)
 
     switch_enum_values_str = ''
     for switch in interlocking.switches:
@@ -919,13 +942,6 @@ def python_to_openplc(interlocking, openplc_mold, openplc_file_path):
             '              <value name="{}" value="{}" />\n'\
             .format(route, route_enum_val)
 
-    static_route_enum_values_str = ''
-    for static_route in interlocking.static_routes:
-        static_route_enum_val = interlocking.static_routes[static_route].enum_val
-        static_route_enum_values_str +=\
-            '              <value name="{}" value="{}" />\n'\
-            .format(static_route, static_route_enum_val)
-
     delay_destruct_values_str = ''
     for route in interlocking.routes.values():
         if route.delay_destruct == 'Inf':
@@ -942,7 +958,6 @@ def python_to_openplc(interlocking, openplc_mold, openplc_file_path):
     n_route_str = str(interlocking.nRoute)
     n_switch_str = str(interlocking.nSwitch)
     n_signal_str = str(interlocking.nSignal)
-    n_static_route_str = str(interlocking.nRouteStatic)
 
     with open(openplc_mold, 'r') as mold:
         openplc_mold_str = mold.read()
@@ -953,16 +968,13 @@ def python_to_openplc(interlocking, openplc_mold, openplc_file_path):
             switch_enum_values=switch_enum_values_str,
             signal_enum_values=signal_enum_values_str,
             route_enum_values=route_enum_values_str,
-            static_route_enum_values=static_route_enum_values_str,
             delay_destruct_values=delay_destruct_values_str,
-            non_safety_PLC_FBD=non_safety_PLC_FBD,
             safety_PLC_FBD=safety_PLC_FBD,
             plc_period=plc_period_str,
             n_tvd=n_tvd_str,
             n_route=n_route_str,
             n_switch=n_switch_str,
-            n_signal=n_signal_str,
-            n_static_route=n_static_route_str
+            n_signal=n_signal_str
         )
 
     with open(openplc_file_path, 'w') as f:
