@@ -7,6 +7,7 @@ import {
   routeConflicts, routeTvdSections, computeRouteSwitches, approachZonesOf
 } from './model.js';
 import { status } from './view.js';
+import { saveTextFile } from './filesave.js';
 
 export function exportRailML() {
   if (S.tracks.length === 0) { status('Tracez des traits de voie avant d\'exporter.'); return; }
@@ -185,7 +186,7 @@ ${detectors}
   }).join('\n');
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
-<railML xmlns="https://www.railml.org/schemas/3.3" version="3.3">
+<railML version="3.3">
   <infrastructure id="IS_main">
     <topology>
       <netElements>
@@ -233,9 +234,10 @@ ${routeRelationsXml || '          <!-- aucune aiguille en protection -->'}
   </interlocking>
 </railML>`;
 
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(new Blob([xml], { type: 'application/xml' }));
-  a.download = 'plan_voie.railml.xml';
-  a.click();
-  status('Export railML téléchargé !');
+  saveTextFile(xml, {
+    suggestedName: 'plan_voie.railml.xml', mime: 'application/xml',
+    description: 'railML', extensions: ['.xml']
+  })
+    .then(name => status(name ? 'Export railML enregistré dans « ' + name + ' ».' : 'Export annulé.'))
+    .catch(err => status('Export impossible : ' + err.message + '.'));
 }

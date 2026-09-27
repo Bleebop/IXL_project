@@ -22,6 +22,7 @@ import {
 } from './view.js';
 
 import { exportRailML } from './export.js';
+import { saveProject, readProjectFile } from './persistence.js';
 
 // ── Reconstruction complète (aiguilles + zones) ────────────────────────────
 function rebuildAll() {
@@ -288,6 +289,35 @@ function clearAll() {
   showProps(null);
   refreshNetworkLists();
   draw(); status('Canvas vidé.');
+}
+
+// ── Sauvegarde / chargement ────────────────────────────────────────────────
+function saveFile() {
+  if (S.tracks.length === 0) { status('Rien à sauvegarder.'); return; }
+  saveProject()
+    .then(name => status(name ? 'Sauvegardé dans « ' + name + ' ».' : 'Sauvegarde annulée.'))
+    .catch(err => status('Sauvegarde impossible : ' + err.message + '.'));
+}
+function openFile() {
+  const input = document.createElement('input');
+  input.type = 'file';
+  input.accept = '.json,application/json';
+  input.onchange = () => {
+    const file = input.files[0];
+    if (!file) return;
+    readProjectFile(file).then(() => {
+      S.selected = null;
+      S.drawing = false; S.drawStart = null; S.epDrag = null; S.mDrag = null; S.cbDrag = null; S.labelDrag = null;
+      S.routeBuild = null; S.couplingMode = null; S.flankMode = null; S.approachMode = null;
+      setTool('select');
+      showProps(null);
+      refreshNetworkLists();
+      updateZoomLabel();
+      draw();
+      status('Fichier « ' + file.name + ' » chargé.');
+    }).catch(err => status('Chargement impossible : ' + err.message + '.'));
+  };
+  input.click();
 }
 
 // ── Événements souris ──────────────────────────────────────────────────────
@@ -585,6 +615,7 @@ window.addEventListener('resize', resize);
 // s'exécutent dans la portée globale : un module doit donc les y exposer.
 Object.assign(window, {
   setTool, selectElem, deleteSelected, clearAll, resetView, exportRailML,
+  saveFile, openFile,
   zoomBtn, toggleAcc, selectObj,
   renameById, renameZone, renameSw, renameRoute,
   flipMarkerOrient, setRouteReleaseDelay,

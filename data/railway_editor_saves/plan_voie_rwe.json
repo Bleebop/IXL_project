@@ -1,0 +1,870 @@
+{
+  "format": "openixl-railway-editor",
+  "version": 1,
+  "savedAt": "2026-09-27T14:45:21.566Z",
+  "counters": {
+    "idTrk": 6,
+    "idMrk": 21,
+    "idZone": 18,
+    "idSw": 3,
+    "idRoute": 7
+  },
+  "view": {
+    "pan": {
+      "x": 0,
+      "y": 0
+    },
+    "zoom": 1
+  },
+  "tracks": [
+    {
+      "id": "TRK1",
+      "kind": "track",
+      "x1": 283,
+      "y1": 165,
+      "x2": 719,
+      "y2": 172,
+      "name": ""
+    },
+    {
+      "id": "TRK2",
+      "kind": "track",
+      "x1": 719,
+      "y1": 172,
+      "x2": 1428,
+      "y2": 188,
+      "name": ""
+    },
+    {
+      "id": "TRK3",
+      "kind": "track",
+      "x1": 719,
+      "y1": 172,
+      "x2": 975,
+      "y2": 383,
+      "name": ""
+    },
+    {
+      "id": "TRK4",
+      "kind": "track",
+      "x1": 975,
+      "y1": 383,
+      "x2": 138,
+      "y2": 376,
+      "name": ""
+    },
+    {
+      "id": "TRK5",
+      "kind": "track",
+      "x1": 975,
+      "y1": 383,
+      "x2": 1434,
+      "y2": 387,
+      "name": ""
+    }
+  ],
+  "markers": [
+    {
+      "id": "MRK1",
+      "kind": "marker",
+      "type": "joint",
+      "track": {
+        "$ref": "tracks:TRK1"
+      },
+      "t": 0.876215519734939,
+      "x": 665.0299666044334,
+      "y": 171.13350863814458,
+      "name": ""
+    },
+    {
+      "id": "MRK2",
+      "kind": "marker",
+      "type": "joint",
+      "track": {
+        "$ref": "tracks:TRK4"
+      },
+      "t": 0.371534158120907,
+      "x": 664.0259096528008,
+      "y": 380.39926089315367,
+      "name": ""
+    },
+    {
+      "id": "MRK3",
+      "kind": "marker",
+      "type": "joint",
+      "track": {
+        "$ref": "tracks:TRK3"
+      },
+      "t": 0.5338052100275312,
+      "x": 855.654133767048,
+      "y": 284.6328993158091,
+      "name": ""
+    },
+    {
+      "id": "MRK4",
+      "kind": "marker",
+      "type": "joint",
+      "track": {
+        "$ref": "tracks:TRK5"
+      },
+      "t": 0.06539248304437177,
+      "x": 1005.0151497173666,
+      "y": 383.2615699321775,
+      "name": ""
+    },
+    {
+      "id": "MRK5",
+      "kind": "marker",
+      "type": "joint",
+      "track": {
+        "$ref": "tracks:TRK2"
+      },
+      "t": 0.4118918335684899,
+      "x": 1011.0313100000594,
+      "y": 178.59026933709583,
+      "name": ""
+    },
+    {
+      "id": "MRK6",
+      "kind": "marker",
+      "type": "joint",
+      "track": {
+        "$ref": "tracks:TRK1"
+      },
+      "t": 0.5667727260774671,
+      "x": 530.1129085697756,
+      "y": 168.96740908254228,
+      "name": ""
+    },
+    {
+      "id": "MRK7",
+      "kind": "marker",
+      "type": "joint",
+      "track": {
+        "$ref": "tracks:TRK4"
+      },
+      "t": 0.5317714305015734,
+      "x": 529.907312670183,
+      "y": 379.277599986489,
+      "name": ""
+    },
+    {
+      "id": "MRK8",
+      "kind": "marker",
+      "type": "joint",
+      "track": {
+        "$ref": "tracks:TRK4"
+      },
+      "t": 0.6727446122612506,
+      "x": 411.9127595373333,
+      "y": 378.29078771417124,
+      "name": ""
+    },
+    {
+      "id": "MRK9",
+      "kind": "marker",
+      "type": "joint",
+      "track": {
+        "$ref": "tracks:TRK1"
+      },
+      "t": 0.27515843172315857,
+      "x": 402.96907623129715,
+      "y": 166.92610902206212,
+      "name": ""
+    },
+    {
+      "id": "MRK10",
+      "kind": "marker",
+      "type": "joint",
+      "track": {
+        "$ref": "tracks:TRK2"
+      },
+      "t": 0.56978161461391,
+      "x": 1122.9751647612622,
+      "y": 181.11650583382257,
+      "name": ""
+    },
+    {
+      "id": "MRK11",
+      "kind": "marker",
+      "type": "joint",
+      "track": {
+        "$ref": "tracks:TRK5"
+      },
+      "t": 0.31593710399293773,
+      "x": 1120.0151307327585,
+      "y": 384.26374841597175,
+      "name": ""
+    },
+    {
+      "id": "MRK12",
+      "kind": "marker",
+      "type": "joint",
+      "track": {
+        "$ref": "tracks:TRK5"
+      },
+      "t": 0.6121729307963568,
+      "x": 1255.987375235528,
+      "y": 385.44869172318545,
+      "name": ""
+    },
+    {
+      "id": "MRK13",
+      "kind": "marker",
+      "type": "joint",
+      "track": {
+        "$ref": "tracks:TRK2"
+      },
+      "t": 0.7334042984234803,
+      "x": 1238.9836475822476,
+      "y": 183.73446877477568,
+      "name": ""
+    },
+    {
+      "id": "MRK14",
+      "kind": "marker",
+      "type": "signal_man",
+      "joint": {
+        "$ref": "markers:MRK2"
+      },
+      "track": {
+        "$ref": "tracks:TRK4"
+      },
+      "t": 0.371534158120907,
+      "x": 664.0259096528008,
+      "y": 380.39926089315367,
+      "name": "Sig1",
+      "orient": -1
+    },
+    {
+      "id": "MRK15",
+      "kind": "marker",
+      "type": "signal_man",
+      "joint": {
+        "$ref": "markers:MRK1"
+      },
+      "track": {
+        "$ref": "tracks:TRK1"
+      },
+      "t": 0.876215519734939,
+      "x": 665.0299666044334,
+      "y": 171.13350863814458,
+      "name": "Sig2",
+      "orient": 1,
+      "labelOff": {
+        "x": -1,
+        "y": -24
+      }
+    },
+    {
+      "id": "MRK16",
+      "kind": "marker",
+      "type": "signal_man",
+      "joint": {
+        "$ref": "markers:MRK5"
+      },
+      "track": {
+        "$ref": "tracks:TRK2"
+      },
+      "t": 0.4118918335684899,
+      "x": 1011.0313100000594,
+      "y": 178.59026933709583,
+      "name": "Sig3",
+      "orient": -1,
+      "labelOff": {
+        "x": -4,
+        "y": -21
+      }
+    },
+    {
+      "id": "MRK17",
+      "kind": "marker",
+      "type": "signal_man",
+      "joint": {
+        "$ref": "markers:MRK4"
+      },
+      "track": {
+        "$ref": "tracks:TRK5"
+      },
+      "t": 0.06539248304437177,
+      "x": 1005.0151497173666,
+      "y": 383.2615699321775,
+      "name": "Sig4",
+      "orient": -1,
+      "labelOff": {
+        "x": 2,
+        "y": -22
+      }
+    },
+    {
+      "id": "MRK18",
+      "kind": "marker",
+      "type": "signal_man",
+      "joint": {
+        "$ref": "markers:MRK8"
+      },
+      "track": {
+        "$ref": "tracks:TRK4"
+      },
+      "t": 0.6727446122612506,
+      "x": 411.9127595373333,
+      "y": 378.29078771417124,
+      "name": "Sig5",
+      "orient": -1
+    },
+    {
+      "id": "MRK19",
+      "kind": "marker",
+      "type": "joint",
+      "track": {
+        "$ref": "tracks:TRK4"
+      },
+      "t": 0.808874450841971,
+      "x": 297.97208464527034,
+      "y": 377.3378788441062,
+      "name": ""
+    },
+    {
+      "id": "MRK20",
+      "kind": "marker",
+      "type": "joint",
+      "track": {
+        "$ref": "tracks:TRK4"
+      },
+      "t": 0.9354484183963301,
+      "x": 192.02967380227176,
+      "y": 376.45186107122566,
+      "name": ""
+    }
+  ],
+  "switches": [
+    {
+      "id": "SW1",
+      "kind": "switch",
+      "pt": {
+        "x": 719,
+        "y": 172
+      },
+      "tip": {
+        "track": {
+          "$ref": "tracks:TRK1"
+        },
+        "end": "end"
+      },
+      "heelLeft": {
+        "track": {
+          "$ref": "tracks:TRK2"
+        },
+        "end": "start"
+      },
+      "heelRight": {
+        "track": {
+          "$ref": "tracks:TRK3"
+        },
+        "end": "start"
+      },
+      "name": "Aig_1",
+      "cbLeft": {
+        "track": {
+          "$ref": "tracks:TRK2"
+        },
+        "t": 0.3357358873974275
+      },
+      "cbRight": {
+        "track": {
+          "$ref": "tracks:TRK3"
+        },
+        "t": 0.9327984589803465
+      },
+      "labelOff": {
+        "x": -3,
+        "y": -20
+      }
+    },
+    {
+      "id": "SW2",
+      "kind": "switch",
+      "pt": {
+        "x": 975,
+        "y": 383
+      },
+      "tip": {
+        "track": {
+          "$ref": "tracks:TRK5"
+        },
+        "end": "start"
+      },
+      "heelLeft": {
+        "track": {
+          "$ref": "tracks:TRK4"
+        },
+        "end": "start"
+      },
+      "heelRight": {
+        "track": {
+          "$ref": "tracks:TRK3"
+        },
+        "end": "end"
+      },
+      "name": "Aig_2",
+      "cbLeft": {
+        "track": {
+          "$ref": "tracks:TRK4"
+        },
+        "t": 0.27720098541573296
+      },
+      "cbRight": {
+        "track": {
+          "$ref": "tracks:TRK3"
+        },
+        "t": 0.10579972196225593
+      },
+      "labelOff": {
+        "x": 0,
+        "y": 17
+      }
+    }
+  ],
+  "zones": [
+    {
+      "id": "SEG2",
+      "markerType": "seg_limit",
+      "col": "#534AB7",
+      "spans": [
+        {
+          "track": {
+            "$ref": "tracks:TRK1"
+          },
+          "t1": 0,
+          "t2": 1
+        }
+      ],
+      "name": ""
+    },
+    {
+      "id": "SEG1",
+      "markerType": "seg_limit",
+      "col": "#534AB7",
+      "spans": [
+        {
+          "track": {
+            "$ref": "tracks:TRK2"
+          },
+          "t1": 0,
+          "t2": 1
+        }
+      ],
+      "name": ""
+    },
+    {
+      "id": "SEG4",
+      "markerType": "seg_limit",
+      "col": "#534AB7",
+      "spans": [
+        {
+          "track": {
+            "$ref": "tracks:TRK3"
+          },
+          "t1": 0,
+          "t2": 1
+        }
+      ],
+      "name": ""
+    },
+    {
+      "id": "SEG3",
+      "markerType": "seg_limit",
+      "col": "#534AB7",
+      "spans": [
+        {
+          "track": {
+            "$ref": "tracks:TRK4"
+          },
+          "t1": 0,
+          "t2": 1
+        }
+      ],
+      "name": ""
+    },
+    {
+      "id": "SEG5",
+      "markerType": "seg_limit",
+      "col": "#534AB7",
+      "spans": [
+        {
+          "track": {
+            "$ref": "tracks:TRK5"
+          },
+          "t1": 0,
+          "t2": 1
+        }
+      ],
+      "name": ""
+    },
+    {
+      "id": "CDV11",
+      "markerType": "joint",
+      "col": "#111",
+      "spans": [
+        {
+          "track": {
+            "$ref": "tracks:TRK1"
+          },
+          "t1": 0.275158,
+          "t2": 0.566773
+        }
+      ],
+      "name": "CdV11"
+    },
+    {
+      "id": "CDV8",
+      "markerType": "joint",
+      "col": "#111",
+      "spans": [
+        {
+          "track": {
+            "$ref": "tracks:TRK1"
+          },
+          "t1": 0.566773,
+          "t2": 0.876216
+        }
+      ],
+      "name": "CdV8"
+    },
+    {
+      "id": "CDV7",
+      "markerType": "joint",
+      "col": "#111",
+      "spans": [
+        {
+          "track": {
+            "$ref": "tracks:TRK1"
+          },
+          "t1": 0.876216,
+          "t2": 1
+        },
+        {
+          "track": {
+            "$ref": "tracks:TRK2"
+          },
+          "t1": 0,
+          "t2": 0.411892
+        },
+        {
+          "track": {
+            "$ref": "tracks:TRK3"
+          },
+          "t1": 0,
+          "t2": 0.533805
+        }
+      ],
+      "name": "CdV7"
+    },
+    {
+      "id": "CDV12",
+      "markerType": "joint",
+      "col": "#111",
+      "spans": [
+        {
+          "track": {
+            "$ref": "tracks:TRK2"
+          },
+          "t1": 0.411892,
+          "t2": 0.569782
+        }
+      ],
+      "name": "CdV12"
+    },
+    {
+      "id": "CDV15",
+      "markerType": "joint",
+      "col": "#111",
+      "spans": [
+        {
+          "track": {
+            "$ref": "tracks:TRK2"
+          },
+          "t1": 0.569782,
+          "t2": 0.733404
+        }
+      ],
+      "name": "CdV15"
+    },
+    {
+      "id": "CDV6",
+      "markerType": "joint",
+      "col": "#111",
+      "spans": [
+        {
+          "track": {
+            "$ref": "tracks:TRK3"
+          },
+          "t1": 0.533805,
+          "t2": 1
+        },
+        {
+          "track": {
+            "$ref": "tracks:TRK4"
+          },
+          "t1": 0,
+          "t2": 0.371534
+        },
+        {
+          "track": {
+            "$ref": "tracks:TRK5"
+          },
+          "t1": 0,
+          "t2": 0.065392
+        }
+      ],
+      "name": "CdV6"
+    },
+    {
+      "id": "CDV9",
+      "markerType": "joint",
+      "col": "#111",
+      "spans": [
+        {
+          "track": {
+            "$ref": "tracks:TRK4"
+          },
+          "t1": 0.371534,
+          "t2": 0.531771
+        }
+      ],
+      "name": "CdV9"
+    },
+    {
+      "id": "CDV10",
+      "markerType": "joint",
+      "col": "#111",
+      "spans": [
+        {
+          "track": {
+            "$ref": "tracks:TRK4"
+          },
+          "t1": 0.531771,
+          "t2": 0.672745
+        }
+      ],
+      "name": "CdV10"
+    },
+    {
+      "id": "CDV16",
+      "markerType": "joint",
+      "col": "#111",
+      "spans": [
+        {
+          "track": {
+            "$ref": "tracks:TRK4"
+          },
+          "t1": 0.672745,
+          "t2": 0.808874
+        }
+      ],
+      "name": "CdV16"
+    },
+    {
+      "id": "CDV17",
+      "markerType": "joint",
+      "col": "#111",
+      "spans": [
+        {
+          "track": {
+            "$ref": "tracks:TRK4"
+          },
+          "t1": 0.808874,
+          "t2": 0.935448
+        }
+      ],
+      "name": "CdV17"
+    },
+    {
+      "id": "CDV13",
+      "markerType": "joint",
+      "col": "#111",
+      "spans": [
+        {
+          "track": {
+            "$ref": "tracks:TRK5"
+          },
+          "t1": 0.065392,
+          "t2": 0.315937
+        }
+      ],
+      "name": "CdV13"
+    },
+    {
+      "id": "CDV14",
+      "markerType": "joint",
+      "col": "#111",
+      "spans": [
+        {
+          "track": {
+            "$ref": "tracks:TRK5"
+          },
+          "t1": 0.315937,
+          "t2": 0.612173
+        }
+      ],
+      "name": "CdV14"
+    }
+  ],
+  "routes": [
+    {
+      "id": "ROUTE1",
+      "kind": "route",
+      "start": {
+        "$ref": "markers:MRK18"
+      },
+      "end": {
+        "$ref": "markers:MRK14"
+      },
+      "tracks": [
+        {
+          "$ref": "tracks:TRK4"
+        }
+      ],
+      "name": "Iti1",
+      "releaseDelay": 45,
+      "approachZone": [
+        "CDV16",
+        "CDV17"
+      ]
+    },
+    {
+      "id": "ROUTE2",
+      "kind": "route",
+      "start": {
+        "$ref": "markers:MRK14"
+      },
+      "end": {
+        "$ref": "markers:MRK17"
+      },
+      "tracks": [
+        {
+          "$ref": "tracks:TRK4"
+        },
+        {
+          "$ref": "tracks:TRK5"
+        }
+      ],
+      "name": "Iti2",
+      "releaseDelay": 45,
+      "flankProtection": [
+        {
+          "sw": {
+            "$ref": "switches:SW1"
+          },
+          "position": "left"
+        }
+      ],
+      "approachZone": [
+        "CDV9",
+        "CDV10"
+      ]
+    },
+    {
+      "id": "ROUTE3",
+      "kind": "route",
+      "start": {
+        "$ref": "markers:MRK17"
+      },
+      "end": {
+        "$ref": "markers:MRK15"
+      },
+      "tracks": [
+        {
+          "$ref": "tracks:TRK5"
+        },
+        {
+          "$ref": "tracks:TRK3"
+        },
+        {
+          "$ref": "tracks:TRK1"
+        }
+      ],
+      "name": "Iti3",
+      "releaseDelay": 45,
+      "approachZone": [
+        "CDV13",
+        "CDV14"
+      ]
+    },
+    {
+      "id": "ROUTE4",
+      "kind": "route",
+      "start": {
+        "$ref": "markers:MRK16"
+      },
+      "end": {
+        "$ref": "markers:MRK15"
+      },
+      "tracks": [
+        {
+          "$ref": "tracks:TRK2"
+        },
+        {
+          "$ref": "tracks:TRK1"
+        }
+      ],
+      "name": "Iti4",
+      "releaseDelay": 45,
+      "approachZone": [
+        "CDV12",
+        "CDV15"
+      ]
+    },
+    {
+      "id": "ROUTE5",
+      "kind": "route",
+      "start": {
+        "$ref": "markers:MRK15"
+      },
+      "end": {
+        "$ref": "markers:MRK17"
+      },
+      "tracks": [
+        {
+          "$ref": "tracks:TRK1"
+        },
+        {
+          "$ref": "tracks:TRK3"
+        },
+        {
+          "$ref": "tracks:TRK5"
+        }
+      ],
+      "name": "Iti5",
+      "releaseDelay": 45,
+      "approachZone": [
+        "CDV8",
+        "CDV11"
+      ]
+    },
+    {
+      "id": "ROUTE6",
+      "kind": "route",
+      "start": {
+        "$ref": "markers:MRK17"
+      },
+      "end": {
+        "$ref": "markers:MRK14"
+      },
+      "tracks": [
+        {
+          "$ref": "tracks:TRK5"
+        },
+        {
+          "$ref": "tracks:TRK4"
+        }
+      ],
+      "name": "Iti6",
+      "releaseDelay": 45,
+      "approachZone": [
+        "CDV13",
+        "CDV14"
+      ]
+    }
+  ]
+}
