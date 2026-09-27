@@ -1,6 +1,7 @@
 import sys
 import xml.etree.ElementTree as ET
 import time
+import os
 
 
 def is_number(s):
@@ -148,8 +149,9 @@ class Tvd:
 
 
 class Interlocking:
-    def __init__(self, netelements, routes, signals, switches, tvds):
+    def __init__(self, name, netelements, routes, signals, switches, tvds):
         self.period = 100  # ms
+        self.name = name
         self.netelements = netelements
         self.routes = routes
         self.signals = signals
@@ -158,6 +160,8 @@ class Interlocking:
 
 
 def xml_to_python(xml_file):
+    IXL_name = os.path.basename(xml_file).split(".")[0]
+
     data_tree = ET.parse(xml_file)
     root = data_tree.getroot()
 
@@ -167,7 +171,8 @@ def xml_to_python(xml_file):
     switch_dict = {}
     tvd_dict = {}
 
-    interlocking = Interlocking(netelement_dict,
+    interlocking = Interlocking(IXL_name,
+                                netelement_dict,
                                 route_dict,
                                 signal_dict,
                                 switch_dict,
@@ -954,10 +959,10 @@ def python_to_openplc(interlocking, openplc_mold, openplc_file_path):
             '                  </value>\n'.format(route_delay_destruct)
 
     plc_period_str = 'PT' + str(interlocking.period/1000) + 'S'
-    n_tvd_str = str(interlocking.nTVD)
-    n_route_str = str(interlocking.nRoute)
-    n_switch_str = str(interlocking.nSwitch)
-    n_signal_str = str(interlocking.nSignal)
+    n_tvd_str = str(len(interlocking.tvds))
+    n_route_str = str(len(interlocking.routes))
+    n_switch_str = str(len(interlocking.switches))
+    n_signal_str = str(len(interlocking.signals))
 
     with open(openplc_mold, 'r') as mold:
         openplc_mold_str = mold.read()
@@ -979,7 +984,6 @@ def python_to_openplc(interlocking, openplc_mold, openplc_file_path):
 
     with open(openplc_file_path, 'w') as f:
         f.write(complete_file_str)
-
 
 
 def generate_plc_program(xml_file, PLC_period, openplc_mold, openplc_file_path):
