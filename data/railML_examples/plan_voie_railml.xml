@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<railML version="3.3">
+  <infrastructure id="IS_main">
+    <topology>
+      <netElements>
+        <netElement id="TRK1"/>
+        <netElement id="TRK2"/>
+        <netElement id="TRK3"/>
+        <netElement id="TRK4"/>
+        <netElement id="TRK5"/>
+      </netElements>
+      <netRelations>
+        <netRelation id="nr_5_1_2_0" navigability="Both" positionOnA="1" positionOnB="0">
+          <elementA ref="TRK5"/>
+          <elementB ref="TRK2"/>
+        </netRelation>
+        <netRelation id="nr_5_1_1_1" navigability="Both" positionOnA="1" positionOnB="1">
+          <elementA ref="TRK5"/>
+          <elementB ref="TRK1"/>
+        </netRelation>
+        <netRelation id="nr_2_0_1_1" navigability="None" positionOnA="0" positionOnB="1">
+          <elementA ref="TRK2"/>
+          <elementB ref="TRK1"/>
+        </netRelation>
+        <netRelation id="nr_3_0_2_1" navigability="Both" positionOnA="0" positionOnB="1">
+          <elementA ref="TRK3"/>
+          <elementB ref="TRK2"/>
+        </netRelation>
+        <netRelation id="nr_3_0_4_0" navigability="Both" positionOnA="0" positionOnB="0">
+          <elementA ref="TRK3"/>
+          <elementB ref="TRK4"/>
+        </netRelation>
+        <netRelation id="nr_2_1_4_0" navigability="None" positionOnA="1" positionOnB="0">
+          <elementA ref="TRK2"/>
+          <elementB ref="TRK4"/>
+        </netRelation>
+      </netRelations>
+    </topology>
+    <functionalInfrastructure>
+      <signalsIS>
+        <signalIS id="MRK13" isSwitchable="true">
+          <name language="no" name=""/>
+          <spotLocation applicationDirection="reverse" id="MRK13_sloc01" netElementRef="TRK3" intrinsicCoord="0.1334"/>
+          <isTrainMovementSignal/>
+        </signalIS>
+        <signalIS id="MRK14" isSwitchable="true">
+          <name language="no" name=""/>
+          <spotLocation applicationDirection="normal" id="MRK14_sloc01" netElementRef="TRK1" intrinsicCoord="0.5405"/>
+          <isTrainMovementSignal/>
+        </signalIS>
+        <signalIS id="MRK15" isSwitchable="true">
+          <name language="no" name=""/>
+          <spotLocation applicationDirection="normal" id="MRK15_sloc01" netElementRef="TRK5" intrinsicCoord="0.8761"/>
+          <isTrainMovementSignal/>
+        </signalIS>
+        <signalIS id="MRK16" isSwitchable="true">
+          <name language="no" name=""/>
+          <spotLocation applicationDirection="reverse" id="MRK16_sloc01" netElementRef="TRK4" intrinsicCoord="0.6072"/>
+          <isTrainMovementSignal/>
+        </signalIS>
+      </signalsIS>
+      <switchesIS>
+        <switchIS id="SW2" type="ordinarySwitch">
+          <name language="no" name=""/>
+          <spotLocation id="SW2_sloc01" intrinsicCoord="1.0" netElementRef="TRK5"/>
+          <leftBranch netRelationRef="nr_5_1_2_0"/>
+          <rightBranch netRelationRef="nr_5_1_1_1"/>
+        </switchIS>
+        <switchIS id="SW1" type="ordinarySwitch">
+          <name language="no" name=""/>
+          <spotLocation id="SW1_sloc01" intrinsicCoord="0.0" netElementRef="TRK3"/>
+          <leftBranch netRelationRef="nr_3_0_2_1"/>
+          <rightBranch netRelationRef="nr_3_0_4_0"/>
+        </switchIS>
+      </switchesIS>
+      <trainDetectionElements>
+        <trainDetectionElement id="MRK1">
+          <spotLocation applicationDirection="both" id="MRK1_sloc01" netElementRef="TRK3" intrinsicCoord="0.1334"/>
+        </trainDetectionElement>
+        <trainDetectionElement id="MRK2">
+          <spotLocation applicationDirection="both" id="MRK2_sloc01" netElementRef="TRK1" intrinsicCoord="0.5405"/>
+        </trainDetectionElement>
+        <trainDetectionElement id="MRK3">
+          <spotLocation applicationDirection="both" id="MRK3_sloc01" netElementRef="TRK2" intrinsicCoord="0.4698"/>
+        </trainDetectionElement>
+        <trainDetectionElement id="MRK4">
+          <spotLocation applicationDirection="both" id="MRK4_sloc01" netElementRef="TRK5" intrinsicCoord="0.8761"/>
+        </trainDetectionElement>
+        <trainDetectionElement id="MRK5">
+          <spotLocation applicationDirection="both" id="MRK5_sloc01" netElementRef="TRK4" intrinsicCoord="0.6072"/>
+        </trainDetectionElement>
+        <trainDetectionElement id="MRK6">
+          <spotLocation applicationDirection="both" id="MRK6_sloc01" netElementRef="TRK1" intrinsicCoord="0.3971"/>
+        </trainDetectionElement>
+        <trainDetectionElement id="MRK7">
+          <spotLocation applicationDirection="both" id="MRK7_sloc01" netElementRef="TRK3" intrinsicCoord="0.4803"/>
+        </trainDetectionElement>
+        <trainDetectionElement id="MRK8">
+          <spotLocation applicationDirection="both" id="MRK8_sloc01" netElementRef="TRK1" intrinsicCoord="0.1364"/>
+        </trainDetectionElement>
+        <trainDetectionElement id="MRK9">
+          <spotLocation applicationDirection="both" id="MRK9_sloc01" netElementRef="TRK3" intrinsicCoord="0.8193"/>
+        </trainDetectionElement>
+        <trainDetectionElement id="MRK10">
+          <spotLocation applicationDirection="both" id="MRK10_sloc01" netElementRef="TRK5" intrinsicCoord="0.5023"/>
+        </trainDetectionElement>
+        <trainDetectionElement id="MRK11">
+          <spotLocation applicationDirection="both" id="MRK11_sloc01" netElementRef="TRK4" intrinsicCoord="0.8103"/>
+        </trainDetectionElement>
+        <trainDetectionElement id="MRK12">
+          <spotLocation applicationDirection="both" id="MRK12_sloc01" netElementRef="TRK5" intrinsicCoord="0.2164"/>
+        </trainDetectionElement>
+        <trainDetectionElement id="SW2_cl_l" type="virtualClearancePoint">
+          <spotLocation id="SW2_cl_l_sloc01" netElementRef="TRK2" intrinsicCoord="0.9151"/>
+        </trainDetectionElement>
+        <trainDetectionElement id="SW2_cl_r" type="virtualClearancePoint">
+          <spotLocation id="SW2_cl_r_sloc01" netElementRef="TRK1" intrinsicCoord="0.6442"/>
+        </trainDetectionElement>
+        <trainDetectionElement id="SW1_cl_l" type="virtualClearancePoint">
+          <spotLocation id="SW1_cl_l_sloc01" netElementRef="TRK2" intrinsicCoord="0.1444"/>
+        </trainDetectionElement>
+        <trainDetectionElement id="SW1_cl_r" type="virtualClearancePoint">
+          <spotLocation id="SW1_cl_r_sloc01" netElementRef="TRK4" intrinsicCoord="0.4347"/>
+        </trainDetectionElement>
+      </trainDetectionElements>
+    </functionalInfrastructure>
+  </infrastructure>
+  <interlocking>
+    <assetsForInterlockings>
+      <assetsForInterlocking id="afi_01">
+        <tvdSections>
+          <tvdSection id="CDV10">
+            <assetName language="no" name=""/>
+            <hasDemarcatingTraindetector ref="MRK6"/>
+            <hasDemarcatingTraindetector ref="MRK8"/>
+          </tvdSection>
+          <tvdSection id="CDV8">
+            <assetName language="no" name=""/>
+            <hasDemarcatingTraindetector ref="MRK2"/>
+            <hasDemarcatingTraindetector ref="MRK6"/>
+          </tvdSection>
+          <tvdSection id="CDV6">
+            <assetName language="no" name=""/>
+            <hasDemarcatingTraindetector ref="MRK2"/>
+            <hasDemarcatingTraindetector ref="MRK3"/>
+            <hasDemarcatingTraindetector ref="MRK4"/>
+          </tvdSection>
+          <tvdSection id="CDV7">
+            <assetName language="no" name=""/>
+            <hasDemarcatingTraindetector ref="MRK3"/>
+            <hasDemarcatingTraindetector ref="MRK1"/>
+            <hasDemarcatingTraindetector ref="MRK5"/>
+          </tvdSection>
+          <tvdSection id="CDV9">
+            <assetName language="no" name=""/>
+            <hasDemarcatingTraindetector ref="MRK1"/>
+            <hasDemarcatingTraindetector ref="MRK7"/>
+          </tvdSection>
+          <tvdSection id="CDV11">
+            <assetName language="no" name=""/>
+            <hasDemarcatingTraindetector ref="MRK7"/>
+            <hasDemarcatingTraindetector ref="MRK9"/>
+          </tvdSection>
+          <tvdSection id="CDV13">
+            <assetName language="no" name=""/>
+            <hasDemarcatingTraindetector ref="MRK5"/>
+            <hasDemarcatingTraindetector ref="MRK11"/>
+          </tvdSection>
+          <tvdSection id="CDV14">
+            <assetName language="no" name=""/>
+            <hasDemarcatingTraindetector ref="MRK10"/>
+            <hasDemarcatingTraindetector ref="MRK12"/>
+          </tvdSection>
+          <tvdSection id="CDV12">
+            <assetName language="no" name=""/>
+            <hasDemarcatingTraindetector ref="MRK4"/>
+            <hasDemarcatingTraindetector ref="MRK10"/>
+          </tvdSection>
+        </tvdSections>
+        <switchesIL>
+          <switchIL id="SW2_IL">
+            <refersTo ref="SW2"/>
+            <hasGaugeClearanceMarker ref="SW2_cl_l"/>
+            <hasGaugeClearanceMarker ref="SW2_cl_r"/>
+            <branchLeft ref="TRK2"/>
+            <branchRight ref="TRK1"/>
+            <branchTip ref="TRK5"/>
+            <relatedMovableElement ref="SW1_IL"/>
+          </switchIL>
+          <switchIL id="SW1_IL">
+            <refersTo ref="SW1"/>
+            <hasGaugeClearanceMarker ref="SW1_cl_l"/>
+            <hasGaugeClearanceMarker ref="SW1_cl_r"/>
+            <branchLeft ref="TRK2"/>
+            <branchRight ref="TRK4"/>
+            <branchTip ref="TRK3"/>
+            <relatedMovableElement ref="SW2_IL"/>
+          </switchIL>
+        </switchesIL>
+        <signalsIL>
+          <signalIL function="main" id="MRK13_IL">
+            <refersTo ref="MRK13"/>
+          </signalIL>
+          <signalIL function="main" id="MRK14_IL">
+            <refersTo ref="MRK14"/>
+          </signalIL>
+          <signalIL function="main" id="MRK15_IL">
+            <refersTo ref="MRK15"/>
+          </signalIL>
+          <signalIL function="main" id="MRK16_IL">
+            <refersTo ref="MRK16"/>
+          </signalIL>
+        </signalsIL>
+        <routes>
+          <route id="ROUTE1" approachReleaseDelay="PT45S">
+            <objectName language="no" name=""/>
+            <hasTvdSection ref="CDV6"/>
+            <hasTvdSection ref="CDV7"/>
+            <facingSwitchInPosition id="ROUTE1_fsip_0" inPosition="left">
+              <refersToSwitch ref="SW2_IL"/>
+            </facingSwitchInPosition>
+            <facingSwitchInPosition id="ROUTE1_fsip_1" inPosition="left">
+              <refersToSwitch ref="SW1_IL"/>
+            </facingSwitchInPosition>
+            <routeEntry id="ROUTE1_entry">
+              <refersTo ref="MRK15_IL"/>
+            </routeEntry>
+            <routeExit id="ROUTE1_exit">
+              <refersTo ref="MRK13_IL"/>
+            </routeExit>
+            <routeActivationSection id="ROUTE1_ras">
+              <activationSection ref="CDV12"/>
+              <activationSection ref="CDV14"/>
+            </routeActivationSection>
+          </route>
+          <route id="ROUTE2" approachReleaseDelay="PT45S">
+            <objectName language="no" name=""/>
+            <hasTvdSection ref="CDV6"/>
+            <facingSwitchInPosition id="ROUTE2_fsip_0" inPosition="right">
+              <refersToSwitch ref="SW2_IL"/>
+            </facingSwitchInPosition>
+            <routeEntry id="ROUTE2_entry">
+              <refersTo ref="MRK15_IL"/>
+            </routeEntry>
+            <routeExit id="ROUTE2_exit">
+              <refersTo ref="MRK14_IL"/>
+            </routeExit>
+            <routeActivationSection id="ROUTE2_ras">
+              <activationSection ref="CDV12"/>
+            </routeActivationSection>
+            <additionalRelation ref="ROUTE2_rr_SW1"/>
+          </route>
+          <route id="ROUTE3" approachReleaseDelay="PT45S">
+            <objectName language="no" name=""/>
+            <hasTvdSection ref="CDV7"/>
+            <facingSwitchInPosition id="ROUTE3_fsip_0" inPosition="right">
+              <refersToSwitch ref="SW1_IL"/>
+            </facingSwitchInPosition>
+            <routeEntry id="ROUTE3_entry">
+              <refersTo ref="MRK13_IL"/>
+            </routeEntry>
+            <routeExit id="ROUTE3_exit">
+              <refersTo ref="MRK16_IL"/>
+            </routeExit>
+          </route>
+        </routes>
+        <conflictingRoutes>
+          <conflictingRoute id="ROUTE1_conf_ROUTE2">
+            <refersToRoute ref="ROUTE1"/>
+            <conflictsWithRoute ref="ROUTE2"/>
+          </conflictingRoute>
+          <conflictingRoute id="ROUTE1_conf_ROUTE3">
+            <refersToRoute ref="ROUTE1"/>
+            <conflictsWithRoute ref="ROUTE3"/>
+          </conflictingRoute>
+          <conflictingRoute id="ROUTE2_conf_ROUTE1">
+            <refersToRoute ref="ROUTE2"/>
+            <conflictsWithRoute ref="ROUTE1"/>
+          </conflictingRoute>
+          <conflictingRoute id="ROUTE3_conf_ROUTE1">
+            <refersToRoute ref="ROUTE3"/>
+            <conflictsWithRoute ref="ROUTE1"/>
+          </conflictingRoute>
+        </conflictingRoutes>
+        <routeRelations>
+          <routeRelation id="ROUTE2_rr_SW1">
+            <requiredSwitchPosition>
+              <relatedSwitchAndPosition inPosition="right">
+                <refersToSwitch ref="SW1_IL"/>
+              </relatedSwitchAndPosition>
+            </requiredSwitchPosition>
+          </routeRelation>
+        </routeRelations>
+      </assetsForInterlocking>
+    </assetsForInterlockings>
+  </interlocking>
+</railML>
