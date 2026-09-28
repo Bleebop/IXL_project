@@ -295,8 +295,8 @@ def xml_to_python(xml_file):
         route_delay_destruct = route_elem.get("approachReleaseDelay")
         if route_delay_destruct == "PT-1S":
             route_obj.delay_destruct = "Inf"
-        elif is_number(route_delay_destruct):
-            route_obj.delay_destruct = route_delay_destruct
+        elif is_number(route_delay_destruct[2:-1]):
+            route_obj.delay_destruct = route_delay_destruct[2:-1]
         else:
             route_obj.delay_destruct = "Inf"
 
@@ -440,7 +440,7 @@ def python_to_openplc(interlocking, openplc_mold, openplc_file_path):
         route_destruction_demand_addr = [str(local_id), '']
 
         # Transit TVDs occupation
-        if len(route.tvds) <= 2:
+        if len(route.tvds) <= 1:
             local_id += 1
             safety_PLC_FBD += fbd_input_variable_str(
                 str(local_id),
@@ -918,34 +918,29 @@ def python_to_openplc(interlocking, openplc_mold, openplc_file_path):
                                      cur_time.tm_sec)
     project_name_str = interlocking.name
 
-    tc_enum_values_str = ''
-    for tc in interlocking.tvds:
-        tc_enum_val = interlocking.tvds[tc].enum_val
-        tc_enum_values_str +=\
+    tvd_enum_values_str = ''
+    for tvd in interlocking.tvds.values():
+        tvd_enum_values_str +=\
             '              <value name="{}" value="{}" />\n'\
-            .format(tc, tc_enum_val)
-    # TODO Utiliser les noms donnés (si uniques)
+            .format(tvd.name, tvd.enum_val)
 
     switch_enum_values_str = ''
-    for switch in interlocking.switches:
-        switch_enum_val = interlocking.switches[switch].enum_val
+    for switch in interlocking.switches.values():
         switch_enum_values_str +=\
             '              <value name="{}" value="{}" />\n'\
-            .format(switch, switch_enum_val)
+            .format(switch.name, switch.enum_val)
 
     signal_enum_values_str = ''
-    for sig in interlocking.signals:
-        sig_enum_val = interlocking.signals[sig].enum_val
+    for sig in interlocking.signals.values():
         signal_enum_values_str +=\
             '              <value name="{}" value="{}" />\n'\
-            .format(sig, sig_enum_val)
+            .format(sig.name, sig.enum_val)
 
     route_enum_values_str = ''
-    for route in interlocking.routes:
-        route_enum_val = interlocking.routes[route].enum_val
+    for route in interlocking.routes.values():
         route_enum_values_str +=\
             '              <value name="{}" value="{}" />\n'\
-            .format(route, route_enum_val)
+            .format(route.name, route.enum_val)
 
     delay_destruct_values_str = ''
     for route in interlocking.routes.values():
@@ -969,7 +964,7 @@ def python_to_openplc(interlocking, openplc_mold, openplc_file_path):
         complete_file_str = openplc_mold_str.format(
             creation_date_time=creation_date_time_str,
             project_name=project_name_str,
-            tc_enum_values=tc_enum_values_str,
+            tc_enum_values=tvd_enum_values_str,
             switch_enum_values=switch_enum_values_str,
             signal_enum_values=signal_enum_values_str,
             route_enum_values=route_enum_values_str,
