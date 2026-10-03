@@ -8,9 +8,21 @@
 - [x] Interface it with CoDeSys
 - [x] Determine a data model for stations => RailML ?
 - [x] Translator data -> PLC program (safety+non safety) (with options)
+- [ ] Adapt PLC program to support 2oo3 redundancy
+- [ ] Translator data -> ST program (safety)
 - [ ] Translator PLC program -> HLL
-- [ ] Translator data -> HLL (?)
+- [x] Translator data -> HLL
 - [ ] Write scientific article?
-
-- [x] IHM to make a new station (probably too hard...)
-
+- [x] HMI to make a new station ~~(probably too hard...)~~
+- [ ] Improve the railway editor (symbols, windows flexibility,...)
+- [ ] Link the railway editor to the simulation HMI
+- [ ] Basic behavior for trains/ATS
+- [ ] Simulation scenarios data format
+- [ ] Save/load simulation scenarios
+- [ ] Generate environment data from railway editor
+- [ ] Write some PO
+- [ ] Prove the HLL model
+- [ ] Use the HLL to generate scenarios
+- [ ] Complete the railway editor to get RailML file that include everything (drawing, real dimensions, platforms, more than one interlocking, etc.)
+- [ ] Minimal CBTC simulation ?
+    - [ ] with communication delays ?
