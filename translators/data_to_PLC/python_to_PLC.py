@@ -93,7 +93,7 @@ def fbd_block_str(local_id, type_name, instance_name,
     return output_str
 
 
-def python_to_openplc(interlocking, openplc_mold, openplc_file_path):
+def python_to_plcopen(interlocking, plcopen_mold, plcopen_file_path):
 
     safety_PLC_FBD = ''
     fbd_page = 0
@@ -689,9 +689,9 @@ def python_to_openplc(interlocking, openplc_mold, openplc_file_path):
     n_switch_str = str(len(interlocking.switches))
     n_signal_str = str(len(interlocking.signals))
 
-    with open(openplc_mold, 'r') as mold:
-        openplc_mold_str = mold.read()
-        complete_file_str = openplc_mold_str.format(
+    with open(plcopen_mold, 'r') as mold:
+        plcopen_mold_str = mold.read()
+        complete_file_str = plcopen_mold_str.format(
             creation_date_time=creation_date_time_str,
             project_name=project_name_str,
             tc_enum_values=tvd_enum_values_str,
@@ -707,22 +707,22 @@ def python_to_openplc(interlocking, openplc_mold, openplc_file_path):
             n_signal=n_signal_str
         )
 
-    with open(openplc_file_path, 'w') as f:
+    with open(plcopen_file_path, 'w') as f:
         f.write(complete_file_str)
 
 
-def generate_plc_program(xml_file, PLC_period, openplc_mold, openplc_file_path):
+def generate_plc_program(xml_file, PLC_period, plcopen_mold, plcopen_file_path):
     interlocking = railml_to_python.xml_to_python(xml_file)
     interlocking.period = int(PLC_period)
-    python_to_openplc(interlocking, openplc_mold, openplc_file_path)
+    python_to_plcopen(interlocking, plcopen_mold, plcopen_file_path)
 
 
 if __name__ == '__main__':
     XML_file_path = sys.argv[1]
     PLC_period = sys.argv[2]  # in ms
-    openplc_mold = sys.argv[3]
-    openplc_file_path = sys.argv[4]
+    plcopen_mold = sys.argv[3]
+    plcopen_file_path = sys.argv[4]
     generate_plc_program(XML_file_path,
                          PLC_period,
-                         openplc_mold,
-                         openplc_file_path)
+                         plcopen_mold,
+                         plcopen_file_path)
