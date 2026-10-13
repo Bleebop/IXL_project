@@ -524,7 +524,7 @@ def python_to_plcopen(interlocking, plcopen_mold, plcopen_file_path):
 
         # Switch positions
         and_switch_pos_inputs = []
-        for [switch, sw_pos_up] in route.cross_switch + route.require_switch:
+        for [switch, sw_pos_up] in route.require_switch:
             local_id += 1
             sw_pos = sw_pos_up.lower()
             switch_pos_expr = \
@@ -545,7 +545,7 @@ def python_to_plcopen(interlocking, plcopen_mold, plcopen_file_path):
 
         # Switch manual override
         or_switch_manual_cmd_inputs = []
-        for [switch, _] in route.cross_switch:
+        for [switch, _] in route.require_switch:
             local_id += 1
             switch_manual_cmd_expr = \
                 'var_g.switch_manual_override[SWITCH.' + switch.name + ']'

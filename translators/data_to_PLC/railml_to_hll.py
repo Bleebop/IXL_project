@@ -160,17 +160,21 @@ def python_to_hll(interlocking, hll_file_path):
 
     switch_on_tvd_str = ''
     for switch in interlocking.switches.values():
-        for tvd in switch.fouling_point_tvd:
-            switch_on_tvd_str += \
-                '        |{}, {} => True\n'\
-                .format(switch.name, tvd.name)
+        tvd_list = []
+        for cell in switch.fouling_point_cells[0] + switch.fouling_point_cells[1]:
+            if cell.tvd not in tvd_list:
+                tvd_list += [cell.tvd]
+                switch_on_tvd_str += \
+                    '        |{}, {} => True\n'\
+                    .format(switch.name, cell.tvd.name)
         switch_on_tvd_str += '\n'
 
     paired_switches_str = ''
     for switch in interlocking.switches.values():
-        paired_switches_str += \
-            '        |{}, {} => True\n'\
-            .format(switch.name, switch.paired[0].name)
+        if switch.paired:
+            paired_switches_str += \
+                '        |{}, {} => True\n'\
+                .format(switch.name, switch.paired[0].name)
 
     complete_file_str = HLL_mold.format(
         tvd_enum=tvd_enum_str,
@@ -188,7 +192,8 @@ def python_to_hll(interlocking, hll_file_path):
     )
 
     with open(hll_file_path, 'w') as f:
-            f.write(complete_file_str)
+        f.write(complete_file_str)
+
 
 def generate_hll_program(xml_file, hll_file_path):
     interlocking = railml_to_python.xml_to_python(xml_file)
